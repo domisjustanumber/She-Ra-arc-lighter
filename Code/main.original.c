@@ -36,6 +36,8 @@
   (or awkward silence), etc, etc
   
   Edit: Added Imperial March by request.
+  
+  Edit: Added Cantina Band by request.
 */
 
 #include <stdio.h>
@@ -150,6 +152,7 @@ void blockingDelay(unsigned int mSecs);
 void playNote(unsigned char note, unsigned int duration);
 void imperialMarch(void);
 void numberOne(void);
+void cantinaBand(void);
 
 // Main program
 
@@ -220,6 +223,7 @@ int main(int argc, char** argv) {
                 forceArc=0;                         // Disable the Arc (prepare for modulation)
                 numberOne();                        // Play the tune (this function also writes the magic byte to EEPROM);
                 // imperialMarch();                 // Uncomment this line to play the Imperial March tune from Star Wars
+				// cantinaBand();					// Uncomment this line to play the Cantina Band tune from Star Wars
                 while(1);                           // Hang here once the tune finishes until powered down
             }
         }
@@ -757,5 +761,161 @@ void numberOne(void){
     playNote(SILENCE,400);    
     
     playNote(SILENCE,1250); 
+    
+}
+
+void cantinaBand(void){
+    playNote(B1,250);
+    playNote(SILENCE,250);
+
+    playNote(E2,250);
+    playNote(SILENCE,250);
+
+    playNote(B1,250);
+    playNote(SILENCE,250);
+
+    playNote(E2,250);
+    playNote(SILENCE,250);
+
+    playNote(B1,250);
+    playNote(E2,250);
+    playNote(SILENCE,250);
+
+    playNote(B1,400);    
+    playNote(SILENCE,100);
+    
+    playNote(Bb1,250);    
+    playNote(B1,250);    
+    playNote(SILENCE,250);
+
+    playNote(B1,250);    
+    playNote(Bb1,250);    
+    playNote(B1,250);    
+    playNote(A1,350);    
+    playNote(SILENCE,150);
+    
+    playNote(Ab1,250);    
+    playNote(A1,250);    
+    playNote(SILENCE,250);
+    
+    playNote(G1,450);    
+    playNote(SILENCE,550);
+
+    playNote(E1,350);    
+    playNote(SILENCE,650);
+
+    //
+    
+    playNote(B1,250);
+    playNote(SILENCE,250);
+
+    playNote(E2,250);
+    playNote(SILENCE,250);
+
+    playNote(B1,250);
+    playNote(SILENCE,250);
+
+    playNote(E2,250);
+    playNote(SILENCE,250);
+
+    playNote(B1,250);
+    playNote(E2,250);
+    playNote(SILENCE,250);
+
+    playNote(B1,400);    
+    playNote(SILENCE,100);
+    
+    playNote(Bb1,250);    
+    playNote(B1,250);    
+    playNote(SILENCE,250);
+    
+    playNote(A1,250);    
+    playNote(SILENCE,250);
+
+    playNote(A1,250);    
+    playNote(SILENCE,500);
+
+    playNote(A1,250);    
+    playNote(A1,250);    
+
+    playNote(SILENCE,250);
+    
+    playNote(D2,250);
+    playNote(SILENCE,250);
+
+    playNote(C2,250);
+    playNote(SILENCE,250);
+
+    playNote(B1,250);
+    playNote(SILENCE,250);
+
+    playNote(A1,250);
+    playNote(SILENCE,250);
+    
+    
+    playNote(B1,250);
+    playNote(SILENCE,250);
+    
+    playNote(E2,250);
+    playNote(SILENCE,250);
+    
+    
+    playNote(B1,250);
+    playNote(SILENCE,250);
+
+    playNote(E2,250);
+    playNote(SILENCE,250);
+       
+    playNote(B1,250);
+    playNote(E2,250);
+    playNote(SILENCE,250);
+    
+    playNote(B1,500);
+    
+
+    playNote(Bb1,250);
+    playNote(B1,250);
+    playNote(SILENCE,250);
+
+    playNote(B1,250);
+    playNote(Bb1,250);
+    playNote(B1,250);
+    playNote(A1,250);
+    playNote(SILENCE,250);
+    
+    playNote(Ab1,250);
+    playNote(A1,250);
+    playNote(SILENCE,250);
+    
+    playNote(G1,250);
+    playNote(SILENCE,750);
+    
+    playNote(E1,250);
+    playNote(SILENCE,750);
+    
+    playNote(E1,250);
+    playNote(SILENCE,750);
+
+    playNote(G1,250);
+    playNote(SILENCE,750);
+    
+    playNote(B1,250);
+    playNote(SILENCE,750);
+    
+    playNote(D2,250);
+    playNote(SILENCE,750);
+    
+    playNote(F2,250);
+    playNote(SILENCE,250);
+    
+    playNote(E2,250);
+    playNote(SILENCE,250);
+    
+    playNote(Bb1,250);
+    playNote(B1,250);
+    playNote(SILENCE,250);
+    
+    playNote(G1,500);
+    playNote(SILENCE,250);
     
 }
