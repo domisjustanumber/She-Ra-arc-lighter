@@ -352,7 +352,6 @@ static void __interrupt() isr(void) {
             if (IOCAF0 && PORTAbits.RA0 && !PORTAbits.RA5) {
                 goToLPmode(1);
             }
-            // goToLPmode(1);
         }
     }
 
@@ -470,9 +469,9 @@ void doTheArc() {
 // Generic delay function
 
 void blockingDelay(unsigned int mSecs) {
-    // does nothing for simulator testing
-    // genericDelay = mSecs;
-    // while (genericDelay--);
+    // Comment these lines out to do nothing for simulator testing
+    genericDelay = mSecs;
+    while (genericDelay--);
 }
 
 // Note player function
@@ -524,7 +523,9 @@ void letsCharge(void) {
     ADCON0bits.CHS = 0b000100; // Connect RA4 to the ADC
     ADCON1bits.FM = 1; // Right-align the 10 reading bits in the 16 bit register
     ADACT = 0x0; // Disable the auto-conversion trigger (interrupt generator?)
-    // ADCON0bits.ON = 1; // Enable the ADC
+
+    // Comment this below line out for simulator testing (otherwise it borks)
+    ADCON0bits.ON = 1; // Enable the ADC
 
     do {
         blockingDelay(1000);
