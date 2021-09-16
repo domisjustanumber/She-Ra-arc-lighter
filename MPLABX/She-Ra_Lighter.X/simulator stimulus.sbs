@@ -1,0 +1,72 @@
+## SCL Builder Setup File: Do not edit!!
+
+## VERSION: MPLAB X
+## FORMAT:  v2.00.01
+## DEVICE:  PIC16F15224
+
+## PINREGACTIONS
+cyc
+No Repeat
+--
+&
+## ADVPINREGACTIONS
+--
+&
+--
+COND1
+Any
+
+
+
+0
+cyc
+
+--
+&
+## CLOCK
+&
+## STIMULUSFILE
+&
+## RESPONSEFILE
+&
+## ASYNCH
+Pin
+RA0
+Set High
+
+Close lid (default state)
+-1
+--
+Pin
+RA3
+Set High
+
+Touch sensor off (default state)
+-1
+--
+Pin
+RA0
+Toggle
+
+Toggle lid (low = open)
+-1
+--
+Pin
+RA3
+Toggle
+
+Toggle touch sensor (low = touch)
+-1
+--
+Pin
+RA5
+Toggle
+
+Toggle charge status (high = charging)
+-1
+--
+&
+## ADVANCEDSCL
+
+0
+&
