@@ -1,4 +1,4 @@
-# 1 "../../Code/main.c"
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\sources\\c99\\pic\\__eeprom.c"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 288 "<built-in>" 3
@@ -6,14 +6,25 @@
 # 1 "<built-in>" 2
 # 1 "C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC12-16F1xxx_DFP/1.2.63/xc8\\pic\\include\\language_support.h" 1 3
 # 2 "<built-in>" 2
-# 1 "../../Code/main.c" 2
-# 43 "../../Code/main.c"
-# 1 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\stdio.h" 1 3
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\sources\\c99\\pic\\__eeprom.c" 2
+# 1 "C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC12-16F1xxx_DFP/1.2.63/xc8\\pic\\include\\xc.h" 1 3
+# 18 "C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC12-16F1xxx_DFP/1.2.63/xc8\\pic\\include\\xc.h" 3
+extern const char __xc8_OPTIM_SPEED;
+
+extern double __fpnormalize(double);
+
+
+
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\xc8debug.h" 1 3
+
+
+
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\stdlib.h" 1 3
 
 
 
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\musl_xc8.h" 1 3
-# 4 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\stdio.h" 2 3
+# 4 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\stdlib.h" 2 3
 
 
 
@@ -21,157 +32,17 @@
 
 
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\features.h" 1 3
-# 10 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\stdio.h" 2 3
-# 24 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\stdio.h" 3
-# 1 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\bits/alltypes.h" 1 3
-
-
-
-
-
-typedef void * va_list[1];
-
-
-
-
-typedef void * __isoc_va_list[1];
-# 122 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\bits/alltypes.h" 3
-typedef unsigned size_t;
-# 137 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\bits/alltypes.h" 3
-typedef long ssize_t;
-# 168 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\bits/alltypes.h" 3
-typedef __int24 int24_t;
-# 204 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\bits/alltypes.h" 3
-typedef __uint24 uint24_t;
-# 246 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\bits/alltypes.h" 3
-typedef long long off_t;
-# 399 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\bits/alltypes.h" 3
-typedef struct _IO_FILE FILE;
-# 24 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\stdio.h" 2 3
-# 52 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\stdio.h" 3
-typedef union _G_fpos64_t {
- char __opaque[16];
- double __align;
-} fpos_t;
-
-extern FILE *const stdin;
-extern FILE *const stdout;
-extern FILE *const stderr;
-
-
-
-
-
-FILE *fopen(const char *restrict, const char *restrict);
-FILE *freopen(const char *restrict, const char *restrict, FILE *restrict);
-int fclose(FILE *);
-
-int remove(const char *);
-int rename(const char *, const char *);
-
-int feof(FILE *);
-int ferror(FILE *);
-int fflush(FILE *);
-void clearerr(FILE *);
-
-int fseek(FILE *, long, int);
-long ftell(FILE *);
-void rewind(FILE *);
-
-int fgetpos(FILE *restrict, fpos_t *restrict);
-int fsetpos(FILE *, const fpos_t *);
-
-size_t fread(void *restrict, size_t, size_t, FILE *restrict);
-size_t fwrite(const void *restrict, size_t, size_t, FILE *restrict);
-
-int fgetc(FILE *);
-int getc(FILE *);
-int getchar(void);
-int ungetc(int, FILE *);
-
-int fputc(int, FILE *);
-int putc(int, FILE *);
-int putchar(int);
-
-char *fgets(char *restrict, int, FILE *restrict);
-
-char *gets(char *);
-
-
-int fputs(const char *restrict, FILE *restrict);
-int puts(const char *);
-
-#pragma printf_check(printf) const
-#pragma printf_check(vprintf) const
-#pragma printf_check(sprintf) const
-#pragma printf_check(snprintf) const
-#pragma printf_check(vsprintf) const
-#pragma printf_check(vsnprintf) const
-
-int printf(const char *restrict, ...);
-int fprintf(FILE *restrict, const char *restrict, ...);
-int sprintf(char *restrict, const char *restrict, ...);
-int snprintf(char *restrict, size_t, const char *restrict, ...);
-
-int vprintf(const char *restrict, __isoc_va_list);
-int vfprintf(FILE *restrict, const char *restrict, __isoc_va_list);
-int vsprintf(char *restrict, const char *restrict, __isoc_va_list);
-int vsnprintf(char *restrict, size_t, const char *restrict, __isoc_va_list);
-
-int scanf(const char *restrict, ...);
-int fscanf(FILE *restrict, const char *restrict, ...);
-int sscanf(const char *restrict, const char *restrict, ...);
-int vscanf(const char *restrict, __isoc_va_list);
-int vfscanf(FILE *restrict, const char *restrict, __isoc_va_list);
-int vsscanf(const char *restrict, const char *restrict, __isoc_va_list);
-
-void perror(const char *);
-
-int setvbuf(FILE *restrict, char *restrict, int, size_t);
-void setbuf(FILE *restrict, char *restrict);
-
-char *tmpnam(char *);
-FILE *tmpfile(void);
-
-
-
-
-FILE *fmemopen(void *restrict, size_t, const char *restrict);
-FILE *open_memstream(char **, size_t *);
-FILE *fdopen(int, const char *);
-FILE *popen(const char *, const char *);
-int pclose(FILE *);
-int fileno(FILE *);
-int fseeko(FILE *, off_t, int);
-off_t ftello(FILE *);
-int dprintf(int, const char *restrict, ...);
-int vdprintf(int, const char *restrict, __isoc_va_list);
-void flockfile(FILE *);
-int ftrylockfile(FILE *);
-void funlockfile(FILE *);
-int getc_unlocked(FILE *);
-int getchar_unlocked(void);
-int putc_unlocked(int, FILE *);
-int putchar_unlocked(int);
-ssize_t getdelim(char **restrict, size_t *restrict, int, FILE *restrict);
-ssize_t getline(char **restrict, size_t *restrict, FILE *restrict);
-int renameat(int, const char *, int, const char *);
-char *ctermid(char *);
-
-
-
-
-
-
-
-char *tempnam(const char *, const char *);
-# 43 "../../Code/main.c" 2
-
-# 1 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\stdlib.h" 1 3
+# 10 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\stdlib.h" 2 3
 # 21 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\stdlib.h" 3
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\bits/alltypes.h" 1 3
 # 18 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\bits/alltypes.h" 3
 typedef long int wchar_t;
+# 122 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\bits/alltypes.h" 3
+typedef unsigned size_t;
+# 168 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\bits/alltypes.h" 3
+typedef __int24 int24_t;
+# 204 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\bits/alltypes.h" 3
+typedef __uint24 uint24_t;
 # 21 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\stdlib.h" 2 3
 
 
@@ -225,18 +96,15 @@ uldiv_t uldiv (unsigned long, unsigned long);
 
 
 size_t __ctype_get_mb_cur_max(void);
-# 44 "../../Code/main.c" 2
-
-# 1 "C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC12-16F1xxx_DFP/1.2.63/xc8\\pic\\include\\xc.h" 1 3
-# 18 "C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC12-16F1xxx_DFP/1.2.63/xc8\\pic\\include\\xc.h" 3
-extern const char __xc8_OPTIM_SPEED;
-
-extern double __fpnormalize(double);
+# 4 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\xc8debug.h" 2 3
 
 
 
-# 1 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\xc8debug.h" 1 3
-# 12 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\xc8debug.h" 3
+
+
+
+
+
 #pragma intrinsic(__builtin_software_breakpoint)
 extern void __builtin_software_breakpoint(void);
 # 24 "C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC12-16F1xxx_DFP/1.2.63/xc8\\pic\\include\\xc.h" 2 3
@@ -3341,660 +3209,176 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 # 28 "C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC12-16F1xxx_DFP/1.2.63/xc8\\pic\\include\\xc.h" 2 3
-# 45 "../../Code/main.c" 2
-
-
-
-#pragma config FOSC = INTOSC
-#pragma config WDTE = OFF
-#pragma config PWRTE = OFF
-#pragma config MCLRE = OFF
-#pragma config CP = OFF
-#pragma config CPD = OFF
-#pragma config BOREN = ON
-#pragma config CLKOUTEN = OFF
-#pragma config IESO = ON
-#pragma config FCMEN = ON
-
-
-#pragma config WRT = OFF
-#pragma config PLLEN = ON
-#pragma config STVREN = ON
-#pragma config BORV = LO
-#pragma config LVP = ON
-
-
-
-__asm("\tpsect eeprom_data,class=EEDATA,delta=2,space=3,noexec"); __asm("\tdb\t" "0x00" "," "0x00" "," "0x00" "," "0x00" "," "0x00" "," "0x00" "," "0x00" "," "0x00");
-# 166 "../../Code/main.c"
-const unsigned char notes[36]={
-    0xED, 0xE0, 0xD3, 0xC7, 0xBD, 0xB2, 0xA8, 0x9E, 0x96, 0x8D, 0x85, 0x7D,
-    0x76, 0x70, 0x6A, 0x63, 0x5E, 0x59, 0x54, 0x4F, 0x4B, 0x46, 0x42, 0x3F,
-    0x3B, 0x38, 0x34, 0x32, 0x2F, 0x2C, 0x2A, 0x27, 0x25, 0x23, 0x21, 0x1F
-};
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\sources\\c99\\pic\\__eeprom.c" 2
 
 
 
 
-unsigned char clockDivider=0;
-unsigned pinState=0;
-
-unsigned forceArc=0;
-unsigned gate=0;
-unsigned noGate=0;
-
-unsigned postscaler=0;
-unsigned int playIndex=0;
-unsigned int genericDelay=0;
-
-unsigned char eeIndex=0;
-unsigned char eeMagicByte=0;
-
-
-
-void blockingDelay(unsigned int mSecs);
-void playNote(unsigned char note, unsigned int duration);
-void imperialMarch(void);
-void cantinaBand(void);
-void gargoyles(void);
-void sheRa(void);
-
-
-
-int main(int argc, char** argv) {
-
-
-    ANSELA=0x0000;
-
-
-    OSCCONbits.SCS=0x00;
-    OSCCONbits.IRCF=14;
-    OSCCONbits.SPLLEN=0x01;
-
-
-    TMR2IE = 1;
-    PR2=0xED;
-    T2CONbits.T2CKPS=0x03;
-    T2CONbits.TMR2ON = 1;
-
-
-    TMR0IE=1;
-
-
-    OPTION_REG = 0x80 + 0x08;
-
-
-    eeIndex=eeprom_read(0);
-    eeMagicByte=eeprom_read(1);
-
-
-
-    GIE = 1;
-    PEIE = 1;
-    IOCIE = 1;
-    IOCAN0 = 1;
-    IOCAP0 = 1;
-    IOCAN5 = 1;
-    RCIE = 0;
-    INTE = 0;
-
-
-
-
-    TRISA0=1;
-    TRISA1=0;
-    TRISA2=0;
-    TRISA3=0;
-    TRISA4=0;
-    TRISA5=1;
-
-
-
-
-
-
-    LATA1=0;
-    LATA2=0;
-    LATA4=0;
-
-
-
-    do{
-        forceArc=1;
-        blockingDelay(2000);
-        forceArc=0;
-
-
-        gargoyles();
-        forceArc=0;
-        blockingDelay(2000);
-        sheRa();
-        while(1);
-    } while(1);
-    return (0);
-}
-
-
-static void __attribute__((picinterrupt(("")))) isr(void)
+void
+__eecpymem(volatile unsigned char *to, __eeprom unsigned char * from, unsigned char size)
 {
+ volatile unsigned char *cp = to;
 
-    if(INTCONbits.IOCIF) {
+ while (EECON1bits.WR) continue;
+ EEADR = (unsigned char)from;
+ while(size--) {
+  while (EECON1bits.WR) continue;
 
-        if(!IOCAF5) {
-            forceArc=0;
-            do {
-                LATA4=1;
-            } while(!TRISA5);
-        }
+  EECON1 &= 0x7F;
 
-
-        if(!IOCAF0 && TRISA5) {
-
-        }
-
-
-        if(IOCAF0 && TRISA5) {
-            forceArc=0;
-        }
-
-
-
-        IOCAF = 0x80;
-        INTCON = 0x80;
-
-
-        TMR0IE = 0;
-        TMR2IE = 0;
-
-        __asm("sleep");
-       }
-
-
-
-
-    if(PIR1bits.TMR2IF){
-        if(!noGate){
-            postscaler^=1;
-            if(postscaler){
-                gate ^=1;
-            }
-        } else {
-            gate=0;
-        }
-        PIR1bits.TMR2IF=0;
-    }
-
-
-
-    if(INTCONbits.TMR0IF){
-        if(clockDivider<15){
-            clockDivider++;
-        } else {
-            if(genericDelay>0) genericDelay--;
-            clockDivider=0;
-        }
-
-
-
-
-        if(gate || forceArc){
-            pinState^=1;
-            LATA1=pinState;
-            LATA2=(pinState^1);
-        } else {
-            LATA1=0;
-            LATA2=0;
-        }
-        INTCONbits.TMR0IF=0;
-    }
+  EECON1bits.RD = 1;
+  *cp++ = EEDATA;
+  ++EEADR;
+ }
+# 36 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\sources\\c99\\pic\\__eeprom.c"
 }
 
+void
+__memcpyee(__eeprom unsigned char * to, const unsigned char *from, unsigned char size)
+{
+ const unsigned char *ptr =from;
 
-void blockingDelay(unsigned int mSecs){
-    genericDelay=mSecs;
-    while(genericDelay>0);
+ while (EECON1bits.WR) continue;
+ EEADR = (unsigned char)to - 1U;
+
+ EECON1 &= 0x7F;
+
+ while(size--) {
+  while (EECON1bits.WR) {
+   continue;
+  }
+  EEDATA = *ptr++;
+  ++EEADR;
+  STATUSbits.CARRY = 0;
+  if (INTCONbits.GIE) {
+   STATUSbits.CARRY = 1;
+  }
+  INTCONbits.GIE = 0;
+  EECON1bits.WREN = 1;
+  EECON2 = 0x55;
+  EECON2 = 0xAA;
+  EECON1bits.WR = 1;
+  EECON1bits.WREN = 0;
+  if (STATUSbits.CARRY) {
+   INTCONbits.GIE = 1;
+  }
+ }
+# 101 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\sources\\c99\\pic\\__eeprom.c"
 }
 
-
-void playNote(unsigned char note, unsigned int duration){
-    if(note>0){
-        noGate=0;
-        PR2=notes[note];
-    } else {
-        noGate=1;
-    }
-    blockingDelay(duration);
+unsigned char
+__eetoc(__eeprom void *addr)
+{
+ unsigned char data;
+ __eecpymem((unsigned char *) &data,addr,1);
+ return data;
 }
 
-
-
-
-void imperialMarch(void){
-
-    playNote(0x0A,250);
-
-    playNote(0x00,750);
-
-    playNote(0x0A,250);
-
-    playNote(0x00,750);
-
-    playNote(0x0A,250);
-
-    playNote(0x00,750);
-
-    playNote(0x0A,250);
-    playNote(0x00,75);
-
-    playNote(0x0D,125);
-    playNote(0x00,100);
-    playNote(0x0D,125);
-    playNote(0x00,100);
-    playNote(0x0D,125);
-    playNote(0x00,100);
-
-    playNote(0x0A,250);
-
-    playNote(0x00,750);
-
-    playNote(0x0A,250);
-
-    playNote(0x00,750);
-
-    playNote(0x0A,250);
-
-    playNote(0x00,750);
-
-    playNote(0x0A,250);
-    playNote(0x00,75);
-
-    playNote(0x0D,125);
-    playNote(0x00,100);
-    playNote(0x0D,125);
-    playNote(0x00,100);
-    playNote(0x0D,125);
-    playNote(0x00,100);
-
-
-    playNote(0x0A,250);
-
-    playNote(0x00,750);
-
-    playNote(0x0A,250);
-
-    playNote(0x00,750);
-
-    playNote(0x0A,250);
-
-    playNote(0x00,750);
-
-    playNote(0x0A,250);
-    playNote(0x00,75);
-
-    playNote(0x0D,125);
-    playNote(0x00,100);
-    playNote(0x0D,125);
-    playNote(0x00,100);
-    playNote(0x0D,125);
-    playNote(0x00,100);
-
-    playNote(0x0A,250);
-
-    playNote(0x00,750);
-
-    playNote(0x0A,250);
-
-    playNote(0x00,750);
-
-    playNote(0x0A,250);
-
-    playNote(0x00,750);
-
-    playNote(0x0A,250);
-    playNote(0x00,75);
-
-    playNote(0x09,125);
-    playNote(0x00,100);
-    playNote(0x09,125);
-    playNote(0x00,100);
-    playNote(0x09,125);
-    playNote(0x00,100);
-
-    playNote(0x16,500);
-    playNote(0x00,500);
-
-    playNote(0x16,500);
-    playNote(0x00,500);
-
-    playNote(0x16,500);
-    playNote(0x00,500);
-
-    playNote(0x12,500);
-    playNote(0x00,250);
-
-    playNote(0x19,250);
-    playNote(0x16,500);
-    playNote(0x00,500);
-
-    playNote(0x12,500);
-    playNote(0x00,250);
-
-    playNote(0x19,250);
-    playNote(0x16,750);
-    playNote(0x00,1250);
-
-    playNote(0x1D,500);
-    playNote(0x00,500);
-
-    playNote(0x1D,500);
-    playNote(0x00,500);
-
-    playNote(0x1D,500);
-    playNote(0x00,500);
-
-    playNote(0x1E,500);
-    playNote(0x00,250);
-
-    playNote(0x19,250);
-    playNote(0x15,500);
-    playNote(0x00,500);
-
-    playNote(0x12,500);
-    playNote(0x00,250);
-
-    playNote(0x19,250);
-    playNote(0x16,750);
-    playNote(0x00,1000);
-
-    playNote(0x22,500);
-    playNote(0x00,500);
-
-    playNote(0x16,500);
-    playNote(0x00,250);
-
-    playNote(0x16,250);
-    playNote(0x22,500);
-    playNote(0x00,500);
-
-    playNote(0x21,500);
-    playNote(0x00,250);
-
-    playNote(0x20,250);
-    playNote(0x1F,250);
-    playNote(0x1E,250);
-    playNote(0x1F,500);
-    playNote(0x00,500);
-
-    playNote(0x1A,500);
-    playNote(0x1E,750);
-    playNote(0x00,250);
-
-    playNote(0x1D,500);
-    playNote(0x00,250);
-
-    playNote(0x1C,250);
-    playNote(0x1B,250);
-    playNote(0x1A,250);
-    playNote(0x1B,500);
-    playNote(0x00,500);
-
-    playNote(0x16,500);
-    playNote(0x19,500);
-    playNote(0x00,500);
-
-    playNote(0x12,500);
-    playNote(0x00,250);
-
-    playNote(0x19,250);
-    playNote(0x16,500);
-    playNote(0x00,500);
-
-    playNote(0x12,500);
-    playNote(0x00,250);
-
-    playNote(0x19,250);
-    playNote(0x16,750);
-    playNote(0x00,1250);
-
+unsigned int
+__eetoi(__eeprom void *addr)
+{
+ unsigned int data;
+ __eecpymem((unsigned char *) &data,addr,2);
+ return data;
 }
 
-void cantinaBand(void){
-    playNote(0x0C,250);
-    playNote(0x00,250);
+#pragma warning push
+#pragma warning disable 2040
+__uint24
+__eetom(__eeprom void *addr)
+{
+ __uint24 data;
+ __eecpymem((unsigned char *) &data,addr,3);
+ return data;
+}
+#pragma warning pop
 
-    playNote(0x11,250);
-    playNote(0x00,250);
-
-    playNote(0x0C,250);
-    playNote(0x00,250);
-
-    playNote(0x11,250);
-    playNote(0x00,250);
-
-    playNote(0x0C,250);
-    playNote(0x11,250);
-    playNote(0x00,250);
-
-    playNote(0x0C,400);
-    playNote(0x00,100);
-
-    playNote(0x0B,250);
-    playNote(0x0C,250);
-    playNote(0x00,250);
-
-    playNote(0x0C,250);
-    playNote(0x0B,250);
-    playNote(0x0C,250);
-    playNote(0x0A,350);
-    playNote(0x00,150);
-
-    playNote(0x09,250);
-    playNote(0x0A,250);
-    playNote(0x00,250);
-
-    playNote(0x08,450);
-    playNote(0x00,550);
-
-    playNote(0x05,350);
-    playNote(0x00,650);
-
-
-
-    playNote(0x0C,250);
-    playNote(0x00,250);
-
-    playNote(0x11,250);
-    playNote(0x00,250);
-
-    playNote(0x0C,250);
-    playNote(0x00,250);
-
-    playNote(0x11,250);
-    playNote(0x00,250);
-
-    playNote(0x0C,250);
-    playNote(0x11,250);
-    playNote(0x00,250);
-
-    playNote(0x0C,400);
-    playNote(0x00,100);
-
-    playNote(0x0B,250);
-    playNote(0x0C,250);
-    playNote(0x00,250);
-
-    playNote(0x0A,250);
-    playNote(0x00,250);
-
-    playNote(0x0A,250);
-    playNote(0x00,500);
-
-    playNote(0x0A,250);
-    playNote(0x0A,250);
-
-    playNote(0x00,250);
-
-    playNote(0x0F,250);
-    playNote(0x00,250);
-
-    playNote(0x0D,250);
-    playNote(0x00,250);
-
-    playNote(0x0C,250);
-    playNote(0x00,250);
-
-    playNote(0x0A,250);
-    playNote(0x00,250);
-
-
-    playNote(0x0C,250);
-    playNote(0x00,250);
-
-    playNote(0x11,250);
-    playNote(0x00,250);
-
-
-    playNote(0x0C,250);
-    playNote(0x00,250);
-
-    playNote(0x11,250);
-    playNote(0x00,250);
-
-    playNote(0x0C,250);
-    playNote(0x11,250);
-    playNote(0x00,250);
-
-    playNote(0x0C,500);
-
-
-    playNote(0x0B,250);
-    playNote(0x0C,250);
-    playNote(0x00,250);
-
-    playNote(0x0C,250);
-    playNote(0x0B,250);
-    playNote(0x0C,250);
-    playNote(0x0A,250);
-    playNote(0x00,250);
-
-    playNote(0x09,250);
-    playNote(0x0A,250);
-    playNote(0x00,250);
-
-    playNote(0x08,250);
-    playNote(0x00,750);
-
-    playNote(0x05,250);
-    playNote(0x00,750);
-
-    playNote(0x05,250);
-    playNote(0x00,750);
-
-    playNote(0x08,250);
-    playNote(0x00,750);
-
-    playNote(0x0C,250);
-    playNote(0x00,750);
-
-    playNote(0x0F,250);
-    playNote(0x00,750);
-
-    playNote(0x12,250);
-    playNote(0x00,250);
-
-    playNote(0x11,250);
-    playNote(0x00,250);
-
-    playNote(0x0B,250);
-    playNote(0x0C,250);
-    playNote(0x00,250);
-
-    playNote(0x08,500);
-    playNote(0x00,250);
-
+unsigned long
+__eetol(__eeprom void *addr)
+{
+ unsigned long data;
+ __eecpymem((unsigned char *) &data,addr,4);
+ return data;
 }
 
+#pragma warning push
+#pragma warning disable 1516
+unsigned long long
+__eetoo(__eeprom void *addr)
+{
+ unsigned long long data;
+ __eecpymem((unsigned char *) &data,addr,8);
+ return data;
+}
+#pragma warning pop
 
-void gargoyles(void){
-    playNote(0x12, 1598);
-    playNote(0x10, 398);
-    playNote(0x0E, 398);
-    playNote(0x0D, 398);
-    playNote(0x0B, 398);
-    playNote(0x13, 1988);
-    playNote(0x12, 198);
-    playNote(0x10, 198);
-    playNote(0x0D, 1465);
-    playNote(0x00,133);
-    playNote(0x12, 1598);
-    playNote(0x0E, 398);
-    playNote(0x10, 398);
-    playNote(0x12, 398);
-    playNote(0x10, 398);
-    playNote(0x10, 798);
-    playNote(0x13, 798);
-    playNote(0x16, 1465);
-    playNote(0x00,133);
-    playNote(0x0B, 1598);
-    playNote(0x0B, 398);
-    playNote(0x0D, 398);
-    playNote(0x0E, 398);
-    playNote(0x0B, 398);
-    playNote(0x10, 798);
-    playNote(0x13, 798);
-    playNote(0x12, 798);
-    playNote(0x16, 798);
-    playNote(0x17, 1598);
+unsigned char
+__ctoee(__eeprom void *addr, unsigned char data)
+{
+ __memcpyee(addr,(unsigned char *) &data,1);
+ return data;
 }
 
+unsigned int
+__itoee(__eeprom void *addr, unsigned int data)
+{
+ __memcpyee(addr,(unsigned char *) &data,2);
+ return data;
+}
 
-void sheRa(void){
-    playNote(0x0B, 216);
-    playNote(0x0D, 216);
-    playNote(0x0E, 433);
-    playNote(0x12, 444);
-    playNote(0x13, 651);
-    playNote(0x12, 107);
-    playNote(0x10, 107);
-    playNote(0x12, 868);
-    playNote(0x00, 433);
-    playNote(0x0B, 216);
-    playNote(0x0D, 216);
-    playNote(0x0E, 433);
-    playNote(0x12, 433);
-    playNote(0x17, 433);
-    playNote(0x15, 433);
-    playNote(0x12, 868);
-    playNote(0x00, 433);
-    playNote(0x0B, 216);
-    playNote(0x0D, 216);
-    playNote(0x0E, 433);
-    playNote(0x12, 433);
-    playNote(0x13, 651);
-    playNote(0x12, 107);
-    playNote(0x10, 107);
-    playNote(0x12, 868);
-    playNote(0x13, 325);
-    playNote(0x12, 325);
-    playNote(0x13, 216);
-    playNote(0x15, 651);
-    playNote(0x12, 98);
-    playNote(0x10, 107);
-    playNote(0x10, 1738);
-    playNote(0x00, 433);
-    playNote(0x14, 216);
-    playNote(0x16, 216);
-    playNote(0x17, 433);
-    playNote(0x1B, 433);
-    playNote(0x1C, 651);
-    playNote(0x1B, 107);
-    playNote(0x19, 107);
-    playNote(0x1B, 868);
-    playNote(0x1C, 325);
-    playNote(0x1B, 325);
-    playNote(0x1C, 216);
-    playNote(0x1E, 651);
-    playNote(0x20, 107);
-    playNote(0x22, 107);
-    playNote(0x23, 1738);
+#pragma warning push
+#pragma warning disable 2040
+__uint24
+__mtoee(__eeprom void *addr, __uint24 data)
+{
+ __memcpyee(addr,(unsigned char *) &data,3);
+ return data;
+}
+#pragma warning pop
+
+unsigned long
+__ltoee(__eeprom void *addr, unsigned long data)
+{
+ __memcpyee(addr,(unsigned char *) &data,4);
+ return data;
+}
+
+#pragma warning push
+#pragma warning disable 1516
+unsigned long long
+__otoee(__eeprom void *addr, unsigned long long data)
+{
+ __memcpyee(addr,(unsigned char *) &data,8);
+ return data;
+}
+#pragma warning pop
+
+float
+__eetoft(__eeprom void *addr)
+{
+ float data;
+ __eecpymem((unsigned char *) &data,addr,3);
+ return data;
+}
+
+double
+__eetofl(__eeprom void *addr)
+{
+ double data;
+ __eecpymem((unsigned char *) &data,addr,4);
+ return data;
+}
+
+float
+__fttoee(__eeprom void *addr, float data)
+{
+ __memcpyee(addr,(unsigned char *) &data,3);
+ return data;
+}
+
+double
+__fltoee(__eeprom void *addr, double data)
+{
+ __memcpyee(addr,(unsigned char *) &data,4);
+ return data;
 }

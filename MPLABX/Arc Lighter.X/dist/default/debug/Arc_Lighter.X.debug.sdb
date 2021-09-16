@@ -1,0 +1,221 @@
+[p GLOBOPT AUTOSTATIC IEEE_DBL IEEE_FLT PIC14 PIC14E ]
+[d version 1.1 ]
+[d edition pro ]
+[d chip 12F1840 ]
+[d frameptr 6 ]
+"200 C:\Users\dinku\GitHub\She-Ra-arc-lighter/Code/main.c
+[v _main main `(i  1 e 2 0 ]
+"274
+[v _isr isr `II(v  1 s 1 isr ]
+"349
+[v _blockingDelay blockingDelay `(v  1 e 1 0 ]
+"355
+[v _playNote playNote `(v  1 e 1 0 ]
+"714
+[v _gargoyles gargoyles `(v  1 e 1 0 ]
+"747
+[v _sheRa sheRa `(v  1 e 1 0 ]
+"10 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\sprcadd.c
+[v ___fladd __fladd `(d  1 e 4 0 ]
+"4 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\Umul8_16.c
+[v __Umul8_16 _Umul8_16 `(ui  1 e 2 0 ]
+"6 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\pic\__eeprom.c
+[v ___eecpymem __eecpymem `(v  1 e 1 0 ]
+"39
+[v ___memcpyee __memcpyee `(v  1 e 1 0 ]
+"6 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\pic\__eeread.c
+[v _eeprom_read eeprom_read `(uc  1 e 1 0 ]
+"166 C:\Users\dinku\GitHub\She-Ra-arc-lighter/Code/main.c
+[v _notes notes `DC[36]uc  1 e 36 0 ]
+"175
+[v _clockDivider clockDivider `uc  1 e 1 0 ]
+"176
+[v _pinState pinState `ui  1 e 2 0 ]
+"178
+[v _forceArc forceArc `ui  1 e 2 0 ]
+"179
+[v _gate gate `ui  1 e 2 0 ]
+"180
+[v _noGate noGate `ui  1 e 2 0 ]
+"182
+[v _postscaler postscaler `ui  1 e 2 0 ]
+"184
+[v _genericDelay genericDelay `ui  1 e 2 0 ]
+"186
+[v _eeIndex eeIndex `uc  1 e 1 0 ]
+"187
+[v _eeMagicByte eeMagicByte `uc  1 e 1 0 ]
+"351 C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC12-16F1xxx_DFP/1.2.63/xc8\pic\include\proc\pic12f1840.h
+[v _INTCON INTCON `VEuc  1 e 1 @11 ]
+[s S120 . 1 `uc 1 IOCIF 1 0 :1:0 
+`uc 1 INTF 1 0 :1:1 
+`uc 1 TMR0IF 1 0 :1:2 
+`uc 1 IOCIE 1 0 :1:3 
+`uc 1 INTE 1 0 :1:4 
+`uc 1 TMR0IE 1 0 :1:5 
+`uc 1 PEIE 1 0 :1:6 
+`uc 1 GIE 1 0 :1:7 
+]
+"374
+[s S129 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 T0IF 1 0 :1:2 
+`uc 1 . 1 0 :2:3 
+`uc 1 T0IE 1 0 :1:5 
+]
+[u S134 . 1 `S120 1 . 1 0 `S129 1 . 1 0 ]
+[v _INTCONbits INTCONbits `VES134  1 e 1 @11 ]
+[s S156 . 1 `uc 1 TMR1IF 1 0 :1:0 
+`uc 1 TMR2IF 1 0 :1:1 
+`uc 1 CCP1IF 1 0 :1:2 
+`uc 1 SSP1IF 1 0 :1:3 
+`uc 1 TXIF 1 0 :1:4 
+`uc 1 RCIF 1 0 :1:5 
+`uc 1 ADIF 1 0 :1:6 
+`uc 1 TMR1GIF 1 0 :1:7 
+]
+"496
+[u S165 . 1 `S156 1 . 1 0 ]
+[v _PIR1bits PIR1bits `VES165  1 e 1 @17 ]
+"817
+[v _PR2 PR2 `VEuc  1 e 1 @27 ]
+[s S55 . 1 `uc 1 T2CKPS0 1 0 :1:0 
+`uc 1 T2CKPS1 1 0 :1:1 
+`uc 1 TMR2ON 1 0 :1:2 
+`uc 1 T2OUTPS0 1 0 :1:3 
+`uc 1 T2OUTPS1 1 0 :1:4 
+`uc 1 T2OUTPS2 1 0 :1:5 
+`uc 1 T2OUTPS3 1 0 :1:6 
+]
+"858
+[s S63 . 1 `uc 1 T2CKPS 1 0 :2:0 
+`uc 1 . 1 0 :1:2 
+`uc 1 T2OUTPS 1 0 :4:3 
+]
+[u S67 . 1 `S55 1 . 1 0 `S63 1 . 1 0 ]
+[v _T2CONbits T2CONbits `VES67  1 e 1 @28 ]
+"1154
+[v _OPTION_REG OPTION_REG `VEuc  1 e 1 @149 ]
+[s S23 . 1 `uc 1 SCS0 1 0 :1:0 
+`uc 1 SCS1 1 0 :1:1 
+`uc 1 . 1 0 :1:2 
+`uc 1 IRCF0 1 0 :1:3 
+`uc 1 IRCF1 1 0 :1:4 
+`uc 1 IRCF2 1 0 :1:5 
+`uc 1 IRCF3 1 0 :1:6 
+`uc 1 SPLLEN 1 0 :1:7 
+]
+"1427
+[s S32 . 1 `uc 1 SCS 1 0 :2:0 
+`uc 1 . 1 0 :1:2 
+`uc 1 IRCF 1 0 :4:3 
+]
+[u S36 . 1 `S23 1 . 1 0 `S32 1 . 1 0 ]
+[v _OSCCONbits OSCCONbits `VES36  1 e 1 @153 ]
+"2395
+[v _ANSELA ANSELA `VEuc  1 e 1 @396 ]
+"2442
+[v _EEADR EEADR `VEus  1 e 2 @401 ]
+"2501
+[v _EEDATA EEDATA `VEuc  1 e 1 @403 ]
+"2554
+[v _EECON1 EECON1 `VEuc  1 e 1 @405 ]
+[s S243 . 1 `uc 1 RD 1 0 :1:0 
+`uc 1 WR 1 0 :1:1 
+`uc 1 WREN 1 0 :1:2 
+`uc 1 WRERR 1 0 :1:3 
+`uc 1 FREE 1 0 :1:4 
+`uc 1 LWLO 1 0 :1:5 
+`uc 1 CFGS 1 0 :1:6 
+`uc 1 EEPGD 1 0 :1:7 
+]
+"2571
+[u S252 . 1 `S243 1 . 1 0 ]
+[v _EECON1bits EECON1bits `VES252  1 e 1 @405 ]
+"4238
+[v _IOCAF IOCAF `VEuc  1 e 1 @915 ]
+"5192
+[v _GIE GIE `VEb  1 e 0 @95 ]
+"5210
+[v _INTE INTE `VEb  1 e 0 @92 ]
+"5219
+[v _IOCAF0 IOCAF0 `VEb  1 e 0 @7320 ]
+"5234
+[v _IOCAF5 IOCAF5 `VEb  1 e 0 @7325 ]
+"5237
+[v _IOCAN0 IOCAN0 `VEb  1 e 0 @7312 ]
+"5252
+[v _IOCAN5 IOCAN5 `VEb  1 e 0 @7317 ]
+"5255
+[v _IOCAP0 IOCAP0 `VEb  1 e 0 @7304 ]
+"5273
+[v _IOCIE IOCIE `VEb  1 e 0 @91 ]
+"5294
+[v _LATA1 LATA1 `VEb  1 e 0 @2145 ]
+"5297
+[v _LATA2 LATA2 `VEb  1 e 0 @2146 ]
+"5300
+[v _LATA4 LATA4 `VEb  1 e 0 @2148 ]
+"5441
+[v _PEIE PEIE `VEb  1 e 0 @94 ]
+"5498
+[v _RCIE RCIE `VEb  1 e 0 @1165 ]
+"5735
+[v _TMR0IE TMR0IE `VEb  1 e 0 @93 ]
+"5768
+[v _TMR2IE TMR2IE `VEb  1 e 0 @1161 ]
+"5777
+[v _TRISA0 TRISA0 `VEb  1 e 0 @1120 ]
+"5780
+[v _TRISA1 TRISA1 `VEb  1 e 0 @1121 ]
+"5783
+[v _TRISA2 TRISA2 `VEb  1 e 0 @1122 ]
+"5786
+[v _TRISA3 TRISA3 `VEb  1 e 0 @1123 ]
+"5789
+[v _TRISA4 TRISA4 `VEb  1 e 0 @1124 ]
+"5792
+[v _TRISA5 TRISA5 `VEb  1 e 0 @1125 ]
+"200 C:\Users\dinku\GitHub\She-Ra-arc-lighter/Code/main.c
+[v _main main `(i  1 e 2 0 ]
+{
+"271
+} 0
+"747
+[v _sheRa sheRa `(v  1 e 1 0 ]
+{
+"796
+} 0
+"714
+[v _gargoyles gargoyles `(v  1 e 1 0 ]
+{
+"744
+} 0
+"355
+[v _playNote playNote `(v  1 e 1 0 ]
+{
+[v playNote@note note `uc  1 a 1 wreg ]
+[v playNote@note note `uc  1 a 1 wreg ]
+[v playNote@duration duration `ui  1 p 2 3 ]
+[v playNote@note note `uc  1 a 1 5 ]
+"363
+} 0
+"349
+[v _blockingDelay blockingDelay `(v  1 e 1 0 ]
+{
+[v blockingDelay@mSecs mSecs `ui  1 p 2 1 ]
+"352
+} 0
+"6 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\pic\__eeread.c
+[v _eeprom_read eeprom_read `(uc  1 e 1 0 ]
+{
+[v eeprom_read@addr addr `uc  1 a 1 wreg ]
+[v eeprom_read@addr addr `uc  1 a 1 wreg ]
+"9
+[v eeprom_read@addr addr `uc  1 a 1 4 ]
+"19
+} 0
+"274 C:\Users\dinku\GitHub\She-Ra-arc-lighter/Code/main.c
+[v _isr isr `II(v  1 s 1 isr ]
+{
+"346
+} 0
