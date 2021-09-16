@@ -233,8 +233,9 @@ int main(int argc, char** argv) {
     T0CON0bits.OUTPS = 0b0000; // 1:1 output (post) scaler
 
     // Timer2
-    PR2 = 0xED;
-    T2CONbits.T2CKPS = 0x03;
+    PR2 = 0x01; // Set our initial note for regular arcs
+    T2CLKCON = 0b001; // Set the input to FOSC/4
+    T2CONbits.T2CKPS = 0b111; // Sets the prescaler to 64
     T2CONbits.TMR2ON = 1;
 
 
@@ -358,7 +359,7 @@ static void __interrupt() isr(void) {
     // Timer interrupts below are used to manage the PWM pulses when playing tunes
 
     // Timer2 interrupt
-    // We're basically using Timer 2 to gate Timer 1 in software.
+    // We're basically using Timer 2 to gate Timer 0 in software.
     // postscaler is used to divide the Timer2 frequency by 2
     if (PIR1bits.TMR2IF) {
         if (!noGate) {
@@ -521,7 +522,7 @@ void letsCharge(void) {
     ADCON1bits.CS = 0b110; // Convert at FOSC/64 speed (still way faster than we  at 2us)
     ADCON1bits.PREF = 0b00; // Use VDD as the voltage reference
     ADCON0bits.CHS = 0b000100; // Connect RA4 to the ADC
-    ADCON1bits.FM = 0; // Put the MSBits into the ADRESH buffer and the 2 LSBs into ADRESL
+    ADCON1bits.FM = 1; // Right-align the 10 reading bits in the 16 bit register
     ADACT = 0x0; // Disable the auto-conversion trigger (interrupt generator?)
     // ADCON0bits.ON = 1; // Enable the ADC
 
