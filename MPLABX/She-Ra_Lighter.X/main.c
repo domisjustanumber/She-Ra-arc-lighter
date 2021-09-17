@@ -515,12 +515,27 @@ void goToLPmode(unsigned char sleepy) {
 }
 
 void letsCharge(void) {
+    unsigned long calibrationMV = 0; // Holds our chip-specific calibration value in mV
     unsigned int battVolts = 0; // We'll use this to hold the current voltage measurement
     unsigned char chargeCycle = 0; // We'll use this to toggle the charge LEDs on and off
+    unsigned int adcVolts = 0; // Reads the temporary value read from the ADC
 
+    // Each chip has it's own calibration value for the internal fixed reference voltage
+    // Read this calibration value in mV so we can accurately measure battery voltage against it
+    NVMCON1bits.NVMREGS = 1; // We want to read the DIA calibration bits from NVM
+    NVMADR = 0x8118; // The address of the FVR1 calibration value in the NVM DIA
+    NVMCON1bits.RD = 1; // Start the read
+    calibrationMV = NVMADR; // This should now contain the value we read
+    NVMCON1bits.NVMREGS = 0; // Go back to reading usual registers
+
+    // We're going to invert how this works:
+    // We're going to measure the fixed 1.024v internal reference against VDD (the battery voltage)
+    // As we know the range is 0-1023 and we know what the fixed value is, we can calculate VDD
+
+    // Set up the ADC
     ADCON1bits.CS = 0b110; // Convert at FOSC/64 speed (still way faster than we  at 2us)
     ADCON1bits.PREF = 0b00; // Use VDD as the voltage reference
-    ADCON0bits.CHS = 0b000100; // Connect RA4 to the ADC
+    ADCON0bits.CHS = 0b011110; // Connect the 1.024v FVR to the ADC
     ADCON1bits.FM = 1; // Right-align the 10 reading bits in the 16 bit register
     ADACT = 0x0; // Disable the auto-conversion trigger (interrupt generator?)
 
@@ -528,11 +543,12 @@ void letsCharge(void) {
     ADCON0bits.ON = 1; // Enable the ADC
 
     do {
-        blockingDelay(1000);
         ADCON0bits.GO = 1; // Start an ADC measurement
-        battVolts = ADRES;
+        blockingDelay(1000);
+        adcVolts = ADRES;
+        battVolts = ((calibrationMV * 1204) / adcVolts) / 10; // Should give us battery voltage x100 (e.g. 3.7v is 370)
 
-        if (battVolts > 845) {
+        if (battVolts > 415) {
             // Battery is over 4.15v (95%)
             // Fully charged, so show all the LEDs
             LATA1 = 0;
@@ -540,7 +556,7 @@ void letsCharge(void) {
             LATC0 = 0;
             LATC1 = 0;
             SLEEP(); // Our work here is done, go to sleep
-        } else if (battVolts > 815) {
+        } else if (battVolts > 398) {
             // Battery is over 3.98v (75%)
             // 3 LEDs on, #4 blinky
             LATA1 = 0;
@@ -548,7 +564,7 @@ void letsCharge(void) {
             LATC0 = 0;
             if (chargeCycle) LATC1 = 0;
             else LATC1 = 1;
-        } else if (battVolts > 788) {
+        } else if (battVolts > 384) {
             // Battery is over 3.84v (50%)
             // 2 LEDs on, #3 blinky
             LATA1 = 0;
@@ -556,7 +572,7 @@ void letsCharge(void) {
             if (chargeCycle) LATC0 = 0;
             else LATC0 = 1;
             LATC1 = 1;
-        } else if (battVolts > 765) {
+        } else if (battVolts > 375) {
             // Battery is over 3.75v (25%)
             // 1 LED on, #2 blinky
             LATA1 = 0;

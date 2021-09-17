@@ -5618,10 +5618,11 @@ int main(int argc, char** argv) {
     T0CON0bits.OUTPS = 0b0000;
 
 
-    PR2 = 0xED;
-    T2CONbits.T2CKPS = 0x03;
+    PR2 = 0x01;
+    T2CLKCON = 0b001;
+    T2CONbits.T2CKPS = 0b111;
     T2CONbits.TMR2ON = 1;
-# 252 "main.c"
+# 253 "main.c"
     GIE = 1;
     PEIE = 1;
     IOCIE = 1;
@@ -5724,7 +5725,6 @@ static void __attribute__((picinterrupt(("")))) isr(void) {
             if (IOCAF0 && PORTAbits.RA0 && !PORTAbits.RA5) {
                 goToLPmode(1);
             }
-
         }
     }
 
@@ -5888,20 +5888,40 @@ void goToLPmode(unsigned char sleepy) {
 }
 
 void letsCharge(void) {
-    unsigned int battVolts = 0;
+    unsigned int calibrationMV = 1032;
+    unsigned long battVolts = 0;
     unsigned char chargeCycle = 0;
+    unsigned int adcVolts = 0;
+
+
+
+    NVMCON1bits.NVMREGS = 1;
+    NVMADR = 0x8118;
+
+
+
+    NVMCON1bits.NVMREGS = 0;
+
+
+
+
+
 
     ADCON1bits.CS = 0b110;
     ADCON1bits.PREF = 0b00;
-    ADCON0bits.CHS = 0b000100;
-    ADCON1bits.FM = 0;
+    ADCON0bits.CHS = 0b011110;
+    ADCON1bits.FM = 1;
     ADACT = 0x0;
 
 
+
+
+
     do {
-        blockingDelay(1000);
         ADCON0bits.GO = 1;
-        battVolts = ADRES;
+        blockingDelay(1000);
+        adcVolts = ADRES;
+        battVolts = ((calibrationMV * 1204) / adcVolts) / 10;
 
         if (battVolts > 845) {
 

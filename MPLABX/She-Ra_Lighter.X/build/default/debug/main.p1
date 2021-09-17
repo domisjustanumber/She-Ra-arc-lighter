@@ -62,6 +62,9 @@ Version 4.0 HI-TECH Software Intermediate Code
 "3153
 [; ;C:/Users/dinku/.mchp_packs/Microchip/PIC16F1xxxx_DFP/1.8.149/xc8\pic\include\proc\pic16f15224.h: 3153: extern volatile unsigned char PR2 __attribute__((address(0x28D)));
 [v _PR2 `Vuc ~T0 @X0 0 e@653 ]
+"3476
+[; ;C:/Users/dinku/.mchp_packs/Microchip/PIC16F1xxxx_DFP/1.8.149/xc8\pic\include\proc\pic16f15224.h: 3476: extern volatile unsigned char T2CLKCON __attribute__((address(0x290)));
+[v _T2CLKCON `Vuc ~T0 @X0 0 e@656 ]
 "3208
 [; ;C:/Users/dinku/.mchp_packs/Microchip/PIC16F1xxxx_DFP/1.8.149/xc8\pic\include\proc\pic16f15224.h: 3208:     struct {
 [s S172 :4 `uc 1 :3 `uc 1 :1 `uc 1 ]
@@ -271,6 +274,20 @@ Version 4.0 HI-TECH Software Intermediate Code
 "848
 [; ;C:/Users/dinku/.mchp_packs/Microchip/PIC16F1xxxx_DFP/1.8.149/xc8\pic\include\proc\pic16f15224.h: 848: extern volatile ADCON0bits_t ADCON0bits __attribute__((address(0x09D)));
 [v _ADCON0bits `VS52 ~T0 @X0 0 e@157 ]
+"5459
+[; ;C:/Users/dinku/.mchp_packs/Microchip/PIC16F1xxxx_DFP/1.8.149/xc8\pic\include\proc\pic16f15224.h: 5459:     struct {
+[s S291 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S291 . RD WR WREN WRERR FREE LWLO NVMREGS ]
+"5458
+[; ;C:/Users/dinku/.mchp_packs/Microchip/PIC16F1xxxx_DFP/1.8.149/xc8\pic\include\proc\pic16f15224.h: 5458: typedef union {
+[u S290 `S291 1 ]
+[n S290 . . ]
+"5469
+[; ;C:/Users/dinku/.mchp_packs/Microchip/PIC16F1xxxx_DFP/1.8.149/xc8\pic\include\proc\pic16f15224.h: 5469: extern volatile NVMCON1bits_t NVMCON1bits __attribute__((address(0x81E)));
+[v _NVMCON1bits `VS290 ~T0 @X0 0 e@2078 ]
+"5359
+[; ;C:/Users/dinku/.mchp_packs/Microchip/PIC16F1xxxx_DFP/1.8.149/xc8\pic\include\proc\pic16f15224.h: 5359: extern volatile unsigned short NVMADR __attribute__((address(0x81A)));
+[v _NVMADR `Vus ~T0 @X0 0 e@2074 ]
 "894
 [; ;C:/Users/dinku/.mchp_packs/Microchip/PIC16F1xxxx_DFP/1.8.149/xc8\pic\include\proc\pic16f15224.h: 894:     struct {
 [s S57 :2 `uc 1 :2 `uc 1 :3 `uc 1 :1 `uc 1 ]
@@ -955,264 +972,267 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 233:     T0CON0bits.OUTPS = 0b0000;
 [e = . . _T0CON0bits 0 0 -> -> 0 `i `uc ]
 "236
-[; ;main.c: 236:     PR2 = 0xED;
-[e = _PR2 -> -> 237 `i `uc ]
+[; ;main.c: 236:     PR2 = 0x01;
+[e = _PR2 -> -> 1 `i `uc ]
 "237
-[; ;main.c: 237:     T2CONbits.T2CKPS = 0x03;
-[e = . . _T2CONbits 2 1 -> -> 3 `i `uc ]
+[; ;main.c: 237:     T2CLKCON = 0b001;
+[e = _T2CLKCON -> -> 1 `i `uc ]
 "238
-[; ;main.c: 238:     T2CONbits.TMR2ON = 1;
+[; ;main.c: 238:     T2CONbits.T2CKPS = 0b111;
+[e = . . _T2CONbits 2 1 -> -> 7 `i `uc ]
+"239
+[; ;main.c: 239:     T2CONbits.TMR2ON = 1;
 [e = . . _T2CONbits 3 7 -> -> 1 `i `uc ]
-"252
-[; ;main.c: 252:     GIE = 1;
-[e = _GIE -> -> 1 `i `b ]
 "253
-[; ;main.c: 253:     PEIE = 1;
-[e = _PEIE -> -> 1 `i `b ]
+[; ;main.c: 253:     GIE = 1;
+[e = _GIE -> -> 1 `i `b ]
 "254
-[; ;main.c: 254:     IOCIE = 1;
-[e = _IOCIE -> -> 1 `i `b ]
+[; ;main.c: 254:     PEIE = 1;
+[e = _PEIE -> -> 1 `i `b ]
 "255
-[; ;main.c: 255:     IOCAN0 = 1;
-[e = _IOCAN0 -> -> 1 `i `b ]
+[; ;main.c: 255:     IOCIE = 1;
+[e = _IOCIE -> -> 1 `i `b ]
 "256
-[; ;main.c: 256:     IOCAP0 = 1;
-[e = _IOCAP0 -> -> 1 `i `b ]
+[; ;main.c: 256:     IOCAN0 = 1;
+[e = _IOCAN0 -> -> 1 `i `b ]
 "257
-[; ;main.c: 257:     IOCAN3 = 1;
-[e = _IOCAN3 -> -> 1 `i `b ]
+[; ;main.c: 257:     IOCAP0 = 1;
+[e = _IOCAP0 -> -> 1 `i `b ]
 "258
-[; ;main.c: 258:     IOCAP3 = 1;
-[e = _IOCAP3 -> -> 1 `i `b ]
+[; ;main.c: 258:     IOCAN3 = 1;
+[e = _IOCAN3 -> -> 1 `i `b ]
 "259
-[; ;main.c: 259:     IOCAN5 = 1;
-[e = _IOCAN5 -> -> 1 `i `b ]
+[; ;main.c: 259:     IOCAP3 = 1;
+[e = _IOCAP3 -> -> 1 `i `b ]
 "260
-[; ;main.c: 260:     IOCAP5 = 1;
-[e = _IOCAP5 -> -> 1 `i `b ]
+[; ;main.c: 260:     IOCAN5 = 1;
+[e = _IOCAN5 -> -> 1 `i `b ]
 "261
-[; ;main.c: 261:     INTE = 0;
+[; ;main.c: 261:     IOCAP5 = 1;
+[e = _IOCAP5 -> -> 1 `i `b ]
+"262
+[; ;main.c: 262:     INTE = 0;
 [e = _INTE -> -> 0 `i `b ]
-"265
-[; ;main.c: 265:     TRISA0 = 1;
-[e = _TRISA0 -> -> 1 `i `b ]
 "266
-[; ;main.c: 266:     TRISA1 = 0;
-[e = _TRISA1 -> -> 0 `i `b ]
+[; ;main.c: 266:     TRISA0 = 1;
+[e = _TRISA0 -> -> 1 `i `b ]
 "267
-[; ;main.c: 267:     TRISA2 = 0;
-[e = _TRISA2 -> -> 0 `i `b ]
+[; ;main.c: 267:     TRISA1 = 0;
+[e = _TRISA1 -> -> 0 `i `b ]
 "268
-[; ;main.c: 268:     TRISA3 = 1;
-[e = _TRISA3 -> -> 1 `i `b ]
+[; ;main.c: 268:     TRISA2 = 0;
+[e = _TRISA2 -> -> 0 `i `b ]
 "269
-[; ;main.c: 269:     TRISA4 = 1;
-[e = _TRISA4 -> -> 1 `i `b ]
+[; ;main.c: 269:     TRISA3 = 1;
+[e = _TRISA3 -> -> 1 `i `b ]
 "270
-[; ;main.c: 270:     TRISA5 = 1;
-[e = _TRISA5 -> -> 1 `i `b ]
+[; ;main.c: 270:     TRISA4 = 1;
+[e = _TRISA4 -> -> 1 `i `b ]
 "271
-[; ;main.c: 271:     TRISC0 = 0;
-[e = _TRISC0 -> -> 0 `i `b ]
+[; ;main.c: 271:     TRISA5 = 1;
+[e = _TRISA5 -> -> 1 `i `b ]
 "272
-[; ;main.c: 272:     TRISC1 = 0;
-[e = _TRISC1 -> -> 0 `i `b ]
+[; ;main.c: 272:     TRISC0 = 0;
+[e = _TRISC0 -> -> 0 `i `b ]
 "273
-[; ;main.c: 273:     TRISC2 = 0;
-[e = _TRISC2 -> -> 0 `i `b ]
+[; ;main.c: 273:     TRISC1 = 0;
+[e = _TRISC1 -> -> 0 `i `b ]
 "274
-[; ;main.c: 274:     TRISC3 = 0;
-[e = _TRISC3 -> -> 0 `i `b ]
+[; ;main.c: 274:     TRISC2 = 0;
+[e = _TRISC2 -> -> 0 `i `b ]
 "275
-[; ;main.c: 275:     TRISC4 = 0;
-[e = _TRISC4 -> -> 0 `i `b ]
+[; ;main.c: 275:     TRISC3 = 0;
+[e = _TRISC3 -> -> 0 `i `b ]
 "276
-[; ;main.c: 276:     TRISC5 = 0;
+[; ;main.c: 276:     TRISC4 = 0;
+[e = _TRISC4 -> -> 0 `i `b ]
+"277
+[; ;main.c: 277:     TRISC5 = 0;
 [e = _TRISC5 -> -> 0 `i `b ]
-"279
-[; ;main.c: 279:     LATA1 = 1;
-[e = _LATA1 -> -> 1 `i `b ]
 "280
-[; ;main.c: 280:     LATA2 = 1;
-[e = _LATA2 -> -> 1 `i `b ]
+[; ;main.c: 280:     LATA1 = 1;
+[e = _LATA1 -> -> 1 `i `b ]
 "281
-[; ;main.c: 281:     LATC0 = 1;
-[e = _LATC0 -> -> 1 `i `b ]
+[; ;main.c: 281:     LATA2 = 1;
+[e = _LATA2 -> -> 1 `i `b ]
 "282
-[; ;main.c: 282:     LATC1 = 1;
-[e = _LATC1 -> -> 1 `i `b ]
+[; ;main.c: 282:     LATC0 = 1;
+[e = _LATC0 -> -> 1 `i `b ]
 "283
-[; ;main.c: 283:     LATC2 = 1;
-[e = _LATC2 -> -> 1 `i `b ]
+[; ;main.c: 283:     LATC1 = 1;
+[e = _LATC1 -> -> 1 `i `b ]
 "284
-[; ;main.c: 284:     LATC3 = 0;
-[e = _LATC3 -> -> 0 `i `b ]
+[; ;main.c: 284:     LATC2 = 1;
+[e = _LATC2 -> -> 1 `i `b ]
 "285
-[; ;main.c: 285:     LATC4 = 0;
-[e = _LATC4 -> -> 0 `i `b ]
+[; ;main.c: 285:     LATC3 = 0;
+[e = _LATC3 -> -> 0 `i `b ]
 "286
-[; ;main.c: 286:     LATC5 = 0;
+[; ;main.c: 286:     LATC4 = 0;
+[e = _LATC4 -> -> 0 `i `b ]
+"287
+[; ;main.c: 287:     LATC5 = 0;
 [e = _LATC5 -> -> 0 `i `b ]
-"289
-[; ;main.c: 289:     LATC2 = 0;
-[e = _LATC2 -> -> 0 `i `b ]
 "290
-[; ;main.c: 290:     blockingDelay(250);
-[e ( _blockingDelay (1 -> -> 250 `i `ui ]
+[; ;main.c: 290:     LATC2 = 0;
+[e = _LATC2 -> -> 0 `i `b ]
 "291
-[; ;main.c: 291:     LATC2 = 1;
-[e = _LATC2 -> -> 1 `i `b ]
+[; ;main.c: 291:     blockingDelay(250);
+[e ( _blockingDelay (1 -> -> 250 `i `ui ]
 "292
-[; ;main.c: 292:     blockingDelay(250);
-[e ( _blockingDelay (1 -> -> 250 `i `ui ]
+[; ;main.c: 292:     LATC2 = 1;
+[e = _LATC2 -> -> 1 `i `b ]
 "293
-[; ;main.c: 293:     LATC2 = 0;
-[e = _LATC2 -> -> 0 `i `b ]
+[; ;main.c: 293:     blockingDelay(250);
+[e ( _blockingDelay (1 -> -> 250 `i `ui ]
 "294
-[; ;main.c: 294:     blockingDelay(250);
-[e ( _blockingDelay (1 -> -> 250 `i `ui ]
-"295
-[; ;main.c: 295:     LATC2 = 1;
-[e = _LATC2 -> -> 1 `i `b ]
-"296
-[; ;main.c: 296:     blockingDelay(250);
-[e ( _blockingDelay (1 -> -> 250 `i `ui ]
-"297
-[; ;main.c: 297:     LATC2 = 0;
+[; ;main.c: 294:     LATC2 = 0;
 [e = _LATC2 -> -> 0 `i `b ]
-"298
-[; ;main.c: 298:     blockingDelay(250);
+"295
+[; ;main.c: 295:     blockingDelay(250);
 [e ( _blockingDelay (1 -> -> 250 `i `ui ]
-"299
-[; ;main.c: 299:     LATC2 = 1;
+"296
+[; ;main.c: 296:     LATC2 = 1;
 [e = _LATC2 -> -> 1 `i `b ]
-"301
-[; ;main.c: 301:     if (PORTAbits.RA5) letsCharge();
+"297
+[; ;main.c: 297:     blockingDelay(250);
+[e ( _blockingDelay (1 -> -> 250 `i `ui ]
+"298
+[; ;main.c: 298:     LATC2 = 0;
+[e = _LATC2 -> -> 0 `i `b ]
+"299
+[; ;main.c: 299:     blockingDelay(250);
+[e ( _blockingDelay (1 -> -> 250 `i `ui ]
+"300
+[; ;main.c: 300:     LATC2 = 1;
+[e = _LATC2 -> -> 1 `i `b ]
+"302
+[; ;main.c: 302:     if (PORTAbits.RA5) letsCharge();
 [e $ ! != -> . . _PORTAbits 0 5 `i -> 0 `i 470  ]
 [e ( _letsCharge ..  ]
 [e $U 471  ]
-"302
-[; ;main.c: 302:     else __asm("sleep");
+"303
+[; ;main.c: 303:     else __asm("sleep");
 [e :U 470 ]
 [; <" sleep ;# ">
 [e :U 471 ]
-"303
-[; ;main.c: 303:     while (1);
+"304
+[; ;main.c: 304:     while (1);
 [e :U 473 ]
 [e :U 472 ]
 [e $U 473  ]
 [e :U 474 ]
-"304
-[; ;main.c: 304:     return (0);
+"305
+[; ;main.c: 305:     return (0);
 [e ) -> 0 `i ]
 [e $UE 469  ]
-"305
-[; ;main.c: 305: }
+"306
+[; ;main.c: 306: }
 [e :UE 469 ]
 }
-"309
-[; ;main.c: 309: static void __attribute__((picinterrupt(("")))) isr(void) {
+"310
+[; ;main.c: 310: static void __attribute__((picinterrupt(("")))) isr(void) {
 [v _isr `(v ~T1 @X0 1 sf ]
 {
 [e :U _isr ]
 [f ]
-"311
-[; ;main.c: 311:     if (PIR0bits.IOCIF) {
+"312
+[; ;main.c: 312:     if (PIR0bits.IOCIF) {
 [e $ ! != -> . . _PIR0bits 0 2 `i -> 0 `i 476  ]
 {
-"314
-[; ;main.c: 314:         if (IOCAF5 && PORTAbits.RA5) {
+"315
+[; ;main.c: 315:         if (IOCAF5 && PORTAbits.RA5) {
 [e $ ! && _IOCAF5 != -> . . _PORTAbits 0 5 `i -> 0 `i 477  ]
 {
-"317
-[; ;main.c: 317:             goToLPmode(0);
-[e ( _goToLPmode (1 -> -> 0 `i `uc ]
 "318
-[; ;main.c: 318:             letsCharge();
-[e ( _letsCharge ..  ]
+[; ;main.c: 318:             goToLPmode(0);
+[e ( _goToLPmode (1 -> -> 0 `i `uc ]
 "319
-[; ;main.c: 319:         } else {
+[; ;main.c: 319:             letsCharge();
+[e ( _letsCharge ..  ]
+"320
+[; ;main.c: 320:         } else {
 }
 [e $U 478  ]
 [e :U 477 ]
 {
-"320
-[; ;main.c: 320:             if (IOCAF5 && !PORTAbits.RA5) {
+"321
+[; ;main.c: 321:             if (IOCAF5 && !PORTAbits.RA5) {
 [e $ ! && _IOCAF5 ! != -> . . _PORTAbits 0 5 `i -> 0 `i 479  ]
 {
-"322
-[; ;main.c: 322:                 goToLPmode(1);
-[e ( _goToLPmode (1 -> -> 1 `i `uc ]
 "323
-[; ;main.c: 323:             }
+[; ;main.c: 323:                 goToLPmode(1);
+[e ( _goToLPmode (1 -> -> 1 `i `uc ]
+"324
+[; ;main.c: 324:             }
 }
 [e :U 479 ]
-"326
-[; ;main.c: 326:             if (IOCAF0 && !PORTAbits.RA0 && !PORTAbits.RA5) {
+"327
+[; ;main.c: 327:             if (IOCAF0 && !PORTAbits.RA0 && !PORTAbits.RA5) {
 [e $ ! && && _IOCAF0 ! != -> . . _PORTAbits 0 0 `i -> 0 `i ! != -> . . _PORTAbits 0 5 `i -> 0 `i 480  ]
 {
-"328
-[; ;main.c: 328:                 LATC3 = 1;
-[e = _LATC3 -> -> 1 `i `b ]
 "329
-[; ;main.c: 329:                 IOCAF0 = 0;
-[e = _IOCAF0 -> -> 0 `i `b ]
+[; ;main.c: 329:                 LATC3 = 1;
+[e = _LATC3 -> -> 1 `i `b ]
 "330
-[; ;main.c: 330:                 __asm("sleep");
-[; <" sleep ;# ">
+[; ;main.c: 330:                 IOCAF0 = 0;
+[e = _IOCAF0 -> -> 0 `i `b ]
 "331
-[; ;main.c: 331:             }
+[; ;main.c: 331:                 __asm("sleep");
+[; <" sleep ;# ">
+"332
+[; ;main.c: 332:             }
 }
 [e :U 480 ]
-"334
-[; ;main.c: 334:             if (IOCAF3 && !PORTAbits.RA3 && !PORTAbits.RA0 && !PORTAbits.RA5) {
+"335
+[; ;main.c: 335:             if (IOCAF3 && !PORTAbits.RA3 && !PORTAbits.RA0 && !PORTAbits.RA5) {
 [e $ ! && && && _IOCAF3 ! != -> . . _PORTAbits 0 3 `i -> 0 `i ! != -> . . _PORTAbits 0 0 `i -> 0 `i ! != -> . . _PORTAbits 0 5 `i -> 0 `i 481  ]
 {
-"335
-[; ;main.c: 335:                 IOCAF3 = 0;
+"336
+[; ;main.c: 336:                 IOCAF3 = 0;
 [e = _IOCAF3 -> -> 0 `i `b ]
-"337
-[; ;main.c: 337:                 doTheArc();
-[e ( _doTheArc ..  ]
 "338
-[; ;main.c: 338:             }
+[; ;main.c: 338:                 doTheArc();
+[e ( _doTheArc ..  ]
+"339
+[; ;main.c: 339:             }
 }
 [e :U 481 ]
-"341
-[; ;main.c: 341:             if (IOCAF3 && PORTAbits.RA3 && !PORTAbits.RA5) {
+"342
+[; ;main.c: 342:             if (IOCAF3 && PORTAbits.RA3 && !PORTAbits.RA5) {
 [e $ ! && && _IOCAF3 != -> . . _PORTAbits 0 3 `i -> 0 `i ! != -> . . _PORTAbits 0 5 `i -> 0 `i 482  ]
 {
-"342
-[; ;main.c: 342:                 forceArc = 0;
-[e = _forceArc -> -> 0 `i `ui ]
 "343
-[; ;main.c: 343:                 LATA1 = 1;
-[e = _LATA1 -> -> 1 `i `b ]
+[; ;main.c: 343:                 forceArc = 0;
+[e = _forceArc -> -> 0 `i `ui ]
 "344
-[; ;main.c: 344:                 LATA2 = 1;
-[e = _LATA2 -> -> 1 `i `b ]
+[; ;main.c: 344:                 LATA1 = 1;
+[e = _LATA1 -> -> 1 `i `b ]
 "345
-[; ;main.c: 345:                 LATC0 = 1;
-[e = _LATC0 -> -> 1 `i `b ]
+[; ;main.c: 345:                 LATA2 = 1;
+[e = _LATA2 -> -> 1 `i `b ]
 "346
-[; ;main.c: 346:                 LATC1 = 1;
-[e = _LATC1 -> -> 1 `i `b ]
+[; ;main.c: 346:                 LATC0 = 1;
+[e = _LATC0 -> -> 1 `i `b ]
 "347
-[; ;main.c: 347:                 __asm("sleep");
-[; <" sleep ;# ">
+[; ;main.c: 347:                 LATC1 = 1;
+[e = _LATC1 -> -> 1 `i `b ]
 "348
-[; ;main.c: 348:             }
+[; ;main.c: 348:                 __asm("sleep");
+[; <" sleep ;# ">
+"349
+[; ;main.c: 349:             }
 }
 [e :U 482 ]
-"351
-[; ;main.c: 351:             if (IOCAF0 && PORTAbits.RA0 && !PORTAbits.RA5) {
+"352
+[; ;main.c: 352:             if (IOCAF0 && PORTAbits.RA0 && !PORTAbits.RA5) {
 [e $ ! && && _IOCAF0 != -> . . _PORTAbits 0 0 `i -> 0 `i ! != -> . . _PORTAbits 0 5 `i -> 0 `i 483  ]
 {
-"352
-[; ;main.c: 352:                 goToLPmode(1);
-[e ( _goToLPmode (1 -> -> 1 `i `uc ]
 "353
-[; ;main.c: 353:             }
+[; ;main.c: 353:                 goToLPmode(1);
+[e ( _goToLPmode (1 -> -> 1 `i `uc ]
+"354
+[; ;main.c: 354:             }
 }
 [e :U 483 ]
 "355
@@ -1622,257 +1642,241 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e :U _letsCharge ]
 [f ]
 "518
-[; ;main.c: 518:     unsigned int battVolts = 0;
-[v _battVolts `ui ~T0 @X0 1 a ]
-[e = _battVolts -> -> 0 `i `ui ]
+[; ;main.c: 518:     unsigned int calibrationMV = 1032;
+[v _calibrationMV `ui ~T0 @X0 1 a ]
+[e = _calibrationMV -> -> 1032 `i `ui ]
 "519
-[; ;main.c: 519:     unsigned char chargeCycle = 0;
+[; ;main.c: 519:     unsigned long battVolts = 0;
+[v _battVolts `ul ~T0 @X0 1 a ]
+[e = _battVolts -> -> -> 0 `i `l `ul ]
+"520
+[; ;main.c: 520:     unsigned char chargeCycle = 0;
 [v _chargeCycle `uc ~T0 @X0 1 a ]
 [e = _chargeCycle -> -> 0 `i `uc ]
 "521
-[; ;main.c: 521:     ADCON1bits.CS = 0b110;
-[e = . . _ADCON1bits 0 2 -> -> 6 `i `uc ]
-"522
-[; ;main.c: 522:     ADCON1bits.PREF = 0b00;
-[e = . . _ADCON1bits 0 0 -> -> 0 `i `uc ]
-"523
-[; ;main.c: 523:     ADCON0bits.CHS = 0b000100;
-[e = . . _ADCON0bits 0 2 -> -> 4 `i `uc ]
-"524
-[; ;main.c: 524:     ADCON1bits.FM = 0;
-[e = . . _ADCON1bits 0 3 -> -> 0 `i `uc ]
+[; ;main.c: 521:     unsigned int adcVolts = 0;
+[v _adcVolts `ui ~T0 @X0 1 a ]
+[e = _adcVolts -> -> 0 `i `ui ]
 "525
-[; ;main.c: 525:     ADACT = 0x0;
+[; ;main.c: 525:     NVMCON1bits.NVMREGS = 1;
+[e = . . _NVMCON1bits 0 6 -> -> 1 `i `uc ]
+"526
+[; ;main.c: 526:     NVMADR = 0x8118;
+[e = _NVMADR -> -> 33048 `ui `us ]
+"530
+[; ;main.c: 530:     NVMCON1bits.NVMREGS = 0;
+[e = . . _NVMCON1bits 0 6 -> -> 0 `i `uc ]
+"537
+[; ;main.c: 537:     ADCON1bits.CS = 0b110;
+[e = . . _ADCON1bits 0 2 -> -> 6 `i `uc ]
+"538
+[; ;main.c: 538:     ADCON1bits.PREF = 0b00;
+[e = . . _ADCON1bits 0 0 -> -> 0 `i `uc ]
+"539
+[; ;main.c: 539:     ADCON0bits.CHS = 0b011110;
+[e = . . _ADCON0bits 0 2 -> -> 30 `i `uc ]
+"540
+[; ;main.c: 540:     ADCON1bits.FM = 1;
+[e = . . _ADCON1bits 0 3 -> -> 1 `i `uc ]
+"541
+[; ;main.c: 541:     ADACT = 0x0;
 [e = _ADACT -> -> 0 `i `uc ]
-"528
-[; ;main.c: 528:     do {
+"547
+[; ;main.c: 547:     do {
 [e :U 512 ]
 {
-"529
-[; ;main.c: 529:         blockingDelay(1000);
-[e ( _blockingDelay (1 -> -> 1000 `i `ui ]
-"530
-[; ;main.c: 530:         ADCON0bits.GO = 1;
+"548
+[; ;main.c: 548:         ADCON0bits.GO = 1;
 [e = . . _ADCON0bits 0 1 -> -> 1 `i `uc ]
-"531
-[; ;main.c: 531:         battVolts = ADRES;
-[e = _battVolts -> _ADRES `ui ]
-"533
-[; ;main.c: 533:         if (battVolts > 845) {
-[e $ ! > _battVolts -> -> 845 `i `ui 513  ]
+"549
+[; ;main.c: 549:         blockingDelay(1000);
+[e ( _blockingDelay (1 -> -> 1000 `i `ui ]
+"550
+[; ;main.c: 550:         adcVolts = ADRES;
+[e = _adcVolts -> _ADRES `ui ]
+"551
+[; ;main.c: 551:         battVolts = ((calibrationMV * 1204) / adcVolts) / 10;
+[e = _battVolts -> / / * _calibrationMV -> -> 1204 `i `ui _adcVolts -> -> 10 `i `ui `ul ]
+"553
+[; ;main.c: 553:         if (battVolts > 845) {
+[e $ ! > _battVolts -> -> -> 845 `i `l `ul 513  ]
 {
-"536
-[; ;main.c: 536:             LATA1 = 0;
+"556
+[; ;main.c: 556:             LATA1 = 0;
 [e = _LATA1 -> -> 0 `i `b ]
-"537
-[; ;main.c: 537:             LATA2 = 0;
+"557
+[; ;main.c: 557:             LATA2 = 0;
 [e = _LATA2 -> -> 0 `i `b ]
-"538
-[; ;main.c: 538:             LATC0 = 0;
+"558
+[; ;main.c: 558:             LATC0 = 0;
 [e = _LATC0 -> -> 0 `i `b ]
-"539
-[; ;main.c: 539:             LATC1 = 0;
+"559
+[; ;main.c: 559:             LATC1 = 0;
 [e = _LATC1 -> -> 0 `i `b ]
-"540
-[; ;main.c: 540:             __asm("sleep");
+"560
+[; ;main.c: 560:             __asm("sleep");
 [; <" sleep ;# ">
-"541
-[; ;main.c: 541:         } else if (battVolts > 815) {
+"561
+[; ;main.c: 561:         } else if (battVolts > 815) {
 }
 [e $U 514  ]
 [e :U 513 ]
-[e $ ! > _battVolts -> -> 815 `i `ui 515  ]
+[e $ ! > _battVolts -> -> -> 815 `i `l `ul 515  ]
 {
-"544
-[; ;main.c: 544:             LATA1 = 0;
+"564
+[; ;main.c: 564:             LATA1 = 0;
 [e = _LATA1 -> -> 0 `i `b ]
-"545
-[; ;main.c: 545:             LATA2 = 0;
+"565
+[; ;main.c: 565:             LATA2 = 0;
 [e = _LATA2 -> -> 0 `i `b ]
-"546
-[; ;main.c: 546:             LATC0 = 0;
+"566
+[; ;main.c: 566:             LATC0 = 0;
 [e = _LATC0 -> -> 0 `i `b ]
-"547
-[; ;main.c: 547:             if (chargeCycle) LATC1 = 0;
+"567
+[; ;main.c: 567:             if (chargeCycle) LATC1 = 0;
 [e $ ! != -> _chargeCycle `i -> 0 `i 516  ]
 [e = _LATC1 -> -> 0 `i `b ]
 [e $U 517  ]
-"548
-[; ;main.c: 548:             else LATC1 = 1;
+"568
+[; ;main.c: 568:             else LATC1 = 1;
 [e :U 516 ]
 [e = _LATC1 -> -> 1 `i `b ]
 [e :U 517 ]
-"549
-[; ;main.c: 549:         } else if (battVolts > 788) {
+"569
+[; ;main.c: 569:         } else if (battVolts > 788) {
 }
 [e $U 518  ]
 [e :U 515 ]
-[e $ ! > _battVolts -> -> 788 `i `ui 519  ]
+[e $ ! > _battVolts -> -> -> 788 `i `l `ul 519  ]
 {
-"552
-[; ;main.c: 552:             LATA1 = 0;
+"572
+[; ;main.c: 572:             LATA1 = 0;
 [e = _LATA1 -> -> 0 `i `b ]
-"553
-[; ;main.c: 553:             LATA2 = 0;
+"573
+[; ;main.c: 573:             LATA2 = 0;
 [e = _LATA2 -> -> 0 `i `b ]
-"554
-[; ;main.c: 554:             if (chargeCycle) LATC0 = 0;
+"574
+[; ;main.c: 574:             if (chargeCycle) LATC0 = 0;
 [e $ ! != -> _chargeCycle `i -> 0 `i 520  ]
 [e = _LATC0 -> -> 0 `i `b ]
 [e $U 521  ]
-"555
-[; ;main.c: 555:             else LATC0 = 1;
+"575
+[; ;main.c: 575:             else LATC0 = 1;
 [e :U 520 ]
 [e = _LATC0 -> -> 1 `i `b ]
 [e :U 521 ]
-"556
-[; ;main.c: 556:             LATC1 = 1;
+"576
+[; ;main.c: 576:             LATC1 = 1;
 [e = _LATC1 -> -> 1 `i `b ]
-"557
-[; ;main.c: 557:         } else if (battVolts > 765) {
+"577
+[; ;main.c: 577:         } else if (battVolts > 765) {
 }
 [e $U 522  ]
 [e :U 519 ]
-[e $ ! > _battVolts -> -> 765 `i `ui 523  ]
+[e $ ! > _battVolts -> -> -> 765 `i `l `ul 523  ]
 {
-"560
-[; ;main.c: 560:             LATA1 = 0;
+"580
+[; ;main.c: 580:             LATA1 = 0;
 [e = _LATA1 -> -> 0 `i `b ]
-"561
-[; ;main.c: 561:             if (chargeCycle) LATA2 = 0;
+"581
+[; ;main.c: 581:             if (chargeCycle) LATA2 = 0;
 [e $ ! != -> _chargeCycle `i -> 0 `i 524  ]
 [e = _LATA2 -> -> 0 `i `b ]
 [e $U 525  ]
-"562
-[; ;main.c: 562:             else LATA2 = 1;
+"582
+[; ;main.c: 582:             else LATA2 = 1;
 [e :U 524 ]
 [e = _LATA2 -> -> 1 `i `b ]
 [e :U 525 ]
-"563
-[; ;main.c: 563:             LATC0 = 1;
+"583
+[; ;main.c: 583:             LATC0 = 1;
 [e = _LATC0 -> -> 1 `i `b ]
-"564
-[; ;main.c: 564:             LATC1 = 1;
+"584
+[; ;main.c: 584:             LATC1 = 1;
 [e = _LATC1 -> -> 1 `i `b ]
-"565
-[; ;main.c: 565:         } else {
+"585
+[; ;main.c: 585:         } else {
 }
 [e $U 526  ]
 [e :U 523 ]
 {
-"567
-[; ;main.c: 567:             if (chargeCycle) LATA1 = 0;
+"587
+[; ;main.c: 587:             if (chargeCycle) LATA1 = 0;
 [e $ ! != -> _chargeCycle `i -> 0 `i 527  ]
 [e = _LATA1 -> -> 0 `i `b ]
 [e $U 528  ]
-"568
-[; ;main.c: 568:             else LATA1 = 1;
+"588
+[; ;main.c: 588:             else LATA1 = 1;
 [e :U 527 ]
 [e = _LATA1 -> -> 1 `i `b ]
 [e :U 528 ]
-"569
-[; ;main.c: 569:             LATA2 = 1;
+"589
+[; ;main.c: 589:             LATA2 = 1;
 [e = _LATA2 -> -> 1 `i `b ]
-"570
-[; ;main.c: 570:             LATC0 = 1;
+"590
+[; ;main.c: 590:             LATC0 = 1;
 [e = _LATC0 -> -> 1 `i `b ]
-"571
-[; ;main.c: 571:             LATC1 = 1;
+"591
+[; ;main.c: 591:             LATC1 = 1;
 [e = _LATC1 -> -> 1 `i `b ]
-"572
-[; ;main.c: 572:         }
+"592
+[; ;main.c: 592:         }
 }
 [e :U 526 ]
 [e :U 522 ]
 [e :U 518 ]
 [e :U 514 ]
-"573
-[; ;main.c: 573:         chargeCycle ^= 1;
+"593
+[; ;main.c: 593:         chargeCycle ^= 1;
 [e =^ _chargeCycle -> -> 1 `i `uc ]
-"574
-[; ;main.c: 574:         blockingDelay(1000);
+"594
+[; ;main.c: 594:         blockingDelay(1000);
 [e ( _blockingDelay (1 -> -> 1000 `i `ui ]
-"575
-[; ;main.c: 575:     } while (PORTAbits.RA5);
+"595
+[; ;main.c: 595:     } while (PORTAbits.RA5);
 }
 [e $ != -> . . _PORTAbits 0 5 `i -> 0 `i 512  ]
 [e :U 511 ]
-"576
-[; ;main.c: 576: }
+"596
+[; ;main.c: 596: }
 [e :UE 509 ]
 }
-"581
-[; ;main.c: 581: void imperialMarch(void) {
+"601
+[; ;main.c: 601: void imperialMarch(void) {
 [v _imperialMarch `(v ~T0 @X0 1 ef ]
 {
 [e :U _imperialMarch ]
 [f ]
-"583
-[; ;main.c: 583:     playNote(0x0A, 250);
-[e ( _playNote (2 , -> -> 10 `i `uc -> -> 250 `i `ui ]
-"585
-[; ;main.c: 585:     playNote(0x00, 750);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 750 `i `ui ]
-"587
-[; ;main.c: 587:     playNote(0x0A, 250);
-[e ( _playNote (2 , -> -> 10 `i `uc -> -> 250 `i `ui ]
-"589
-[; ;main.c: 589:     playNote(0x00, 750);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 750 `i `ui ]
-"591
-[; ;main.c: 591:     playNote(0x0A, 250);
-[e ( _playNote (2 , -> -> 10 `i `uc -> -> 250 `i `ui ]
-"593
-[; ;main.c: 593:     playNote(0x00, 750);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 750 `i `ui ]
-"595
-[; ;main.c: 595:     playNote(0x0A, 250);
-[e ( _playNote (2 , -> -> 10 `i `uc -> -> 250 `i `ui ]
-"596
-[; ;main.c: 596:     playNote(0x00, 75);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 75 `i `ui ]
-"598
-[; ;main.c: 598:     playNote(0x0D, 125);
-[e ( _playNote (2 , -> -> 13 `i `uc -> -> 125 `i `ui ]
-"599
-[; ;main.c: 599:     playNote(0x00, 100);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 100 `i `ui ]
-"600
-[; ;main.c: 600:     playNote(0x0D, 125);
-[e ( _playNote (2 , -> -> 13 `i `uc -> -> 125 `i `ui ]
-"601
-[; ;main.c: 601:     playNote(0x00, 100);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 100 `i `ui ]
-"602
-[; ;main.c: 602:     playNote(0x0D, 125);
-[e ( _playNote (2 , -> -> 13 `i `uc -> -> 125 `i `ui ]
 "603
-[; ;main.c: 603:     playNote(0x00, 100);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 100 `i `ui ]
+[; ;main.c: 603:     playNote(0x0A, 250);
+[e ( _playNote (2 , -> -> 10 `i `uc -> -> 250 `i `ui ]
 "605
-[; ;main.c: 605:     playNote(0x0A, 250);
-[e ( _playNote (2 , -> -> 10 `i `uc -> -> 250 `i `ui ]
+[; ;main.c: 605:     playNote(0x00, 750);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 750 `i `ui ]
 "607
-[; ;main.c: 607:     playNote(0x00, 750);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 750 `i `ui ]
+[; ;main.c: 607:     playNote(0x0A, 250);
+[e ( _playNote (2 , -> -> 10 `i `uc -> -> 250 `i `ui ]
 "609
-[; ;main.c: 609:     playNote(0x0A, 250);
-[e ( _playNote (2 , -> -> 10 `i `uc -> -> 250 `i `ui ]
+[; ;main.c: 609:     playNote(0x00, 750);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 750 `i `ui ]
 "611
-[; ;main.c: 611:     playNote(0x00, 750);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 750 `i `ui ]
+[; ;main.c: 611:     playNote(0x0A, 250);
+[e ( _playNote (2 , -> -> 10 `i `uc -> -> 250 `i `ui ]
 "613
-[; ;main.c: 613:     playNote(0x0A, 250);
-[e ( _playNote (2 , -> -> 10 `i `uc -> -> 250 `i `ui ]
-"615
-[; ;main.c: 615:     playNote(0x00, 750);
+[; ;main.c: 613:     playNote(0x00, 750);
 [e ( _playNote (2 , -> -> 0 `i `uc -> -> 750 `i `ui ]
-"617
-[; ;main.c: 617:     playNote(0x0A, 250);
+"615
+[; ;main.c: 615:     playNote(0x0A, 250);
 [e ( _playNote (2 , -> -> 10 `i `uc -> -> 250 `i `ui ]
-"618
-[; ;main.c: 618:     playNote(0x00, 75);
+"616
+[; ;main.c: 616:     playNote(0x00, 75);
 [e ( _playNote (2 , -> -> 0 `i `uc -> -> 75 `i `ui ]
+"618
+[; ;main.c: 618:     playNote(0x0D, 125);
+[e ( _playNote (2 , -> -> 13 `i `uc -> -> 125 `i `ui ]
+"619
+[; ;main.c: 619:     playNote(0x00, 100);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 100 `i `ui ]
 "620
 [; ;main.c: 620:     playNote(0x0D, 125);
 [e ( _playNote (2 , -> -> 13 `i `uc -> -> 125 `i `ui ]
@@ -1885,355 +1889,349 @@ Version 4.0 HI-TECH Software Intermediate Code
 "623
 [; ;main.c: 623:     playNote(0x00, 100);
 [e ( _playNote (2 , -> -> 0 `i `uc -> -> 100 `i `ui ]
-"624
-[; ;main.c: 624:     playNote(0x0D, 125);
-[e ( _playNote (2 , -> -> 13 `i `uc -> -> 125 `i `ui ]
 "625
-[; ;main.c: 625:     playNote(0x00, 100);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 100 `i `ui ]
-"628
-[; ;main.c: 628:     playNote(0x0A, 250);
+[; ;main.c: 625:     playNote(0x0A, 250);
 [e ( _playNote (2 , -> -> 10 `i `uc -> -> 250 `i `ui ]
-"630
-[; ;main.c: 630:     playNote(0x00, 750);
+"627
+[; ;main.c: 627:     playNote(0x00, 750);
 [e ( _playNote (2 , -> -> 0 `i `uc -> -> 750 `i `ui ]
-"632
-[; ;main.c: 632:     playNote(0x0A, 250);
+"629
+[; ;main.c: 629:     playNote(0x0A, 250);
 [e ( _playNote (2 , -> -> 10 `i `uc -> -> 250 `i `ui ]
-"634
-[; ;main.c: 634:     playNote(0x00, 750);
+"631
+[; ;main.c: 631:     playNote(0x00, 750);
 [e ( _playNote (2 , -> -> 0 `i `uc -> -> 750 `i `ui ]
-"636
-[; ;main.c: 636:     playNote(0x0A, 250);
+"633
+[; ;main.c: 633:     playNote(0x0A, 250);
+[e ( _playNote (2 , -> -> 10 `i `uc -> -> 250 `i `ui ]
+"635
+[; ;main.c: 635:     playNote(0x00, 750);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 750 `i `ui ]
+"637
+[; ;main.c: 637:     playNote(0x0A, 250);
 [e ( _playNote (2 , -> -> 10 `i `uc -> -> 250 `i `ui ]
 "638
-[; ;main.c: 638:     playNote(0x00, 750);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 750 `i `ui ]
+[; ;main.c: 638:     playNote(0x00, 75);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 75 `i `ui ]
 "640
-[; ;main.c: 640:     playNote(0x0A, 250);
-[e ( _playNote (2 , -> -> 10 `i `uc -> -> 250 `i `ui ]
+[; ;main.c: 640:     playNote(0x0D, 125);
+[e ( _playNote (2 , -> -> 13 `i `uc -> -> 125 `i `ui ]
 "641
-[; ;main.c: 641:     playNote(0x00, 75);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 75 `i `ui ]
+[; ;main.c: 641:     playNote(0x00, 100);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 100 `i `ui ]
+"642
+[; ;main.c: 642:     playNote(0x0D, 125);
+[e ( _playNote (2 , -> -> 13 `i `uc -> -> 125 `i `ui ]
 "643
-[; ;main.c: 643:     playNote(0x0D, 125);
-[e ( _playNote (2 , -> -> 13 `i `uc -> -> 125 `i `ui ]
+[; ;main.c: 643:     playNote(0x00, 100);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 100 `i `ui ]
 "644
-[; ;main.c: 644:     playNote(0x00, 100);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 100 `i `ui ]
+[; ;main.c: 644:     playNote(0x0D, 125);
+[e ( _playNote (2 , -> -> 13 `i `uc -> -> 125 `i `ui ]
 "645
-[; ;main.c: 645:     playNote(0x0D, 125);
-[e ( _playNote (2 , -> -> 13 `i `uc -> -> 125 `i `ui ]
-"646
-[; ;main.c: 646:     playNote(0x00, 100);
+[; ;main.c: 645:     playNote(0x00, 100);
 [e ( _playNote (2 , -> -> 0 `i `uc -> -> 100 `i `ui ]
-"647
-[; ;main.c: 647:     playNote(0x0D, 125);
-[e ( _playNote (2 , -> -> 13 `i `uc -> -> 125 `i `ui ]
 "648
-[; ;main.c: 648:     playNote(0x00, 100);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 100 `i `ui ]
+[; ;main.c: 648:     playNote(0x0A, 250);
+[e ( _playNote (2 , -> -> 10 `i `uc -> -> 250 `i `ui ]
 "650
-[; ;main.c: 650:     playNote(0x0A, 250);
-[e ( _playNote (2 , -> -> 10 `i `uc -> -> 250 `i `ui ]
+[; ;main.c: 650:     playNote(0x00, 750);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 750 `i `ui ]
 "652
-[; ;main.c: 652:     playNote(0x00, 750);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 750 `i `ui ]
+[; ;main.c: 652:     playNote(0x0A, 250);
+[e ( _playNote (2 , -> -> 10 `i `uc -> -> 250 `i `ui ]
 "654
-[; ;main.c: 654:     playNote(0x0A, 250);
-[e ( _playNote (2 , -> -> 10 `i `uc -> -> 250 `i `ui ]
+[; ;main.c: 654:     playNote(0x00, 750);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 750 `i `ui ]
 "656
-[; ;main.c: 656:     playNote(0x00, 750);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 750 `i `ui ]
+[; ;main.c: 656:     playNote(0x0A, 250);
+[e ( _playNote (2 , -> -> 10 `i `uc -> -> 250 `i `ui ]
 "658
-[; ;main.c: 658:     playNote(0x0A, 250);
-[e ( _playNote (2 , -> -> 10 `i `uc -> -> 250 `i `ui ]
-"660
-[; ;main.c: 660:     playNote(0x00, 750);
+[; ;main.c: 658:     playNote(0x00, 750);
 [e ( _playNote (2 , -> -> 0 `i `uc -> -> 750 `i `ui ]
-"662
-[; ;main.c: 662:     playNote(0x0A, 250);
+"660
+[; ;main.c: 660:     playNote(0x0A, 250);
 [e ( _playNote (2 , -> -> 10 `i `uc -> -> 250 `i `ui ]
-"663
-[; ;main.c: 663:     playNote(0x00, 75);
+"661
+[; ;main.c: 661:     playNote(0x00, 75);
 [e ( _playNote (2 , -> -> 0 `i `uc -> -> 75 `i `ui ]
+"663
+[; ;main.c: 663:     playNote(0x0D, 125);
+[e ( _playNote (2 , -> -> 13 `i `uc -> -> 125 `i `ui ]
+"664
+[; ;main.c: 664:     playNote(0x00, 100);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 100 `i `ui ]
 "665
-[; ;main.c: 665:     playNote(0x09, 125);
-[e ( _playNote (2 , -> -> 9 `i `uc -> -> 125 `i `ui ]
+[; ;main.c: 665:     playNote(0x0D, 125);
+[e ( _playNote (2 , -> -> 13 `i `uc -> -> 125 `i `ui ]
 "666
 [; ;main.c: 666:     playNote(0x00, 100);
 [e ( _playNote (2 , -> -> 0 `i `uc -> -> 100 `i `ui ]
 "667
-[; ;main.c: 667:     playNote(0x09, 125);
-[e ( _playNote (2 , -> -> 9 `i `uc -> -> 125 `i `ui ]
+[; ;main.c: 667:     playNote(0x0D, 125);
+[e ( _playNote (2 , -> -> 13 `i `uc -> -> 125 `i `ui ]
 "668
 [; ;main.c: 668:     playNote(0x00, 100);
 [e ( _playNote (2 , -> -> 0 `i `uc -> -> 100 `i `ui ]
-"669
-[; ;main.c: 669:     playNote(0x09, 125);
-[e ( _playNote (2 , -> -> 9 `i `uc -> -> 125 `i `ui ]
 "670
-[; ;main.c: 670:     playNote(0x00, 100);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 100 `i `ui ]
+[; ;main.c: 670:     playNote(0x0A, 250);
+[e ( _playNote (2 , -> -> 10 `i `uc -> -> 250 `i `ui ]
 "672
-[; ;main.c: 672:     playNote(0x16, 500);
-[e ( _playNote (2 , -> -> 22 `i `uc -> -> 500 `i `ui ]
-"673
-[; ;main.c: 673:     playNote(0x00, 500);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 500 `i `ui ]
-"675
-[; ;main.c: 675:     playNote(0x16, 500);
-[e ( _playNote (2 , -> -> 22 `i `uc -> -> 500 `i `ui ]
+[; ;main.c: 672:     playNote(0x00, 750);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 750 `i `ui ]
+"674
+[; ;main.c: 674:     playNote(0x0A, 250);
+[e ( _playNote (2 , -> -> 10 `i `uc -> -> 250 `i `ui ]
 "676
-[; ;main.c: 676:     playNote(0x00, 500);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 500 `i `ui ]
+[; ;main.c: 676:     playNote(0x00, 750);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 750 `i `ui ]
 "678
-[; ;main.c: 678:     playNote(0x16, 500);
-[e ( _playNote (2 , -> -> 22 `i `uc -> -> 500 `i `ui ]
-"679
-[; ;main.c: 679:     playNote(0x00, 500);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 500 `i `ui ]
-"681
-[; ;main.c: 681:     playNote(0x12, 500);
-[e ( _playNote (2 , -> -> 18 `i `uc -> -> 500 `i `ui ]
+[; ;main.c: 678:     playNote(0x0A, 250);
+[e ( _playNote (2 , -> -> 10 `i `uc -> -> 250 `i `ui ]
+"680
+[; ;main.c: 680:     playNote(0x00, 750);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 750 `i `ui ]
 "682
-[; ;main.c: 682:     playNote(0x00, 250);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 250 `i `ui ]
-"684
-[; ;main.c: 684:     playNote(0x19, 250);
-[e ( _playNote (2 , -> -> 25 `i `uc -> -> 250 `i `ui ]
+[; ;main.c: 682:     playNote(0x0A, 250);
+[e ( _playNote (2 , -> -> 10 `i `uc -> -> 250 `i `ui ]
+"683
+[; ;main.c: 683:     playNote(0x00, 75);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 75 `i `ui ]
 "685
-[; ;main.c: 685:     playNote(0x16, 500);
-[e ( _playNote (2 , -> -> 22 `i `uc -> -> 500 `i `ui ]
+[; ;main.c: 685:     playNote(0x09, 125);
+[e ( _playNote (2 , -> -> 9 `i `uc -> -> 125 `i `ui ]
 "686
-[; ;main.c: 686:     playNote(0x00, 500);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 500 `i `ui ]
+[; ;main.c: 686:     playNote(0x00, 100);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 100 `i `ui ]
+"687
+[; ;main.c: 687:     playNote(0x09, 125);
+[e ( _playNote (2 , -> -> 9 `i `uc -> -> 125 `i `ui ]
 "688
-[; ;main.c: 688:     playNote(0x12, 500);
-[e ( _playNote (2 , -> -> 18 `i `uc -> -> 500 `i `ui ]
+[; ;main.c: 688:     playNote(0x00, 100);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 100 `i `ui ]
 "689
-[; ;main.c: 689:     playNote(0x00, 250);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 250 `i `ui ]
-"691
-[; ;main.c: 691:     playNote(0x19, 250);
-[e ( _playNote (2 , -> -> 25 `i `uc -> -> 250 `i `ui ]
+[; ;main.c: 689:     playNote(0x09, 125);
+[e ( _playNote (2 , -> -> 9 `i `uc -> -> 125 `i `ui ]
+"690
+[; ;main.c: 690:     playNote(0x00, 100);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 100 `i `ui ]
 "692
-[; ;main.c: 692:     playNote(0x16, 750);
-[e ( _playNote (2 , -> -> 22 `i `uc -> -> 750 `i `ui ]
+[; ;main.c: 692:     playNote(0x16, 500);
+[e ( _playNote (2 , -> -> 22 `i `uc -> -> 500 `i `ui ]
 "693
-[; ;main.c: 693:     playNote(0x00, 1250);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 1250 `i `ui ]
+[; ;main.c: 693:     playNote(0x00, 500);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 500 `i `ui ]
 "695
-[; ;main.c: 695:     playNote(0x1D, 500);
-[e ( _playNote (2 , -> -> 29 `i `uc -> -> 500 `i `ui ]
+[; ;main.c: 695:     playNote(0x16, 500);
+[e ( _playNote (2 , -> -> 22 `i `uc -> -> 500 `i `ui ]
 "696
 [; ;main.c: 696:     playNote(0x00, 500);
 [e ( _playNote (2 , -> -> 0 `i `uc -> -> 500 `i `ui ]
 "698
-[; ;main.c: 698:     playNote(0x1D, 500);
-[e ( _playNote (2 , -> -> 29 `i `uc -> -> 500 `i `ui ]
+[; ;main.c: 698:     playNote(0x16, 500);
+[e ( _playNote (2 , -> -> 22 `i `uc -> -> 500 `i `ui ]
 "699
 [; ;main.c: 699:     playNote(0x00, 500);
 [e ( _playNote (2 , -> -> 0 `i `uc -> -> 500 `i `ui ]
 "701
-[; ;main.c: 701:     playNote(0x1D, 500);
-[e ( _playNote (2 , -> -> 29 `i `uc -> -> 500 `i `ui ]
-"702
-[; ;main.c: 702:     playNote(0x00, 500);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 500 `i `ui ]
-"704
-[; ;main.c: 704:     playNote(0x1E, 500);
-[e ( _playNote (2 , -> -> 30 `i `uc -> -> 500 `i `ui ]
-"705
-[; ;main.c: 705:     playNote(0x00, 250);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 250 `i `ui ]
-"707
-[; ;main.c: 707:     playNote(0x19, 250);
-[e ( _playNote (2 , -> -> 25 `i `uc -> -> 250 `i `ui ]
-"708
-[; ;main.c: 708:     playNote(0x15, 500);
-[e ( _playNote (2 , -> -> 21 `i `uc -> -> 500 `i `ui ]
-"709
-[; ;main.c: 709:     playNote(0x00, 500);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 500 `i `ui ]
-"711
-[; ;main.c: 711:     playNote(0x12, 500);
+[; ;main.c: 701:     playNote(0x12, 500);
 [e ( _playNote (2 , -> -> 18 `i `uc -> -> 500 `i `ui ]
-"712
-[; ;main.c: 712:     playNote(0x00, 250);
+"702
+[; ;main.c: 702:     playNote(0x00, 250);
 [e ( _playNote (2 , -> -> 0 `i `uc -> -> 250 `i `ui ]
-"714
-[; ;main.c: 714:     playNote(0x19, 250);
+"704
+[; ;main.c: 704:     playNote(0x19, 250);
 [e ( _playNote (2 , -> -> 25 `i `uc -> -> 250 `i `ui ]
-"715
-[; ;main.c: 715:     playNote(0x16, 750);
+"705
+[; ;main.c: 705:     playNote(0x16, 500);
+[e ( _playNote (2 , -> -> 22 `i `uc -> -> 500 `i `ui ]
+"706
+[; ;main.c: 706:     playNote(0x00, 500);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 500 `i `ui ]
+"708
+[; ;main.c: 708:     playNote(0x12, 500);
+[e ( _playNote (2 , -> -> 18 `i `uc -> -> 500 `i `ui ]
+"709
+[; ;main.c: 709:     playNote(0x00, 250);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 250 `i `ui ]
+"711
+[; ;main.c: 711:     playNote(0x19, 250);
+[e ( _playNote (2 , -> -> 25 `i `uc -> -> 250 `i `ui ]
+"712
+[; ;main.c: 712:     playNote(0x16, 750);
 [e ( _playNote (2 , -> -> 22 `i `uc -> -> 750 `i `ui ]
+"713
+[; ;main.c: 713:     playNote(0x00, 1250);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 1250 `i `ui ]
+"715
+[; ;main.c: 715:     playNote(0x1D, 500);
+[e ( _playNote (2 , -> -> 29 `i `uc -> -> 500 `i `ui ]
 "716
-[; ;main.c: 716:     playNote(0x00, 1000);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 1000 `i `ui ]
+[; ;main.c: 716:     playNote(0x00, 500);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 500 `i `ui ]
 "718
-[; ;main.c: 718:     playNote(0x22, 500);
-[e ( _playNote (2 , -> -> 34 `i `uc -> -> 500 `i `ui ]
+[; ;main.c: 718:     playNote(0x1D, 500);
+[e ( _playNote (2 , -> -> 29 `i `uc -> -> 500 `i `ui ]
 "719
 [; ;main.c: 719:     playNote(0x00, 500);
 [e ( _playNote (2 , -> -> 0 `i `uc -> -> 500 `i `ui ]
 "721
-[; ;main.c: 721:     playNote(0x16, 500);
-[e ( _playNote (2 , -> -> 22 `i `uc -> -> 500 `i `ui ]
-"722
-[; ;main.c: 722:     playNote(0x00, 250);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 250 `i `ui ]
-"724
-[; ;main.c: 724:     playNote(0x16, 250);
-[e ( _playNote (2 , -> -> 22 `i `uc -> -> 250 `i `ui ]
-"725
-[; ;main.c: 725:     playNote(0x22, 500);
-[e ( _playNote (2 , -> -> 34 `i `uc -> -> 500 `i `ui ]
-"726
-[; ;main.c: 726:     playNote(0x00, 500);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 500 `i `ui ]
-"728
-[; ;main.c: 728:     playNote(0x21, 500);
-[e ( _playNote (2 , -> -> 33 `i `uc -> -> 500 `i `ui ]
-"729
-[; ;main.c: 729:     playNote(0x00, 250);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 250 `i `ui ]
-"731
-[; ;main.c: 731:     playNote(0x20, 250);
-[e ( _playNote (2 , -> -> 32 `i `uc -> -> 250 `i `ui ]
-"732
-[; ;main.c: 732:     playNote(0x1F, 250);
-[e ( _playNote (2 , -> -> 31 `i `uc -> -> 250 `i `ui ]
-"733
-[; ;main.c: 733:     playNote(0x1E, 250);
-[e ( _playNote (2 , -> -> 30 `i `uc -> -> 250 `i `ui ]
-"734
-[; ;main.c: 734:     playNote(0x1F, 500);
-[e ( _playNote (2 , -> -> 31 `i `uc -> -> 500 `i `ui ]
-"735
-[; ;main.c: 735:     playNote(0x00, 500);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 500 `i `ui ]
-"737
-[; ;main.c: 737:     playNote(0x1A, 500);
-[e ( _playNote (2 , -> -> 26 `i `uc -> -> 500 `i `ui ]
-"738
-[; ;main.c: 738:     playNote(0x1E, 750);
-[e ( _playNote (2 , -> -> 30 `i `uc -> -> 750 `i `ui ]
-"739
-[; ;main.c: 739:     playNote(0x00, 250);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 250 `i `ui ]
-"741
-[; ;main.c: 741:     playNote(0x1D, 500);
+[; ;main.c: 721:     playNote(0x1D, 500);
 [e ( _playNote (2 , -> -> 29 `i `uc -> -> 500 `i `ui ]
+"722
+[; ;main.c: 722:     playNote(0x00, 500);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 500 `i `ui ]
+"724
+[; ;main.c: 724:     playNote(0x1E, 500);
+[e ( _playNote (2 , -> -> 30 `i `uc -> -> 500 `i `ui ]
+"725
+[; ;main.c: 725:     playNote(0x00, 250);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 250 `i `ui ]
+"727
+[; ;main.c: 727:     playNote(0x19, 250);
+[e ( _playNote (2 , -> -> 25 `i `uc -> -> 250 `i `ui ]
+"728
+[; ;main.c: 728:     playNote(0x15, 500);
+[e ( _playNote (2 , -> -> 21 `i `uc -> -> 500 `i `ui ]
+"729
+[; ;main.c: 729:     playNote(0x00, 500);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 500 `i `ui ]
+"731
+[; ;main.c: 731:     playNote(0x12, 500);
+[e ( _playNote (2 , -> -> 18 `i `uc -> -> 500 `i `ui ]
+"732
+[; ;main.c: 732:     playNote(0x00, 250);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 250 `i `ui ]
+"734
+[; ;main.c: 734:     playNote(0x19, 250);
+[e ( _playNote (2 , -> -> 25 `i `uc -> -> 250 `i `ui ]
+"735
+[; ;main.c: 735:     playNote(0x16, 750);
+[e ( _playNote (2 , -> -> 22 `i `uc -> -> 750 `i `ui ]
+"736
+[; ;main.c: 736:     playNote(0x00, 1000);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 1000 `i `ui ]
+"738
+[; ;main.c: 738:     playNote(0x22, 500);
+[e ( _playNote (2 , -> -> 34 `i `uc -> -> 500 `i `ui ]
+"739
+[; ;main.c: 739:     playNote(0x00, 500);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 500 `i `ui ]
+"741
+[; ;main.c: 741:     playNote(0x16, 500);
+[e ( _playNote (2 , -> -> 22 `i `uc -> -> 500 `i `ui ]
 "742
 [; ;main.c: 742:     playNote(0x00, 250);
 [e ( _playNote (2 , -> -> 0 `i `uc -> -> 250 `i `ui ]
 "744
-[; ;main.c: 744:     playNote(0x1C, 250);
-[e ( _playNote (2 , -> -> 28 `i `uc -> -> 250 `i `ui ]
+[; ;main.c: 744:     playNote(0x16, 250);
+[e ( _playNote (2 , -> -> 22 `i `uc -> -> 250 `i `ui ]
 "745
-[; ;main.c: 745:     playNote(0x1B, 250);
-[e ( _playNote (2 , -> -> 27 `i `uc -> -> 250 `i `ui ]
+[; ;main.c: 745:     playNote(0x22, 500);
+[e ( _playNote (2 , -> -> 34 `i `uc -> -> 500 `i `ui ]
 "746
-[; ;main.c: 746:     playNote(0x1A, 250);
-[e ( _playNote (2 , -> -> 26 `i `uc -> -> 250 `i `ui ]
-"747
-[; ;main.c: 747:     playNote(0x1B, 500);
-[e ( _playNote (2 , -> -> 27 `i `uc -> -> 500 `i `ui ]
+[; ;main.c: 746:     playNote(0x00, 500);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 500 `i `ui ]
 "748
-[; ;main.c: 748:     playNote(0x00, 500);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 500 `i `ui ]
-"750
-[; ;main.c: 750:     playNote(0x16, 500);
-[e ( _playNote (2 , -> -> 22 `i `uc -> -> 500 `i `ui ]
-"751
-[; ;main.c: 751:     playNote(0x19, 500);
-[e ( _playNote (2 , -> -> 25 `i `uc -> -> 500 `i `ui ]
-"752
-[; ;main.c: 752:     playNote(0x00, 500);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 500 `i `ui ]
-"754
-[; ;main.c: 754:     playNote(0x12, 500);
-[e ( _playNote (2 , -> -> 18 `i `uc -> -> 500 `i `ui ]
-"755
-[; ;main.c: 755:     playNote(0x00, 250);
+[; ;main.c: 748:     playNote(0x21, 500);
+[e ( _playNote (2 , -> -> 33 `i `uc -> -> 500 `i `ui ]
+"749
+[; ;main.c: 749:     playNote(0x00, 250);
 [e ( _playNote (2 , -> -> 0 `i `uc -> -> 250 `i `ui ]
-"757
-[; ;main.c: 757:     playNote(0x19, 250);
-[e ( _playNote (2 , -> -> 25 `i `uc -> -> 250 `i `ui ]
-"758
-[; ;main.c: 758:     playNote(0x16, 500);
-[e ( _playNote (2 , -> -> 22 `i `uc -> -> 500 `i `ui ]
-"759
-[; ;main.c: 759:     playNote(0x00, 500);
+"751
+[; ;main.c: 751:     playNote(0x20, 250);
+[e ( _playNote (2 , -> -> 32 `i `uc -> -> 250 `i `ui ]
+"752
+[; ;main.c: 752:     playNote(0x1F, 250);
+[e ( _playNote (2 , -> -> 31 `i `uc -> -> 250 `i `ui ]
+"753
+[; ;main.c: 753:     playNote(0x1E, 250);
+[e ( _playNote (2 , -> -> 30 `i `uc -> -> 250 `i `ui ]
+"754
+[; ;main.c: 754:     playNote(0x1F, 500);
+[e ( _playNote (2 , -> -> 31 `i `uc -> -> 500 `i `ui ]
+"755
+[; ;main.c: 755:     playNote(0x00, 500);
 [e ( _playNote (2 , -> -> 0 `i `uc -> -> 500 `i `ui ]
+"757
+[; ;main.c: 757:     playNote(0x1A, 500);
+[e ( _playNote (2 , -> -> 26 `i `uc -> -> 500 `i `ui ]
+"758
+[; ;main.c: 758:     playNote(0x1E, 750);
+[e ( _playNote (2 , -> -> 30 `i `uc -> -> 750 `i `ui ]
+"759
+[; ;main.c: 759:     playNote(0x00, 250);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 250 `i `ui ]
 "761
-[; ;main.c: 761:     playNote(0x12, 500);
-[e ( _playNote (2 , -> -> 18 `i `uc -> -> 500 `i `ui ]
+[; ;main.c: 761:     playNote(0x1D, 500);
+[e ( _playNote (2 , -> -> 29 `i `uc -> -> 500 `i `ui ]
 "762
 [; ;main.c: 762:     playNote(0x00, 250);
 [e ( _playNote (2 , -> -> 0 `i `uc -> -> 250 `i `ui ]
 "764
-[; ;main.c: 764:     playNote(0x19, 250);
-[e ( _playNote (2 , -> -> 25 `i `uc -> -> 250 `i `ui ]
+[; ;main.c: 764:     playNote(0x1C, 250);
+[e ( _playNote (2 , -> -> 28 `i `uc -> -> 250 `i `ui ]
 "765
-[; ;main.c: 765:     playNote(0x16, 750);
-[e ( _playNote (2 , -> -> 22 `i `uc -> -> 750 `i `ui ]
+[; ;main.c: 765:     playNote(0x1B, 250);
+[e ( _playNote (2 , -> -> 27 `i `uc -> -> 250 `i `ui ]
 "766
-[; ;main.c: 766:     playNote(0x00, 1250);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 1250 `i `ui ]
+[; ;main.c: 766:     playNote(0x1A, 250);
+[e ( _playNote (2 , -> -> 26 `i `uc -> -> 250 `i `ui ]
+"767
+[; ;main.c: 767:     playNote(0x1B, 500);
+[e ( _playNote (2 , -> -> 27 `i `uc -> -> 500 `i `ui ]
 "768
-[; ;main.c: 768: }
-[e :UE 529 ]
-}
+[; ;main.c: 768:     playNote(0x00, 500);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 500 `i `ui ]
 "770
-[; ;main.c: 770: void cantinaBand(void) {
-[v _cantinaBand `(v ~T0 @X0 1 ef ]
-{
-[e :U _cantinaBand ]
-[f ]
+[; ;main.c: 770:     playNote(0x16, 500);
+[e ( _playNote (2 , -> -> 22 `i `uc -> -> 500 `i `ui ]
 "771
-[; ;main.c: 771:     playNote(0x0C, 250);
-[e ( _playNote (2 , -> -> 12 `i `uc -> -> 250 `i `ui ]
+[; ;main.c: 771:     playNote(0x19, 500);
+[e ( _playNote (2 , -> -> 25 `i `uc -> -> 500 `i `ui ]
 "772
-[; ;main.c: 772:     playNote(0x00, 250);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 250 `i `ui ]
+[; ;main.c: 772:     playNote(0x00, 500);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 500 `i `ui ]
 "774
-[; ;main.c: 774:     playNote(0x11, 250);
-[e ( _playNote (2 , -> -> 17 `i `uc -> -> 250 `i `ui ]
+[; ;main.c: 774:     playNote(0x12, 500);
+[e ( _playNote (2 , -> -> 18 `i `uc -> -> 500 `i `ui ]
 "775
 [; ;main.c: 775:     playNote(0x00, 250);
 [e ( _playNote (2 , -> -> 0 `i `uc -> -> 250 `i `ui ]
 "777
-[; ;main.c: 777:     playNote(0x0C, 250);
-[e ( _playNote (2 , -> -> 12 `i `uc -> -> 250 `i `ui ]
+[; ;main.c: 777:     playNote(0x19, 250);
+[e ( _playNote (2 , -> -> 25 `i `uc -> -> 250 `i `ui ]
 "778
-[; ;main.c: 778:     playNote(0x00, 250);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 250 `i `ui ]
-"780
-[; ;main.c: 780:     playNote(0x11, 250);
-[e ( _playNote (2 , -> -> 17 `i `uc -> -> 250 `i `ui ]
+[; ;main.c: 778:     playNote(0x16, 500);
+[e ( _playNote (2 , -> -> 22 `i `uc -> -> 500 `i `ui ]
+"779
+[; ;main.c: 779:     playNote(0x00, 500);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 500 `i `ui ]
 "781
-[; ;main.c: 781:     playNote(0x00, 250);
+[; ;main.c: 781:     playNote(0x12, 500);
+[e ( _playNote (2 , -> -> 18 `i `uc -> -> 500 `i `ui ]
+"782
+[; ;main.c: 782:     playNote(0x00, 250);
 [e ( _playNote (2 , -> -> 0 `i `uc -> -> 250 `i `ui ]
-"783
-[; ;main.c: 783:     playNote(0x0C, 250);
-[e ( _playNote (2 , -> -> 12 `i `uc -> -> 250 `i `ui ]
 "784
-[; ;main.c: 784:     playNote(0x11, 250);
-[e ( _playNote (2 , -> -> 17 `i `uc -> -> 250 `i `ui ]
+[; ;main.c: 784:     playNote(0x19, 250);
+[e ( _playNote (2 , -> -> 25 `i `uc -> -> 250 `i `ui ]
 "785
-[; ;main.c: 785:     playNote(0x00, 250);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 250 `i `ui ]
-"787
-[; ;main.c: 787:     playNote(0x0C, 400);
-[e ( _playNote (2 , -> -> 12 `i `uc -> -> 400 `i `ui ]
+[; ;main.c: 785:     playNote(0x16, 750);
+[e ( _playNote (2 , -> -> 22 `i `uc -> -> 750 `i `ui ]
+"786
+[; ;main.c: 786:     playNote(0x00, 1250);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 1250 `i `ui ]
 "788
-[; ;main.c: 788:     playNote(0x00, 100);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 100 `i `ui ]
+[; ;main.c: 788: }
+[e :UE 529 ]
+}
 "790
-[; ;main.c: 790:     playNote(0x0B, 250);
-[e ( _playNote (2 , -> -> 11 `i `uc -> -> 250 `i `ui ]
+[; ;main.c: 790: void cantinaBand(void) {
+[v _cantinaBand `(v ~T0 @X0 1 ef ]
+{
+[e :U _cantinaBand ]
+[f ]
 "791
 [; ;main.c: 791:     playNote(0x0C, 250);
 [e ( _playNote (2 , -> -> 12 `i `uc -> -> 250 `i `ui ]
@@ -2241,83 +2239,83 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 792:     playNote(0x00, 250);
 [e ( _playNote (2 , -> -> 0 `i `uc -> -> 250 `i `ui ]
 "794
-[; ;main.c: 794:     playNote(0x0C, 250);
-[e ( _playNote (2 , -> -> 12 `i `uc -> -> 250 `i `ui ]
+[; ;main.c: 794:     playNote(0x11, 250);
+[e ( _playNote (2 , -> -> 17 `i `uc -> -> 250 `i `ui ]
 "795
-[; ;main.c: 795:     playNote(0x0B, 250);
-[e ( _playNote (2 , -> -> 11 `i `uc -> -> 250 `i `ui ]
-"796
-[; ;main.c: 796:     playNote(0x0C, 250);
-[e ( _playNote (2 , -> -> 12 `i `uc -> -> 250 `i `ui ]
+[; ;main.c: 795:     playNote(0x00, 250);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 250 `i `ui ]
 "797
-[; ;main.c: 797:     playNote(0x0A, 350);
-[e ( _playNote (2 , -> -> 10 `i `uc -> -> 350 `i `ui ]
+[; ;main.c: 797:     playNote(0x0C, 250);
+[e ( _playNote (2 , -> -> 12 `i `uc -> -> 250 `i `ui ]
 "798
-[; ;main.c: 798:     playNote(0x00, 150);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 150 `i `ui ]
+[; ;main.c: 798:     playNote(0x00, 250);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 250 `i `ui ]
 "800
-[; ;main.c: 800:     playNote(0x09, 250);
-[e ( _playNote (2 , -> -> 9 `i `uc -> -> 250 `i `ui ]
+[; ;main.c: 800:     playNote(0x11, 250);
+[e ( _playNote (2 , -> -> 17 `i `uc -> -> 250 `i `ui ]
 "801
-[; ;main.c: 801:     playNote(0x0A, 250);
-[e ( _playNote (2 , -> -> 10 `i `uc -> -> 250 `i `ui ]
-"802
-[; ;main.c: 802:     playNote(0x00, 250);
+[; ;main.c: 801:     playNote(0x00, 250);
 [e ( _playNote (2 , -> -> 0 `i `uc -> -> 250 `i `ui ]
+"803
+[; ;main.c: 803:     playNote(0x0C, 250);
+[e ( _playNote (2 , -> -> 12 `i `uc -> -> 250 `i `ui ]
 "804
-[; ;main.c: 804:     playNote(0x08, 450);
-[e ( _playNote (2 , -> -> 8 `i `uc -> -> 450 `i `ui ]
+[; ;main.c: 804:     playNote(0x11, 250);
+[e ( _playNote (2 , -> -> 17 `i `uc -> -> 250 `i `ui ]
 "805
-[; ;main.c: 805:     playNote(0x00, 550);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 550 `i `ui ]
+[; ;main.c: 805:     playNote(0x00, 250);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 250 `i `ui ]
 "807
-[; ;main.c: 807:     playNote(0x05, 350);
-[e ( _playNote (2 , -> -> 5 `i `uc -> -> 350 `i `ui ]
+[; ;main.c: 807:     playNote(0x0C, 400);
+[e ( _playNote (2 , -> -> 12 `i `uc -> -> 400 `i `ui ]
 "808
-[; ;main.c: 808:     playNote(0x00, 650);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 650 `i `ui ]
+[; ;main.c: 808:     playNote(0x00, 100);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 100 `i `ui ]
+"810
+[; ;main.c: 810:     playNote(0x0B, 250);
+[e ( _playNote (2 , -> -> 11 `i `uc -> -> 250 `i `ui ]
+"811
+[; ;main.c: 811:     playNote(0x0C, 250);
+[e ( _playNote (2 , -> -> 12 `i `uc -> -> 250 `i `ui ]
 "812
-[; ;main.c: 812:     playNote(0x0C, 250);
-[e ( _playNote (2 , -> -> 12 `i `uc -> -> 250 `i `ui ]
-"813
-[; ;main.c: 813:     playNote(0x00, 250);
+[; ;main.c: 812:     playNote(0x00, 250);
 [e ( _playNote (2 , -> -> 0 `i `uc -> -> 250 `i `ui ]
+"814
+[; ;main.c: 814:     playNote(0x0C, 250);
+[e ( _playNote (2 , -> -> 12 `i `uc -> -> 250 `i `ui ]
 "815
-[; ;main.c: 815:     playNote(0x11, 250);
-[e ( _playNote (2 , -> -> 17 `i `uc -> -> 250 `i `ui ]
+[; ;main.c: 815:     playNote(0x0B, 250);
+[e ( _playNote (2 , -> -> 11 `i `uc -> -> 250 `i `ui ]
 "816
-[; ;main.c: 816:     playNote(0x00, 250);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 250 `i `ui ]
-"818
-[; ;main.c: 818:     playNote(0x0C, 250);
+[; ;main.c: 816:     playNote(0x0C, 250);
 [e ( _playNote (2 , -> -> 12 `i `uc -> -> 250 `i `ui ]
-"819
-[; ;main.c: 819:     playNote(0x00, 250);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 250 `i `ui ]
+"817
+[; ;main.c: 817:     playNote(0x0A, 350);
+[e ( _playNote (2 , -> -> 10 `i `uc -> -> 350 `i `ui ]
+"818
+[; ;main.c: 818:     playNote(0x00, 150);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 150 `i `ui ]
+"820
+[; ;main.c: 820:     playNote(0x09, 250);
+[e ( _playNote (2 , -> -> 9 `i `uc -> -> 250 `i `ui ]
 "821
-[; ;main.c: 821:     playNote(0x11, 250);
-[e ( _playNote (2 , -> -> 17 `i `uc -> -> 250 `i `ui ]
+[; ;main.c: 821:     playNote(0x0A, 250);
+[e ( _playNote (2 , -> -> 10 `i `uc -> -> 250 `i `ui ]
 "822
 [; ;main.c: 822:     playNote(0x00, 250);
 [e ( _playNote (2 , -> -> 0 `i `uc -> -> 250 `i `ui ]
 "824
-[; ;main.c: 824:     playNote(0x0C, 250);
-[e ( _playNote (2 , -> -> 12 `i `uc -> -> 250 `i `ui ]
+[; ;main.c: 824:     playNote(0x08, 450);
+[e ( _playNote (2 , -> -> 8 `i `uc -> -> 450 `i `ui ]
 "825
-[; ;main.c: 825:     playNote(0x11, 250);
-[e ( _playNote (2 , -> -> 17 `i `uc -> -> 250 `i `ui ]
-"826
-[; ;main.c: 826:     playNote(0x00, 250);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 250 `i `ui ]
+[; ;main.c: 825:     playNote(0x00, 550);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 550 `i `ui ]
+"827
+[; ;main.c: 827:     playNote(0x05, 350);
+[e ( _playNote (2 , -> -> 5 `i `uc -> -> 350 `i `ui ]
 "828
-[; ;main.c: 828:     playNote(0x0C, 400);
-[e ( _playNote (2 , -> -> 12 `i `uc -> -> 400 `i `ui ]
-"829
-[; ;main.c: 829:     playNote(0x00, 100);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 100 `i `ui ]
-"831
-[; ;main.c: 831:     playNote(0x0B, 250);
-[e ( _playNote (2 , -> -> 11 `i `uc -> -> 250 `i `ui ]
+[; ;main.c: 828:     playNote(0x00, 650);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 650 `i `ui ]
 "832
 [; ;main.c: 832:     playNote(0x0C, 250);
 [e ( _playNote (2 , -> -> 12 `i `uc -> -> 250 `i `ui ]
@@ -2325,38 +2323,41 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 833:     playNote(0x00, 250);
 [e ( _playNote (2 , -> -> 0 `i `uc -> -> 250 `i `ui ]
 "835
-[; ;main.c: 835:     playNote(0x0A, 250);
-[e ( _playNote (2 , -> -> 10 `i `uc -> -> 250 `i `ui ]
+[; ;main.c: 835:     playNote(0x11, 250);
+[e ( _playNote (2 , -> -> 17 `i `uc -> -> 250 `i `ui ]
 "836
 [; ;main.c: 836:     playNote(0x00, 250);
 [e ( _playNote (2 , -> -> 0 `i `uc -> -> 250 `i `ui ]
 "838
-[; ;main.c: 838:     playNote(0x0A, 250);
-[e ( _playNote (2 , -> -> 10 `i `uc -> -> 250 `i `ui ]
+[; ;main.c: 838:     playNote(0x0C, 250);
+[e ( _playNote (2 , -> -> 12 `i `uc -> -> 250 `i `ui ]
 "839
-[; ;main.c: 839:     playNote(0x00, 500);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 500 `i `ui ]
+[; ;main.c: 839:     playNote(0x00, 250);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 250 `i `ui ]
 "841
-[; ;main.c: 841:     playNote(0x0A, 250);
-[e ( _playNote (2 , -> -> 10 `i `uc -> -> 250 `i `ui ]
+[; ;main.c: 841:     playNote(0x11, 250);
+[e ( _playNote (2 , -> -> 17 `i `uc -> -> 250 `i `ui ]
 "842
-[; ;main.c: 842:     playNote(0x0A, 250);
-[e ( _playNote (2 , -> -> 10 `i `uc -> -> 250 `i `ui ]
+[; ;main.c: 842:     playNote(0x00, 250);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 250 `i `ui ]
 "844
-[; ;main.c: 844:     playNote(0x00, 250);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 250 `i `ui ]
+[; ;main.c: 844:     playNote(0x0C, 250);
+[e ( _playNote (2 , -> -> 12 `i `uc -> -> 250 `i `ui ]
+"845
+[; ;main.c: 845:     playNote(0x11, 250);
+[e ( _playNote (2 , -> -> 17 `i `uc -> -> 250 `i `ui ]
 "846
-[; ;main.c: 846:     playNote(0x0F, 250);
-[e ( _playNote (2 , -> -> 15 `i `uc -> -> 250 `i `ui ]
-"847
-[; ;main.c: 847:     playNote(0x00, 250);
+[; ;main.c: 846:     playNote(0x00, 250);
 [e ( _playNote (2 , -> -> 0 `i `uc -> -> 250 `i `ui ]
+"848
+[; ;main.c: 848:     playNote(0x0C, 400);
+[e ( _playNote (2 , -> -> 12 `i `uc -> -> 400 `i `ui ]
 "849
-[; ;main.c: 849:     playNote(0x0D, 250);
-[e ( _playNote (2 , -> -> 13 `i `uc -> -> 250 `i `ui ]
-"850
-[; ;main.c: 850:     playNote(0x00, 250);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 250 `i `ui ]
+[; ;main.c: 849:     playNote(0x00, 100);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 100 `i `ui ]
+"851
+[; ;main.c: 851:     playNote(0x0B, 250);
+[e ( _playNote (2 , -> -> 11 `i `uc -> -> 250 `i `ui ]
 "852
 [; ;main.c: 852:     playNote(0x0C, 250);
 [e ( _playNote (2 , -> -> 12 `i `uc -> -> 250 `i `ui ]
@@ -2369,27 +2370,30 @@ Version 4.0 HI-TECH Software Intermediate Code
 "856
 [; ;main.c: 856:     playNote(0x00, 250);
 [e ( _playNote (2 , -> -> 0 `i `uc -> -> 250 `i `ui ]
+"858
+[; ;main.c: 858:     playNote(0x0A, 250);
+[e ( _playNote (2 , -> -> 10 `i `uc -> -> 250 `i `ui ]
 "859
-[; ;main.c: 859:     playNote(0x0C, 250);
-[e ( _playNote (2 , -> -> 12 `i `uc -> -> 250 `i `ui ]
-"860
-[; ;main.c: 860:     playNote(0x00, 250);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 250 `i `ui ]
+[; ;main.c: 859:     playNote(0x00, 500);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 500 `i `ui ]
+"861
+[; ;main.c: 861:     playNote(0x0A, 250);
+[e ( _playNote (2 , -> -> 10 `i `uc -> -> 250 `i `ui ]
 "862
-[; ;main.c: 862:     playNote(0x11, 250);
-[e ( _playNote (2 , -> -> 17 `i `uc -> -> 250 `i `ui ]
-"863
-[; ;main.c: 863:     playNote(0x00, 250);
+[; ;main.c: 862:     playNote(0x0A, 250);
+[e ( _playNote (2 , -> -> 10 `i `uc -> -> 250 `i `ui ]
+"864
+[; ;main.c: 864:     playNote(0x00, 250);
 [e ( _playNote (2 , -> -> 0 `i `uc -> -> 250 `i `ui ]
 "866
-[; ;main.c: 866:     playNote(0x0C, 250);
-[e ( _playNote (2 , -> -> 12 `i `uc -> -> 250 `i `ui ]
+[; ;main.c: 866:     playNote(0x0F, 250);
+[e ( _playNote (2 , -> -> 15 `i `uc -> -> 250 `i `ui ]
 "867
 [; ;main.c: 867:     playNote(0x00, 250);
 [e ( _playNote (2 , -> -> 0 `i `uc -> -> 250 `i `ui ]
 "869
-[; ;main.c: 869:     playNote(0x11, 250);
-[e ( _playNote (2 , -> -> 17 `i `uc -> -> 250 `i `ui ]
+[; ;main.c: 869:     playNote(0x0D, 250);
+[e ( _playNote (2 , -> -> 13 `i `uc -> -> 250 `i `ui ]
 "870
 [; ;main.c: 870:     playNote(0x00, 250);
 [e ( _playNote (2 , -> -> 0 `i `uc -> -> 250 `i `ui ]
@@ -2397,362 +2401,398 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 872:     playNote(0x0C, 250);
 [e ( _playNote (2 , -> -> 12 `i `uc -> -> 250 `i `ui ]
 "873
-[; ;main.c: 873:     playNote(0x11, 250);
-[e ( _playNote (2 , -> -> 17 `i `uc -> -> 250 `i `ui ]
-"874
-[; ;main.c: 874:     playNote(0x00, 250);
+[; ;main.c: 873:     playNote(0x00, 250);
 [e ( _playNote (2 , -> -> 0 `i `uc -> -> 250 `i `ui ]
-"876
-[; ;main.c: 876:     playNote(0x0C, 500);
-[e ( _playNote (2 , -> -> 12 `i `uc -> -> 500 `i `ui ]
-"879
-[; ;main.c: 879:     playNote(0x0B, 250);
-[e ( _playNote (2 , -> -> 11 `i `uc -> -> 250 `i `ui ]
-"880
-[; ;main.c: 880:     playNote(0x0C, 250);
-[e ( _playNote (2 , -> -> 12 `i `uc -> -> 250 `i `ui ]
-"881
-[; ;main.c: 881:     playNote(0x00, 250);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 250 `i `ui ]
-"883
-[; ;main.c: 883:     playNote(0x0C, 250);
-[e ( _playNote (2 , -> -> 12 `i `uc -> -> 250 `i `ui ]
-"884
-[; ;main.c: 884:     playNote(0x0B, 250);
-[e ( _playNote (2 , -> -> 11 `i `uc -> -> 250 `i `ui ]
-"885
-[; ;main.c: 885:     playNote(0x0C, 250);
-[e ( _playNote (2 , -> -> 12 `i `uc -> -> 250 `i `ui ]
-"886
-[; ;main.c: 886:     playNote(0x0A, 250);
+"875
+[; ;main.c: 875:     playNote(0x0A, 250);
 [e ( _playNote (2 , -> -> 10 `i `uc -> -> 250 `i `ui ]
+"876
+[; ;main.c: 876:     playNote(0x00, 250);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 250 `i `ui ]
+"879
+[; ;main.c: 879:     playNote(0x0C, 250);
+[e ( _playNote (2 , -> -> 12 `i `uc -> -> 250 `i `ui ]
+"880
+[; ;main.c: 880:     playNote(0x00, 250);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 250 `i `ui ]
+"882
+[; ;main.c: 882:     playNote(0x11, 250);
+[e ( _playNote (2 , -> -> 17 `i `uc -> -> 250 `i `ui ]
+"883
+[; ;main.c: 883:     playNote(0x00, 250);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 250 `i `ui ]
+"886
+[; ;main.c: 886:     playNote(0x0C, 250);
+[e ( _playNote (2 , -> -> 12 `i `uc -> -> 250 `i `ui ]
 "887
 [; ;main.c: 887:     playNote(0x00, 250);
 [e ( _playNote (2 , -> -> 0 `i `uc -> -> 250 `i `ui ]
 "889
-[; ;main.c: 889:     playNote(0x09, 250);
-[e ( _playNote (2 , -> -> 9 `i `uc -> -> 250 `i `ui ]
+[; ;main.c: 889:     playNote(0x11, 250);
+[e ( _playNote (2 , -> -> 17 `i `uc -> -> 250 `i `ui ]
 "890
-[; ;main.c: 890:     playNote(0x0A, 250);
-[e ( _playNote (2 , -> -> 10 `i `uc -> -> 250 `i `ui ]
-"891
-[; ;main.c: 891:     playNote(0x00, 250);
+[; ;main.c: 890:     playNote(0x00, 250);
 [e ( _playNote (2 , -> -> 0 `i `uc -> -> 250 `i `ui ]
+"892
+[; ;main.c: 892:     playNote(0x0C, 250);
+[e ( _playNote (2 , -> -> 12 `i `uc -> -> 250 `i `ui ]
 "893
-[; ;main.c: 893:     playNote(0x08, 250);
-[e ( _playNote (2 , -> -> 8 `i `uc -> -> 250 `i `ui ]
+[; ;main.c: 893:     playNote(0x11, 250);
+[e ( _playNote (2 , -> -> 17 `i `uc -> -> 250 `i `ui ]
 "894
-[; ;main.c: 894:     playNote(0x00, 750);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 750 `i `ui ]
+[; ;main.c: 894:     playNote(0x00, 250);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 250 `i `ui ]
 "896
-[; ;main.c: 896:     playNote(0x05, 250);
-[e ( _playNote (2 , -> -> 5 `i `uc -> -> 250 `i `ui ]
-"897
-[; ;main.c: 897:     playNote(0x00, 750);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 750 `i `ui ]
+[; ;main.c: 896:     playNote(0x0C, 500);
+[e ( _playNote (2 , -> -> 12 `i `uc -> -> 500 `i `ui ]
 "899
-[; ;main.c: 899:     playNote(0x05, 250);
-[e ( _playNote (2 , -> -> 5 `i `uc -> -> 250 `i `ui ]
+[; ;main.c: 899:     playNote(0x0B, 250);
+[e ( _playNote (2 , -> -> 11 `i `uc -> -> 250 `i `ui ]
 "900
-[; ;main.c: 900:     playNote(0x00, 750);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 750 `i `ui ]
-"902
-[; ;main.c: 902:     playNote(0x08, 250);
-[e ( _playNote (2 , -> -> 8 `i `uc -> -> 250 `i `ui ]
+[; ;main.c: 900:     playNote(0x0C, 250);
+[e ( _playNote (2 , -> -> 12 `i `uc -> -> 250 `i `ui ]
+"901
+[; ;main.c: 901:     playNote(0x00, 250);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 250 `i `ui ]
 "903
-[; ;main.c: 903:     playNote(0x00, 750);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 750 `i `ui ]
+[; ;main.c: 903:     playNote(0x0C, 250);
+[e ( _playNote (2 , -> -> 12 `i `uc -> -> 250 `i `ui ]
+"904
+[; ;main.c: 904:     playNote(0x0B, 250);
+[e ( _playNote (2 , -> -> 11 `i `uc -> -> 250 `i `ui ]
 "905
 [; ;main.c: 905:     playNote(0x0C, 250);
 [e ( _playNote (2 , -> -> 12 `i `uc -> -> 250 `i `ui ]
 "906
-[; ;main.c: 906:     playNote(0x00, 750);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 750 `i `ui ]
-"908
-[; ;main.c: 908:     playNote(0x0F, 250);
-[e ( _playNote (2 , -> -> 15 `i `uc -> -> 250 `i `ui ]
+[; ;main.c: 906:     playNote(0x0A, 250);
+[e ( _playNote (2 , -> -> 10 `i `uc -> -> 250 `i `ui ]
+"907
+[; ;main.c: 907:     playNote(0x00, 250);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 250 `i `ui ]
 "909
-[; ;main.c: 909:     playNote(0x00, 750);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 750 `i `ui ]
+[; ;main.c: 909:     playNote(0x09, 250);
+[e ( _playNote (2 , -> -> 9 `i `uc -> -> 250 `i `ui ]
+"910
+[; ;main.c: 910:     playNote(0x0A, 250);
+[e ( _playNote (2 , -> -> 10 `i `uc -> -> 250 `i `ui ]
 "911
-[; ;main.c: 911:     playNote(0x12, 250);
-[e ( _playNote (2 , -> -> 18 `i `uc -> -> 250 `i `ui ]
-"912
-[; ;main.c: 912:     playNote(0x00, 250);
+[; ;main.c: 911:     playNote(0x00, 250);
 [e ( _playNote (2 , -> -> 0 `i `uc -> -> 250 `i `ui ]
+"913
+[; ;main.c: 913:     playNote(0x08, 250);
+[e ( _playNote (2 , -> -> 8 `i `uc -> -> 250 `i `ui ]
 "914
-[; ;main.c: 914:     playNote(0x11, 250);
-[e ( _playNote (2 , -> -> 17 `i `uc -> -> 250 `i `ui ]
-"915
-[; ;main.c: 915:     playNote(0x00, 250);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 250 `i `ui ]
+[; ;main.c: 914:     playNote(0x00, 750);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 750 `i `ui ]
+"916
+[; ;main.c: 916:     playNote(0x05, 250);
+[e ( _playNote (2 , -> -> 5 `i `uc -> -> 250 `i `ui ]
 "917
-[; ;main.c: 917:     playNote(0x0B, 250);
-[e ( _playNote (2 , -> -> 11 `i `uc -> -> 250 `i `ui ]
-"918
-[; ;main.c: 918:     playNote(0x0C, 250);
-[e ( _playNote (2 , -> -> 12 `i `uc -> -> 250 `i `ui ]
+[; ;main.c: 917:     playNote(0x00, 750);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 750 `i `ui ]
 "919
-[; ;main.c: 919:     playNote(0x00, 250);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 250 `i `ui ]
-"921
-[; ;main.c: 921:     playNote(0x08, 500);
-[e ( _playNote (2 , -> -> 8 `i `uc -> -> 500 `i `ui ]
+[; ;main.c: 919:     playNote(0x05, 250);
+[e ( _playNote (2 , -> -> 5 `i `uc -> -> 250 `i `ui ]
+"920
+[; ;main.c: 920:     playNote(0x00, 750);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 750 `i `ui ]
 "922
-[; ;main.c: 922:     playNote(0x00, 250);
+[; ;main.c: 922:     playNote(0x08, 250);
+[e ( _playNote (2 , -> -> 8 `i `uc -> -> 250 `i `ui ]
+"923
+[; ;main.c: 923:     playNote(0x00, 750);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 750 `i `ui ]
+"925
+[; ;main.c: 925:     playNote(0x0C, 250);
+[e ( _playNote (2 , -> -> 12 `i `uc -> -> 250 `i `ui ]
+"926
+[; ;main.c: 926:     playNote(0x00, 750);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 750 `i `ui ]
+"928
+[; ;main.c: 928:     playNote(0x0F, 250);
+[e ( _playNote (2 , -> -> 15 `i `uc -> -> 250 `i `ui ]
+"929
+[; ;main.c: 929:     playNote(0x00, 750);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 750 `i `ui ]
+"931
+[; ;main.c: 931:     playNote(0x12, 250);
+[e ( _playNote (2 , -> -> 18 `i `uc -> -> 250 `i `ui ]
+"932
+[; ;main.c: 932:     playNote(0x00, 250);
 [e ( _playNote (2 , -> -> 0 `i `uc -> -> 250 `i `ui ]
-"924
-[; ;main.c: 924: }
+"934
+[; ;main.c: 934:     playNote(0x11, 250);
+[e ( _playNote (2 , -> -> 17 `i `uc -> -> 250 `i `ui ]
+"935
+[; ;main.c: 935:     playNote(0x00, 250);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 250 `i `ui ]
+"937
+[; ;main.c: 937:     playNote(0x0B, 250);
+[e ( _playNote (2 , -> -> 11 `i `uc -> -> 250 `i `ui ]
+"938
+[; ;main.c: 938:     playNote(0x0C, 250);
+[e ( _playNote (2 , -> -> 12 `i `uc -> -> 250 `i `ui ]
+"939
+[; ;main.c: 939:     playNote(0x00, 250);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 250 `i `ui ]
+"941
+[; ;main.c: 941:     playNote(0x08, 500);
+[e ( _playNote (2 , -> -> 8 `i `uc -> -> 500 `i `ui ]
+"942
+[; ;main.c: 942:     playNote(0x00, 250);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 250 `i `ui ]
+"944
+[; ;main.c: 944: }
 [e :UE 530 ]
 }
-"928
-[; ;main.c: 928: void gargoyles(void) {
+"948
+[; ;main.c: 948: void gargoyles(void) {
 [v _gargoyles `(v ~T0 @X0 1 ef ]
 {
 [e :U _gargoyles ]
 [f ]
-"929
-[; ;main.c: 929:     playNote(0x12, 1598);
-[e ( _playNote (2 , -> -> 18 `i `uc -> -> 1598 `i `ui ]
-"930
-[; ;main.c: 930:     playNote(0x10, 398);
-[e ( _playNote (2 , -> -> 16 `i `uc -> -> 398 `i `ui ]
-"931
-[; ;main.c: 931:     playNote(0x0E, 398);
-[e ( _playNote (2 , -> -> 14 `i `uc -> -> 398 `i `ui ]
-"932
-[; ;main.c: 932:     playNote(0x0D, 398);
-[e ( _playNote (2 , -> -> 13 `i `uc -> -> 398 `i `ui ]
-"933
-[; ;main.c: 933:     playNote(0x0B, 398);
-[e ( _playNote (2 , -> -> 11 `i `uc -> -> 398 `i `ui ]
-"934
-[; ;main.c: 934:     playNote(0x13, 1988);
-[e ( _playNote (2 , -> -> 19 `i `uc -> -> 1988 `i `ui ]
-"935
-[; ;main.c: 935:     playNote(0x12, 198);
-[e ( _playNote (2 , -> -> 18 `i `uc -> -> 198 `i `ui ]
-"936
-[; ;main.c: 936:     playNote(0x10, 198);
-[e ( _playNote (2 , -> -> 16 `i `uc -> -> 198 `i `ui ]
-"937
-[; ;main.c: 937:     playNote(0x0D, 1465);
-[e ( _playNote (2 , -> -> 13 `i `uc -> -> 1465 `i `ui ]
-"938
-[; ;main.c: 938:     playNote(0x00, 133);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 133 `i `ui ]
-"939
-[; ;main.c: 939:     playNote(0x12, 1598);
-[e ( _playNote (2 , -> -> 18 `i `uc -> -> 1598 `i `ui ]
-"940
-[; ;main.c: 940:     playNote(0x0E, 398);
-[e ( _playNote (2 , -> -> 14 `i `uc -> -> 398 `i `ui ]
-"941
-[; ;main.c: 941:     playNote(0x10, 398);
-[e ( _playNote (2 , -> -> 16 `i `uc -> -> 398 `i `ui ]
-"942
-[; ;main.c: 942:     playNote(0x12, 398);
-[e ( _playNote (2 , -> -> 18 `i `uc -> -> 398 `i `ui ]
-"943
-[; ;main.c: 943:     playNote(0x10, 398);
-[e ( _playNote (2 , -> -> 16 `i `uc -> -> 398 `i `ui ]
-"944
-[; ;main.c: 944:     playNote(0x10, 798);
-[e ( _playNote (2 , -> -> 16 `i `uc -> -> 798 `i `ui ]
-"945
-[; ;main.c: 945:     playNote(0x13, 798);
-[e ( _playNote (2 , -> -> 19 `i `uc -> -> 798 `i `ui ]
-"946
-[; ;main.c: 946:     playNote(0x16, 1465);
-[e ( _playNote (2 , -> -> 22 `i `uc -> -> 1465 `i `ui ]
-"947
-[; ;main.c: 947:     playNote(0x00, 133);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 133 `i `ui ]
-"948
-[; ;main.c: 948:     playNote(0x0B, 1598);
-[e ( _playNote (2 , -> -> 11 `i `uc -> -> 1598 `i `ui ]
 "949
-[; ;main.c: 949:     playNote(0x0B, 398);
-[e ( _playNote (2 , -> -> 11 `i `uc -> -> 398 `i `ui ]
+[; ;main.c: 949:     playNote(0x12, 1598);
+[e ( _playNote (2 , -> -> 18 `i `uc -> -> 1598 `i `ui ]
 "950
-[; ;main.c: 950:     playNote(0x0D, 398);
-[e ( _playNote (2 , -> -> 13 `i `uc -> -> 398 `i `ui ]
+[; ;main.c: 950:     playNote(0x10, 398);
+[e ( _playNote (2 , -> -> 16 `i `uc -> -> 398 `i `ui ]
 "951
 [; ;main.c: 951:     playNote(0x0E, 398);
 [e ( _playNote (2 , -> -> 14 `i `uc -> -> 398 `i `ui ]
 "952
-[; ;main.c: 952:     playNote(0x0B, 398);
-[e ( _playNote (2 , -> -> 11 `i `uc -> -> 398 `i `ui ]
+[; ;main.c: 952:     playNote(0x0D, 398);
+[e ( _playNote (2 , -> -> 13 `i `uc -> -> 398 `i `ui ]
 "953
-[; ;main.c: 953:     playNote(0x10, 798);
-[e ( _playNote (2 , -> -> 16 `i `uc -> -> 798 `i `ui ]
+[; ;main.c: 953:     playNote(0x0B, 398);
+[e ( _playNote (2 , -> -> 11 `i `uc -> -> 398 `i `ui ]
 "954
-[; ;main.c: 954:     playNote(0x13, 798);
-[e ( _playNote (2 , -> -> 19 `i `uc -> -> 798 `i `ui ]
+[; ;main.c: 954:     playNote(0x13, 1988);
+[e ( _playNote (2 , -> -> 19 `i `uc -> -> 1988 `i `ui ]
 "955
-[; ;main.c: 955:     playNote(0x12, 798);
-[e ( _playNote (2 , -> -> 18 `i `uc -> -> 798 `i `ui ]
+[; ;main.c: 955:     playNote(0x12, 198);
+[e ( _playNote (2 , -> -> 18 `i `uc -> -> 198 `i `ui ]
 "956
-[; ;main.c: 956:     playNote(0x16, 798);
-[e ( _playNote (2 , -> -> 22 `i `uc -> -> 798 `i `ui ]
+[; ;main.c: 956:     playNote(0x10, 198);
+[e ( _playNote (2 , -> -> 16 `i `uc -> -> 198 `i `ui ]
 "957
-[; ;main.c: 957:     playNote(0x17, 1598);
-[e ( _playNote (2 , -> -> 23 `i `uc -> -> 1598 `i `ui ]
+[; ;main.c: 957:     playNote(0x0D, 1465);
+[e ( _playNote (2 , -> -> 13 `i `uc -> -> 1465 `i `ui ]
 "958
-[; ;main.c: 958: }
+[; ;main.c: 958:     playNote(0x00, 133);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 133 `i `ui ]
+"959
+[; ;main.c: 959:     playNote(0x12, 1598);
+[e ( _playNote (2 , -> -> 18 `i `uc -> -> 1598 `i `ui ]
+"960
+[; ;main.c: 960:     playNote(0x0E, 398);
+[e ( _playNote (2 , -> -> 14 `i `uc -> -> 398 `i `ui ]
+"961
+[; ;main.c: 961:     playNote(0x10, 398);
+[e ( _playNote (2 , -> -> 16 `i `uc -> -> 398 `i `ui ]
+"962
+[; ;main.c: 962:     playNote(0x12, 398);
+[e ( _playNote (2 , -> -> 18 `i `uc -> -> 398 `i `ui ]
+"963
+[; ;main.c: 963:     playNote(0x10, 398);
+[e ( _playNote (2 , -> -> 16 `i `uc -> -> 398 `i `ui ]
+"964
+[; ;main.c: 964:     playNote(0x10, 798);
+[e ( _playNote (2 , -> -> 16 `i `uc -> -> 798 `i `ui ]
+"965
+[; ;main.c: 965:     playNote(0x13, 798);
+[e ( _playNote (2 , -> -> 19 `i `uc -> -> 798 `i `ui ]
+"966
+[; ;main.c: 966:     playNote(0x16, 1465);
+[e ( _playNote (2 , -> -> 22 `i `uc -> -> 1465 `i `ui ]
+"967
+[; ;main.c: 967:     playNote(0x00, 133);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 133 `i `ui ]
+"968
+[; ;main.c: 968:     playNote(0x0B, 1598);
+[e ( _playNote (2 , -> -> 11 `i `uc -> -> 1598 `i `ui ]
+"969
+[; ;main.c: 969:     playNote(0x0B, 398);
+[e ( _playNote (2 , -> -> 11 `i `uc -> -> 398 `i `ui ]
+"970
+[; ;main.c: 970:     playNote(0x0D, 398);
+[e ( _playNote (2 , -> -> 13 `i `uc -> -> 398 `i `ui ]
+"971
+[; ;main.c: 971:     playNote(0x0E, 398);
+[e ( _playNote (2 , -> -> 14 `i `uc -> -> 398 `i `ui ]
+"972
+[; ;main.c: 972:     playNote(0x0B, 398);
+[e ( _playNote (2 , -> -> 11 `i `uc -> -> 398 `i `ui ]
+"973
+[; ;main.c: 973:     playNote(0x10, 798);
+[e ( _playNote (2 , -> -> 16 `i `uc -> -> 798 `i `ui ]
+"974
+[; ;main.c: 974:     playNote(0x13, 798);
+[e ( _playNote (2 , -> -> 19 `i `uc -> -> 798 `i `ui ]
+"975
+[; ;main.c: 975:     playNote(0x12, 798);
+[e ( _playNote (2 , -> -> 18 `i `uc -> -> 798 `i `ui ]
+"976
+[; ;main.c: 976:     playNote(0x16, 798);
+[e ( _playNote (2 , -> -> 22 `i `uc -> -> 798 `i `ui ]
+"977
+[; ;main.c: 977:     playNote(0x17, 1598);
+[e ( _playNote (2 , -> -> 23 `i `uc -> -> 1598 `i `ui ]
+"978
+[; ;main.c: 978: }
 [e :UE 531 ]
 }
-"962
-[; ;main.c: 962: void sheRa(void) {
+"982
+[; ;main.c: 982: void sheRa(void) {
 [v _sheRa `(v ~T0 @X0 1 ef ]
 {
 [e :U _sheRa ]
 [f ]
-"963
-[; ;main.c: 963:     playNote(0x0B, 216);
-[e ( _playNote (2 , -> -> 11 `i `uc -> -> 216 `i `ui ]
-"964
-[; ;main.c: 964:     playNote(0x0D, 216);
-[e ( _playNote (2 , -> -> 13 `i `uc -> -> 216 `i `ui ]
-"965
-[; ;main.c: 965:     playNote(0x0E, 433);
-[e ( _playNote (2 , -> -> 14 `i `uc -> -> 433 `i `ui ]
-"966
-[; ;main.c: 966:     playNote(0x12, 444);
-[e ( _playNote (2 , -> -> 18 `i `uc -> -> 444 `i `ui ]
-"967
-[; ;main.c: 967:     playNote(0x13, 651);
-[e ( _playNote (2 , -> -> 19 `i `uc -> -> 651 `i `ui ]
-"968
-[; ;main.c: 968:     playNote(0x12, 107);
-[e ( _playNote (2 , -> -> 18 `i `uc -> -> 107 `i `ui ]
-"969
-[; ;main.c: 969:     playNote(0x10, 107);
-[e ( _playNote (2 , -> -> 16 `i `uc -> -> 107 `i `ui ]
-"970
-[; ;main.c: 970:     playNote(0x12, 868);
-[e ( _playNote (2 , -> -> 18 `i `uc -> -> 868 `i `ui ]
-"971
-[; ;main.c: 971:     playNote(0x00, 433);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 433 `i `ui ]
-"972
-[; ;main.c: 972:     playNote(0x0B, 216);
-[e ( _playNote (2 , -> -> 11 `i `uc -> -> 216 `i `ui ]
-"973
-[; ;main.c: 973:     playNote(0x0D, 216);
-[e ( _playNote (2 , -> -> 13 `i `uc -> -> 216 `i `ui ]
-"974
-[; ;main.c: 974:     playNote(0x0E, 433);
-[e ( _playNote (2 , -> -> 14 `i `uc -> -> 433 `i `ui ]
-"975
-[; ;main.c: 975:     playNote(0x12, 433);
-[e ( _playNote (2 , -> -> 18 `i `uc -> -> 433 `i `ui ]
-"976
-[; ;main.c: 976:     playNote(0x17, 433);
-[e ( _playNote (2 , -> -> 23 `i `uc -> -> 433 `i `ui ]
-"977
-[; ;main.c: 977:     playNote(0x15, 433);
-[e ( _playNote (2 , -> -> 21 `i `uc -> -> 433 `i `ui ]
-"978
-[; ;main.c: 978:     playNote(0x12, 868);
-[e ( _playNote (2 , -> -> 18 `i `uc -> -> 868 `i `ui ]
-"979
-[; ;main.c: 979:     playNote(0x00, 433);
-[e ( _playNote (2 , -> -> 0 `i `uc -> -> 433 `i `ui ]
-"980
-[; ;main.c: 980:     playNote(0x0B, 216);
-[e ( _playNote (2 , -> -> 11 `i `uc -> -> 216 `i `ui ]
-"981
-[; ;main.c: 981:     playNote(0x0D, 216);
-[e ( _playNote (2 , -> -> 13 `i `uc -> -> 216 `i `ui ]
-"982
-[; ;main.c: 982:     playNote(0x0E, 433);
-[e ( _playNote (2 , -> -> 14 `i `uc -> -> 433 `i `ui ]
 "983
-[; ;main.c: 983:     playNote(0x12, 433);
-[e ( _playNote (2 , -> -> 18 `i `uc -> -> 433 `i `ui ]
+[; ;main.c: 983:     playNote(0x0B, 216);
+[e ( _playNote (2 , -> -> 11 `i `uc -> -> 216 `i `ui ]
 "984
-[; ;main.c: 984:     playNote(0x13, 651);
-[e ( _playNote (2 , -> -> 19 `i `uc -> -> 651 `i `ui ]
+[; ;main.c: 984:     playNote(0x0D, 216);
+[e ( _playNote (2 , -> -> 13 `i `uc -> -> 216 `i `ui ]
 "985
-[; ;main.c: 985:     playNote(0x12, 107);
-[e ( _playNote (2 , -> -> 18 `i `uc -> -> 107 `i `ui ]
+[; ;main.c: 985:     playNote(0x0E, 433);
+[e ( _playNote (2 , -> -> 14 `i `uc -> -> 433 `i `ui ]
 "986
-[; ;main.c: 986:     playNote(0x10, 107);
-[e ( _playNote (2 , -> -> 16 `i `uc -> -> 107 `i `ui ]
+[; ;main.c: 986:     playNote(0x12, 444);
+[e ( _playNote (2 , -> -> 18 `i `uc -> -> 444 `i `ui ]
 "987
-[; ;main.c: 987:     playNote(0x12, 868);
-[e ( _playNote (2 , -> -> 18 `i `uc -> -> 868 `i `ui ]
+[; ;main.c: 987:     playNote(0x13, 651);
+[e ( _playNote (2 , -> -> 19 `i `uc -> -> 651 `i `ui ]
 "988
-[; ;main.c: 988:     playNote(0x13, 325);
-[e ( _playNote (2 , -> -> 19 `i `uc -> -> 325 `i `ui ]
+[; ;main.c: 988:     playNote(0x12, 107);
+[e ( _playNote (2 , -> -> 18 `i `uc -> -> 107 `i `ui ]
 "989
-[; ;main.c: 989:     playNote(0x12, 325);
-[e ( _playNote (2 , -> -> 18 `i `uc -> -> 325 `i `ui ]
-"990
-[; ;main.c: 990:     playNote(0x13, 216);
-[e ( _playNote (2 , -> -> 19 `i `uc -> -> 216 `i `ui ]
-"991
-[; ;main.c: 991:     playNote(0x15, 651);
-[e ( _playNote (2 , -> -> 21 `i `uc -> -> 651 `i `ui ]
-"992
-[; ;main.c: 992:     playNote(0x12, 98);
-[e ( _playNote (2 , -> -> 18 `i `uc -> -> 98 `i `ui ]
-"993
-[; ;main.c: 993:     playNote(0x10, 107);
+[; ;main.c: 989:     playNote(0x10, 107);
 [e ( _playNote (2 , -> -> 16 `i `uc -> -> 107 `i `ui ]
-"994
-[; ;main.c: 994:     playNote(0x10, 1738);
-[e ( _playNote (2 , -> -> 16 `i `uc -> -> 1738 `i `ui ]
-"995
-[; ;main.c: 995:     playNote(0x00, 433);
+"990
+[; ;main.c: 990:     playNote(0x12, 868);
+[e ( _playNote (2 , -> -> 18 `i `uc -> -> 868 `i `ui ]
+"991
+[; ;main.c: 991:     playNote(0x00, 433);
 [e ( _playNote (2 , -> -> 0 `i `uc -> -> 433 `i `ui ]
+"992
+[; ;main.c: 992:     playNote(0x0B, 216);
+[e ( _playNote (2 , -> -> 11 `i `uc -> -> 216 `i `ui ]
+"993
+[; ;main.c: 993:     playNote(0x0D, 216);
+[e ( _playNote (2 , -> -> 13 `i `uc -> -> 216 `i `ui ]
+"994
+[; ;main.c: 994:     playNote(0x0E, 433);
+[e ( _playNote (2 , -> -> 14 `i `uc -> -> 433 `i `ui ]
+"995
+[; ;main.c: 995:     playNote(0x12, 433);
+[e ( _playNote (2 , -> -> 18 `i `uc -> -> 433 `i `ui ]
 "996
-[; ;main.c: 996:     playNote(0x14, 216);
-[e ( _playNote (2 , -> -> 20 `i `uc -> -> 216 `i `ui ]
-"997
-[; ;main.c: 997:     playNote(0x16, 216);
-[e ( _playNote (2 , -> -> 22 `i `uc -> -> 216 `i `ui ]
-"998
-[; ;main.c: 998:     playNote(0x17, 433);
+[; ;main.c: 996:     playNote(0x17, 433);
 [e ( _playNote (2 , -> -> 23 `i `uc -> -> 433 `i `ui ]
+"997
+[; ;main.c: 997:     playNote(0x15, 433);
+[e ( _playNote (2 , -> -> 21 `i `uc -> -> 433 `i `ui ]
+"998
+[; ;main.c: 998:     playNote(0x12, 868);
+[e ( _playNote (2 , -> -> 18 `i `uc -> -> 868 `i `ui ]
 "999
-[; ;main.c: 999:     playNote(0x1B, 433);
-[e ( _playNote (2 , -> -> 27 `i `uc -> -> 433 `i `ui ]
+[; ;main.c: 999:     playNote(0x00, 433);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 433 `i `ui ]
 "1000
-[; ;main.c: 1000:     playNote(0x1C, 651);
-[e ( _playNote (2 , -> -> 28 `i `uc -> -> 651 `i `ui ]
+[; ;main.c: 1000:     playNote(0x0B, 216);
+[e ( _playNote (2 , -> -> 11 `i `uc -> -> 216 `i `ui ]
 "1001
-[; ;main.c: 1001:     playNote(0x1B, 107);
-[e ( _playNote (2 , -> -> 27 `i `uc -> -> 107 `i `ui ]
+[; ;main.c: 1001:     playNote(0x0D, 216);
+[e ( _playNote (2 , -> -> 13 `i `uc -> -> 216 `i `ui ]
 "1002
-[; ;main.c: 1002:     playNote(0x19, 107);
-[e ( _playNote (2 , -> -> 25 `i `uc -> -> 107 `i `ui ]
+[; ;main.c: 1002:     playNote(0x0E, 433);
+[e ( _playNote (2 , -> -> 14 `i `uc -> -> 433 `i `ui ]
 "1003
-[; ;main.c: 1003:     playNote(0x1B, 868);
-[e ( _playNote (2 , -> -> 27 `i `uc -> -> 868 `i `ui ]
+[; ;main.c: 1003:     playNote(0x12, 433);
+[e ( _playNote (2 , -> -> 18 `i `uc -> -> 433 `i `ui ]
 "1004
-[; ;main.c: 1004:     playNote(0x1C, 325);
-[e ( _playNote (2 , -> -> 28 `i `uc -> -> 325 `i `ui ]
+[; ;main.c: 1004:     playNote(0x13, 651);
+[e ( _playNote (2 , -> -> 19 `i `uc -> -> 651 `i `ui ]
 "1005
-[; ;main.c: 1005:     playNote(0x1B, 325);
-[e ( _playNote (2 , -> -> 27 `i `uc -> -> 325 `i `ui ]
+[; ;main.c: 1005:     playNote(0x12, 107);
+[e ( _playNote (2 , -> -> 18 `i `uc -> -> 107 `i `ui ]
 "1006
-[; ;main.c: 1006:     playNote(0x1C, 216);
-[e ( _playNote (2 , -> -> 28 `i `uc -> -> 216 `i `ui ]
+[; ;main.c: 1006:     playNote(0x10, 107);
+[e ( _playNote (2 , -> -> 16 `i `uc -> -> 107 `i `ui ]
 "1007
-[; ;main.c: 1007:     playNote(0x1E, 651);
-[e ( _playNote (2 , -> -> 30 `i `uc -> -> 651 `i `ui ]
+[; ;main.c: 1007:     playNote(0x12, 868);
+[e ( _playNote (2 , -> -> 18 `i `uc -> -> 868 `i `ui ]
 "1008
-[; ;main.c: 1008:     playNote(0x20, 107);
-[e ( _playNote (2 , -> -> 32 `i `uc -> -> 107 `i `ui ]
+[; ;main.c: 1008:     playNote(0x13, 325);
+[e ( _playNote (2 , -> -> 19 `i `uc -> -> 325 `i `ui ]
 "1009
-[; ;main.c: 1009:     playNote(0x22, 107);
-[e ( _playNote (2 , -> -> 34 `i `uc -> -> 107 `i `ui ]
+[; ;main.c: 1009:     playNote(0x12, 325);
+[e ( _playNote (2 , -> -> 18 `i `uc -> -> 325 `i `ui ]
 "1010
-[; ;main.c: 1010:     playNote(0x23, 1738);
-[e ( _playNote (2 , -> -> 35 `i `uc -> -> 1738 `i `ui ]
+[; ;main.c: 1010:     playNote(0x13, 216);
+[e ( _playNote (2 , -> -> 19 `i `uc -> -> 216 `i `ui ]
 "1011
-[; ;main.c: 1011: }
+[; ;main.c: 1011:     playNote(0x15, 651);
+[e ( _playNote (2 , -> -> 21 `i `uc -> -> 651 `i `ui ]
+"1012
+[; ;main.c: 1012:     playNote(0x12, 98);
+[e ( _playNote (2 , -> -> 18 `i `uc -> -> 98 `i `ui ]
+"1013
+[; ;main.c: 1013:     playNote(0x10, 107);
+[e ( _playNote (2 , -> -> 16 `i `uc -> -> 107 `i `ui ]
+"1014
+[; ;main.c: 1014:     playNote(0x10, 1738);
+[e ( _playNote (2 , -> -> 16 `i `uc -> -> 1738 `i `ui ]
+"1015
+[; ;main.c: 1015:     playNote(0x00, 433);
+[e ( _playNote (2 , -> -> 0 `i `uc -> -> 433 `i `ui ]
+"1016
+[; ;main.c: 1016:     playNote(0x14, 216);
+[e ( _playNote (2 , -> -> 20 `i `uc -> -> 216 `i `ui ]
+"1017
+[; ;main.c: 1017:     playNote(0x16, 216);
+[e ( _playNote (2 , -> -> 22 `i `uc -> -> 216 `i `ui ]
+"1018
+[; ;main.c: 1018:     playNote(0x17, 433);
+[e ( _playNote (2 , -> -> 23 `i `uc -> -> 433 `i `ui ]
+"1019
+[; ;main.c: 1019:     playNote(0x1B, 433);
+[e ( _playNote (2 , -> -> 27 `i `uc -> -> 433 `i `ui ]
+"1020
+[; ;main.c: 1020:     playNote(0x1C, 651);
+[e ( _playNote (2 , -> -> 28 `i `uc -> -> 651 `i `ui ]
+"1021
+[; ;main.c: 1021:     playNote(0x1B, 107);
+[e ( _playNote (2 , -> -> 27 `i `uc -> -> 107 `i `ui ]
+"1022
+[; ;main.c: 1022:     playNote(0x19, 107);
+[e ( _playNote (2 , -> -> 25 `i `uc -> -> 107 `i `ui ]
+"1023
+[; ;main.c: 1023:     playNote(0x1B, 868);
+[e ( _playNote (2 , -> -> 27 `i `uc -> -> 868 `i `ui ]
+"1024
+[; ;main.c: 1024:     playNote(0x1C, 325);
+[e ( _playNote (2 , -> -> 28 `i `uc -> -> 325 `i `ui ]
+"1025
+[; ;main.c: 1025:     playNote(0x1B, 325);
+[e ( _playNote (2 , -> -> 27 `i `uc -> -> 325 `i `ui ]
+"1026
+[; ;main.c: 1026:     playNote(0x1C, 216);
+[e ( _playNote (2 , -> -> 28 `i `uc -> -> 216 `i `ui ]
+"1027
+[; ;main.c: 1027:     playNote(0x1E, 651);
+[e ( _playNote (2 , -> -> 30 `i `uc -> -> 651 `i `ui ]
+"1028
+[; ;main.c: 1028:     playNote(0x20, 107);
+[e ( _playNote (2 , -> -> 32 `i `uc -> -> 107 `i `ui ]
+"1029
+[; ;main.c: 1029:     playNote(0x22, 107);
+[e ( _playNote (2 , -> -> 34 `i `uc -> -> 107 `i `ui ]
+"1030
+[; ;main.c: 1030:     playNote(0x23, 1738);
+[e ( _playNote (2 , -> -> 35 `i `uc -> -> 1738 `i `ui ]
+"1031
+[; ;main.c: 1031: }
 [e :UE 532 ]
 }
