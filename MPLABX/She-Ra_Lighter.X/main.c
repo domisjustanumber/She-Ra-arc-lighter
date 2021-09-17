@@ -520,22 +520,25 @@ void letsCharge(void) {
     unsigned char chargeCycle = 0; // We'll use this to toggle the charge LEDs on and off
     unsigned int adcVolts = 0; // Reads the temporary value read from the ADC
 
+    // We're going to measure the fixed 1.024v internal reference against VDD (the battery voltage)
+    // As we know the range is 0-1023 and we know what the fixed value is, we can calculate VDD
+
+    // Set up the internal Fixed Voltage Reference
+    FVRCONbits.ADFVR = 0b01; // Set FVR to 1x (1.024V)
+    FVRCONbits.FVREN = 1; // Enable internal fixed voltage reference
+
     // Each chip has it's own calibration value for the internal fixed reference voltage
     // Read this calibration value in mV so we can accurately measure battery voltage against it
     NVMCON1bits.NVMREGS = 1; // We want to read the DIA calibration bits from NVM
-    NVMADR = 0x8118; // The address of the FVR1 calibration value in the NVM DIA
+    NVMADR = 0x8118; // The address of the FVR 1x calibration value in the NVM DIA
     NVMCON1bits.RD = 1; // Start the read
-    calibrationMV = NVMADR; // This should now contain the value we read
+    calibrationMV = NVMADR; // This should now contain the calibrated FVR 1x value
     NVMCON1bits.NVMREGS = 0; // Go back to reading usual registers
-
-    // We're going to invert how this works:
-    // We're going to measure the fixed 1.024v internal reference against VDD (the battery voltage)
-    // As we know the range is 0-1023 and we know what the fixed value is, we can calculate VDD
 
     // Set up the ADC
     ADCON1bits.CS = 0b110; // Convert at FOSC/64 speed (still way faster than we  at 2us)
     ADCON1bits.PREF = 0b00; // Use VDD as the voltage reference
-    ADCON0bits.CHS = 0b011110; // Connect the 1.024v FVR to the ADC
+    ADCON0bits.CHS = 0b011110; // Connect the FVR to the ADC
     ADCON1bits.FM = 1; // Right-align the 10 reading bits in the 16 bit register
     ADACT = 0x0; // Disable the auto-conversion trigger (interrupt generator?)
 
