@@ -5553,8 +5553,7 @@ extern __bank0 __bit __timeout;
 
 #pragma config STVREN = ON
 #pragma config BORV = LO
-#pragma config LVP = OFF
-# 166 "main.c"
+# 165 "main.c"
 const unsigned char notes[36] = {
     0xED, 0xE0, 0xD3, 0xC7, 0xBD, 0xB2, 0xA8, 0x9E, 0x96, 0x8D, 0x85, 0x7D,
     0x76, 0x70, 0x6A, 0x63, 0x5E, 0x59, 0x54, 0x4F, 0x4B, 0x46, 0x42, 0x3F,
@@ -5575,14 +5574,14 @@ unsigned int playIndex = 0;
 unsigned int genericDelay = 0;
 
 unsigned char runIndex = 0;
-unsigned char eeMagicByte = 0;
+unsigned long calibrationMV = 0;
 
 
 void doTheArc(void);
 void blockingDelay(unsigned int mSecs);
 void playNote(unsigned char note, unsigned int duration);
 void goToLPmode(unsigned char sleepy);
-void letsCharge(void);
+void showCharge(void);
 
 void imperialMarch(void);
 void cantinaBand(void);
@@ -5607,7 +5606,7 @@ int main(int argc, char** argv) {
 
 
     ANSELC = 0x0;
-# 226 "main.c"
+# 225 "main.c"
     OSCSTATbits.HFOR = 1;
     OSCFRQbits.FRQ = 0b101;
 
@@ -5622,7 +5621,29 @@ int main(int argc, char** argv) {
     T2CLKCON = 0b001;
     T2CONbits.T2CKPS = 0b111;
     T2CONbits.TMR2ON = 1;
-# 253 "main.c"
+
+
+    FVRCONbits.ADFVR = 0b01;
+    FVRCONbits.FVREN = 1;
+
+
+
+    NVMCON1bits.NVMREGS = 1;
+    NVMADR = 0x8118;
+    NVMCON1bits.RD = 1;
+    calibrationMV = NVMADR;
+    NVMCON1bits.NVMREGS = 0;
+
+
+    ADCON1bits.CS = 0b110;
+    ADCON1bits.PREF = 0b00;
+    ADCON0bits.CHS = 0b011110;
+    ADCON1bits.FM = 1;
+    ADACT = 0x0;
+
+
+    ADCON0bits.ON = 1;
+# 273 "main.c"
     GIE = 1;
     PEIE = 1;
     IOCIE = 1;
@@ -5672,7 +5693,7 @@ int main(int argc, char** argv) {
     blockingDelay(250);
     LATC2 = 1;
 
-    if (PORTAbits.RA5) letsCharge();
+    if (PORTAbits.RA5) showCharge();
     else __asm("sleep");
     while (1);
     return (0);
@@ -5689,7 +5710,7 @@ static void __attribute__((picinterrupt(("")))) isr(void) {
 
 
             goToLPmode(0);
-            letsCharge();
+            showCharge();
         } else {
             if (IOCAF5 && !PORTAbits.RA5) {
 
@@ -5698,6 +5719,9 @@ static void __attribute__((picinterrupt(("")))) isr(void) {
 
 
             if (IOCAF0 && !PORTAbits.RA0 && !PORTAbits.RA5) {
+
+                showCharge();
+
 
                 LATC3 = 1;
                 IOCAF0 = 0;
@@ -5843,8 +5867,8 @@ void doTheArc() {
 
 void blockingDelay(unsigned int mSecs) {
 
-
-
+    genericDelay = mSecs;
+    while (genericDelay--);
 }
 
 
@@ -5887,72 +5911,58 @@ void goToLPmode(unsigned char sleepy) {
     }
 }
 
-void letsCharge(void) {
-    unsigned int calibrationMV = 1032;
-    unsigned long battVolts = 0;
+void showCharge(void) {
+    unsigned int battVolts = 0;
     unsigned char chargeCycle = 0;
     unsigned int adcVolts = 0;
-
-
-
-    NVMCON1bits.NVMREGS = 1;
-    NVMADR = 0x8118;
-
-
-
-    NVMCON1bits.NVMREGS = 0;
-
-
-
-
-
-
-    ADCON1bits.CS = 0b110;
-    ADCON1bits.PREF = 0b00;
-    ADCON0bits.CHS = 0b011110;
-    ADCON1bits.FM = 1;
-    ADACT = 0x0;
-
+    unsigned char charging = 0;
+    PORTAbits.RA5 = charging;
 
 
 
 
     do {
         ADCON0bits.GO = 1;
-        blockingDelay(1000);
+        while (ADCON0bits.GO == 1);
         adcVolts = ADRES;
         battVolts = ((calibrationMV * 1204) / adcVolts) / 10;
 
-        if (battVolts > 845) {
+        if (battVolts > 415) {
 
 
             LATA1 = 0;
             LATA2 = 0;
             LATC0 = 0;
             LATC1 = 0;
-            __asm("sleep");
-        } else if (battVolts > 815) {
+            if (charging) __asm("sleep");
+        } else if (battVolts > 398) {
 
 
             LATA1 = 0;
             LATA2 = 0;
             LATC0 = 0;
-            if (chargeCycle) LATC1 = 0;
-            else LATC1 = 1;
-        } else if (battVolts > 788) {
+            if (charging) {
+                if (chargeCycle) LATC1 = 0;
+                else LATC1 = 1;
+            }
+        } else if (battVolts > 384) {
 
 
             LATA1 = 0;
             LATA2 = 0;
+            if (charging) {
             if (chargeCycle) LATC0 = 0;
             else LATC0 = 1;
+            }
             LATC1 = 1;
-        } else if (battVolts > 765) {
+        } else if (battVolts > 375) {
 
 
             LATA1 = 0;
+            if (charging) {
             if (chargeCycle) LATA2 = 0;
             else LATA2 = 1;
+            }
             LATC0 = 1;
             LATC1 = 1;
         } else {
@@ -5964,8 +5974,14 @@ void letsCharge(void) {
             LATC1 = 1;
         }
         chargeCycle ^= 1;
-        blockingDelay(1000);
-    } while (PORTAbits.RA5);
+        if (charging)
+        {
+
+            blockingDelay(1000);
+
+            charging = PORTAbits.RA5;
+        }
+    } while (charging);
 }
 
 

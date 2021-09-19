@@ -61,7 +61,6 @@
 // #pragma config PLLEN = ON       // PLL Enable (4x PLL enabled)
 #pragma config STVREN = ON      // Stack Overflow/Underflow Reset Enable (Stack Overflow or Underflow will cause a Reset)
 #pragma config BORV = LO        // Brown-out Reset Voltage Selection (Brown-out Reset Voltage (Vbor), low trip point selected.)
-#pragma config LVP = OFF        // Low-Voltage Programming Enable (Low-voltage programming enabled)
 
 // Wipe the first handful of bytes from EEPROM, because why not.
 
@@ -183,14 +182,14 @@ unsigned int playIndex = 0;
 unsigned int genericDelay = 0;
 
 unsigned char runIndex = 0;
-unsigned char eeMagicByte = 0;
+unsigned long calibrationMV = 0; // Holds our chip-specific FVR calibration value in mV
 
 // Prototype our functions
 void doTheArc(void);
 void blockingDelay(unsigned int mSecs);
 void playNote(unsigned char note, unsigned int duration);
 void goToLPmode(unsigned char sleepy);
-void letsCharge(void);
+void showCharge(void);
 
 void imperialMarch(void);
 void cantinaBand(void);
@@ -238,6 +237,27 @@ int main(int argc, char** argv) {
     T2CONbits.T2CKPS = 0b111; // Sets the prescaler to 64
     T2CONbits.TMR2ON = 1;
 
+    // Set up the internal Fixed Voltage Reference
+    FVRCONbits.ADFVR = 0b01; // Set FVR to 1x (1.024V)
+    FVRCONbits.FVREN = 1; // Enable internal fixed voltage reference
+
+    // Each chip has it's own calibration value for the internal fixed reference voltage
+    // Read this calibration value in mV so we can accurately measure battery voltage against it
+    NVMCON1bits.NVMREGS = 1; // We want to read the DIA calibration bits from NVM
+    NVMADR = 0x8118; // The address of the FVR 1x calibration value in the NVM DIA
+    NVMCON1bits.RD = 1; // Start the read
+    calibrationMV = NVMADR; // This should now contain the calibrated FVR 1x value
+    NVMCON1bits.NVMREGS = 0; // Go back to reading usual registers
+
+    // Set up the ADC
+    ADCON1bits.CS = 0b110; // Convert at FOSC/64 speed (still way faster than we  at 2us)
+    ADCON1bits.PREF = 0b00; // Use VDD as the voltage reference
+    ADCON0bits.CHS = 0b011110; // Connect the FVR to the ADC
+    ADCON1bits.FM = 1; // Right-align the 10 reading bits in the 16 bit register
+    ADACT = 0x0; // Disable the auto-conversion trigger (interrupt generator?)
+
+    ///// Comment this below line out for simulator testing (otherwise it borks)
+    ADCON0bits.ON = 1; // Enable the ADC
 
     // Set up the option register
     // I think this just resets a bunch of settings on the 12F. See page 145 of manual
@@ -299,7 +319,7 @@ int main(int argc, char** argv) {
     blockingDelay(250);
     LATC2 = 1;
 
-    if (PORTAbits.RA5) letsCharge(); // if we're plugged in, do the charging routine
+    if (PORTAbits.RA5) showCharge(); // if we're plugged in, do the charging routine
     else SLEEP(); // else sleep and wait for interrupts
     while (1); // let's hang out forever.
     return (EXIT_SUCCESS);
@@ -316,7 +336,7 @@ static void __interrupt() isr(void) {
             // Charger was plugged in
             // Turn off everything, but don't sleep
             goToLPmode(0);
-            letsCharge(); // Run the charging routine
+            showCharge(); // Run the charging routine
         } else {
             if (IOCAF5 && !PORTAbits.RA5) {
                 // Charger was unplugged
@@ -325,6 +345,9 @@ static void __interrupt() isr(void) {
 
             // Lid has been opened, and we're not charging
             if (IOCAF0 && !PORTAbits.RA0 && !PORTAbits.RA5) {
+                // Show the battery charge level
+                showCharge();
+
                 // Fire up the touch sensor and wait in sleep mode
                 LATC3 = 1;
                 IOCAF0 = 0;
@@ -514,40 +537,19 @@ void goToLPmode(unsigned char sleepy) {
     }
 }
 
-void letsCharge(void) {
-    unsigned long calibrationMV = 0; // Holds our chip-specific calibration value in mV
+void showCharge(void) {
     unsigned int battVolts = 0; // We'll use this to hold the current voltage measurement
     unsigned char chargeCycle = 0; // We'll use this to toggle the charge LEDs on and off
     unsigned int adcVolts = 0; // Reads the temporary value read from the ADC
+    unsigned char charging = 0; 
+    PORTAbits.RA5 = charging;
 
     // We're going to measure the fixed 1.024v internal reference against VDD (the battery voltage)
     // As we know the range is 0-1023 and we know what the fixed value is, we can calculate VDD
 
-    // Set up the internal Fixed Voltage Reference
-    FVRCONbits.ADFVR = 0b01; // Set FVR to 1x (1.024V)
-    FVRCONbits.FVREN = 1; // Enable internal fixed voltage reference
-
-    // Each chip has it's own calibration value for the internal fixed reference voltage
-    // Read this calibration value in mV so we can accurately measure battery voltage against it
-    NVMCON1bits.NVMREGS = 1; // We want to read the DIA calibration bits from NVM
-    NVMADR = 0x8118; // The address of the FVR 1x calibration value in the NVM DIA
-    NVMCON1bits.RD = 1; // Start the read
-    calibrationMV = NVMADR; // This should now contain the calibrated FVR 1x value
-    NVMCON1bits.NVMREGS = 0; // Go back to reading usual registers
-
-    // Set up the ADC
-    ADCON1bits.CS = 0b110; // Convert at FOSC/64 speed (still way faster than we  at 2us)
-    ADCON1bits.PREF = 0b00; // Use VDD as the voltage reference
-    ADCON0bits.CHS = 0b011110; // Connect the FVR to the ADC
-    ADCON1bits.FM = 1; // Right-align the 10 reading bits in the 16 bit register
-    ADACT = 0x0; // Disable the auto-conversion trigger (interrupt generator?)
-
-    // Comment this below line out for simulator testing (otherwise it borks)
-    ADCON0bits.ON = 1; // Enable the ADC
-
     do {
         ADCON0bits.GO = 1; // Start an ADC measurement
-        blockingDelay(1000);
+        while (ADCON0bits.GO == 1); //wait for the conversion to end
         adcVolts = ADRES;
         battVolts = ((calibrationMV * 1204) / adcVolts) / 10; // Should give us battery voltage x100 (e.g. 3.7v is 370)
 
@@ -558,29 +560,35 @@ void letsCharge(void) {
             LATA2 = 0;
             LATC0 = 0;
             LATC1 = 0;
-            SLEEP(); // Our work here is done, go to sleep
+            if (charging) SLEEP(); // Our work here is done, go to sleep and leave the lights on
         } else if (battVolts > 398) {
             // Battery is over 3.98v (75%)
             // 3 LEDs on, #4 blinky
             LATA1 = 0;
             LATA2 = 0;
             LATC0 = 0;
-            if (chargeCycle) LATC1 = 0;
-            else LATC1 = 1;
+            if (charging) {
+                if (chargeCycle) LATC1 = 0;
+                else LATC1 = 1;
+            }
         } else if (battVolts > 384) {
             // Battery is over 3.84v (50%)
             // 2 LEDs on, #3 blinky
             LATA1 = 0;
             LATA2 = 0;
+            if (charging) {
             if (chargeCycle) LATC0 = 0;
             else LATC0 = 1;
+            }
             LATC1 = 1;
         } else if (battVolts > 375) {
             // Battery is over 3.75v (25%)
             // 1 LED on, #2 blinky
             LATA1 = 0;
+            if (charging) {
             if (chargeCycle) LATA2 = 0;
             else LATA2 = 1;
+            }
             LATC0 = 1;
             LATC1 = 1;
         } else {
@@ -592,8 +600,14 @@ void letsCharge(void) {
             LATC1 = 1;
         }
         chargeCycle ^= 1; // Invert the value
-        blockingDelay(1000);
-    } while (PORTAbits.RA5); // While charger is connected
+        if (charging)
+        {
+            // wait before updating the LEDs
+            blockingDelay(1000);
+            // See if we're still charging
+            charging = PORTAbits.RA5;
+        }
+    } while (charging); // While charger is connected
 }
 
 // The "Imperial March" tune
