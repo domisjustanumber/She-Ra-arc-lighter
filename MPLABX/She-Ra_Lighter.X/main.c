@@ -109,7 +109,7 @@
 #define     B3              0x24
 
 // Define notes in MIDI Note values
-#define     M48             0x01 // C1
+#define     M48             0x01 // C1 (actually think this is a C3)
 #define     M49             0x02
 #define     M50             0x03
 #define     M51             0x04
