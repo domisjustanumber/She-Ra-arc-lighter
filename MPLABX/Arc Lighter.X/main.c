@@ -6,6 +6,7 @@
   
   Initially I tried to roll my own RTTL-style player that 
   used one byte per note (including duration) - While it
+  worked and used half the codespace, it was horrendously
   unreadable.
   
   ...Or maybe I'm just shit, I don't know.
