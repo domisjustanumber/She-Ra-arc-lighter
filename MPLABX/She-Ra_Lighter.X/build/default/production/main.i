@@ -5553,7 +5553,10 @@ extern __bank0 __bit __timeout;
 
 #pragma config STVREN = ON
 #pragma config BORV = LO
-# 165 "main.c"
+
+
+#pragma config LVP = OFF
+# 169 "main.c"
 const unsigned char notes[36] = {
     0xED, 0xE0, 0xD3, 0xC7, 0xBD, 0xB2, 0xA8, 0x9E, 0x96, 0x8D, 0x85, 0x7D,
     0x76, 0x70, 0x6A, 0x63, 0x5E, 0x59, 0x54, 0x4F, 0x4B, 0x46, 0x42, 0x3F,
@@ -5574,6 +5577,11 @@ unsigned int playIndex = 0;
 unsigned int genericDelay = 0;
 
 unsigned char runIndex = 0;
+
+unsigned int battVolts = 0;
+unsigned char chargeCycle = 0;
+unsigned int adcVolts = 0;
+unsigned char charging = 0;
 unsigned long calibrationMV = 0;
 
 
@@ -5593,74 +5601,12 @@ void sheRa(void);
 int main(int argc, char** argv) {
 
 
-
-    ANSELAbits.ANSA0 = 0;
-    ANSELAbits.ANSA1 = 0;
-    ANSELAbits.ANSA2 = 0;
-
-    ANSELAbits.ANSA4 = 1;
-    ANSELAbits.ANSA5 = 0;
-
-
-
-
-
-    ANSELC = 0x0;
-# 225 "main.c"
-    OSCSTATbits.HFOR = 1;
-    OSCFRQbits.FRQ = 0b101;
-
-
-
-    T0CON0bits.EN = 1;
-    T0CON0bits.MD16 = 0;
-    T0CON0bits.OUTPS = 0b0000;
-
-
-    PR2 = 0x01;
-    T2CLKCON = 0b001;
-    T2CONbits.T2CKPS = 0b111;
-    T2CONbits.TMR2ON = 1;
-
-
-    FVRCONbits.ADFVR = 0b01;
-    FVRCONbits.FVREN = 1;
-
-
-
-    NVMCON1bits.NVMREGS = 1;
-    NVMADR = 0x8118;
-    NVMCON1bits.RD = 1;
-    calibrationMV = NVMADR;
-    NVMCON1bits.NVMREGS = 0;
-
-
-    ADCON1bits.CS = 0b110;
-    ADCON1bits.PREF = 0b00;
-    ADCON0bits.CHS = 0b011110;
-    ADCON1bits.FM = 1;
-    ADACT = 0x0;
-
-
-    ADCON0bits.ON = 1;
-# 273 "main.c"
-    GIE = 1;
-    PEIE = 1;
-    IOCIE = 1;
-    IOCAN0 = 1;
-    IOCAP0 = 1;
-    IOCAN3 = 1;
-    IOCAP3 = 1;
-    IOCAN5 = 1;
-    IOCAP5 = 1;
-    INTE = 0;
-
-
-
     TRISA0 = 1;
+    WPUA0 = 1;
     TRISA1 = 0;
     TRISA2 = 0;
     TRISA3 = 1;
+
     TRISA4 = 1;
     TRISA5 = 1;
     TRISC0 = 0;
@@ -5676,21 +5622,96 @@ int main(int argc, char** argv) {
     LATC0 = 1;
     LATC1 = 1;
     LATC2 = 1;
-    LATC3 = 0;
+    LATC3 = 1;
     LATC4 = 0;
     LATC5 = 0;
 
 
+
+    ANSELAbits.ANSA0 = 0;
+    ANSELAbits.ANSA1 = 0;
+    ANSELAbits.ANSA2 = 0;
+
+    ANSELAbits.ANSA4 = 1;
+    ANSELAbits.ANSA5 = 0;
+
+
+
+
+
+    ANSELC = 0x0;
+
+
+
+
+
+
+
+    OSCSTATbits.HFOR = 1;
+    OSCFRQbits.FRQ = 0b101;
+
+
+
+    T0CON0bits.MD16 = 0;
+    T0CON0bits.OUTPS = 0b0000;
+    T0CON1bits.CS = 0b010;
+    T0CON0bits.EN = 1;
+
+
+    PR2 = 0x1E;
+    T2CLKCON = 0b001;
+    T2CONbits.T2CKPS = 0b111;
+    T2CONbits.TMR2ON = 1;
+
+
+    TMR0IE = 1;
+    TMR2IE = 1;
+
+
+    FVRCONbits.ADFVR = 0b01;
+    FVRCONbits.FVREN = 1;
+
+
+
+    NVMCON1bits.NVMREGS = 1;
+    NVMADR = 0x8118;
+    NVMCON1bits.RD = 1;
+    calibrationMV = NVMADR;
+    NVMCON1bits.NVMREGS = 0;
+
+
+    ADCON1bits.CS = 0b001;
+    ADCON1bits.PREF = 0b00;
+    ADCON0bits.CHS = 0b011110;
+    ADCON1bits.FM = 1;
+    ADACT = 0x0;
+
+
+    ADCON0bits.ON = 1;
+# 312 "main.c"
+    IOCAN0 = 1;
+    IOCAP0 = 1;
+    IOCAN3 = 1;
+    IOCAP3 = 1;
+    IOCAN5 = 1;
+    IOCAP5 = 1;
+    INTE = 0;
+
+    PEIE = 1;
+    IOCIE = 1;
+    GIE = 1;
+
+
     LATC2 = 0;
-    blockingDelay(250);
+    blockingDelay(500);
     LATC2 = 1;
-    blockingDelay(250);
+    blockingDelay(500);
     LATC2 = 0;
-    blockingDelay(250);
+    blockingDelay(500);
     LATC2 = 1;
-    blockingDelay(250);
+    blockingDelay(500);
     LATC2 = 0;
-    blockingDelay(250);
+    blockingDelay(500);
     LATC2 = 1;
 
     if (PORTAbits.RA5) showCharge();
@@ -5704,50 +5725,68 @@ int main(int argc, char** argv) {
 static void __attribute__((picinterrupt(("")))) isr(void) {
 
     if (PIR0bits.IOCIF) {
+T0CON0bits.EN = 1;
+T2CONbits.TMR2ON = 1;
 
 
-        if (IOCAF5 && PORTAbits.RA5) {
+        if (IOCAF5) {
+            IOCAF5 = 0;
+            if (PORTAbits.RA5) {
 
 
-            goToLPmode(0);
-            showCharge();
-        } else {
-            if (IOCAF5 && !PORTAbits.RA5) {
+
+                goToLPmode(0);
+                showCharge();
+            } else {
 
                 goToLPmode(1);
             }
+        }
 
 
-            if (IOCAF0 && !PORTAbits.RA0 && !PORTAbits.RA5) {
+        if (IOCAF0) {
+            IOCAF0 = 0;
+
+            if (!PORTAbits.RA0 && !PORTAbits.RA5) {
+
+
+                LATC2 = 0;
+
 
                 showCharge();
 
 
                 LATC3 = 1;
-                IOCAF0 = 0;
+
                 __asm("sleep");
             }
 
+            if (PORTAbits.RA0 && !PORTAbits.RA5) {
 
-            if (IOCAF3 && !PORTAbits.RA3 && !PORTAbits.RA0 && !PORTAbits.RA5) {
-                IOCAF3 = 0;
+                goToLPmode(1);
+            }
+        }
+
+
+        if (IOCAF3) {
+            IOCAF3 = 0;
+
+            if (!PORTAbits.RA3 && !PORTAbits.RA0 && !PORTAbits.RA5) {
 
                 doTheArc();
             }
 
 
-            if (IOCAF3 && PORTAbits.RA3 && !PORTAbits.RA5) {
+
+
+            if (PORTAbits.RA3 && !PORTAbits.RA5) {
+                IOCAF3 = 0;
                 forceArc = 0;
                 LATA1 = 1;
                 LATA2 = 1;
                 LATC0 = 1;
                 LATC1 = 1;
                 __asm("sleep");
-            }
-
-
-            if (IOCAF0 && PORTAbits.RA0 && !PORTAbits.RA5) {
-                goToLPmode(1);
             }
         }
     }
@@ -5798,8 +5837,8 @@ static void __attribute__((picinterrupt(("")))) isr(void) {
 
 void doTheArc() {
 
-    TMR0IE = 1;
-    TMR2IE = 1;
+
+
 
     forceArc = 1;
     runIndex++;
@@ -5810,7 +5849,7 @@ void doTheArc() {
             LATA2 = 1;
             LATC0 = 1;
             LATC1 = 1;
-            blockingDelay(5000);
+            blockingDelay(1);
             break;
 
         case 2:
@@ -5851,6 +5890,7 @@ void doTheArc() {
             sheRa();
             forceArc = 0;
             break;
+
         default:
             break;
     }
@@ -5868,7 +5908,7 @@ void doTheArc() {
 void blockingDelay(unsigned int mSecs) {
 
     genericDelay = mSecs;
-    while (genericDelay--);
+    while (genericDelay > 0);
 }
 
 
@@ -5895,8 +5935,8 @@ void goToLPmode(unsigned char sleepy) {
     ADCON0bits.ON = 0;
 
 
-    TMR0IE = 0;
-    TMR2IE = 0;
+
+
 
 
     LATA1 = 1;
@@ -5904,7 +5944,7 @@ void goToLPmode(unsigned char sleepy) {
     LATC0 = 1;
     LATC1 = 1;
     LATC2 = 1;
-    LATC3 = 0;
+
 
     if (sleepy) {
         __asm("sleep");
@@ -5912,11 +5952,13 @@ void goToLPmode(unsigned char sleepy) {
 }
 
 void showCharge(void) {
-    unsigned int battVolts = 0;
-    unsigned char chargeCycle = 0;
-    unsigned int adcVolts = 0;
-    unsigned char charging = 0;
-    PORTAbits.RA5 = charging;
+    ADCON0bits.ON = 1;
+
+
+
+
+
+    charging = PORTAbits.RA5;
 
 
 
@@ -5951,8 +5993,8 @@ void showCharge(void) {
             LATA1 = 0;
             LATA2 = 0;
             if (charging) {
-            if (chargeCycle) LATC0 = 0;
-            else LATC0 = 1;
+                if (chargeCycle) LATC0 = 0;
+                else LATC0 = 1;
             }
             LATC1 = 1;
         } else if (battVolts > 375) {
@@ -5960,8 +6002,8 @@ void showCharge(void) {
 
             LATA1 = 0;
             if (charging) {
-            if (chargeCycle) LATA2 = 0;
-            else LATA2 = 1;
+                if (chargeCycle) LATA2 = 0;
+                else LATA2 = 1;
             }
             LATC0 = 1;
             LATC1 = 1;
@@ -5974,8 +6016,7 @@ void showCharge(void) {
             LATC1 = 1;
         }
         chargeCycle ^= 1;
-        if (charging)
-        {
+        if (charging) {
 
             blockingDelay(1000);
 

@@ -1,0 +1,899 @@
+%CMF
+# %PSECTS Section
+# For each object file, details of its psects are enumerated here.
+# The begining of the section is indicated by %PSECTS.  The first
+# line indicates the name of the first object file, e.g.
+#    $foo.obj
+# Each line that follows describes a psect in that object file, until
+# the next object file.  The lines that describe a psect have the
+# format:
+#    <psect name> <class name> <space> <link address> <load addresses> <length> <delta>
+# All addresses and the length are given in unqualified hexadecimal
+# in delta units.  Any other numeric values are decimal.
+%PSECTS
+$C:\Users\dinku\AppData\Local\Temp\xcAs9vg.o
+reset_vec CODE 0 0 0 2 2
+end_init CODE 0 62 62 2 2
+config CONFIG 4 8007 8007 2 2
+$dist/default/production\Test_Rig.X.production.o
+cinit CODE 0 64 64 11 2
+text1 CODE 0 E17 E17 1E9 2
+text2 CODE 0 75 75 3E9 2
+text3 CODE 0 45E 45E 389 2
+text4 CODE 0 D29 D29 22 2
+text5 CODE 0 D08 D08 C 2
+text6 CODE 0 D4B D4B 2A 2
+text7 CODE 0 D14 D14 15 2
+nvCOMMON COMMON 1 7A 7A 1 1
+nvBANK0 BANK0 1 2A 2A 3 1
+maintext CODE 0 D75 D75 A2 2
+cstackCOMMON COMMON 1 70 70 A 1
+cstackBANK0 BANK0 1 2D 2D 1 1
+stringtext1 STRCODE 0 7E7 7E7 24 2
+intentry CODE 0 4 4 5E 2
+bitbssCOMMON COMMON 1 3D8 7B 1 1
+bssBANK0 BANK0 1 20 20 A 1
+eeprom_data EEDATA 3 0 F000 8 2
+bssCOMMON COMMON 1 7C 7C 1 1
+config CONFIG 4 8007 8007 2 2
+# %UNUSED Section
+# This section enumerates the unused ranges of each CLASS. Each entry
+# is described on a single line as follows:
+#    <class name> <range> <delta>
+# Addresses given in the range are in hexadecimal and units of delta.
+%UNUSED
+RAM 2E-6F 1
+RAM A0-EF 1
+RAM 120-16F 1
+BANK0 2E-6F 1
+BANK1 A0-EF 1
+BANK2 120-16F 1
+CONST 2-3 2
+CONST 80B-D07 2
+ENTRY 2-3 2
+ENTRY 80B-D07 2
+IDLOC 8000-8003 2
+SFR10 500-56F 1
+SFR11 580-5EF 1
+SFR12 600-66F 1
+SFR13 680-6EF 1
+SFR14 700-76F 1
+SFR15 780-7EF 1
+SFR16 800-86F 1
+SFR17 880-8EF 1
+SFR18 900-96F 1
+SFR19 980-9EF 1
+SFR20 A00-A6F 1
+SFR21 A80-AEF 1
+SFR22 B00-B6F 1
+SFR23 B80-BEF 1
+SFR24 C00-C6F 1
+SFR25 C80-CEF 1
+SFR26 D00-D6F 1
+SFR27 D80-DEF 1
+SFR28 E00-E6F 1
+SFR29 E80-EEF 1
+SFR30 F00-F6F 1
+SFR31 F80-FEF 1
+STACK 200E-20EF 1
+CODE 2-3 2
+CODE 80B-D07 2
+SFR0 0-1F 1
+SFR1 80-9F 1
+SFR2 100-11F 1
+SFR3 180-1EF 1
+SFR4 200-26F 1
+SFR5 280-2EF 1
+SFR6 300-36F 1
+SFR7 380-3EF 1
+SFR8 400-46F 1
+SFR9 480-4EF 1
+BIGRAM 2000-20EF 1
+COMMON 7D-7D 1
+EEDATA F008-F0FF 2
+STRCODE 2-3 2
+STRCODE 80B-D07 2
+STRING 2-3 2
+STRING 80B-D07 2
+# %LINETAB Section
+# This section enumerates the file/line to address mappings.
+# The beginning of the section is indicated by %LINETAB.
+# The first line indicates the name of the first object file, e.g.
+#   $foo.obj
+# Each line that follows describes a single mapping until the next
+# object file.  Mappings have the following format:
+#    <address> <psect name> <class name> ><line number>:<file name>
+# The address is absolute and given given in unqualified hex 
+# in delta units of the psect. All mappings within an object file
+# are in ascending order of addresses.
+# All other numeric values are in decimal.
+%LINETAB
+$dist/default/production\Test_Rig.X.production.o
+64 cinit CODE >1204:C:\Users\dinku\AppData\Local\Temp\xcAs9vg.s
+64 cinit CODE >1207:C:\Users\dinku\AppData\Local\Temp\xcAs9vg.s
+64 cinit CODE >1243:C:\Users\dinku\AppData\Local\Temp\xcAs9vg.s
+65 cinit CODE >1247:C:\Users\dinku\AppData\Local\Temp\xcAs9vg.s
+66 cinit CODE >1251:C:\Users\dinku\AppData\Local\Temp\xcAs9vg.s
+67 cinit CODE >1252:C:\Users\dinku\AppData\Local\Temp\xcAs9vg.s
+68 cinit CODE >1253:C:\Users\dinku\AppData\Local\Temp\xcAs9vg.s
+69 cinit CODE >1254:C:\Users\dinku\AppData\Local\Temp\xcAs9vg.s
+6A cinit CODE >1255:C:\Users\dinku\AppData\Local\Temp\xcAs9vg.s
+6B cinit CODE >1256:C:\Users\dinku\AppData\Local\Temp\xcAs9vg.s
+6C cinit CODE >1257:C:\Users\dinku\AppData\Local\Temp\xcAs9vg.s
+6D cinit CODE >1258:C:\Users\dinku\AppData\Local\Temp\xcAs9vg.s
+6E cinit CODE >1259:C:\Users\dinku\AppData\Local\Temp\xcAs9vg.s
+6F cinit CODE >1260:C:\Users\dinku\AppData\Local\Temp\xcAs9vg.s
+70 cinit CODE >1261:C:\Users\dinku\AppData\Local\Temp\xcAs9vg.s
+71 cinit CODE >1267:C:\Users\dinku\AppData\Local\Temp\xcAs9vg.s
+71 cinit CODE >1269:C:\Users\dinku\AppData\Local\Temp\xcAs9vg.s
+72 cinit CODE >1270:C:\Users\dinku\AppData\Local\Temp\xcAs9vg.s
+73 cinit CODE >1271:C:\Users\dinku\AppData\Local\Temp\xcAs9vg.s
+4 intentry CODE >286:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+6 intentry CODE >290:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+B intentry CODE >291:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+11 intentry CODE >292:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+15 intentry CODE >293:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+1B intentry CODE >294:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+20 intentry CODE >297:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+22 intentry CODE >299:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+23 intentry CODE >304:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+27 intentry CODE >305:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+29 intentry CODE >305:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+2D intentry CODE >306:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+31 intentry CODE >307:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+32 intentry CODE >308:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+3C intentry CODE >309:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+3D intentry CODE >315:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+49 intentry CODE >316:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+4B intentry CODE >317:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+53 intentry CODE >318:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+5B intentry CODE >319:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+5C intentry CODE >320:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+5E intentry CODE >321:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+5F intentry CODE >322:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+5F intentry CODE >323:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+60 intentry CODE >325:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+D14 text7 CODE >6:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\pic\__eeread.c
+D15 text7 CODE >8:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\pic\__eeread.c
+D15 text7 CODE >9:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\pic\__eeread.c
+D1B text7 CODE >18:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\pic\__eeread.c
+D28 text7 CODE >19:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\pic\__eeread.c
+D4B text6 CODE >6:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\pic\__eewrite.c
+D4C text6 CODE >8:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\pic\__eewrite.c
+D74 text6 CODE >9:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\pic\__eewrite.c
+D08 text5 CODE >329:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+D08 text5 CODE >330:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+D0D text5 CODE >331:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+D13 text5 CODE >332:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+D29 text4 CODE >336:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+D2A text4 CODE >337:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+D2F text4 CODE >338:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+D32 text4 CODE >339:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+D36 text4 CODE >339:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+D3B text4 CODE >340:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+D3C text4 CODE >341:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+D41 text4 CODE >342:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+D43 text4 CODE >344:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+D4A text4 CODE >345:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+45E text3 CODE >540:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+45E text3 CODE >541:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+466 text3 CODE >542:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+46E text3 CODE >543:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+476 text3 CODE >544:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+47E text3 CODE >545:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+486 text3 CODE >546:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+48E text3 CODE >547:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+496 text3 CODE >548:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+49E text3 CODE >549:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+4A6 text3 CODE >550:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+4AE text3 CODE >551:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+4B6 text3 CODE >552:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+4BE text3 CODE >553:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+4C6 text3 CODE >554:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+4CE text3 CODE >555:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+4D6 text3 CODE >556:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+4DE text3 CODE >557:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+4E6 text3 CODE >558:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+4EE text3 CODE >559:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+4F6 text3 CODE >560:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+4FE text3 CODE >561:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+506 text3 CODE >562:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+50E text3 CODE >563:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+516 text3 CODE >564:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+51E text3 CODE >565:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+526 text3 CODE >566:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+52E text3 CODE >567:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+536 text3 CODE >568:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+53E text3 CODE >569:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+546 text3 CODE >570:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+54E text3 CODE >571:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+556 text3 CODE >572:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+55E text3 CODE >573:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+566 text3 CODE >574:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+56E text3 CODE >575:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+576 text3 CODE >576:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+57E text3 CODE >577:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+586 text3 CODE >578:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+58E text3 CODE >579:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+596 text3 CODE >580:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+59E text3 CODE >581:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+5A6 text3 CODE >582:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+5AE text3 CODE >583:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+5B6 text3 CODE >584:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+5BE text3 CODE >585:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+5C6 text3 CODE >586:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+5CE text3 CODE >587:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+5D6 text3 CODE >588:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+5DE text3 CODE >589:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+5E6 text3 CODE >590:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+5EE text3 CODE >591:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+5F6 text3 CODE >592:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+5FE text3 CODE >593:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+606 text3 CODE >594:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+60E text3 CODE >595:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+616 text3 CODE >596:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+61E text3 CODE >597:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+626 text3 CODE >598:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+62E text3 CODE >599:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+636 text3 CODE >600:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+63E text3 CODE >601:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+646 text3 CODE >602:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+64E text3 CODE >603:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+656 text3 CODE >604:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+65E text3 CODE >605:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+666 text3 CODE >606:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+66E text3 CODE >607:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+676 text3 CODE >608:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+67E text3 CODE >609:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+686 text3 CODE >610:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+68E text3 CODE >611:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+696 text3 CODE >612:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+69E text3 CODE >613:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+6A6 text3 CODE >614:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+6AE text3 CODE >615:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+6B6 text3 CODE >616:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+6BE text3 CODE >617:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+6C6 text3 CODE >618:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+6CE text3 CODE >619:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+6D6 text3 CODE >620:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+6DE text3 CODE >621:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+6E6 text3 CODE >622:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+6EE text3 CODE >623:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+6F6 text3 CODE >624:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+6FE text3 CODE >625:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+706 text3 CODE >626:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+70E text3 CODE >627:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+716 text3 CODE >628:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+71E text3 CODE >629:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+726 text3 CODE >630:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+72E text3 CODE >631:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+736 text3 CODE >632:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+73E text3 CODE >633:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+746 text3 CODE >634:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+74E text3 CODE >635:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+756 text3 CODE >636:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+75E text3 CODE >637:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+766 text3 CODE >638:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+76E text3 CODE >639:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+776 text3 CODE >640:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+77E text3 CODE >641:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+786 text3 CODE >642:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+78E text3 CODE >643:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+796 text3 CODE >644:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+79E text3 CODE >645:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+7A6 text3 CODE >646:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+7AE text3 CODE >647:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+7B6 text3 CODE >648:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+7BE text3 CODE >649:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+7C6 text3 CODE >650:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+7CE text3 CODE >651:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+7D6 text3 CODE >652:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+7DE text3 CODE >653:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+7E6 text3 CODE >654:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+75 text2 CODE >350:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+75 text2 CODE >352:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+7D text2 CODE >354:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+85 text2 CODE >356:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+8D text2 CODE >358:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+95 text2 CODE >360:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+9D text2 CODE >362:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+A5 text2 CODE >364:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+AD text2 CODE >365:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+B5 text2 CODE >367:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+BD text2 CODE >368:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+C5 text2 CODE >369:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+CD text2 CODE >370:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+D5 text2 CODE >371:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+DD text2 CODE >372:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+E5 text2 CODE >374:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+ED text2 CODE >376:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+F5 text2 CODE >378:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+FD text2 CODE >380:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+105 text2 CODE >382:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+10D text2 CODE >384:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+115 text2 CODE >386:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+11D text2 CODE >387:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+125 text2 CODE >389:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+12D text2 CODE >390:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+135 text2 CODE >391:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+13D text2 CODE >392:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+145 text2 CODE >393:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+14D text2 CODE >394:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+155 text2 CODE >397:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+15D text2 CODE >399:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+165 text2 CODE >401:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+16D text2 CODE >403:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+175 text2 CODE >405:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+17D text2 CODE >407:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+185 text2 CODE >409:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+18D text2 CODE >410:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+195 text2 CODE >412:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+19D text2 CODE >413:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+1A5 text2 CODE >414:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+1AD text2 CODE >415:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+1B5 text2 CODE >416:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+1BD text2 CODE >417:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+1C5 text2 CODE >419:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+1CD text2 CODE >421:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+1D5 text2 CODE >423:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+1DD text2 CODE >425:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+1E5 text2 CODE >427:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+1ED text2 CODE >429:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+1F5 text2 CODE >431:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+1FD text2 CODE >432:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+205 text2 CODE >434:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+20D text2 CODE >435:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+215 text2 CODE >436:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+21D text2 CODE >437:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+225 text2 CODE >438:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+22D text2 CODE >439:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+235 text2 CODE >441:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+23D text2 CODE >442:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+245 text2 CODE >444:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+24D text2 CODE >445:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+255 text2 CODE >447:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+25D text2 CODE >448:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+265 text2 CODE >450:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+26D text2 CODE >451:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+275 text2 CODE >453:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+27D text2 CODE >454:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+285 text2 CODE >455:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+28D text2 CODE >457:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+295 text2 CODE >458:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+29D text2 CODE >460:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+2A5 text2 CODE >461:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+2AD text2 CODE >462:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+2B5 text2 CODE >464:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+2BD text2 CODE >465:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+2C5 text2 CODE >467:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+2CD text2 CODE >468:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+2D5 text2 CODE >470:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+2DD text2 CODE >471:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+2E5 text2 CODE >473:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+2ED text2 CODE >474:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+2F5 text2 CODE >476:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+2FD text2 CODE >477:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+305 text2 CODE >478:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+30D text2 CODE >480:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+315 text2 CODE >481:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+31D text2 CODE >483:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+325 text2 CODE >484:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+32D text2 CODE >485:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+335 text2 CODE >487:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+33D text2 CODE >488:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+345 text2 CODE >490:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+34D text2 CODE >491:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+355 text2 CODE >493:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+35D text2 CODE >494:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+365 text2 CODE >495:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+36D text2 CODE >497:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+375 text2 CODE >498:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+37D text2 CODE >500:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+385 text2 CODE >501:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+38D text2 CODE >502:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+395 text2 CODE >503:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+39D text2 CODE >504:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+3A5 text2 CODE >506:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+3AD text2 CODE >507:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+3B5 text2 CODE >508:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+3BD text2 CODE >510:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+3C5 text2 CODE >511:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+3CD text2 CODE >513:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+3D5 text2 CODE >514:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+3DD text2 CODE >515:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+3E5 text2 CODE >516:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+3ED text2 CODE >517:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+3F5 text2 CODE >519:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+3FD text2 CODE >520:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+405 text2 CODE >521:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+40D text2 CODE >523:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+415 text2 CODE >524:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+41D text2 CODE >526:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+425 text2 CODE >527:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+42D text2 CODE >528:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+435 text2 CODE >530:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+43D text2 CODE >531:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+445 text2 CODE >533:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+44D text2 CODE >534:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+455 text2 CODE >535:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+45D text2 CODE >537:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+E17 text1 CODE >657:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+E17 text1 CODE >658:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+E1F text1 CODE >659:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+E27 text1 CODE >660:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+E2F text1 CODE >661:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+E37 text1 CODE >662:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+E3F text1 CODE >663:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+E47 text1 CODE >664:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+E4F text1 CODE >665:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+E57 text1 CODE >666:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+E5F text1 CODE >667:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+E67 text1 CODE >668:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+E6F text1 CODE >669:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+E77 text1 CODE >670:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+E7F text1 CODE >671:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+E87 text1 CODE >672:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+E8F text1 CODE >673:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+E97 text1 CODE >674:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+E9F text1 CODE >675:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+EA7 text1 CODE >676:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+EAF text1 CODE >677:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+EB7 text1 CODE >678:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+EBF text1 CODE >679:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+EC7 text1 CODE >680:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+ECF text1 CODE >681:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+ED7 text1 CODE >682:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+EDF text1 CODE >683:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+EE7 text1 CODE >684:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+EEF text1 CODE >685:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+EF7 text1 CODE >686:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+EFF text1 CODE >687:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+F07 text1 CODE >688:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+F0F text1 CODE >689:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+F17 text1 CODE >690:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+F1F text1 CODE >691:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+F27 text1 CODE >692:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+F2F text1 CODE >693:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+F37 text1 CODE >694:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+F3F text1 CODE >695:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+F47 text1 CODE >696:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+F4F text1 CODE >697:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+F57 text1 CODE >698:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+F5F text1 CODE >699:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+F67 text1 CODE >700:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+F6F text1 CODE >701:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+F77 text1 CODE >702:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+F7F text1 CODE >703:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+F87 text1 CODE >704:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+F8F text1 CODE >705:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+F97 text1 CODE >706:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+F9F text1 CODE >707:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+FA7 text1 CODE >708:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+FAF text1 CODE >709:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+FB7 text1 CODE >710:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+FBF text1 CODE >711:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+FC7 text1 CODE >712:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+FCF text1 CODE >713:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+FD7 text1 CODE >714:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+FDF text1 CODE >715:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+FE7 text1 CODE >716:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+FEF text1 CODE >717:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+FF7 text1 CODE >718:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+FFF text1 CODE >719:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+D75 maintext CODE >198:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+D75 maintext CODE >202:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+D77 maintext CODE >205:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+D7A maintext CODE >206:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+D7E maintext CODE >207:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+D7F maintext CODE >210:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+D80 maintext CODE >212:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+D83 maintext CODE >213:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+D85 maintext CODE >214:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+D86 maintext CODE >217:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+D87 maintext CODE >220:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+D8A maintext CODE >223:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+D92 maintext CODE >224:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+D9A maintext CODE >228:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+D9B maintext CODE >229:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+D9D maintext CODE >230:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+D9E maintext CODE >231:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+D9F maintext CODE >234:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+DA0 maintext CODE >235:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+DA1 maintext CODE >236:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+DA2 maintext CODE >237:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+DA3 maintext CODE >238:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+DA4 maintext CODE >241:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+DA6 maintext CODE >244:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+DA8 maintext CODE >245:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+DA9 maintext CODE >246:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+DAA maintext CODE >247:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+DAB maintext CODE >248:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+DAC maintext CODE >252:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+DB1 maintext CODE >253:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+DBD maintext CODE >254:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+DC2 maintext CODE >255:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+DC4 maintext CODE >255:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+DCA maintext CODE >256:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+DD2 maintext CODE >258:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+DD7 maintext CODE >259:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+DD8 maintext CODE >261:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+DDE maintext CODE >262:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+DE5 maintext CODE >263:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+DE8 maintext CODE >264:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+DEB maintext CODE >265:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+DEC maintext CODE >267:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+DF2 maintext CODE >268:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+DF9 maintext CODE >269:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+DFC maintext CODE >270:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+DFF maintext CODE >271:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+E00 maintext CODE >273:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+E06 maintext CODE >274:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+E0D maintext CODE >275:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+E10 maintext CODE >276:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+E13 maintext CODE >277:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+E14 maintext CODE >278:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+# %SYMTAB Section
+# An enumeration of all symbols in the program.
+# The beginning of the section is indicated by %SYMTAB.
+# Each line describes a single symbol as follows:
+#    <label> <value> [-]<load-adj> <class> <space> <psect> <file-name>
+# The value and load-adj are both in unqualified hexadecimal.
+# All other numeric values are in decimal.  The load-adj is the
+# quantity one needs to add to the symbol value in order to obtain the load
+# address of the symbol.  This value may be signed. If the symbol
+# was defined in a psect then <psect> will be "-". File-name
+# is the name of the object file in which the symbol was defined.
+%SYMTAB
+___latbits 1 0 ABS 0 - dist/default/production\Test_Rig.X.production.o
+__Hspace_0 1000 0 ABS 0 - -
+__Hspace_1 3D9 0 ABS 0 - -
+__Hspace_2 0 0 ABS 0 - -
+__Hspace_3 8 0 ABS 0 - -
+__Hspace_4 10010 0 ABS 0 - -
+__Heeprom_data 10 1E000 EEDATA 3 eeprom_data -
+__Hstrings 0 0 ABS 0 strings -
+_clockDivider 7C 0 COMMON 1 bssCOMMON dist/default/production\Test_Rig.X.production.o
+_INTE 5C 0 ABS 0 - dist/default/production\Test_Rig.X.production.o
+_PEIE 5E 0 ABS 0 - dist/default/production\Test_Rig.X.production.o
+_RCIE 48D 0 ABS 0 - dist/default/production\Test_Rig.X.production.o
+___sp 0 0 STACK 2 stack C:\Users\dinku\AppData\Local\Temp\xcAs9vg.o
+_gate 28 0 BANK0 1 bssBANK0 dist/default/production\Test_Rig.X.production.o
+_main 1AEA 0 CODE 0 maintext dist/default/production\Test_Rig.X.production.o
+btemp 7E 0 ABS 0 - dist/default/production\Test_Rig.X.production.o
+start C4 0 CODE 0 init C:\Users\dinku\AppData\Local\Temp\xcAs9vg.o
+__size_of_main 0 0 ABS 0 - dist/default/production\Test_Rig.X.production.o
+__HbssCOMMON 0 0 ABS 0 bssCOMMON -
+_blockingDelay 1A10 0 CODE 0 text5 dist/default/production\Test_Rig.X.production.o
+__Hpowerup 0 0 CODE 0 powerup -
+__pbitbssCOMMON 3D8 -35D COMMON 1 bitbssCOMMON dist/default/production\Test_Rig.X.production.o
+__LnvCOMMON 0 0 ABS 0 nvCOMMON -
+intlevel0 0 0 ENTRY 0 functab C:\Users\dinku\AppData\Local\Temp\xcAs9vg.o
+intlevel1 0 0 ENTRY 0 functab C:\Users\dinku\AppData\Local\Temp\xcAs9vg.o
+intlevel2 0 0 ENTRY 0 functab C:\Users\dinku\AppData\Local\Temp\xcAs9vg.o
+intlevel3 0 0 ENTRY 0 functab C:\Users\dinku\AppData\Local\Temp\xcAs9vg.o
+intlevel4 0 0 ENTRY 0 functab C:\Users\dinku\AppData\Local\Temp\xcAs9vg.o
+intlevel5 0 0 ENTRY 0 functab C:\Users\dinku\AppData\Local\Temp\xcAs9vg.o
+_pinState 3D8 -35D COMMON 1 bitbssCOMMON dist/default/production\Test_Rig.X.production.o
+__LbssCOMMON 0 0 ABS 0 bssCOMMON -
+_OSCCONbits 99 0 ABS 0 - dist/default/production\Test_Rig.X.production.o
+wtemp0 7E 0 ABS 0 - dist/default/production\Test_Rig.X.production.o
+__Hfunctab 0 0 ENTRY 0 functab -
+__Hclrtext 0 0 ABS 0 clrtext -
+_ANSELA 18C 0 ABS 0 - dist/default/production\Test_Rig.X.production.o
+_EECON1bits 195 0 ABS 0 - dist/default/production\Test_Rig.X.production.o
+_EECON1 195 0 ABS 0 - dist/default/production\Test_Rig.X.production.o
+_EECON2 196 0 ABS 0 - dist/default/production\Test_Rig.X.production.o
+_EEDATA 193 0 ABS 0 - dist/default/production\Test_Rig.X.production.o
+_eeMagicByte 2C 0 BANK0 1 nvBANK0 dist/default/production\Test_Rig.X.production.o
+__Lmaintext 0 0 ABS 0 maintext -
+__LnvBANK0 0 0 ABS 0 nvBANK0 -
+eeprom_write@addr 74 0 COMMON 1 cstackCOMMON dist/default/production\Test_Rig.X.production.o
+_OPTION_REG 95 0 ABS 0 - dist/default/production\Test_Rig.X.production.o
+___stackhi 20EF 0 ABS 0 - C:\Users\dinku\AppData\Local\Temp\xcAs9vg.o
+___stacklo 200E 0 ABS 0 - C:\Users\dinku\AppData\Local\Temp\xcAs9vg.o
+__size_of_blockingDelay 0 0 ABS 0 - dist/default/production\Test_Rig.X.production.o
+__end_of_gargoyles FCE 0 CODE 0 text3 dist/default/production\Test_Rig.X.production.o
+_eeprom_read 1A28 0 CODE 0 text7 dist/default/production\Test_Rig.X.production.o
+__size_of_sheRa 0 0 ABS 0 - dist/default/production\Test_Rig.X.production.o
+__size_of_gargoyles 0 0 ABS 0 - dist/default/production\Test_Rig.X.production.o
+__HnvCOMMON 0 0 ABS 0 nvCOMMON -
+_WPUAbits 20C 0 ABS 0 - dist/default/production\Test_Rig.X.production.o
+start_initialization C8 0 CODE 0 cinit dist/default/production\Test_Rig.X.production.o
+_imperialMarch EA 0 CODE 0 text2 dist/default/production\Test_Rig.X.production.o
+_gargoyles 8BC 0 CODE 0 text3 dist/default/production\Test_Rig.X.production.o
+__pcstackBANK0 2D 0 BANK0 1 cstackBANK0 dist/default/production\Test_Rig.X.production.o
+__end_of_blockingDelay 1A28 0 CODE 0 text5 dist/default/production\Test_Rig.X.production.o
+_TMR0IE 5D 0 ABS 0 - dist/default/production\Test_Rig.X.production.o
+_TMR2IE 489 0 ABS 0 - dist/default/production\Test_Rig.X.production.o
+_TRISA0 460 0 ABS 0 - dist/default/production\Test_Rig.X.production.o
+_TRISA1 461 0 ABS 0 - dist/default/production\Test_Rig.X.production.o
+_TRISA2 462 0 ABS 0 - dist/default/production\Test_Rig.X.production.o
+_TRISA3 463 0 ABS 0 - dist/default/production\Test_Rig.X.production.o
+_TRISA4 464 0 ABS 0 - dist/default/production\Test_Rig.X.production.o
+___int_sp 0 0 STACK 2 stack C:\Users\dinku\AppData\Local\Temp\xcAs9vg.o
+__Hbank0 0 0 ABS 0 bank0 -
+__Hbank1 0 0 ABS 0 bank1 -
+__Hbank2 0 0 ABS 0 bank2 -
+__Hbank3 0 0 BANK3 1 bank3 -
+__Hbank4 0 0 BANK4 1 bank4 -
+__Hbank5 0 0 BANK5 1 bank5 -
+__Hbank6 0 0 BANK6 1 bank6 -
+__Hbank7 0 0 BANK7 1 bank7 -
+__Hbank8 0 0 BANK8 1 bank8 -
+__Hbank9 0 0 BANK9 1 bank9 -
+__Hcinit EA 0 CODE 0 cinit -
+__Hsfr10 0 0 ABS 0 sfr10 -
+__Hsfr11 0 0 ABS 0 sfr11 -
+__Hsfr12 0 0 ABS 0 sfr12 -
+__Hsfr13 0 0 ABS 0 sfr13 -
+__Hsfr14 0 0 ABS 0 sfr14 -
+__Hsfr15 0 0 ABS 0 sfr15 -
+__Hsfr16 0 0 ABS 0 sfr16 -
+__Hsfr17 0 0 ABS 0 sfr17 -
+__Hsfr18 0 0 ABS 0 sfr18 -
+__Hsfr19 0 0 ABS 0 sfr19 -
+__Hsfr20 0 0 ABS 0 sfr20 -
+__Hsfr21 0 0 ABS 0 sfr21 -
+__Hsfr22 0 0 ABS 0 sfr22 -
+__Hsfr23 0 0 ABS 0 sfr23 -
+__Hsfr24 0 0 ABS 0 sfr24 -
+__Hsfr25 0 0 ABS 0 sfr25 -
+__Hsfr26 0 0 ABS 0 sfr26 -
+__Hsfr27 0 0 ABS 0 sfr27 -
+__Hsfr28 0 0 ABS 0 sfr28 -
+__Hsfr29 0 0 ABS 0 sfr29 -
+__Hsfr30 0 0 ABS 0 sfr30 -
+__Hsfr31 0 0 ABS 0 sfr31 -
+__Hstack 0 0 STACK 2 stack -
+__Hbank10 0 0 BANK10 1 bank10 -
+__Hbank11 0 0 BANK11 1 bank11 -
+__Hbank12 0 0 BANK12 1 bank12 -
+__Hbank13 0 0 BANK13 1 bank13 -
+__Hbank14 0 0 BANK14 1 bank14 -
+__Hbank15 0 0 BANK15 1 bank15 -
+__Hbank16 0 0 BANK16 1 bank16 -
+__Hbank17 0 0 BANK17 1 bank17 -
+__Hbank18 0 0 BANK18 1 bank18 -
+__Hbank19 0 0 BANK19 1 bank19 -
+__Hbank20 0 0 BANK20 1 bank20 -
+__Hbank21 0 0 BANK21 1 bank21 -
+__Hbank22 0 0 BANK22 1 bank22 -
+__Hbank23 0 0 BANK23 1 bank23 -
+__Hbank24 0 0 BANK24 1 bank24 -
+__Hbank25 0 0 BANK25 1 bank25 -
+__Hbank26 0 0 BANK26 1 bank26 -
+__Hbank27 0 0 BANK27 1 bank27 -
+__Hbank28 0 0 BANK28 1 bank28 -
+__Hbank29 0 0 BANK29 1 bank29 -
+__Hbank30 0 0 BANK30 1 bank30 -
+__Hbank31 0 0 BANK31 1 bank31 -
+__Hbigram 0 0 ABS 0 bigram -
+__Hmaintext 0 0 ABS 0 maintext -
+__Hcommon 0 0 ABS 0 common -
+__Hconfig 10012 0 CONFIG 4 config -
+__Lbank0 0 0 ABS 0 bank0 -
+__Lbank1 0 0 ABS 0 bank1 -
+__Lbank2 0 0 ABS 0 bank2 -
+__Lbank3 0 0 BANK3 1 bank3 -
+__Lbank4 0 0 BANK4 1 bank4 -
+__Lbank5 0 0 BANK5 1 bank5 -
+__Lbank6 0 0 BANK6 1 bank6 -
+__Lbank7 0 0 BANK7 1 bank7 -
+__Lbank8 0 0 BANK8 1 bank8 -
+__Lbank9 0 0 BANK9 1 bank9 -
+__Lcinit C8 0 CODE 0 cinit -
+__Lsfr10 0 0 ABS 0 sfr10 -
+__Lsfr11 0 0 ABS 0 sfr11 -
+__Lsfr12 0 0 ABS 0 sfr12 -
+__Lsfr13 0 0 ABS 0 sfr13 -
+__Lsfr14 0 0 ABS 0 sfr14 -
+__Lsfr15 0 0 ABS 0 sfr15 -
+__Lsfr16 0 0 ABS 0 sfr16 -
+__Lsfr17 0 0 ABS 0 sfr17 -
+__Lsfr18 0 0 ABS 0 sfr18 -
+__Lsfr19 0 0 ABS 0 sfr19 -
+__Lsfr20 0 0 ABS 0 sfr20 -
+__Lsfr21 0 0 ABS 0 sfr21 -
+__Lsfr22 0 0 ABS 0 sfr22 -
+__Lsfr23 0 0 ABS 0 sfr23 -
+__Lsfr24 0 0 ABS 0 sfr24 -
+__Lsfr25 0 0 ABS 0 sfr25 -
+__Lsfr26 0 0 ABS 0 sfr26 -
+__Lsfr27 0 0 ABS 0 sfr27 -
+__Lsfr28 0 0 ABS 0 sfr28 -
+__Lsfr29 0 0 ABS 0 sfr29 -
+__Lsfr30 0 0 ABS 0 sfr30 -
+__Lsfr31 0 0 ABS 0 sfr31 -
+__Lstack 0 0 STACK 2 stack -
+_INTCONbits B 0 ABS 0 - dist/default/production\Test_Rig.X.production.o
+__Habs1 0 0 ABS 0 abs1 -
+__Hcode 0 0 ABS 0 code -
+__Hinit C4 0 CODE 0 init -
+__Hsfr0 0 0 ABS 0 sfr0 -
+__Hsfr1 0 0 ABS 0 sfr1 -
+__Hsfr2 0 0 ABS 0 sfr2 -
+__Hsfr3 0 0 ABS 0 sfr3 -
+__Hsfr4 0 0 ABS 0 sfr4 -
+__Hsfr5 0 0 ABS 0 sfr5 -
+__Hsfr6 0 0 ABS 0 sfr6 -
+__Hsfr7 0 0 ABS 0 sfr7 -
+__Hsfr8 0 0 ABS 0 sfr8 -
+__Hsfr9 0 0 ABS 0 sfr9 -
+__Htext 0 0 ABS 0 text -
+__Labs1 0 0 ABS 0 abs1 -
+__Lcode 0 0 ABS 0 code -
+__Linit C4 0 CODE 0 init -
+__Lsfr0 0 0 ABS 0 sfr0 -
+__Lsfr1 0 0 ABS 0 sfr1 -
+__Lsfr2 0 0 ABS 0 sfr2 -
+__Lsfr3 0 0 ABS 0 sfr3 -
+__Lsfr4 0 0 ABS 0 sfr4 -
+__Lsfr5 0 0 ABS 0 sfr5 -
+__Lsfr6 0 0 ABS 0 sfr6 -
+__Lsfr7 0 0 ABS 0 sfr7 -
+__Lsfr8 0 0 ABS 0 sfr8 -
+__Lsfr9 0 0 ABS 0 sfr9 -
+__Ltext 0 0 ABS 0 text -
+_eeIndex 7A 0 COMMON 1 nvCOMMON dist/default/production\Test_Rig.X.production.o
+__pstringtext1 FCE 0 STRCODE 0 stringtext1 dist/default/production\Test_Rig.X.production.o
+__pnvBANK0 2A 0 BANK0 1 nvBANK0 dist/default/production\Test_Rig.X.production.o
+__LcstackBANK0 0 0 ABS 0 cstackBANK0 -
+int$flags 7E 0 ABS 0 - dist/default/production\Test_Rig.X.production.o
+__HcstackCOMMON 0 0 ABS 0 cstackCOMMON -
+_GIE 5F 0 ABS 0 - dist/default/production\Test_Rig.X.production.o
+_PR2 1B 0 ABS 0 - dist/default/production\Test_Rig.X.production.o
+__S0 1000 0 ABS 0 - -
+__S1 7D 0 ABS 0 - -
+__S2 0 0 ABS 0 - -
+__S3 F008 0 ABS 0 - -
+_isr 8 0 CODE 0 intentry dist/default/production\Test_Rig.X.production.o
+__pnvCOMMON 7A 0 COMMON 1 nvCOMMON dist/default/production\Test_Rig.X.production.o
+__size_of_imperialMarch 0 0 ABS 0 - dist/default/production\Test_Rig.X.production.o
+__end_of_isr C4 0 CODE 0 intentry dist/default/production\Test_Rig.X.production.o
+eeprom_write@value 71 0 COMMON 1 cstackCOMMON dist/default/production\Test_Rig.X.production.o
+__HnvBANK0 0 0 ABS 0 nvBANK0 -
+__Lintentry 8 0 CODE 0 intentry -
+reset_vec 0 0 CODE 0 reset_vec C:\Users\dinku\AppData\Local\Temp\xcAs9vg.o
+_eeprom_write 1A96 0 CODE 0 text6 dist/default/production\Test_Rig.X.production.o
+__LbssBANK0 0 0 ABS 0 bssBANK0 -
+__Lstringtext1 0 0 ABS 0 stringtext1 -
+_genericDelay 20 0 BANK0 1 bssBANK0 dist/default/production\Test_Rig.X.production.o
+__end_of_imperialMarch 8BC 0 CODE 0 text2 dist/default/production\Test_Rig.X.production.o
+_noGate 26 0 BANK0 1 bssBANK0 dist/default/production\Test_Rig.X.production.o
+__Lbank10 0 0 BANK10 1 bank10 -
+__Lbank11 0 0 BANK11 1 bank11 -
+__Lbank12 0 0 BANK12 1 bank12 -
+__Lbank13 0 0 BANK13 1 bank13 -
+__Lbank14 0 0 BANK14 1 bank14 -
+__Lbank15 0 0 BANK15 1 bank15 -
+__Lbank16 0 0 BANK16 1 bank16 -
+__Lbank17 0 0 BANK17 1 bank17 -
+__Lbank18 0 0 BANK18 1 bank18 -
+__Lbank19 0 0 BANK19 1 bank19 -
+__Lbank20 0 0 BANK20 1 bank20 -
+__Lbank21 0 0 BANK21 1 bank21 -
+__Lbank22 0 0 BANK22 1 bank22 -
+__Lbank23 0 0 BANK23 1 bank23 -
+__Lbank24 0 0 BANK24 1 bank24 -
+__Lbank25 0 0 BANK25 1 bank25 -
+__Lbank26 0 0 BANK26 1 bank26 -
+__Lbank27 0 0 BANK27 1 bank27 -
+__Lbank28 0 0 BANK28 1 bank28 -
+__Lbank29 0 0 BANK29 1 bank29 -
+__Lbank30 0 0 BANK30 1 bank30 -
+__Lbank31 0 0 BANK31 1 bank31 -
+__pmaintext 1AEA 0 CODE 0 maintext dist/default/production\Test_Rig.X.production.o
+__Lbigram 0 0 ABS 0 bigram -
+__Lcommon 0 0 ABS 0 common -
+__Lconfig 0 0 CONFIG 4 config -
+__size_of_eeprom_write 0 0 ABS 0 - dist/default/production\Test_Rig.X.production.o
+__end_of_eeprom_read 1A52 0 CODE 0 text7 dist/default/production\Test_Rig.X.production.o
+__Lspace_0 0 0 ABS 0 - -
+__Lspace_1 0 0 ABS 0 - -
+__Lspace_2 0 0 ABS 0 - -
+__Lspace_3 0 0 ABS 0 - -
+__Lspace_4 0 0 ABS 0 - -
+__pbssCOMMON 7C 0 COMMON 1 bssCOMMON dist/default/production\Test_Rig.X.production.o
+__HbitbssCOMMON 0 0 ABS 0 bitbssCOMMON -
+__HcstackBANK0 0 0 ABS 0 cstackBANK0 -
+_PIR1bits 11 0 ABS 0 - dist/default/production\Test_Rig.X.production.o
+__Lend_init C4 0 CODE 0 end_init -
+__LcstackCOMMON 0 0 ABS 0 cstackCOMMON -
+__end_of_eeprom_write 1AEA 0 CODE 0 text6 dist/default/production\Test_Rig.X.production.o
+end_of_initialization E2 0 CODE 0 cinit dist/default/production\Test_Rig.X.production.o
+__Hintentry C4 0 CODE 0 intentry -
+__Lstrings 0 0 ABS 0 strings -
+_forceArc 2A 0 BANK0 1 nvBANK0 dist/default/production\Test_Rig.X.production.o
+__Hreset_vec 4 0 CODE 0 reset_vec -
+__HbssBANK0 0 0 ABS 0 bssBANK0 -
+blockingDelay@mSecs 71 0 COMMON 1 cstackCOMMON dist/default/production\Test_Rig.X.production.o
+_postscaler 24 0 BANK0 1 bssBANK0 dist/default/production\Test_Rig.X.production.o
+__ptext1 1C2E 0 CODE 0 text1 dist/default/production\Test_Rig.X.production.o
+__ptext2 EA 0 CODE 0 text2 dist/default/production\Test_Rig.X.production.o
+__ptext3 8BC 0 CODE 0 text3 dist/default/production\Test_Rig.X.production.o
+__ptext4 1A52 0 CODE 0 text4 dist/default/production\Test_Rig.X.production.o
+__ptext5 1A10 0 CODE 0 text5 dist/default/production\Test_Rig.X.production.o
+__ptext6 1A96 0 CODE 0 text6 dist/default/production\Test_Rig.X.production.o
+__ptext7 1A28 0 CODE 0 text7 dist/default/production\Test_Rig.X.production.o
+__Lpowerup 0 0 CODE 0 powerup -
+__Leeprom_data 0 1E000 EEDATA 3 eeprom_data -
+__size_of_playNote 0 0 ABS 0 - dist/default/production\Test_Rig.X.production.o
+__Lreset_vec 0 0 CODE 0 reset_vec -
+__Hstringtext1 0 0 ABS 0 stringtext1 -
+playNote@duration 73 0 COMMON 1 cstackCOMMON dist/default/production\Test_Rig.X.production.o
+__end_of__initialization E2 0 CODE 0 cinit dist/default/production\Test_Rig.X.production.o
+__Lfunctab 0 0 ENTRY 0 functab -
+__Lclrtext 0 0 ABS 0 clrtext -
+__pcstackCOMMON 70 0 COMMON 1 cstackCOMMON dist/default/production\Test_Rig.X.production.o
+__Beeprom_data 1E000 1E000 EEDATA 3 eeprom_data -
+__Hend_init C8 0 CODE 0 end_init -
+__end_of_main 1C2E 0 CODE 0 maintext dist/default/production\Test_Rig.X.production.o
+_EEADR 191 0 ABS 0 - dist/default/production\Test_Rig.X.production.o
+_LATA0 860 0 ABS 0 - dist/default/production\Test_Rig.X.production.o
+_LATA1 861 0 ABS 0 - dist/default/production\Test_Rig.X.production.o
+_LATA2 862 0 ABS 0 - dist/default/production\Test_Rig.X.production.o
+_LATA4 864 0 ABS 0 - dist/default/production\Test_Rig.X.production.o
+_LATA5 865 0 ABS 0 - dist/default/production\Test_Rig.X.production.o
+__end_of_notes 1016 0 STRCODE 0 stringtext1 dist/default/production\Test_Rig.X.production.o
+__end_of_sheRa 2000 0 CODE 0 text1 dist/default/production\Test_Rig.X.production.o
+__Hram 0 0 ABS 0 ram -
+__Lram 0 0 ABS 0 ram -
+_notes FCE 0 STRCODE 0 stringtext1 dist/default/production\Test_Rig.X.production.o
+_playNote 1A52 0 CODE 0 text4 dist/default/production\Test_Rig.X.production.o
+_sheRa 1C2E 0 CODE 0 text1 dist/default/production\Test_Rig.X.production.o
+eeprom_read@addr 74 0 COMMON 1 cstackCOMMON dist/default/production\Test_Rig.X.production.o
+__pintentry 8 0 CODE 0 intentry dist/default/production\Test_Rig.X.production.o
+__size_of_isr 0 0 ABS 0 - dist/default/production\Test_Rig.X.production.o
+__LbitbssCOMMON 0 0 ABS 0 bitbssCOMMON -
+__initialization C8 0 CODE 0 cinit dist/default/production\Test_Rig.X.production.o
+__end_of_playNote 1A96 0 CODE 0 text4 dist/default/production\Test_Rig.X.production.o
+__size_of_eeprom_read 0 0 ABS 0 - dist/default/production\Test_Rig.X.production.o
+__pbssBANK0 20 0 BANK0 1 bssBANK0 dist/default/production\Test_Rig.X.production.o
+_T2CONbits 1C 0 ABS 0 - dist/default/production\Test_Rig.X.production.o
+_STATUSbits 3 0 ABS 0 - dist/default/production\Test_Rig.X.production.o
+playNote@note 75 0 COMMON 1 cstackCOMMON dist/default/production\Test_Rig.X.production.o
+# %SPLITSTAB Section
+# This section enumerates all the psect splits performed by the assembler.
+# The beginning of the section is indicated by %SPLITSTAB.
+# Each line is a record a particular split, where the parent psect is on
+# the left and the child on the right.  Note that a child psect is always
+# split form the top of the parent psect. All splits from a given parent
+# are listed in the order in which they occurred.
+%SPLITSTAB
+# %DABS Section
+# This section contains a table of all usuage of the assember
+# directive DABS in the program. Each line has the following format:
+#   <name> <space> <address> <size>
+# If the DABS was originally labelled then that shall be <name>,
+# otherwise name will be "-".  The <space> number is in decimal.
+# <address> and <size> are in byte units as unqaulified hexadecimal
+%DABS
+- 1 7E 2
+# %SEGMENTS Section
+# This sections enumerates the segments of the program.  Each segment
+# is described on a single line as follows:
+#    <name> <space> <link address> <file address> <size> <delta>
+# Addresses and size are in unqualified hexadecimal.  The link address
+# and size are in units of delta. The file address is in units of bytes.
+# All other numeric quantities are in decimal.
+%SEGMENTS
+text1 0 E17 1C2E 1E9 2
+text4 0 D29 1A52 22 2
+text5 0 D08 1A10 C 2
+text6 0 D4B 1A96 2A 2
+text7 0 D14 1A28 15 2
+maintext 0 D75 1AEA A2 2
+cstackCOMMON 1 70 70 D 1
+stringtext1 0 7E7 FCE 24 2
+intentry 0 4 8 7E3 2
+reset_vec 0 0 0 2 2
+bssBANK0 1 20 20 E 1
+eeprom_data 3 0 1E000 8 2
+# %NOTES Section
+# This section contains data of all the note-psects.  The beginning of the section
+# is indicated by %NOTES. The first line indicates the name and decimal
+# byte-length of the first note-psect, e.g.
+#   $codecov_info_hdr 16
+# Each line that follows contains the byte-data of the psect in hexadecimal as a
+# space-separated list. These lines are limited to 16 bytes of data.
+%NOTES

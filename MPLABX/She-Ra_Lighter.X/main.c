@@ -62,6 +62,10 @@
 #pragma config STVREN = ON      // Stack Overflow/Underflow Reset Enable (Stack Overflow or Underflow will cause a Reset)
 #pragma config BORV = LO        // Brown-out Reset Voltage Selection (Brown-out Reset Voltage (Vbor), low trip point selected.)
 
+// CONFIG3
+#pragma config LVP = OFF
+
+
 // Wipe the first handful of bytes from EEPROM, because why not.
 
 // __EEPROM_DATA(0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00);
@@ -182,6 +186,11 @@ unsigned int playIndex = 0;
 unsigned int genericDelay = 0;
 
 unsigned char runIndex = 0;
+
+unsigned int battVolts = 0; // We'll use this to hold the current voltage measurement
+unsigned char chargeCycle = 0; // We'll use this to toggle the charge LEDs on and off
+unsigned int adcVolts = 0; // Reads the temporary value read from the ADC
+unsigned char charging = 0; // Flag to say if we're currently charging or not
 unsigned long calibrationMV = 0; // Holds our chip-specific FVR calibration value in mV
 
 // Prototype our functions
@@ -200,6 +209,32 @@ void sheRa(void);
 
 int main(int argc, char** argv) {
 
+    // Set up our tristate registers (define pins as inputs or outputs)
+    TRISA0 = 1; // Set RA0 (pin 13) as an input for the lid switch
+    WPUA0 = 1; // Enable weak pull up resistor
+    TRISA1 = 0;
+    TRISA2 = 0;
+    TRISA3 = 1; // Set RA3 (pin 4) as an input for our button switch
+    ///// WPUA3 = 1; // Enable weak pull up resistor
+    TRISA4 = 1; // Set RA4 (pin3) as an input for our battery voltage
+    TRISA5 = 1; // Set RA5 (pin 2) as an input for our charging flag
+    TRISC0 = 0;
+    TRISC1 = 0;
+    TRISC2 = 0;
+    TRISC3 = 0;
+    TRISC4 = 0;
+    TRISC5 = 0;
+
+    // Set the default states of our digital output pins
+    LATA1 = 1;
+    LATA2 = 1;
+    LATC0 = 1;
+    LATC1 = 1;
+    LATC2 = 1;
+    LATC3 = 1; ////// Power the touch sensor at least for now.
+    LATC4 = 0;
+    LATC5 = 0;
+
     // Switch Analog A ports to digital IO mode
     // 1 is analog, 0 is digital.
     ANSELAbits.ANSA0 = 0;
@@ -216,7 +251,6 @@ int main(int argc, char** argv) {
     ANSELC = 0x0;
 
     // Set up our oscillator (12F version)
-
     // OSCCONbits.IRCF=14;     // Set internal oscillator to 8 MHz (or 32MHz if PLL gets set below)
     // OSCCONbits.SPLLEN=0x01; // Disable software Phase Locked Loop (PLL) bit. This is ignored as we set PLL in the config bits. Ergo we're at 32 MHz
 
@@ -227,15 +261,20 @@ int main(int argc, char** argv) {
 
     // Set up our timers
     // Timer0
-    T0CON0bits.EN = 1; // Enable Timer0
     T0CON0bits.MD16 = 0; // 8 bit timer
     T0CON0bits.OUTPS = 0b0000; // 1:1 output (post) scaler
+    T0CON1bits.CS = 0b010; // FOSC/4 as our input (match the PIC12F)
+    T0CON0bits.EN = 1; // Enable Timer0
 
     // Timer2
-    PR2 = 0x01; // Set our initial note for regular arcs
+    PR2 = 0x1E; // Set our initial note for regular arcs
     T2CLKCON = 0b001; // Set the input to FOSC/4
     T2CONbits.T2CKPS = 0b111; // Sets the prescaler to 64
     T2CONbits.TMR2ON = 1;
+
+    // Enable timer interrupts so the blockingDelay function works    
+    TMR0IE = 1;
+    TMR2IE = 1;
 
     // Set up the internal Fixed Voltage Reference
     FVRCONbits.ADFVR = 0b01; // Set FVR to 1x (1.024V)
@@ -250,7 +289,7 @@ int main(int argc, char** argv) {
     NVMCON1bits.NVMREGS = 0; // Go back to reading usual registers
 
     // Set up the ADC
-    ADCON1bits.CS = 0b110; // Convert at FOSC/64 speed (still way faster than we  at 2us)
+    ADCON1bits.CS = 0b001; // Convert at FOSC/8 speed
     ADCON1bits.PREF = 0b00; // Use VDD as the voltage reference
     ADCON0bits.CHS = 0b011110; // Connect the FVR to the ADC
     ADCON1bits.FM = 1; // Right-align the 10 reading bits in the 16 bit register
@@ -270,9 +309,6 @@ int main(int argc, char** argv) {
 
 
     // Set up interrupts
-    GIE = 1; // Global Interrupt Enable (need this to get any interrupts)
-    PEIE = 1; // Peripheral Interrupt Enable (enables all interrupt pins)
-    IOCIE = 1; // Interrupt-on-change enable flag (for detecting change on button, pin 7)
     IOCAN0 = 1; // Look for falling edge on RA0 (pin 13) lid is opened
     IOCAP0 = 1; // Look for rising edge on RA0 (pin 13) lid is closed
     IOCAN3 = 1; // Look for falling edge on RA3 (pin 4) button is pressed
@@ -281,42 +317,21 @@ int main(int argc, char** argv) {
     IOCAP5 = 1; // Look for rising edge on RA5 (pin 2) USB has been plugged in
     INTE = 0; // Disable interrupts on the dedicated INT pin (we're not using it)
 
+    PEIE = 1; // Peripheral Interrupt Enable (enables all interrupt pins)
+    IOCIE = 1; // Interrupt-on-change enable flag (for detecting change on button, pin 7)
+    GIE = 1; // Global Interrupt Enable (need this to get any interrupts)
 
-    // Set up our tristate registers (define pins as inputs or outputs)
-    TRISA0 = 1; // Set RA0 (pin 13) as an input for the lid switch
-    TRISA1 = 0;
-    TRISA2 = 0;
-    TRISA3 = 1; // Set RA3 (pin 4) as an input for our button switch
-    TRISA4 = 1; // Set RA4 (pin3) as an input for our battery voltage sensing
-    TRISA5 = 1; // Set RA5 (pin 2) as an input for our charging flag
-    TRISC0 = 0;
-    TRISC1 = 0;
-    TRISC2 = 0;
-    TRISC3 = 0;
-    TRISC4 = 0;
-    TRISC5 = 0;
-
-    // Set the default states of our digital output pins
-    LATA1 = 1;
-    LATA2 = 1;
-    LATC0 = 1;
-    LATC1 = 1;
-    LATC2 = 1;
-    LATC3 = 0;
-    LATC4 = 0;
-    LATC5 = 0;
-
-    // Flash the power light a few times to show we're working, then go sleepy times
+    // Flash the power light a few times to show we're working
     LATC2 = 0;
-    blockingDelay(250);
+    blockingDelay(500);
     LATC2 = 1;
-    blockingDelay(250);
+    blockingDelay(500);
     LATC2 = 0;
-    blockingDelay(250);
+    blockingDelay(500);
     LATC2 = 1;
-    blockingDelay(250);
+    blockingDelay(500);
     LATC2 = 0;
-    blockingDelay(250);
+    blockingDelay(500);
     LATC2 = 1;
 
     if (PORTAbits.RA5) showCharge(); // if we're plugged in, do the charging routine
@@ -328,52 +343,68 @@ int main(int argc, char** argv) {
 // Our global interrupt service routine
 
 static void __interrupt() isr(void) {
+
     // Pin change triggered something - let's find out what
     if (PIR0bits.IOCIF) {
-
         // Charger pin changed (RA5)
-        if (IOCAF5 && PORTAbits.RA5) {
-            // Charger was plugged in
-            // Turn off everything, but don't sleep
-            goToLPmode(0);
-            showCharge(); // Run the charging routine
-        } else {
-            if (IOCAF5 && !PORTAbits.RA5) {
-                // Charger was unplugged
+        if (IOCAF5) {
+            IOCAF5 = 0;
+            if (PORTAbits.RA5) {
+
+                // Charger was plugged in
+                // Turn off everything, but don't sleep
+                goToLPmode(0);
+                showCharge(); // Run the charging routine
+            } else {
+                // Charger was unplugged, so go to sleep
                 goToLPmode(1);
             }
+        }
 
-            // Lid has been opened, and we're not charging
-            if (IOCAF0 && !PORTAbits.RA0 && !PORTAbits.RA5) {
+        // Lid changed
+        if (IOCAF0) {
+            IOCAF0 = 0;
+            // Lid opened, and we're not charging
+            if (!PORTAbits.RA0 && !PORTAbits.RA5) {
+
+                // Turn the power light on
+                LATC2 = 0;
+
                 // Show the battery charge level
                 showCharge();
 
                 // Fire up the touch sensor and wait in sleep mode
                 LATC3 = 1;
-                IOCAF0 = 0;
+
                 SLEEP();
             }
+            // Lid has been closed, and we're not charging
+            if (PORTAbits.RA0 && !PORTAbits.RA5) {
+                // We're done, let's sleep
+                goToLPmode(1);
+            }
+        }
 
-            // Power button was pressed, lid is open, and we're not also charging...let's go!
-            if (IOCAF3 && !PORTAbits.RA3 && !PORTAbits.RA0 && !PORTAbits.RA5) {
-                IOCAF3 = 0;
+        // Power button (touch sensor) change
+        if (IOCAF3) {
+            IOCAF3 = 0;
+            // button was pressed, lid is open, and we're not also charging...let's go!
+            if (!PORTAbits.RA3 && !PORTAbits.RA0 && !PORTAbits.RA5) {
                 // Do the thing
                 doTheArc();
             }
 
+
             // Power button was released and we're not charging, turn off the arc and 1-4 LEDs. Go to sleep in wait.
-            if (IOCAF3 && PORTAbits.RA3 && !PORTAbits.RA5) {
+            ////////
+            if (PORTAbits.RA3 && !PORTAbits.RA5) {
+                IOCAF3 = 0;
                 forceArc = 0;
                 LATA1 = 1;
                 LATA2 = 1;
                 LATC0 = 1;
                 LATC1 = 1;
                 SLEEP();
-            }
-
-            // Lid has been closed, and we're not charging
-            if (IOCAF0 && PORTAbits.RA0 && !PORTAbits.RA5) {
-                goToLPmode(1);
             }
         }
     }
@@ -424,8 +455,8 @@ static void __interrupt() isr(void) {
 
 void doTheArc() {
     // Enable our timer interrupts
-    TMR0IE = 1;
-    TMR2IE = 1;
+    ///// TMR0IE = 1;
+    ///// TMR2IE = 1;
 
     forceArc = 1; // Start the arc (no modulation)
     runIndex++;
@@ -436,7 +467,7 @@ void doTheArc() {
             LATA2 = 1;
             LATC0 = 1;
             LATC1 = 1;
-            blockingDelay(5000);
+            blockingDelay(1);
             break;
 
         case 2:
@@ -477,6 +508,7 @@ void doTheArc() {
             sheRa(); // Play the She Ra transform theme
             forceArc = 0; // Disable the Arc
             break;
+
         default:
             break;
     }
@@ -494,7 +526,7 @@ void doTheArc() {
 void blockingDelay(unsigned int mSecs) {
     // Comment these lines out to do nothing for simulator testing
     genericDelay = mSecs;
-    while (genericDelay--);
+    while (genericDelay > 0);
 }
 
 // Note player function
@@ -521,8 +553,8 @@ void goToLPmode(unsigned char sleepy) {
     ADCON0bits.ON = 0; // Disable the ADC to save power
 
     // Remove timer interrupts
-    TMR0IE = 0;
-    TMR2IE = 0;
+    ///// TMR0IE = 0;
+    ///// TMR2IE = 0;
 
     // Turn off the LEDs
     LATA1 = 1; // Turn off LED 1
@@ -530,7 +562,7 @@ void goToLPmode(unsigned char sleepy) {
     LATC0 = 1; // Turn off LED 3
     LATC1 = 1; // Turn off LED 4
     LATC2 = 1; // Turn off the power LED
-    LATC3 = 0; // Turn off the touch sensor
+    // LATC3 = 0; // Turn off the touch sensor
 
     if (sleepy) {
         SLEEP();
@@ -538,18 +570,20 @@ void goToLPmode(unsigned char sleepy) {
 }
 
 void showCharge(void) {
-    unsigned int battVolts = 0; // We'll use this to hold the current voltage measurement
-    unsigned char chargeCycle = 0; // We'll use this to toggle the charge LEDs on and off
-    unsigned int adcVolts = 0; // Reads the temporary value read from the ADC
-    unsigned char charging = 0; 
-    PORTAbits.RA5 = charging;
+    ADCON0bits.ON = 1; // Turn the ADC on
+
+    // Enable our timer interrupts    
+    ///// TMR0IE = 1;
+    ///// TMR2IE = 1;
+
+    charging = PORTAbits.RA5;
 
     // We're going to measure the fixed 1.024v internal reference against VDD (the battery voltage)
     // As we know the range is 0-1023 and we know what the fixed value is, we can calculate VDD
 
     do {
         ADCON0bits.GO = 1; // Start an ADC measurement
-        while (ADCON0bits.GO == 1); //wait for the conversion to end
+        while (ADCON0bits.GO == 1); // wait for the conversion to end (GO bit gets reset when read is complete)
         adcVolts = ADRES;
         battVolts = ((calibrationMV * 1204) / adcVolts) / 10; // Should give us battery voltage x100 (e.g. 3.7v is 370)
 
@@ -577,8 +611,8 @@ void showCharge(void) {
             LATA1 = 0;
             LATA2 = 0;
             if (charging) {
-            if (chargeCycle) LATC0 = 0;
-            else LATC0 = 1;
+                if (chargeCycle) LATC0 = 0;
+                else LATC0 = 1;
             }
             LATC1 = 1;
         } else if (battVolts > 375) {
@@ -586,8 +620,8 @@ void showCharge(void) {
             // 1 LED on, #2 blinky
             LATA1 = 0;
             if (charging) {
-            if (chargeCycle) LATA2 = 0;
-            else LATA2 = 1;
+                if (chargeCycle) LATA2 = 0;
+                else LATA2 = 1;
             }
             LATC0 = 1;
             LATC1 = 1;
@@ -600,8 +634,7 @@ void showCharge(void) {
             LATC1 = 1;
         }
         chargeCycle ^= 1; // Invert the value
-        if (charging)
-        {
+        if (charging) {
             // wait before updating the LEDs
             blockingDelay(1000);
             // See if we're still charging

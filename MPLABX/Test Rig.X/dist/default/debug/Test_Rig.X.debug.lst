@@ -1,0 +1,3772 @@
+
+
+Microchip MPLAB XC8 Assembler V2.32 build 20210201212658 
+                                                                                               Sun Sep 19 18:42:38 2021
+
+Microchip MPLAB XC8 C Compiler v2.32 (Free license) build 20210201212658 Og1 
+     1                           	processor	12F1840
+     2                           	pagewidth 120
+     3                           	opt	flic
+     4                           	psect	eeprom_data,global,class=EEDATA,space=3,delta=2,noexec
+     5                           	psect	stringtext1,global,class=STRCODE,delta=2,noexec
+     6                           	psect	nvCOMMON,global,class=COMMON,space=1,delta=1,noexec
+     7                           	psect	nvBANK0,global,class=BANK0,space=1,delta=1,noexec
+     8                           	psect	cinit,global,class=CODE,merge=1,delta=2
+     9                           	psect	bitbssCOMMON,global,bit,class=COMMON,space=1,delta=1,noexec
+    10                           	psect	bssCOMMON,global,class=COMMON,space=1,delta=1,noexec
+    11                           	psect	bssBANK0,global,class=BANK0,space=1,delta=1,noexec
+    12                           	psect	cstackCOMMON,global,class=COMMON,space=1,delta=1,noexec
+    13                           	psect	cstackBANK0,global,class=BANK0,space=1,delta=1,noexec
+    14                           	psect	maintext,global,class=CODE,merge=1,split=1,delta=2
+    15                           	psect	text1,local,class=CODE,merge=1,delta=2
+    16                           	psect	text2,local,class=CODE,merge=1,delta=2
+    17                           	psect	text3,local,class=CODE,merge=1,delta=2
+    18                           	psect	text4,local,class=CODE,merge=1,delta=2
+    19                           	psect	text5,local,class=CODE,merge=1,delta=2
+    20                           	psect	text6,local,class=CODE,merge=1,delta=2
+    21                           	psect	text7,local,class=CODE,merge=1,delta=2
+    22                           	psect	intentry,global,class=CODE,delta=2
+    23                           	psect	config,global,abs,ovrld,class=CONFIG,space=4,delta=2,noexec
+    24                           	dabs	1,0x7E,2
+    25  0000                     
+    26                           ; Version 2.20
+    27                           ; Generated 12/02/2020 GMT
+    28                           ; 
+    29                           ; Copyright © 2020, Microchip Technology Inc. and its subsidiaries ("Microchip")
+    30                           ; All rights reserved.
+    31                           ; 
+    32                           ; This software is developed by Microchip Technology Inc. and its subsidiaries ("Microch
+      +                          ip").
+    33                           ; 
+    34                           ; Redistribution and use in source and binary forms, with or without modification, are
+    35                           ; permitted provided that the following conditions are met:
+    36                           ; 
+    37                           ;     1. Redistributions of source code must retain the above copyright notice, this lis
+      +                          t of
+    38                           ;        conditions and the following disclaimer.
+    39                           ; 
+    40                           ;     2. Redistributions in binary form must reproduce the above copyright notice, this 
+      +                          list
+    41                           ;        of conditions and the following disclaimer in the documentation and/or other
+    42                           ;        materials provided with the distribution.
+    43                           ; 
+    44                           ;     3. Microchip's name may not be used to endorse or promote products derived from th
+      +                          is
+    45                           ;        software without specific prior written permission.
+    46                           ; 
+    47                           ; THIS SOFTWARE IS PROVIDED BY MICROCHIP "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+    48                           ; INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS F
+      +                          OR
+    49                           ; PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL MICROCHIP BE LIABLE FOR ANY DIRECT, INDIREC
+      +                          T,
+    50                           ; INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING BUT NOT LIMITED TO
+    51                           ; PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA OR PROFITS; OR BUSINESS
+    52                           ; INTERRUPTION) HOWSOEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, ST
+      +                          RICT
+    53                           ; LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE U
+      +                          SE OF
+    54                           ; THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+    55                           ; 
+    56                           ; 
+    57                           ; Code-generator required, PIC12F1840 Definitions
+    58                           ; 
+    59                           ; SFR Addresses
+    60  0000                     	;# 
+    61  0001                     	;# 
+    62  0002                     	;# 
+    63  0003                     	;# 
+    64  0004                     	;# 
+    65  0005                     	;# 
+    66  0006                     	;# 
+    67  0007                     	;# 
+    68  0008                     	;# 
+    69  0009                     	;# 
+    70  000A                     	;# 
+    71  000B                     	;# 
+    72  000C                     	;# 
+    73  0011                     	;# 
+    74  0012                     	;# 
+    75  0015                     	;# 
+    76  0016                     	;# 
+    77  0016                     	;# 
+    78  0017                     	;# 
+    79  0018                     	;# 
+    80  0019                     	;# 
+    81  001A                     	;# 
+    82  001B                     	;# 
+    83  001C                     	;# 
+    84  001E                     	;# 
+    85  001F                     	;# 
+    86  008C                     	;# 
+    87  0091                     	;# 
+    88  0092                     	;# 
+    89  0095                     	;# 
+    90  0096                     	;# 
+    91  0097                     	;# 
+    92  0098                     	;# 
+    93  0099                     	;# 
+    94  009A                     	;# 
+    95  009B                     	;# 
+    96  009B                     	;# 
+    97  009C                     	;# 
+    98  009D                     	;# 
+    99  009E                     	;# 
+   100  010C                     	;# 
+   101  0111                     	;# 
+   102  0112                     	;# 
+   103  0115                     	;# 
+   104  0116                     	;# 
+   105  0117                     	;# 
+   106  0118                     	;# 
+   107  0119                     	;# 
+   108  011A                     	;# 
+   109  011B                     	;# 
+   110  011D                     	;# 
+   111  011D                     	;# 
+   112  018C                     	;# 
+   113  0191                     	;# 
+   114  0191                     	;# 
+   115  0192                     	;# 
+   116  0193                     	;# 
+   117  0193                     	;# 
+   118  0193                     	;# 
+   119  0194                     	;# 
+   120  0195                     	;# 
+   121  0196                     	;# 
+   122  0197                     	;# 
+   123  0199                     	;# 
+   124  019A                     	;# 
+   125  019B                     	;# 
+   126  019B                     	;# 
+   127  019B                     	;# 
+   128  019B                     	;# 
+   129  019C                     	;# 
+   130  019C                     	;# 
+   131  019D                     	;# 
+   132  019E                     	;# 
+   133  019F                     	;# 
+   134  020C                     	;# 
+   135  0211                     	;# 
+   136  0211                     	;# 
+   137  0212                     	;# 
+   138  0212                     	;# 
+   139  0213                     	;# 
+   140  0213                     	;# 
+   141  0214                     	;# 
+   142  0214                     	;# 
+   143  0215                     	;# 
+   144  0215                     	;# 
+   145  0215                     	;# 
+   146  0216                     	;# 
+   147  0216                     	;# 
+   148  0217                     	;# 
+   149  0217                     	;# 
+   150  0291                     	;# 
+   151  0291                     	;# 
+   152  0292                     	;# 
+   153  0293                     	;# 
+   154  0294                     	;# 
+   155  0295                     	;# 
+   156  0295                     	;# 
+   157  0296                     	;# 
+   158  0391                     	;# 
+   159  0392                     	;# 
+   160  0393                     	;# 
+   161  039A                     	;# 
+   162  039C                     	;# 
+   163  039D                     	;# 
+   164  039E                     	;# 
+   165  039F                     	;# 
+   166  0FE4                     	;# 
+   167  0FE5                     	;# 
+   168  0FE6                     	;# 
+   169  0FE7                     	;# 
+   170  0FE8                     	;# 
+   171  0FE9                     	;# 
+   172  0FEA                     	;# 
+   173  0FEB                     	;# 
+   174  0FED                     	;# 
+   175  0FEE                     	;# 
+   176  0FEF                     	;# 
+   177                           
+   178                           	psect	eeprom_data
+   179  0000  0000 0000 0000 0000 0000 0000 0000 0000 	db	0,0,0,0,0,0,0,0	;# 
+   180  0000                     	;# 
+   181  0001                     	;# 
+   182  0002                     	;# 
+   183  0003                     	;# 
+   184  0004                     	;# 
+   185  0005                     	;# 
+   186  0006                     	;# 
+   187  0007                     	;# 
+   188  0008                     	;# 
+   189  0009                     	;# 
+   190  000A                     	;# 
+   191  000B                     	;# 
+   192  000C                     	;# 
+   193  0011                     	;# 
+   194  0012                     	;# 
+   195  0015                     	;# 
+   196  0016                     	;# 
+   197  0016                     	;# 
+   198  0017                     	;# 
+   199  0018                     	;# 
+   200  0019                     	;# 
+   201  001A                     	;# 
+   202  001B                     	;# 
+   203  001C                     	;# 
+   204  001E                     	;# 
+   205  001F                     	;# 
+   206  008C                     	;# 
+   207  0091                     	;# 
+   208  0092                     	;# 
+   209  0095                     	;# 
+   210  0096                     	;# 
+   211  0097                     	;# 
+   212  0098                     	;# 
+   213  0099                     	;# 
+   214  009A                     	;# 
+   215  009B                     	;# 
+   216  009B                     	;# 
+   217  009C                     	;# 
+   218  009D                     	;# 
+   219  009E                     	;# 
+   220  010C                     	;# 
+   221  0111                     	;# 
+   222  0112                     	;# 
+   223  0115                     	;# 
+   224  0116                     	;# 
+   225  0117                     	;# 
+   226  0118                     	;# 
+   227  0119                     	;# 
+   228  011A                     	;# 
+   229  011B                     	;# 
+   230  011D                     	;# 
+   231  011D                     	;# 
+   232  018C                     	;# 
+   233  0191                     	;# 
+   234  0191                     	;# 
+   235  0192                     	;# 
+   236  0193                     	;# 
+   237  0193                     	;# 
+   238  0193                     	;# 
+   239  0194                     	;# 
+   240  0195                     	;# 
+   241  0196                     	;# 
+   242  0197                     	;# 
+   243  0199                     	;# 
+   244  019A                     	;# 
+   245  019B                     	;# 
+   246  019B                     	;# 
+   247  019B                     	;# 
+   248  019B                     	;# 
+   249  019C                     	;# 
+   250  019C                     	;# 
+   251  019D                     	;# 
+   252  019E                     	;# 
+   253  019F                     	;# 
+   254  020C                     	;# 
+   255  0211                     	;# 
+   256  0211                     	;# 
+   257  0212                     	;# 
+   258  0212                     	;# 
+   259  0213                     	;# 
+   260  0213                     	;# 
+   261  0214                     	;# 
+   262  0214                     	;# 
+   263  0215                     	;# 
+   264  0215                     	;# 
+   265  0215                     	;# 
+   266  0216                     	;# 
+   267  0216                     	;# 
+   268  0217                     	;# 
+   269  0217                     	;# 
+   270  0291                     	;# 
+   271  0291                     	;# 
+   272  0292                     	;# 
+   273  0293                     	;# 
+   274  0294                     	;# 
+   275  0295                     	;# 
+   276  0295                     	;# 
+   277  0296                     	;# 
+   278  0391                     	;# 
+   279  0392                     	;# 
+   280  0393                     	;# 
+   281  039A                     	;# 
+   282  039C                     	;# 
+   283  039D                     	;# 
+   284  039E                     	;# 
+   285  039F                     	;# 
+   286  0FE4                     	;# 
+   287  0FE5                     	;# 
+   288  0FE6                     	;# 
+   289  0FE7                     	;# 
+   290  0FE8                     	;# 
+   291  0FE9                     	;# 
+   292  0FEA                     	;# 
+   293  0FEB                     	;# 
+   294  0FED                     	;# 
+   295  0FEE                     	;# 
+   296  0FEF                     	;# 
+   297  0000                     	;# 
+   298  0001                     	;# 
+   299  0002                     	;# 
+   300  0003                     	;# 
+   301  0004                     	;# 
+   302  0005                     	;# 
+   303  0006                     	;# 
+   304  0007                     	;# 
+   305  0008                     	;# 
+   306  0009                     	;# 
+   307  000A                     	;# 
+   308  000B                     	;# 
+   309  000C                     	;# 
+   310  0011                     	;# 
+   311  0012                     	;# 
+   312  0015                     	;# 
+   313  0016                     	;# 
+   314  0016                     	;# 
+   315  0017                     	;# 
+   316  0018                     	;# 
+   317  0019                     	;# 
+   318  001A                     	;# 
+   319  001B                     	;# 
+   320  001C                     	;# 
+   321  001E                     	;# 
+   322  001F                     	;# 
+   323  008C                     	;# 
+   324  0091                     	;# 
+   325  0092                     	;# 
+   326  0095                     	;# 
+   327  0096                     	;# 
+   328  0097                     	;# 
+   329  0098                     	;# 
+   330  0099                     	;# 
+   331  009A                     	;# 
+   332  009B                     	;# 
+   333  009B                     	;# 
+   334  009C                     	;# 
+   335  009D                     	;# 
+   336  009E                     	;# 
+   337  010C                     	;# 
+   338  0111                     	;# 
+   339  0112                     	;# 
+   340  0115                     	;# 
+   341  0116                     	;# 
+   342  0117                     	;# 
+   343  0118                     	;# 
+   344  0119                     	;# 
+   345  011A                     	;# 
+   346  011B                     	;# 
+   347  011D                     	;# 
+   348  011D                     	;# 
+   349  018C                     	;# 
+   350  0191                     	;# 
+   351  0191                     	;# 
+   352  0192                     	;# 
+   353  0193                     	;# 
+   354  0193                     	;# 
+   355  0193                     	;# 
+   356  0194                     	;# 
+   357  0195                     	;# 
+   358  0196                     	;# 
+   359  0197                     	;# 
+   360  0199                     	;# 
+   361  019A                     	;# 
+   362  019B                     	;# 
+   363  019B                     	;# 
+   364  019B                     	;# 
+   365  019B                     	;# 
+   366  019C                     	;# 
+   367  019C                     	;# 
+   368  019D                     	;# 
+   369  019E                     	;# 
+   370  019F                     	;# 
+   371  020C                     	;# 
+   372  0211                     	;# 
+   373  0211                     	;# 
+   374  0212                     	;# 
+   375  0212                     	;# 
+   376  0213                     	;# 
+   377  0213                     	;# 
+   378  0214                     	;# 
+   379  0214                     	;# 
+   380  0215                     	;# 
+   381  0215                     	;# 
+   382  0215                     	;# 
+   383  0216                     	;# 
+   384  0216                     	;# 
+   385  0217                     	;# 
+   386  0217                     	;# 
+   387  0291                     	;# 
+   388  0291                     	;# 
+   389  0292                     	;# 
+   390  0293                     	;# 
+   391  0294                     	;# 
+   392  0295                     	;# 
+   393  0295                     	;# 
+   394  0296                     	;# 
+   395  0391                     	;# 
+   396  0392                     	;# 
+   397  0393                     	;# 
+   398  039A                     	;# 
+   399  039C                     	;# 
+   400  039D                     	;# 
+   401  039E                     	;# 
+   402  039F                     	;# 
+   403  0FE4                     	;# 
+   404  0FE5                     	;# 
+   405  0FE6                     	;# 
+   406  0FE7                     	;# 
+   407  0FE8                     	;# 
+   408  0FE9                     	;# 
+   409  0FEA                     	;# 
+   410  0FEB                     	;# 
+   411  0FED                     	;# 
+   412  0FEE                     	;# 
+   413  0FEF                     	;# 
+   414  0000                     	;# 
+   415  0001                     	;# 
+   416  0002                     	;# 
+   417  0003                     	;# 
+   418  0004                     	;# 
+   419  0005                     	;# 
+   420  0006                     	;# 
+   421  0007                     	;# 
+   422  0008                     	;# 
+   423  0009                     	;# 
+   424  000A                     	;# 
+   425  000B                     	;# 
+   426  000C                     	;# 
+   427  0011                     	;# 
+   428  0012                     	;# 
+   429  0015                     	;# 
+   430  0016                     	;# 
+   431  0016                     	;# 
+   432  0017                     	;# 
+   433  0018                     	;# 
+   434  0019                     	;# 
+   435  001A                     	;# 
+   436  001B                     	;# 
+   437  001C                     	;# 
+   438  001E                     	;# 
+   439  001F                     	;# 
+   440  008C                     	;# 
+   441  0091                     	;# 
+   442  0092                     	;# 
+   443  0095                     	;# 
+   444  0096                     	;# 
+   445  0097                     	;# 
+   446  0098                     	;# 
+   447  0099                     	;# 
+   448  009A                     	;# 
+   449  009B                     	;# 
+   450  009B                     	;# 
+   451  009C                     	;# 
+   452  009D                     	;# 
+   453  009E                     	;# 
+   454  010C                     	;# 
+   455  0111                     	;# 
+   456  0112                     	;# 
+   457  0115                     	;# 
+   458  0116                     	;# 
+   459  0117                     	;# 
+   460  0118                     	;# 
+   461  0119                     	;# 
+   462  011A                     	;# 
+   463  011B                     	;# 
+   464  011D                     	;# 
+   465  011D                     	;# 
+   466  018C                     	;# 
+   467  0191                     	;# 
+   468  0191                     	;# 
+   469  0192                     	;# 
+   470  0193                     	;# 
+   471  0193                     	;# 
+   472  0193                     	;# 
+   473  0194                     	;# 
+   474  0195                     	;# 
+   475  0196                     	;# 
+   476  0197                     	;# 
+   477  0199                     	;# 
+   478  019A                     	;# 
+   479  019B                     	;# 
+   480  019B                     	;# 
+   481  019B                     	;# 
+   482  019B                     	;# 
+   483  019C                     	;# 
+   484  019C                     	;# 
+   485  019D                     	;# 
+   486  019E                     	;# 
+   487  019F                     	;# 
+   488  020C                     	;# 
+   489  0211                     	;# 
+   490  0211                     	;# 
+   491  0212                     	;# 
+   492  0212                     	;# 
+   493  0213                     	;# 
+   494  0213                     	;# 
+   495  0214                     	;# 
+   496  0214                     	;# 
+   497  0215                     	;# 
+   498  0215                     	;# 
+   499  0215                     	;# 
+   500  0216                     	;# 
+   501  0216                     	;# 
+   502  0217                     	;# 
+   503  0217                     	;# 
+   504  0291                     	;# 
+   505  0291                     	;# 
+   506  0292                     	;# 
+   507  0293                     	;# 
+   508  0294                     	;# 
+   509  0295                     	;# 
+   510  0295                     	;# 
+   511  0296                     	;# 
+   512  0391                     	;# 
+   513  0392                     	;# 
+   514  0393                     	;# 
+   515  039A                     	;# 
+   516  039C                     	;# 
+   517  039D                     	;# 
+   518  039E                     	;# 
+   519  039F                     	;# 
+   520  0FE4                     	;# 
+   521  0FE5                     	;# 
+   522  0FE6                     	;# 
+   523  0FE7                     	;# 
+   524  0FE8                     	;# 
+   525  0FE9                     	;# 
+   526  0FEA                     	;# 
+   527  0FEB                     	;# 
+   528  0FED                     	;# 
+   529  0FEE                     	;# 
+   530  0FEF                     	;# 
+   531                           
+   532                           	psect	stringtext1
+   533  0794                     __pstringtext1:
+   534  0794                     _notes:
+   535  0794  34ED               	retlw	237
+   536  0795  34E0               	retlw	224
+   537  0796  34D3               	retlw	211
+   538  0797  34C7               	retlw	199
+   539  0798  34BD               	retlw	189
+   540  0799  34B2               	retlw	178
+   541  079A  34A8               	retlw	168
+   542  079B  349E               	retlw	158
+   543  079C  3496               	retlw	150
+   544  079D  348D               	retlw	141
+   545  079E  3485               	retlw	133
+   546  079F  347D               	retlw	125
+   547  07A0  3476               	retlw	118
+   548  07A1  3470               	retlw	112
+   549  07A2  346A               	retlw	106
+   550  07A3  3463               	retlw	99
+   551  07A4  345E               	retlw	94
+   552  07A5  3459               	retlw	89
+   553  07A6  3454               	retlw	84
+   554  07A7  344F               	retlw	79
+   555  07A8  344B               	retlw	75
+   556  07A9  3446               	retlw	70
+   557  07AA  3442               	retlw	66
+   558  07AB  343F               	retlw	63
+   559  07AC  343B               	retlw	59
+   560  07AD  3438               	retlw	56
+   561  07AE  3434               	retlw	52
+   562  07AF  3432               	retlw	50
+   563  07B0  342F               	retlw	47
+   564  07B1  342C               	retlw	44
+   565  07B2  342A               	retlw	42
+   566  07B3  3427               	retlw	39
+   567  07B4  3425               	retlw	37
+   568  07B5  3423               	retlw	35
+   569  07B6  3421               	retlw	33
+   570  07B7  341F               	retlw	31
+   571  07B8                     __end_of_notes:
+   572                           
+   573                           	psect	nvCOMMON
+   574  007A                     __pnvCOMMON:
+   575  007A                     _eeIndex:
+   576  007A                     	ds	1
+   577                           
+   578                           	psect	nvBANK0
+   579  002A                     __pnvBANK0:
+   580  002A                     _forceArc:
+   581  002A                     	ds	2
+   582  002C                     _eeMagicByte:
+   583  002C                     	ds	1
+   584  0003                     _STATUSbits	set	3
+   585  000B                     _INTCONbits	set	11
+   586  0011                     _PIR1bits	set	17
+   587  001C                     _T2CONbits	set	28
+   588  001B                     _PR2	set	27
+   589  005F                     _GIE	set	95
+   590  005C                     _INTE	set	92
+   591  005E                     _PEIE	set	94
+   592  005D                     _TMR0IE	set	93
+   593  0095                     _OPTION_REG	set	149
+   594  0099                     _OSCCONbits	set	153
+   595  0464                     _TRISA4	set	1124
+   596  0463                     _TRISA3	set	1123
+   597  0462                     _TRISA2	set	1122
+   598  0461                     _TRISA1	set	1121
+   599  0460                     _TRISA0	set	1120
+   600  048D                     _RCIE	set	1165
+   601  0489                     _TMR2IE	set	1161
+   602  0865                     _LATA5	set	2149
+   603  0864                     _LATA4	set	2148
+   604  0862                     _LATA2	set	2146
+   605  0861                     _LATA1	set	2145
+   606  0860                     _LATA0	set	2144
+   607  0191                     _EEADR	set	401
+   608  0196                     _EECON2	set	406
+   609  0193                     _EEDATA	set	403
+   610  0195                     _EECON1	set	405
+   611  0195                     _EECON1bits	set	405
+   612  018C                     _ANSELA	set	396
+   613  020C                     _WPUAbits	set	524
+   614                           
+   615                           	psect	cinit
+   616  0064                     start_initialization:	
+   617                           ; #config settings
+   618                           
+   619  0064                     __initialization:
+   620                           
+   621                           ; Clear objects allocated to BITCOMMON
+   622  0064  01FB               	clrf	(__pbitbssCOMMON/(0+8))& (0+127)
+   623                           
+   624                           ; Clear objects allocated to COMMON
+   625  0065  01FC               	clrf	__pbssCOMMON& (0+127)
+   626                           
+   627                           ; Clear objects allocated to BANK0
+   628  0066  0020               	movlb	0	; select bank0
+   629  0067  01A0               	clrf	__pbssBANK0& (0+127)
+   630  0068  01A1               	clrf	(__pbssBANK0+1)& (0+127)
+   631  0069  01A2               	clrf	(__pbssBANK0+2)& (0+127)
+   632  006A  01A3               	clrf	(__pbssBANK0+3)& (0+127)
+   633  006B  01A4               	clrf	(__pbssBANK0+4)& (0+127)
+   634  006C  01A5               	clrf	(__pbssBANK0+5)& (0+127)
+   635  006D  01A6               	clrf	(__pbssBANK0+6)& (0+127)
+   636  006E  01A7               	clrf	(__pbssBANK0+7)& (0+127)
+   637  006F  01A8               	clrf	(__pbssBANK0+8)& (0+127)
+   638  0070  01A9               	clrf	(__pbssBANK0+9)& (0+127)
+   639  0071                     end_of_initialization:	
+   640                           ;End of C runtime variable initialization code
+   641                           
+   642  0071                     __end_of__initialization:
+   643  0071  107E               	bcf	int$flags,0	;clear compiler interrupt flag (level 1)
+   644  0072  0020               	movlb	0
+   645  0073  3186  2EC8         	ljmp	_main	;jump to C main() function
+   646                           
+   647                           	psect	bitbssCOMMON
+   648  03D8                     __pbitbssCOMMON:
+   649  03D8                     _pinState:
+   650  03D8                     	ds	1
+   651                           
+   652                           	psect	bssCOMMON
+   653  007C                     __pbssCOMMON:
+   654  007C                     _clockDivider:
+   655  007C                     	ds	1
+   656                           
+   657                           	psect	bssBANK0
+   658  0020                     __pbssBANK0:
+   659  0020                     _genericDelay:
+   660  0020                     	ds	2
+   661  0022                     _playIndex:
+   662  0022                     	ds	2
+   663  0024                     _postscaler:
+   664  0024                     	ds	2
+   665  0026                     _noGate:
+   666  0026                     	ds	2
+   667  0028                     _gate:
+   668  0028                     	ds	2
+   669                           
+   670                           	psect	cstackCOMMON
+   671  0070                     __pcstackCOMMON:
+   672  0070                     ?_eeprom_read:
+   673  0070                     ?_imperialMarch:	
+   674                           ; 1 bytes @ 0x0
+   675                           
+   676  0070                     ?_gargoyles:	
+   677                           ; 1 bytes @ 0x0
+   678                           
+   679  0070                     ?_sheRa:	
+   680                           ; 1 bytes @ 0x0
+   681                           
+   682  0070                     ?_isr:	
+   683                           ; 1 bytes @ 0x0
+   684                           
+   685  0070                     ??_isr:	
+   686                           ; 1 bytes @ 0x0
+   687                           
+   688                           
+   689                           ; 1 bytes @ 0x0
+   690  0070                     	ds	1
+   691  0071                     ??_eeprom_read:
+   692  0071                     ?_blockingDelay:	
+   693                           ; 1 bytes @ 0x1
+   694                           
+   695  0071                     ?_eeprom_write:	
+   696                           ; 1 bytes @ 0x1
+   697                           
+   698  0071                     eeprom_write@value:	
+   699                           ; 1 bytes @ 0x1
+   700                           
+   701  0071                     blockingDelay@mSecs:	
+   702                           ; 1 bytes @ 0x1
+   703                           
+   704                           
+   705                           ; 2 bytes @ 0x1
+   706  0071                     	ds	1
+   707  0072                     ??_eeprom_write:
+   708                           
+   709                           ; 1 bytes @ 0x2
+   710  0072                     	ds	1
+   711  0073                     ??_blockingDelay:
+   712  0073                     ?_playNote:	
+   713                           ; 1 bytes @ 0x3
+   714                           
+   715  0073                     playNote@duration:	
+   716                           ; 1 bytes @ 0x3
+   717                           
+   718                           
+   719                           ; 2 bytes @ 0x3
+   720  0073                     	ds	1
+   721  0074                     eeprom_read@addr:
+   722  0074                     eeprom_write@addr:	
+   723                           ; 1 bytes @ 0x4
+   724                           
+   725                           
+   726                           ; 1 bytes @ 0x4
+   727  0074                     	ds	1
+   728  0075                     ??_playNote:
+   729  0075                     playNote@note:	
+   730                           ; 1 bytes @ 0x5
+   731                           
+   732                           
+   733                           ; 1 bytes @ 0x5
+   734  0075                     	ds	1
+   735  0076                     ??_imperialMarch:
+   736  0076                     ??_gargoyles:	
+   737                           ; 1 bytes @ 0x6
+   738                           
+   739  0076                     ??_sheRa:	
+   740                           ; 1 bytes @ 0x6
+   741                           
+   742  0076                     ?_main:	
+   743                           ; 1 bytes @ 0x6
+   744                           
+   745  0076                     main@argc:	
+   746                           ; 2 bytes @ 0x6
+   747                           
+   748                           
+   749                           ; 2 bytes @ 0x6
+   750  0076                     	ds	2
+   751  0078                     main@argv:
+   752                           
+   753                           ; 2 bytes @ 0x8
+   754  0078                     	ds	2
+   755                           
+   756                           	psect	cstackBANK0
+   757  002D                     __pcstackBANK0:
+   758  002D                     ??_main:
+   759                           
+   760                           ; 1 bytes @ 0x0
+   761  002D                     	ds	1
+   762                           
+   763                           	psect	maintext
+   764  06C8                     __pmaintext:	
+   765 ;;
+   766 ;;Main: autosize = 0, tempsize = 1, incstack = 0, save=0
+   767 ;;
+   768 ;; *************** function _main *****************
+   769 ;; Defined at:
+   770 ;;		line 198 in file "main.c"
+   771 ;; Parameters:    Size  Location     Type
+   772 ;;  argc            2    6[COMMON] int 
+   773 ;;  argv            2    8[COMMON] PTR PTR unsigned char 
+   774 ;; Auto vars:     Size  Location     Type
+   775 ;;		None
+   776 ;; Return value:  Size  Location     Type
+   777 ;;                  2    6[COMMON] int 
+   778 ;; Registers used:
+   779 ;;		wreg, fsr0l, fsr0h, status,2, status,0, pclath, cstack
+   780 ;; Tracked objects:
+   781 ;;		On entry : B1F/0
+   782 ;;		On exit  : 0/0
+   783 ;;		Unchanged: 0/0
+   784 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+   785 ;;      Params:         4       0       0       0
+   786 ;;      Locals:         0       0       0       0
+   787 ;;      Temps:          0       1       0       0
+   788 ;;      Totals:         4       1       0       0
+   789 ;;Total ram usage:        5 bytes
+   790 ;; Hardware stack levels required when called: 4
+   791 ;; This function calls:
+   792 ;;		_blockingDelay
+   793 ;;		_eeprom_read
+   794 ;;		_eeprom_write
+   795 ;;		_gargoyles
+   796 ;;		_imperialMarch
+   797 ;;		_sheRa
+   798 ;; This function is called by:
+   799 ;;		Startup code after reset
+   800 ;; This function uses a non-reentrant model
+   801 ;;
+   802                           
+   803                           
+   804                           ;psect for function _main
+   805  06C8                     _main:
+   806  06C8                     l1138:	
+   807                           ;incstack = 0
+   808                           ; Regs used in _main: [wreg-fsr0h+status,2+status,0+pclath+cstack]
+   809                           
+   810                           
+   811                           ;main.c: 202:     ANSELA = 0x0000;
+   812  06C8  0023               	movlb	3	; select bank3
+   813  06C9  018C               	clrf	12	;volatile
+   814  06CA                     l1140:
+   815                           
+   816                           ;main.c: 205:     OSCCONbits.SCS = 0x00;
+   817  06CA  30FC               	movlw	-4
+   818  06CB  0021               	movlb	1	; select bank1
+   819  06CC  0599               	andwf	25,f	;volatile
+   820  06CD                     l1142:
+   821                           
+   822                           ;main.c: 206:     OSCCONbits.IRCF = 14;
+   823  06CD  0819               	movf	25,w	;volatile
+   824  06CE  3987               	andlw	-121
+   825  06CF  3870               	iorlw	112
+   826  06D0  0099               	movwf	25	;volatile
+   827  06D1                     l1144:
+   828                           
+   829                           ;main.c: 207:     OSCCONbits.SPLLEN = 0x01;
+   830  06D1  1799               	bsf	25,7	;volatile
+   831  06D2                     l1146:
+   832                           
+   833                           ;main.c: 210:     TMR2IE = 1;
+   834  06D2  1491               	bsf	17,1	;volatile
+   835  06D3                     l1148:
+   836                           
+   837                           ;main.c: 211:     PR2 = 0xED;
+   838  06D3  30ED               	movlw	237
+   839  06D4  0020               	movlb	0	; select bank0
+   840  06D5  009B               	movwf	27	;volatile
+   841  06D6                     l1150:
+   842                           
+   843                           ;main.c: 212:     T2CONbits.T2CKPS = 0x03;
+   844  06D6  3003               	movlw	3
+   845  06D7  049C               	iorwf	28,f	;volatile
+   846  06D8                     l1152:
+   847                           
+   848                           ;main.c: 213:     T2CONbits.TMR2ON = 1;
+   849  06D8  151C               	bsf	28,2	;volatile
+   850  06D9                     l1154:
+   851                           
+   852                           ;main.c: 216:     TMR0IE = 1;
+   853  06D9  168B               	bsf	11,5	;volatile
+   854  06DA                     l1156:
+   855                           
+   856                           ;main.c: 219:     OPTION_REG = 0x80 + 0x08;
+   857  06DA  3088               	movlw	136
+   858  06DB  0021               	movlb	1	; select bank1
+   859  06DC  0095               	movwf	21	;volatile
+   860  06DD                     l1158:
+   861                           
+   862                           ;main.c: 222:     eeIndex = eeprom_read(0);
+   863  06DD  3000               	movlw	0
+   864  06DE  3187  27D8  3186   	fcall	_eeprom_read
+   865  06E1  0020               	movlb	0	; select bank0
+   866  06E2  00AD               	movwf	??_main
+   867  06E3  082D               	movf	??_main,w
+   868  06E4  00FA               	movwf	_eeIndex
+   869  06E5                     l1160:
+   870                           
+   871                           ;main.c: 223:     eeMagicByte = eeprom_read(1);
+   872  06E5  3001               	movlw	1
+   873  06E6  3187  27D8  3186   	fcall	_eeprom_read
+   874  06E9  0020               	movlb	0	; select bank0
+   875  06EA  00AD               	movwf	??_main
+   876  06EB  082D               	movf	??_main,w
+   877  06EC  00AC               	movwf	_eeMagicByte
+   878  06ED                     l1162:
+   879                           
+   880                           ;main.c: 227:     PEIE = 1;
+   881  06ED  170B               	bsf	11,6	;volatile
+   882  06EE                     l1164:
+   883                           
+   884                           ;main.c: 228:     RCIE = 0;
+   885  06EE  0021               	movlb	1	; select bank1
+   886  06EF  1291               	bcf	17,5	;volatile
+   887  06F0                     l1166:
+   888                           
+   889                           ;main.c: 229:     INTE = 0;
+   890  06F0  120B               	bcf	11,4	;volatile
+   891  06F1                     l1168:
+   892                           
+   893                           ;main.c: 230:     GIE = 1;
+   894  06F1  178B               	bsf	11,7	;volatile
+   895  06F2                     l1170:
+   896                           
+   897                           ;main.c: 233:     TRISA0 = 1;
+   898  06F2  140C               	bsf	12,0	;volatile
+   899  06F3                     l1172:
+   900                           
+   901                           ;main.c: 234:     TRISA1 = 0;
+   902  06F3  108C               	bcf	12,1	;volatile
+   903  06F4                     l1174:
+   904                           
+   905                           ;main.c: 235:     TRISA2 = 0;
+   906  06F4  110C               	bcf	12,2	;volatile
+   907  06F5                     l1176:
+   908                           
+   909                           ;main.c: 236:     TRISA3 = 0;
+   910  06F5  118C               	bcf	12,3	;volatile
+   911  06F6                     l1178:
+   912                           
+   913                           ;main.c: 237:     TRISA4 = 0;
+   914  06F6  120C               	bcf	12,4	;volatile
+   915  06F7                     l1180:
+   916                           
+   917                           ;main.c: 240:     WPUAbits.WPUA0 = 1;
+   918  06F7  0024               	movlb	4	; select bank4
+   919  06F8  140C               	bsf	12,0	;volatile
+   920  06F9                     l1182:
+   921                           
+   922                           ;main.c: 243:     LATA0 = 0;
+   923  06F9  0022               	movlb	2	; select bank2
+   924  06FA  100C               	bcf	12,0	;volatile
+   925  06FB                     l1184:
+   926                           
+   927                           ;main.c: 244:     LATA1 = 0;
+   928  06FB  108C               	bcf	12,1	;volatile
+   929  06FC                     l1186:
+   930                           
+   931                           ;main.c: 245:     LATA2 = 0;
+   932  06FC  110C               	bcf	12,2	;volatile
+   933  06FD                     l1188:
+   934                           
+   935                           ;main.c: 246:     LATA4 = 0;
+   936  06FD  120C               	bcf	12,4	;volatile
+   937  06FE                     l1190:
+   938                           
+   939                           ;main.c: 247:     LATA5 = 0;
+   940  06FE  128C               	bcf	12,5	;volatile
+   941  06FF                     l1192:
+   942                           
+   943                           ;main.c: 251:         forceArc = 1;
+   944  06FF  3001               	movlw	1
+   945  0700  0020               	movlb	0	; select bank0
+   946  0701  00AA               	movwf	_forceArc
+   947  0702  3000               	movlw	0
+   948  0703  00AB               	movwf	_forceArc+1
+   949  0704                     l1194:
+   950                           
+   951                           ;main.c: 252:         if (eeIndex == 0) blockingDelay(500);
+   952  0704  087A               	movf	_eeIndex,w
+   953  0705  1D03               	btfss	3,2
+   954  0706  2F08               	goto	u491
+   955  0707  2F09               	goto	u490
+   956  0708                     u491:
+   957  0708  2F10               	goto	l1198
+   958  0709                     u490:
+   959  0709                     l1196:
+   960  0709  30F4               	movlw	244
+   961  070A  00F1               	movwf	blockingDelay@mSecs
+   962  070B  3001               	movlw	1
+   963  070C  00F2               	movwf	blockingDelay@mSecs+1
+   964  070D  3187  27ED  3186   	fcall	_blockingDelay
+   965  0710                     l1198:
+   966                           
+   967                           ;main.c: 253:         eeIndex++;
+   968  0710  3001               	movlw	1
+   969  0711  0020               	movlb	0	; select bank0
+   970  0712  00AD               	movwf	??_main
+   971  0713  082D               	movf	??_main,w
+   972  0714  07FA               	addwf	_eeIndex,f
+   973  0715                     l1200:
+   974                           
+   975                           ;main.c: 254:         if (eeIndex > 4) eeIndex = 1;
+   976  0715  3005               	movlw	5
+   977  0716  027A               	subwf	_eeIndex,w
+   978  0717  1C03               	skipc
+   979  0718  2F1A               	goto	u501
+   980  0719  2F1B               	goto	u500
+   981  071A                     u501:
+   982  071A  2F1D               	goto	l1204
+   983  071B                     u500:
+   984  071B                     l1202:
+   985  071B  01FA               	clrf	_eeIndex
+   986  071C  0AFA               	incf	_eeIndex,f
+   987  071D                     l1204:
+   988                           
+   989                           ;main.c: 255:         eeprom_write(0, eeIndex);
+   990  071D  087A               	movf	_eeIndex,w
+   991  071E  00AD               	movwf	??_main
+   992  071F  082D               	movf	??_main,w
+   993  0720  00F1               	movwf	eeprom_write@value
+   994  0721  3000               	movlw	0
+   995  0722  3187  276A  3186   	fcall	_eeprom_write
+   996  0725                     l1206:
+   997                           
+   998                           ;main.c: 257:         if (eeIndex == 1) {
+   999  0725  037A               	decf	_eeIndex,w
+  1000  0726  1D03               	btfss	3,2
+  1001  0727  2F29               	goto	u511
+  1002  0728  2F2A               	goto	u510
+  1003  0729                     u511:
+  1004  0729  2F2B               	goto	l1208
+  1005  072A                     u510:
+  1006  072A                     l91:	
+  1007                           ;main.c: 258:             while (1);
+  1008                           
+  1009  072A                     l92:
+  1010  072A  2F2A               	goto	l91
+  1011  072B                     l1208:
+  1012  072B  3002               	movlw	2
+  1013  072C  067A               	xorwf	_eeIndex,w
+  1014  072D  1D03               	btfss	3,2
+  1015  072E  2F30               	goto	u521
+  1016  072F  2F31               	goto	u520
+  1017  0730                     u521:
+  1018  0730  2F3F               	goto	l1216
+  1019  0731                     u520:
+  1020  0731                     l1210:
+  1021                           
+  1022                           ;main.c: 261:             blockingDelay(2000);
+  1023  0731  30D0               	movlw	208
+  1024  0732  00F1               	movwf	blockingDelay@mSecs
+  1025  0733  3007               	movlw	7
+  1026  0734  00F2               	movwf	blockingDelay@mSecs+1
+  1027  0735  3187  27ED  3186   	fcall	_blockingDelay
+  1028  0738                     l1212:
+  1029                           
+  1030                           ;main.c: 262:             forceArc = 0;
+  1031  0738  0020               	movlb	0	; select bank0
+  1032  0739  01AA               	clrf	_forceArc
+  1033  073A  01AB               	clrf	_forceArc+1
+  1034  073B                     l1214:
+  1035                           
+  1036                           ;main.c: 263:             imperialMarch();
+  1037  073B  3180  2075  3186   	fcall	_imperialMarch
+  1038  073E                     l96:	
+  1039                           ;main.c: 264:             while (1);
+  1040                           
+  1041  073E                     l97:
+  1042  073E  2F3E               	goto	l96
+  1043  073F                     l1216:
+  1044  073F  3003               	movlw	3
+  1045  0740  067A               	xorwf	_eeIndex,w
+  1046  0741  1D03               	btfss	3,2
+  1047  0742  2F44               	goto	u531
+  1048  0743  2F45               	goto	u530
+  1049  0744                     u531:
+  1050  0744  2F53               	goto	l1224
+  1051  0745                     u530:
+  1052  0745                     l1218:
+  1053                           
+  1054                           ;main.c: 267:             blockingDelay(2000);
+  1055  0745  30D0               	movlw	208
+  1056  0746  00F1               	movwf	blockingDelay@mSecs
+  1057  0747  3007               	movlw	7
+  1058  0748  00F2               	movwf	blockingDelay@mSecs+1
+  1059  0749  3187  27ED  3186   	fcall	_blockingDelay
+  1060  074C                     l1220:
+  1061                           
+  1062                           ;main.c: 268:             forceArc = 0;
+  1063  074C  0020               	movlb	0	; select bank0
+  1064  074D  01AA               	clrf	_forceArc
+  1065  074E  01AB               	clrf	_forceArc+1
+  1066  074F                     l1222:
+  1067                           
+  1068                           ;main.c: 269:             gargoyles();
+  1069  074F  3185  25DF  3186   	fcall	_gargoyles
+  1070  0752                     l101:	
+  1071                           ;main.c: 270:             while (1);
+  1072                           
+  1073  0752                     l102:
+  1074  0752  2F52               	goto	l101
+  1075  0753                     l1224:
+  1076  0753  3004               	movlw	4
+  1077  0754  067A               	xorwf	_eeIndex,w
+  1078  0755  1D03               	btfss	3,2
+  1079  0756  2F58               	goto	u541
+  1080  0757  2F59               	goto	u540
+  1081  0758                     u541:
+  1082  0758  2F67               	goto	l99
+  1083  0759                     u540:
+  1084  0759                     l1226:
+  1085                           
+  1086                           ;main.c: 273:             blockingDelay(2000);
+  1087  0759  30D0               	movlw	208
+  1088  075A  00F1               	movwf	blockingDelay@mSecs
+  1089  075B  3007               	movlw	7
+  1090  075C  00F2               	movwf	blockingDelay@mSecs+1
+  1091  075D  3187  27ED  3186   	fcall	_blockingDelay
+  1092  0760                     l1228:
+  1093                           
+  1094                           ;main.c: 274:             forceArc = 0;
+  1095  0760  0020               	movlb	0	; select bank0
+  1096  0761  01AA               	clrf	_forceArc
+  1097  0762  01AB               	clrf	_forceArc+1
+  1098  0763                     l1230:
+  1099                           
+  1100                           ;main.c: 275:             sheRa();
+  1101  0763  3184  245E  3186   	fcall	_sheRa
+  1102  0766                     l106:	
+  1103                           ;main.c: 276:             while (1);
+  1104                           
+  1105  0766                     l107:
+  1106  0766  2F66               	goto	l106
+  1107  0767                     l99:
+  1108  0767  2EFF               	goto	l1192
+  1109  0768  3180  2862         	ljmp	start
+  1110  076A                     __end_of_main:
+  1111                           
+  1112                           	psect	text1
+  1113  045E                     __ptext1:	
+  1114 ;; *************** function _sheRa *****************
+  1115 ;; Defined at:
+  1116 ;;		line 573 in file "main.c"
+  1117 ;; Parameters:    Size  Location     Type
+  1118 ;;		None
+  1119 ;; Auto vars:     Size  Location     Type
+  1120 ;;		None
+  1121 ;; Return value:  Size  Location     Type
+  1122 ;;                  1    wreg      void 
+  1123 ;; Registers used:
+  1124 ;;		wreg, fsr0l, fsr0h, status,2, status,0, pclath, cstack
+  1125 ;; Tracked objects:
+  1126 ;;		On entry : 0/0
+  1127 ;;		On exit  : 0/0
+  1128 ;;		Unchanged: 0/0
+  1129 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  1130 ;;      Params:         0       0       0       0
+  1131 ;;      Locals:         0       0       0       0
+  1132 ;;      Temps:          0       0       0       0
+  1133 ;;      Totals:         0       0       0       0
+  1134 ;;Total ram usage:        0 bytes
+  1135 ;; Hardware stack levels used: 1
+  1136 ;; Hardware stack levels required when called: 3
+  1137 ;; This function calls:
+  1138 ;;		_playNote
+  1139 ;; This function is called by:
+  1140 ;;		_main
+  1141 ;; This function uses a non-reentrant model
+  1142 ;;
+  1143                           
+  1144                           
+  1145                           ;psect for function _sheRa
+  1146  045E                     _sheRa:
+  1147  045E                     l1006:	
+  1148                           ;incstack = 0
+  1149                           ; Regs used in _sheRa: [wreg-fsr0h+status,2+status,0+pclath+cstack]
+  1150                           
+  1151                           
+  1152                           ;main.c: 574:     playNote(0x0B, 216);
+  1153  045E  30D8               	movlw	216
+  1154  045F  00F3               	movwf	playNote@duration
+  1155  0460  3000               	movlw	0
+  1156  0461  00F4               	movwf	playNote@duration+1
+  1157  0462  300B               	movlw	11
+  1158  0463  3187  27B8  3184   	fcall	_playNote
+  1159                           
+  1160                           ;main.c: 575:     playNote(0x0D, 216);
+  1161  0466  30D8               	movlw	216
+  1162  0467  00F3               	movwf	playNote@duration
+  1163  0468  3000               	movlw	0
+  1164  0469  00F4               	movwf	playNote@duration+1
+  1165  046A  300D               	movlw	13
+  1166  046B  3187  27B8  3184   	fcall	_playNote
+  1167                           
+  1168                           ;main.c: 576:     playNote(0x0E, 433);
+  1169  046E  30B1               	movlw	177
+  1170  046F  00F3               	movwf	playNote@duration
+  1171  0470  3001               	movlw	1
+  1172  0471  00F4               	movwf	playNote@duration+1
+  1173  0472  300E               	movlw	14
+  1174  0473  3187  27B8  3184   	fcall	_playNote
+  1175                           
+  1176                           ;main.c: 577:     playNote(0x12, 444);
+  1177  0476  30BC               	movlw	188
+  1178  0477  00F3               	movwf	playNote@duration
+  1179  0478  3001               	movlw	1
+  1180  0479  00F4               	movwf	playNote@duration+1
+  1181  047A  3012               	movlw	18
+  1182  047B  3187  27B8  3184   	fcall	_playNote
+  1183                           
+  1184                           ;main.c: 578:     playNote(0x13, 651);
+  1185  047E  308B               	movlw	139
+  1186  047F  00F3               	movwf	playNote@duration
+  1187  0480  3002               	movlw	2
+  1188  0481  00F4               	movwf	playNote@duration+1
+  1189  0482  3013               	movlw	19
+  1190  0483  3187  27B8  3184   	fcall	_playNote
+  1191                           
+  1192                           ;main.c: 579:     playNote(0x12, 107);
+  1193  0486  306B               	movlw	107
+  1194  0487  00F3               	movwf	playNote@duration
+  1195  0488  3000               	movlw	0
+  1196  0489  00F4               	movwf	playNote@duration+1
+  1197  048A  3012               	movlw	18
+  1198  048B  3187  27B8  3184   	fcall	_playNote
+  1199                           
+  1200                           ;main.c: 580:     playNote(0x10, 107);
+  1201  048E  306B               	movlw	107
+  1202  048F  00F3               	movwf	playNote@duration
+  1203  0490  3000               	movlw	0
+  1204  0491  00F4               	movwf	playNote@duration+1
+  1205  0492  3010               	movlw	16
+  1206  0493  3187  27B8  3184   	fcall	_playNote
+  1207                           
+  1208                           ;main.c: 581:     playNote(0x12, 868);
+  1209  0496  3064               	movlw	100
+  1210  0497  00F3               	movwf	playNote@duration
+  1211  0498  3003               	movlw	3
+  1212  0499  00F4               	movwf	playNote@duration+1
+  1213  049A  3012               	movlw	18
+  1214  049B  3187  27B8  3184   	fcall	_playNote
+  1215                           
+  1216                           ;main.c: 582:     playNote(0x00, 433);
+  1217  049E  30B1               	movlw	177
+  1218  049F  00F3               	movwf	playNote@duration
+  1219  04A0  3001               	movlw	1
+  1220  04A1  00F4               	movwf	playNote@duration+1
+  1221  04A2  3000               	movlw	0
+  1222  04A3  3187  27B8  3184   	fcall	_playNote
+  1223                           
+  1224                           ;main.c: 583:     playNote(0x0B, 216);
+  1225  04A6  30D8               	movlw	216
+  1226  04A7  00F3               	movwf	playNote@duration
+  1227  04A8  3000               	movlw	0
+  1228  04A9  00F4               	movwf	playNote@duration+1
+  1229  04AA  300B               	movlw	11
+  1230  04AB  3187  27B8  3184   	fcall	_playNote
+  1231                           
+  1232                           ;main.c: 584:     playNote(0x0D, 216);
+  1233  04AE  30D8               	movlw	216
+  1234  04AF  00F3               	movwf	playNote@duration
+  1235  04B0  3000               	movlw	0
+  1236  04B1  00F4               	movwf	playNote@duration+1
+  1237  04B2  300D               	movlw	13
+  1238  04B3  3187  27B8  3184   	fcall	_playNote
+  1239                           
+  1240                           ;main.c: 585:     playNote(0x0E, 433);
+  1241  04B6  30B1               	movlw	177
+  1242  04B7  00F3               	movwf	playNote@duration
+  1243  04B8  3001               	movlw	1
+  1244  04B9  00F4               	movwf	playNote@duration+1
+  1245  04BA  300E               	movlw	14
+  1246  04BB  3187  27B8  3184   	fcall	_playNote
+  1247                           
+  1248                           ;main.c: 586:     playNote(0x12, 433);
+  1249  04BE  30B1               	movlw	177
+  1250  04BF  00F3               	movwf	playNote@duration
+  1251  04C0  3001               	movlw	1
+  1252  04C1  00F4               	movwf	playNote@duration+1
+  1253  04C2  3012               	movlw	18
+  1254  04C3  3187  27B8  3184   	fcall	_playNote
+  1255                           
+  1256                           ;main.c: 587:     playNote(0x17, 433);
+  1257  04C6  30B1               	movlw	177
+  1258  04C7  00F3               	movwf	playNote@duration
+  1259  04C8  3001               	movlw	1
+  1260  04C9  00F4               	movwf	playNote@duration+1
+  1261  04CA  3017               	movlw	23
+  1262  04CB  3187  27B8  3184   	fcall	_playNote
+  1263                           
+  1264                           ;main.c: 588:     playNote(0x15, 433);
+  1265  04CE  30B1               	movlw	177
+  1266  04CF  00F3               	movwf	playNote@duration
+  1267  04D0  3001               	movlw	1
+  1268  04D1  00F4               	movwf	playNote@duration+1
+  1269  04D2  3015               	movlw	21
+  1270  04D3  3187  27B8  3184   	fcall	_playNote
+  1271                           
+  1272                           ;main.c: 589:     playNote(0x12, 868);
+  1273  04D6  3064               	movlw	100
+  1274  04D7  00F3               	movwf	playNote@duration
+  1275  04D8  3003               	movlw	3
+  1276  04D9  00F4               	movwf	playNote@duration+1
+  1277  04DA  3012               	movlw	18
+  1278  04DB  3187  27B8  3184   	fcall	_playNote
+  1279                           
+  1280                           ;main.c: 590:     playNote(0x00, 433);
+  1281  04DE  30B1               	movlw	177
+  1282  04DF  00F3               	movwf	playNote@duration
+  1283  04E0  3001               	movlw	1
+  1284  04E1  00F4               	movwf	playNote@duration+1
+  1285  04E2  3000               	movlw	0
+  1286  04E3  3187  27B8  3184   	fcall	_playNote
+  1287                           
+  1288                           ;main.c: 591:     playNote(0x0B, 216);
+  1289  04E6  30D8               	movlw	216
+  1290  04E7  00F3               	movwf	playNote@duration
+  1291  04E8  3000               	movlw	0
+  1292  04E9  00F4               	movwf	playNote@duration+1
+  1293  04EA  300B               	movlw	11
+  1294  04EB  3187  27B8  3184   	fcall	_playNote
+  1295                           
+  1296                           ;main.c: 592:     playNote(0x0D, 216);
+  1297  04EE  30D8               	movlw	216
+  1298  04EF  00F3               	movwf	playNote@duration
+  1299  04F0  3000               	movlw	0
+  1300  04F1  00F4               	movwf	playNote@duration+1
+  1301  04F2  300D               	movlw	13
+  1302  04F3  3187  27B8  3184   	fcall	_playNote
+  1303                           
+  1304                           ;main.c: 593:     playNote(0x0E, 433);
+  1305  04F6  30B1               	movlw	177
+  1306  04F7  00F3               	movwf	playNote@duration
+  1307  04F8  3001               	movlw	1
+  1308  04F9  00F4               	movwf	playNote@duration+1
+  1309  04FA  300E               	movlw	14
+  1310  04FB  3187  27B8  3184   	fcall	_playNote
+  1311                           
+  1312                           ;main.c: 594:     playNote(0x12, 433);
+  1313  04FE  30B1               	movlw	177
+  1314  04FF  00F3               	movwf	playNote@duration
+  1315  0500  3001               	movlw	1
+  1316  0501  00F4               	movwf	playNote@duration+1
+  1317  0502  3012               	movlw	18
+  1318  0503  3187  27B8  3184   	fcall	_playNote
+  1319                           
+  1320                           ;main.c: 595:     playNote(0x13, 651);
+  1321  0506  308B               	movlw	139
+  1322  0507  00F3               	movwf	playNote@duration
+  1323  0508  3002               	movlw	2
+  1324  0509  00F4               	movwf	playNote@duration+1
+  1325  050A  3013               	movlw	19
+  1326  050B  3187  27B8  3184   	fcall	_playNote
+  1327                           
+  1328                           ;main.c: 596:     playNote(0x12, 107);
+  1329  050E  306B               	movlw	107
+  1330  050F  00F3               	movwf	playNote@duration
+  1331  0510  3000               	movlw	0
+  1332  0511  00F4               	movwf	playNote@duration+1
+  1333  0512  3012               	movlw	18
+  1334  0513  3187  27B8  3184   	fcall	_playNote
+  1335                           
+  1336                           ;main.c: 597:     playNote(0x10, 107);
+  1337  0516  306B               	movlw	107
+  1338  0517  00F3               	movwf	playNote@duration
+  1339  0518  3000               	movlw	0
+  1340  0519  00F4               	movwf	playNote@duration+1
+  1341  051A  3010               	movlw	16
+  1342  051B  3187  27B8  3184   	fcall	_playNote
+  1343                           
+  1344                           ;main.c: 598:     playNote(0x12, 868);
+  1345  051E  3064               	movlw	100
+  1346  051F  00F3               	movwf	playNote@duration
+  1347  0520  3003               	movlw	3
+  1348  0521  00F4               	movwf	playNote@duration+1
+  1349  0522  3012               	movlw	18
+  1350  0523  3187  27B8  3184   	fcall	_playNote
+  1351                           
+  1352                           ;main.c: 599:     playNote(0x13, 325);
+  1353  0526  3045               	movlw	69
+  1354  0527  00F3               	movwf	playNote@duration
+  1355  0528  3001               	movlw	1
+  1356  0529  00F4               	movwf	playNote@duration+1
+  1357  052A  3013               	movlw	19
+  1358  052B  3187  27B8  3184   	fcall	_playNote
+  1359                           
+  1360                           ;main.c: 600:     playNote(0x12, 325);
+  1361  052E  3045               	movlw	69
+  1362  052F  00F3               	movwf	playNote@duration
+  1363  0530  3001               	movlw	1
+  1364  0531  00F4               	movwf	playNote@duration+1
+  1365  0532  3012               	movlw	18
+  1366  0533  3187  27B8  3184   	fcall	_playNote
+  1367                           
+  1368                           ;main.c: 601:     playNote(0x13, 216);
+  1369  0536  30D8               	movlw	216
+  1370  0537  00F3               	movwf	playNote@duration
+  1371  0538  3000               	movlw	0
+  1372  0539  00F4               	movwf	playNote@duration+1
+  1373  053A  3013               	movlw	19
+  1374  053B  3187  27B8  3184   	fcall	_playNote
+  1375                           
+  1376                           ;main.c: 602:     playNote(0x15, 651);
+  1377  053E  308B               	movlw	139
+  1378  053F  00F3               	movwf	playNote@duration
+  1379  0540  3002               	movlw	2
+  1380  0541  00F4               	movwf	playNote@duration+1
+  1381  0542  3015               	movlw	21
+  1382  0543  3187  27B8  3184   	fcall	_playNote
+  1383                           
+  1384                           ;main.c: 603:     playNote(0x12, 98);
+  1385  0546  3062               	movlw	98
+  1386  0547  00F3               	movwf	playNote@duration
+  1387  0548  3000               	movlw	0
+  1388  0549  00F4               	movwf	playNote@duration+1
+  1389  054A  3012               	movlw	18
+  1390  054B  3187  27B8  3184   	fcall	_playNote
+  1391                           
+  1392                           ;main.c: 604:     playNote(0x10, 107);
+  1393  054E  306B               	movlw	107
+  1394  054F  00F3               	movwf	playNote@duration
+  1395  0550  3000               	movlw	0
+  1396  0551  00F4               	movwf	playNote@duration+1
+  1397  0552  3010               	movlw	16
+  1398  0553  3187  27B8  3184   	fcall	_playNote
+  1399                           
+  1400                           ;main.c: 605:     playNote(0x10, 1738);
+  1401  0556  30CA               	movlw	202
+  1402  0557  00F3               	movwf	playNote@duration
+  1403  0558  3006               	movlw	6
+  1404  0559  00F4               	movwf	playNote@duration+1
+  1405  055A  3010               	movlw	16
+  1406  055B  3187  27B8  3184   	fcall	_playNote
+  1407                           
+  1408                           ;main.c: 606:     playNote(0x00, 433);
+  1409  055E  30B1               	movlw	177
+  1410  055F  00F3               	movwf	playNote@duration
+  1411  0560  3001               	movlw	1
+  1412  0561  00F4               	movwf	playNote@duration+1
+  1413  0562  3000               	movlw	0
+  1414  0563  3187  27B8  3184   	fcall	_playNote
+  1415                           
+  1416                           ;main.c: 607:     playNote(0x14, 216);
+  1417  0566  30D8               	movlw	216
+  1418  0567  00F3               	movwf	playNote@duration
+  1419  0568  3000               	movlw	0
+  1420  0569  00F4               	movwf	playNote@duration+1
+  1421  056A  3014               	movlw	20
+  1422  056B  3187  27B8  3184   	fcall	_playNote
+  1423                           
+  1424                           ;main.c: 608:     playNote(0x16, 216);
+  1425  056E  30D8               	movlw	216
+  1426  056F  00F3               	movwf	playNote@duration
+  1427  0570  3000               	movlw	0
+  1428  0571  00F4               	movwf	playNote@duration+1
+  1429  0572  3016               	movlw	22
+  1430  0573  3187  27B8  3184   	fcall	_playNote
+  1431                           
+  1432                           ;main.c: 609:     playNote(0x17, 433);
+  1433  0576  30B1               	movlw	177
+  1434  0577  00F3               	movwf	playNote@duration
+  1435  0578  3001               	movlw	1
+  1436  0579  00F4               	movwf	playNote@duration+1
+  1437  057A  3017               	movlw	23
+  1438  057B  3187  27B8  3184   	fcall	_playNote
+  1439                           
+  1440                           ;main.c: 610:     playNote(0x1B, 433);
+  1441  057E  30B1               	movlw	177
+  1442  057F  00F3               	movwf	playNote@duration
+  1443  0580  3001               	movlw	1
+  1444  0581  00F4               	movwf	playNote@duration+1
+  1445  0582  301B               	movlw	27
+  1446  0583  3187  27B8  3184   	fcall	_playNote
+  1447                           
+  1448                           ;main.c: 611:     playNote(0x1C, 651);
+  1449  0586  308B               	movlw	139
+  1450  0587  00F3               	movwf	playNote@duration
+  1451  0588  3002               	movlw	2
+  1452  0589  00F4               	movwf	playNote@duration+1
+  1453  058A  301C               	movlw	28
+  1454  058B  3187  27B8  3184   	fcall	_playNote
+  1455                           
+  1456                           ;main.c: 612:     playNote(0x1B, 107);
+  1457  058E  306B               	movlw	107
+  1458  058F  00F3               	movwf	playNote@duration
+  1459  0590  3000               	movlw	0
+  1460  0591  00F4               	movwf	playNote@duration+1
+  1461  0592  301B               	movlw	27
+  1462  0593  3187  27B8  3184   	fcall	_playNote
+  1463                           
+  1464                           ;main.c: 613:     playNote(0x19, 107);
+  1465  0596  306B               	movlw	107
+  1466  0597  00F3               	movwf	playNote@duration
+  1467  0598  3000               	movlw	0
+  1468  0599  00F4               	movwf	playNote@duration+1
+  1469  059A  3019               	movlw	25
+  1470  059B  3187  27B8  3184   	fcall	_playNote
+  1471                           
+  1472                           ;main.c: 614:     playNote(0x1B, 868);
+  1473  059E  3064               	movlw	100
+  1474  059F  00F3               	movwf	playNote@duration
+  1475  05A0  3003               	movlw	3
+  1476  05A1  00F4               	movwf	playNote@duration+1
+  1477  05A2  301B               	movlw	27
+  1478  05A3  3187  27B8  3184   	fcall	_playNote
+  1479                           
+  1480                           ;main.c: 615:     playNote(0x1C, 325);
+  1481  05A6  3045               	movlw	69
+  1482  05A7  00F3               	movwf	playNote@duration
+  1483  05A8  3001               	movlw	1
+  1484  05A9  00F4               	movwf	playNote@duration+1
+  1485  05AA  301C               	movlw	28
+  1486  05AB  3187  27B8  3184   	fcall	_playNote
+  1487                           
+  1488                           ;main.c: 616:     playNote(0x1B, 325);
+  1489  05AE  3045               	movlw	69
+  1490  05AF  00F3               	movwf	playNote@duration
+  1491  05B0  3001               	movlw	1
+  1492  05B1  00F4               	movwf	playNote@duration+1
+  1493  05B2  301B               	movlw	27
+  1494  05B3  3187  27B8  3184   	fcall	_playNote
+  1495                           
+  1496                           ;main.c: 617:     playNote(0x1C, 216);
+  1497  05B6  30D8               	movlw	216
+  1498  05B7  00F3               	movwf	playNote@duration
+  1499  05B8  3000               	movlw	0
+  1500  05B9  00F4               	movwf	playNote@duration+1
+  1501  05BA  301C               	movlw	28
+  1502  05BB  3187  27B8  3184   	fcall	_playNote
+  1503                           
+  1504                           ;main.c: 618:     playNote(0x1E, 651);
+  1505  05BE  308B               	movlw	139
+  1506  05BF  00F3               	movwf	playNote@duration
+  1507  05C0  3002               	movlw	2
+  1508  05C1  00F4               	movwf	playNote@duration+1
+  1509  05C2  301E               	movlw	30
+  1510  05C3  3187  27B8  3184   	fcall	_playNote
+  1511                           
+  1512                           ;main.c: 619:     playNote(0x20, 107);
+  1513  05C6  306B               	movlw	107
+  1514  05C7  00F3               	movwf	playNote@duration
+  1515  05C8  3000               	movlw	0
+  1516  05C9  00F4               	movwf	playNote@duration+1
+  1517  05CA  3020               	movlw	32
+  1518  05CB  3187  27B8  3184   	fcall	_playNote
+  1519                           
+  1520                           ;main.c: 620:     playNote(0x22, 107);
+  1521  05CE  306B               	movlw	107
+  1522  05CF  00F3               	movwf	playNote@duration
+  1523  05D0  3000               	movlw	0
+  1524  05D1  00F4               	movwf	playNote@duration+1
+  1525  05D2  3022               	movlw	34
+  1526  05D3  3187  27B8  3184   	fcall	_playNote
+  1527                           
+  1528                           ;main.c: 621:     playNote(0x23, 1738);
+  1529  05D6  30CA               	movlw	202
+  1530  05D7  00F3               	movwf	playNote@duration
+  1531  05D8  3006               	movlw	6
+  1532  05D9  00F4               	movwf	playNote@duration+1
+  1533  05DA  3023               	movlw	35
+  1534  05DB  3187  27B8  3184   	fcall	_playNote
+  1535  05DE                     l145:
+  1536  05DE  0008               	return
+  1537  05DF                     __end_of_sheRa:
+  1538                           
+  1539                           	psect	text2
+  1540  0075                     __ptext2:	
+  1541 ;; *************** function _imperialMarch *****************
+  1542 ;; Defined at:
+  1543 ;;		line 348 in file "main.c"
+  1544 ;; Parameters:    Size  Location     Type
+  1545 ;;		None
+  1546 ;; Auto vars:     Size  Location     Type
+  1547 ;;		None
+  1548 ;; Return value:  Size  Location     Type
+  1549 ;;                  1    wreg      void 
+  1550 ;; Registers used:
+  1551 ;;		wreg, fsr0l, fsr0h, status,2, status,0, pclath, cstack
+  1552 ;; Tracked objects:
+  1553 ;;		On entry : 0/0
+  1554 ;;		On exit  : 0/0
+  1555 ;;		Unchanged: 0/0
+  1556 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  1557 ;;      Params:         0       0       0       0
+  1558 ;;      Locals:         0       0       0       0
+  1559 ;;      Temps:          0       0       0       0
+  1560 ;;      Totals:         0       0       0       0
+  1561 ;;Total ram usage:        0 bytes
+  1562 ;; Hardware stack levels used: 1
+  1563 ;; Hardware stack levels required when called: 3
+  1564 ;; This function calls:
+  1565 ;;		_playNote
+  1566 ;; This function is called by:
+  1567 ;;		_main
+  1568 ;; This function uses a non-reentrant model
+  1569 ;;
+  1570                           
+  1571                           
+  1572                           ;psect for function _imperialMarch
+  1573  0075                     _imperialMarch:
+  1574  0075                     l1002:	
+  1575                           ;incstack = 0
+  1576                           ; Regs used in _imperialMarch: [wreg-fsr0h+status,2+status,0+pclath+cstack]
+  1577                           
+  1578                           
+  1579                           ;main.c: 350:     playNote(0x0A, 250);
+  1580  0075  30FA               	movlw	250
+  1581  0076  00F3               	movwf	playNote@duration
+  1582  0077  3000               	movlw	0
+  1583  0078  00F4               	movwf	playNote@duration+1
+  1584  0079  300A               	movlw	10
+  1585  007A  3187  27B8  3180   	fcall	_playNote
+  1586                           
+  1587                           ;main.c: 352:     playNote(0x00, 750);
+  1588  007D  30EE               	movlw	238
+  1589  007E  00F3               	movwf	playNote@duration
+  1590  007F  3002               	movlw	2
+  1591  0080  00F4               	movwf	playNote@duration+1
+  1592  0081  3000               	movlw	0
+  1593  0082  3187  27B8  3180   	fcall	_playNote
+  1594                           
+  1595                           ;main.c: 354:     playNote(0x0A, 250);
+  1596  0085  30FA               	movlw	250
+  1597  0086  00F3               	movwf	playNote@duration
+  1598  0087  3000               	movlw	0
+  1599  0088  00F4               	movwf	playNote@duration+1
+  1600  0089  300A               	movlw	10
+  1601  008A  3187  27B8  3180   	fcall	_playNote
+  1602                           
+  1603                           ;main.c: 356:     playNote(0x00, 750);
+  1604  008D  30EE               	movlw	238
+  1605  008E  00F3               	movwf	playNote@duration
+  1606  008F  3002               	movlw	2
+  1607  0090  00F4               	movwf	playNote@duration+1
+  1608  0091  3000               	movlw	0
+  1609  0092  3187  27B8  3180   	fcall	_playNote
+  1610                           
+  1611                           ;main.c: 358:     playNote(0x0A, 250);
+  1612  0095  30FA               	movlw	250
+  1613  0096  00F3               	movwf	playNote@duration
+  1614  0097  3000               	movlw	0
+  1615  0098  00F4               	movwf	playNote@duration+1
+  1616  0099  300A               	movlw	10
+  1617  009A  3187  27B8  3180   	fcall	_playNote
+  1618                           
+  1619                           ;main.c: 360:     playNote(0x00, 750);
+  1620  009D  30EE               	movlw	238
+  1621  009E  00F3               	movwf	playNote@duration
+  1622  009F  3002               	movlw	2
+  1623  00A0  00F4               	movwf	playNote@duration+1
+  1624  00A1  3000               	movlw	0
+  1625  00A2  3187  27B8  3180   	fcall	_playNote
+  1626                           
+  1627                           ;main.c: 362:     playNote(0x0A, 250);
+  1628  00A5  30FA               	movlw	250
+  1629  00A6  00F3               	movwf	playNote@duration
+  1630  00A7  3000               	movlw	0
+  1631  00A8  00F4               	movwf	playNote@duration+1
+  1632  00A9  300A               	movlw	10
+  1633  00AA  3187  27B8  3180   	fcall	_playNote
+  1634                           
+  1635                           ;main.c: 363:     playNote(0x00, 75);
+  1636  00AD  304B               	movlw	75
+  1637  00AE  00F3               	movwf	playNote@duration
+  1638  00AF  3000               	movlw	0
+  1639  00B0  00F4               	movwf	playNote@duration+1
+  1640  00B1  3000               	movlw	0
+  1641  00B2  3187  27B8  3180   	fcall	_playNote
+  1642                           
+  1643                           ;main.c: 365:     playNote(0x0D, 125);
+  1644  00B5  307D               	movlw	125
+  1645  00B6  00F3               	movwf	playNote@duration
+  1646  00B7  3000               	movlw	0
+  1647  00B8  00F4               	movwf	playNote@duration+1
+  1648  00B9  300D               	movlw	13
+  1649  00BA  3187  27B8  3180   	fcall	_playNote
+  1650                           
+  1651                           ;main.c: 366:     playNote(0x00, 100);
+  1652  00BD  3064               	movlw	100
+  1653  00BE  00F3               	movwf	playNote@duration
+  1654  00BF  3000               	movlw	0
+  1655  00C0  00F4               	movwf	playNote@duration+1
+  1656  00C1  3000               	movlw	0
+  1657  00C2  3187  27B8  3180   	fcall	_playNote
+  1658                           
+  1659                           ;main.c: 367:     playNote(0x0D, 125);
+  1660  00C5  307D               	movlw	125
+  1661  00C6  00F3               	movwf	playNote@duration
+  1662  00C7  3000               	movlw	0
+  1663  00C8  00F4               	movwf	playNote@duration+1
+  1664  00C9  300D               	movlw	13
+  1665  00CA  3187  27B8  3180   	fcall	_playNote
+  1666                           
+  1667                           ;main.c: 368:     playNote(0x00, 100);
+  1668  00CD  3064               	movlw	100
+  1669  00CE  00F3               	movwf	playNote@duration
+  1670  00CF  3000               	movlw	0
+  1671  00D0  00F4               	movwf	playNote@duration+1
+  1672  00D1  3000               	movlw	0
+  1673  00D2  3187  27B8  3180   	fcall	_playNote
+  1674                           
+  1675                           ;main.c: 369:     playNote(0x0D, 125);
+  1676  00D5  307D               	movlw	125
+  1677  00D6  00F3               	movwf	playNote@duration
+  1678  00D7  3000               	movlw	0
+  1679  00D8  00F4               	movwf	playNote@duration+1
+  1680  00D9  300D               	movlw	13
+  1681  00DA  3187  27B8  3180   	fcall	_playNote
+  1682                           
+  1683                           ;main.c: 370:     playNote(0x00, 100);
+  1684  00DD  3064               	movlw	100
+  1685  00DE  00F3               	movwf	playNote@duration
+  1686  00DF  3000               	movlw	0
+  1687  00E0  00F4               	movwf	playNote@duration+1
+  1688  00E1  3000               	movlw	0
+  1689  00E2  3187  27B8  3180   	fcall	_playNote
+  1690                           
+  1691                           ;main.c: 372:     playNote(0x0A, 250);
+  1692  00E5  30FA               	movlw	250
+  1693  00E6  00F3               	movwf	playNote@duration
+  1694  00E7  3000               	movlw	0
+  1695  00E8  00F4               	movwf	playNote@duration+1
+  1696  00E9  300A               	movlw	10
+  1697  00EA  3187  27B8  3180   	fcall	_playNote
+  1698                           
+  1699                           ;main.c: 374:     playNote(0x00, 750);
+  1700  00ED  30EE               	movlw	238
+  1701  00EE  00F3               	movwf	playNote@duration
+  1702  00EF  3002               	movlw	2
+  1703  00F0  00F4               	movwf	playNote@duration+1
+  1704  00F1  3000               	movlw	0
+  1705  00F2  3187  27B8  3180   	fcall	_playNote
+  1706                           
+  1707                           ;main.c: 376:     playNote(0x0A, 250);
+  1708  00F5  30FA               	movlw	250
+  1709  00F6  00F3               	movwf	playNote@duration
+  1710  00F7  3000               	movlw	0
+  1711  00F8  00F4               	movwf	playNote@duration+1
+  1712  00F9  300A               	movlw	10
+  1713  00FA  3187  27B8  3180   	fcall	_playNote
+  1714                           
+  1715                           ;main.c: 378:     playNote(0x00, 750);
+  1716  00FD  30EE               	movlw	238
+  1717  00FE  00F3               	movwf	playNote@duration
+  1718  00FF  3002               	movlw	2
+  1719  0100  00F4               	movwf	playNote@duration+1
+  1720  0101  3000               	movlw	0
+  1721  0102  3187  27B8  3180   	fcall	_playNote
+  1722                           
+  1723                           ;main.c: 380:     playNote(0x0A, 250);
+  1724  0105  30FA               	movlw	250
+  1725  0106  00F3               	movwf	playNote@duration
+  1726  0107  3000               	movlw	0
+  1727  0108  00F4               	movwf	playNote@duration+1
+  1728  0109  300A               	movlw	10
+  1729  010A  3187  27B8  3180   	fcall	_playNote
+  1730                           
+  1731                           ;main.c: 382:     playNote(0x00, 750);
+  1732  010D  30EE               	movlw	238
+  1733  010E  00F3               	movwf	playNote@duration
+  1734  010F  3002               	movlw	2
+  1735  0110  00F4               	movwf	playNote@duration+1
+  1736  0111  3000               	movlw	0
+  1737  0112  3187  27B8  3180   	fcall	_playNote
+  1738                           
+  1739                           ;main.c: 384:     playNote(0x0A, 250);
+  1740  0115  30FA               	movlw	250
+  1741  0116  00F3               	movwf	playNote@duration
+  1742  0117  3000               	movlw	0
+  1743  0118  00F4               	movwf	playNote@duration+1
+  1744  0119  300A               	movlw	10
+  1745  011A  3187  27B8  3180   	fcall	_playNote
+  1746                           
+  1747                           ;main.c: 385:     playNote(0x00, 75);
+  1748  011D  304B               	movlw	75
+  1749  011E  00F3               	movwf	playNote@duration
+  1750  011F  3000               	movlw	0
+  1751  0120  00F4               	movwf	playNote@duration+1
+  1752  0121  3000               	movlw	0
+  1753  0122  3187  27B8  3180   	fcall	_playNote
+  1754                           
+  1755                           ;main.c: 387:     playNote(0x0D, 125);
+  1756  0125  307D               	movlw	125
+  1757  0126  00F3               	movwf	playNote@duration
+  1758  0127  3000               	movlw	0
+  1759  0128  00F4               	movwf	playNote@duration+1
+  1760  0129  300D               	movlw	13
+  1761  012A  3187  27B8  3180   	fcall	_playNote
+  1762                           
+  1763                           ;main.c: 388:     playNote(0x00, 100);
+  1764  012D  3064               	movlw	100
+  1765  012E  00F3               	movwf	playNote@duration
+  1766  012F  3000               	movlw	0
+  1767  0130  00F4               	movwf	playNote@duration+1
+  1768  0131  3000               	movlw	0
+  1769  0132  3187  27B8  3180   	fcall	_playNote
+  1770                           
+  1771                           ;main.c: 389:     playNote(0x0D, 125);
+  1772  0135  307D               	movlw	125
+  1773  0136  00F3               	movwf	playNote@duration
+  1774  0137  3000               	movlw	0
+  1775  0138  00F4               	movwf	playNote@duration+1
+  1776  0139  300D               	movlw	13
+  1777  013A  3187  27B8  3180   	fcall	_playNote
+  1778                           
+  1779                           ;main.c: 390:     playNote(0x00, 100);
+  1780  013D  3064               	movlw	100
+  1781  013E  00F3               	movwf	playNote@duration
+  1782  013F  3000               	movlw	0
+  1783  0140  00F4               	movwf	playNote@duration+1
+  1784  0141  3000               	movlw	0
+  1785  0142  3187  27B8  3180   	fcall	_playNote
+  1786                           
+  1787                           ;main.c: 391:     playNote(0x0D, 125);
+  1788  0145  307D               	movlw	125
+  1789  0146  00F3               	movwf	playNote@duration
+  1790  0147  3000               	movlw	0
+  1791  0148  00F4               	movwf	playNote@duration+1
+  1792  0149  300D               	movlw	13
+  1793  014A  3187  27B8  3180   	fcall	_playNote
+  1794                           
+  1795                           ;main.c: 392:     playNote(0x00, 100);
+  1796  014D  3064               	movlw	100
+  1797  014E  00F3               	movwf	playNote@duration
+  1798  014F  3000               	movlw	0
+  1799  0150  00F4               	movwf	playNote@duration+1
+  1800  0151  3000               	movlw	0
+  1801  0152  3187  27B8  3180   	fcall	_playNote
+  1802                           
+  1803                           ;main.c: 395:     playNote(0x0A, 250);
+  1804  0155  30FA               	movlw	250
+  1805  0156  00F3               	movwf	playNote@duration
+  1806  0157  3000               	movlw	0
+  1807  0158  00F4               	movwf	playNote@duration+1
+  1808  0159  300A               	movlw	10
+  1809  015A  3187  27B8  3180   	fcall	_playNote
+  1810                           
+  1811                           ;main.c: 397:     playNote(0x00, 750);
+  1812  015D  30EE               	movlw	238
+  1813  015E  00F3               	movwf	playNote@duration
+  1814  015F  3002               	movlw	2
+  1815  0160  00F4               	movwf	playNote@duration+1
+  1816  0161  3000               	movlw	0
+  1817  0162  3187  27B8  3180   	fcall	_playNote
+  1818                           
+  1819                           ;main.c: 399:     playNote(0x0A, 250);
+  1820  0165  30FA               	movlw	250
+  1821  0166  00F3               	movwf	playNote@duration
+  1822  0167  3000               	movlw	0
+  1823  0168  00F4               	movwf	playNote@duration+1
+  1824  0169  300A               	movlw	10
+  1825  016A  3187  27B8  3180   	fcall	_playNote
+  1826                           
+  1827                           ;main.c: 401:     playNote(0x00, 750);
+  1828  016D  30EE               	movlw	238
+  1829  016E  00F3               	movwf	playNote@duration
+  1830  016F  3002               	movlw	2
+  1831  0170  00F4               	movwf	playNote@duration+1
+  1832  0171  3000               	movlw	0
+  1833  0172  3187  27B8  3180   	fcall	_playNote
+  1834                           
+  1835                           ;main.c: 403:     playNote(0x0A, 250);
+  1836  0175  30FA               	movlw	250
+  1837  0176  00F3               	movwf	playNote@duration
+  1838  0177  3000               	movlw	0
+  1839  0178  00F4               	movwf	playNote@duration+1
+  1840  0179  300A               	movlw	10
+  1841  017A  3187  27B8  3180   	fcall	_playNote
+  1842                           
+  1843                           ;main.c: 405:     playNote(0x00, 750);
+  1844  017D  30EE               	movlw	238
+  1845  017E  00F3               	movwf	playNote@duration
+  1846  017F  3002               	movlw	2
+  1847  0180  00F4               	movwf	playNote@duration+1
+  1848  0181  3000               	movlw	0
+  1849  0182  3187  27B8  3180   	fcall	_playNote
+  1850                           
+  1851                           ;main.c: 407:     playNote(0x0A, 250);
+  1852  0185  30FA               	movlw	250
+  1853  0186  00F3               	movwf	playNote@duration
+  1854  0187  3000               	movlw	0
+  1855  0188  00F4               	movwf	playNote@duration+1
+  1856  0189  300A               	movlw	10
+  1857  018A  3187  27B8  3180   	fcall	_playNote
+  1858                           
+  1859                           ;main.c: 408:     playNote(0x00, 75);
+  1860  018D  304B               	movlw	75
+  1861  018E  00F3               	movwf	playNote@duration
+  1862  018F  3000               	movlw	0
+  1863  0190  00F4               	movwf	playNote@duration+1
+  1864  0191  3000               	movlw	0
+  1865  0192  3187  27B8  3180   	fcall	_playNote
+  1866                           
+  1867                           ;main.c: 410:     playNote(0x0D, 125);
+  1868  0195  307D               	movlw	125
+  1869  0196  00F3               	movwf	playNote@duration
+  1870  0197  3000               	movlw	0
+  1871  0198  00F4               	movwf	playNote@duration+1
+  1872  0199  300D               	movlw	13
+  1873  019A  3187  27B8  3180   	fcall	_playNote
+  1874                           
+  1875                           ;main.c: 411:     playNote(0x00, 100);
+  1876  019D  3064               	movlw	100
+  1877  019E  00F3               	movwf	playNote@duration
+  1878  019F  3000               	movlw	0
+  1879  01A0  00F4               	movwf	playNote@duration+1
+  1880  01A1  3000               	movlw	0
+  1881  01A2  3187  27B8  3180   	fcall	_playNote
+  1882                           
+  1883                           ;main.c: 412:     playNote(0x0D, 125);
+  1884  01A5  307D               	movlw	125
+  1885  01A6  00F3               	movwf	playNote@duration
+  1886  01A7  3000               	movlw	0
+  1887  01A8  00F4               	movwf	playNote@duration+1
+  1888  01A9  300D               	movlw	13
+  1889  01AA  3187  27B8  3180   	fcall	_playNote
+  1890                           
+  1891                           ;main.c: 413:     playNote(0x00, 100);
+  1892  01AD  3064               	movlw	100
+  1893  01AE  00F3               	movwf	playNote@duration
+  1894  01AF  3000               	movlw	0
+  1895  01B0  00F4               	movwf	playNote@duration+1
+  1896  01B1  3000               	movlw	0
+  1897  01B2  3187  27B8  3180   	fcall	_playNote
+  1898                           
+  1899                           ;main.c: 414:     playNote(0x0D, 125);
+  1900  01B5  307D               	movlw	125
+  1901  01B6  00F3               	movwf	playNote@duration
+  1902  01B7  3000               	movlw	0
+  1903  01B8  00F4               	movwf	playNote@duration+1
+  1904  01B9  300D               	movlw	13
+  1905  01BA  3187  27B8  3180   	fcall	_playNote
+  1906                           
+  1907                           ;main.c: 415:     playNote(0x00, 100);
+  1908  01BD  3064               	movlw	100
+  1909  01BE  00F3               	movwf	playNote@duration
+  1910  01BF  3000               	movlw	0
+  1911  01C0  00F4               	movwf	playNote@duration+1
+  1912  01C1  3000               	movlw	0
+  1913  01C2  3187  27B8  3180   	fcall	_playNote
+  1914                           
+  1915                           ;main.c: 417:     playNote(0x0A, 250);
+  1916  01C5  30FA               	movlw	250
+  1917  01C6  00F3               	movwf	playNote@duration
+  1918  01C7  3000               	movlw	0
+  1919  01C8  00F4               	movwf	playNote@duration+1
+  1920  01C9  300A               	movlw	10
+  1921  01CA  3187  27B8  3180   	fcall	_playNote
+  1922                           
+  1923                           ;main.c: 419:     playNote(0x00, 750);
+  1924  01CD  30EE               	movlw	238
+  1925  01CE  00F3               	movwf	playNote@duration
+  1926  01CF  3002               	movlw	2
+  1927  01D0  00F4               	movwf	playNote@duration+1
+  1928  01D1  3000               	movlw	0
+  1929  01D2  3187  27B8  3180   	fcall	_playNote
+  1930                           
+  1931                           ;main.c: 421:     playNote(0x0A, 250);
+  1932  01D5  30FA               	movlw	250
+  1933  01D6  00F3               	movwf	playNote@duration
+  1934  01D7  3000               	movlw	0
+  1935  01D8  00F4               	movwf	playNote@duration+1
+  1936  01D9  300A               	movlw	10
+  1937  01DA  3187  27B8  3180   	fcall	_playNote
+  1938                           
+  1939                           ;main.c: 423:     playNote(0x00, 750);
+  1940  01DD  30EE               	movlw	238
+  1941  01DE  00F3               	movwf	playNote@duration
+  1942  01DF  3002               	movlw	2
+  1943  01E0  00F4               	movwf	playNote@duration+1
+  1944  01E1  3000               	movlw	0
+  1945  01E2  3187  27B8  3180   	fcall	_playNote
+  1946                           
+  1947                           ;main.c: 425:     playNote(0x0A, 250);
+  1948  01E5  30FA               	movlw	250
+  1949  01E6  00F3               	movwf	playNote@duration
+  1950  01E7  3000               	movlw	0
+  1951  01E8  00F4               	movwf	playNote@duration+1
+  1952  01E9  300A               	movlw	10
+  1953  01EA  3187  27B8  3180   	fcall	_playNote
+  1954                           
+  1955                           ;main.c: 427:     playNote(0x00, 750);
+  1956  01ED  30EE               	movlw	238
+  1957  01EE  00F3               	movwf	playNote@duration
+  1958  01EF  3002               	movlw	2
+  1959  01F0  00F4               	movwf	playNote@duration+1
+  1960  01F1  3000               	movlw	0
+  1961  01F2  3187  27B8  3180   	fcall	_playNote
+  1962                           
+  1963                           ;main.c: 429:     playNote(0x0A, 250);
+  1964  01F5  30FA               	movlw	250
+  1965  01F6  00F3               	movwf	playNote@duration
+  1966  01F7  3000               	movlw	0
+  1967  01F8  00F4               	movwf	playNote@duration+1
+  1968  01F9  300A               	movlw	10
+  1969  01FA  3187  27B8  3180   	fcall	_playNote
+  1970                           
+  1971                           ;main.c: 430:     playNote(0x00, 75);
+  1972  01FD  304B               	movlw	75
+  1973  01FE  00F3               	movwf	playNote@duration
+  1974  01FF  3000               	movlw	0
+  1975  0200  00F4               	movwf	playNote@duration+1
+  1976  0201  3000               	movlw	0
+  1977  0202  3187  27B8  3180   	fcall	_playNote
+  1978                           
+  1979                           ;main.c: 432:     playNote(0x09, 125);
+  1980  0205  307D               	movlw	125
+  1981  0206  00F3               	movwf	playNote@duration
+  1982  0207  3000               	movlw	0
+  1983  0208  00F4               	movwf	playNote@duration+1
+  1984  0209  3009               	movlw	9
+  1985  020A  3187  27B8  3180   	fcall	_playNote
+  1986                           
+  1987                           ;main.c: 433:     playNote(0x00, 100);
+  1988  020D  3064               	movlw	100
+  1989  020E  00F3               	movwf	playNote@duration
+  1990  020F  3000               	movlw	0
+  1991  0210  00F4               	movwf	playNote@duration+1
+  1992  0211  3000               	movlw	0
+  1993  0212  3187  27B8  3180   	fcall	_playNote
+  1994                           
+  1995                           ;main.c: 434:     playNote(0x09, 125);
+  1996  0215  307D               	movlw	125
+  1997  0216  00F3               	movwf	playNote@duration
+  1998  0217  3000               	movlw	0
+  1999  0218  00F4               	movwf	playNote@duration+1
+  2000  0219  3009               	movlw	9
+  2001  021A  3187  27B8  3180   	fcall	_playNote
+  2002                           
+  2003                           ;main.c: 435:     playNote(0x00, 100);
+  2004  021D  3064               	movlw	100
+  2005  021E  00F3               	movwf	playNote@duration
+  2006  021F  3000               	movlw	0
+  2007  0220  00F4               	movwf	playNote@duration+1
+  2008  0221  3000               	movlw	0
+  2009  0222  3187  27B8  3180   	fcall	_playNote
+  2010                           
+  2011                           ;main.c: 436:     playNote(0x09, 125);
+  2012  0225  307D               	movlw	125
+  2013  0226  00F3               	movwf	playNote@duration
+  2014  0227  3000               	movlw	0
+  2015  0228  00F4               	movwf	playNote@duration+1
+  2016  0229  3009               	movlw	9
+  2017  022A  3187  27B8  3180   	fcall	_playNote
+  2018                           
+  2019                           ;main.c: 437:     playNote(0x00, 100);
+  2020  022D  3064               	movlw	100
+  2021  022E  00F3               	movwf	playNote@duration
+  2022  022F  3000               	movlw	0
+  2023  0230  00F4               	movwf	playNote@duration+1
+  2024  0231  3000               	movlw	0
+  2025  0232  3187  27B8  3180   	fcall	_playNote
+  2026                           
+  2027                           ;main.c: 439:     playNote(0x16, 500);
+  2028  0235  30F4               	movlw	244
+  2029  0236  00F3               	movwf	playNote@duration
+  2030  0237  3001               	movlw	1
+  2031  0238  00F4               	movwf	playNote@duration+1
+  2032  0239  3016               	movlw	22
+  2033  023A  3187  27B8  3180   	fcall	_playNote
+  2034                           
+  2035                           ;main.c: 440:     playNote(0x00, 500);
+  2036  023D  30F4               	movlw	244
+  2037  023E  00F3               	movwf	playNote@duration
+  2038  023F  3001               	movlw	1
+  2039  0240  00F4               	movwf	playNote@duration+1
+  2040  0241  3000               	movlw	0
+  2041  0242  3187  27B8  3180   	fcall	_playNote
+  2042                           
+  2043                           ;main.c: 442:     playNote(0x16, 500);
+  2044  0245  30F4               	movlw	244
+  2045  0246  00F3               	movwf	playNote@duration
+  2046  0247  3001               	movlw	1
+  2047  0248  00F4               	movwf	playNote@duration+1
+  2048  0249  3016               	movlw	22
+  2049  024A  3187  27B8  3180   	fcall	_playNote
+  2050                           
+  2051                           ;main.c: 443:     playNote(0x00, 500);
+  2052  024D  30F4               	movlw	244
+  2053  024E  00F3               	movwf	playNote@duration
+  2054  024F  3001               	movlw	1
+  2055  0250  00F4               	movwf	playNote@duration+1
+  2056  0251  3000               	movlw	0
+  2057  0252  3187  27B8  3180   	fcall	_playNote
+  2058                           
+  2059                           ;main.c: 445:     playNote(0x16, 500);
+  2060  0255  30F4               	movlw	244
+  2061  0256  00F3               	movwf	playNote@duration
+  2062  0257  3001               	movlw	1
+  2063  0258  00F4               	movwf	playNote@duration+1
+  2064  0259  3016               	movlw	22
+  2065  025A  3187  27B8  3180   	fcall	_playNote
+  2066                           
+  2067                           ;main.c: 446:     playNote(0x00, 500);
+  2068  025D  30F4               	movlw	244
+  2069  025E  00F3               	movwf	playNote@duration
+  2070  025F  3001               	movlw	1
+  2071  0260  00F4               	movwf	playNote@duration+1
+  2072  0261  3000               	movlw	0
+  2073  0262  3187  27B8  3180   	fcall	_playNote
+  2074                           
+  2075                           ;main.c: 448:     playNote(0x12, 500);
+  2076  0265  30F4               	movlw	244
+  2077  0266  00F3               	movwf	playNote@duration
+  2078  0267  3001               	movlw	1
+  2079  0268  00F4               	movwf	playNote@duration+1
+  2080  0269  3012               	movlw	18
+  2081  026A  3187  27B8  3180   	fcall	_playNote
+  2082                           
+  2083                           ;main.c: 449:     playNote(0x00, 250);
+  2084  026D  30FA               	movlw	250
+  2085  026E  00F3               	movwf	playNote@duration
+  2086  026F  3000               	movlw	0
+  2087  0270  00F4               	movwf	playNote@duration+1
+  2088  0271  3000               	movlw	0
+  2089  0272  3187  27B8  3180   	fcall	_playNote
+  2090                           
+  2091                           ;main.c: 451:     playNote(0x19, 250);
+  2092  0275  30FA               	movlw	250
+  2093  0276  00F3               	movwf	playNote@duration
+  2094  0277  3000               	movlw	0
+  2095  0278  00F4               	movwf	playNote@duration+1
+  2096  0279  3019               	movlw	25
+  2097  027A  3187  27B8  3180   	fcall	_playNote
+  2098                           
+  2099                           ;main.c: 452:     playNote(0x16, 500);
+  2100  027D  30F4               	movlw	244
+  2101  027E  00F3               	movwf	playNote@duration
+  2102  027F  3001               	movlw	1
+  2103  0280  00F4               	movwf	playNote@duration+1
+  2104  0281  3016               	movlw	22
+  2105  0282  3187  27B8  3180   	fcall	_playNote
+  2106                           
+  2107                           ;main.c: 453:     playNote(0x00, 500);
+  2108  0285  30F4               	movlw	244
+  2109  0286  00F3               	movwf	playNote@duration
+  2110  0287  3001               	movlw	1
+  2111  0288  00F4               	movwf	playNote@duration+1
+  2112  0289  3000               	movlw	0
+  2113  028A  3187  27B8  3180   	fcall	_playNote
+  2114                           
+  2115                           ;main.c: 455:     playNote(0x12, 500);
+  2116  028D  30F4               	movlw	244
+  2117  028E  00F3               	movwf	playNote@duration
+  2118  028F  3001               	movlw	1
+  2119  0290  00F4               	movwf	playNote@duration+1
+  2120  0291  3012               	movlw	18
+  2121  0292  3187  27B8  3180   	fcall	_playNote
+  2122                           
+  2123                           ;main.c: 456:     playNote(0x00, 250);
+  2124  0295  30FA               	movlw	250
+  2125  0296  00F3               	movwf	playNote@duration
+  2126  0297  3000               	movlw	0
+  2127  0298  00F4               	movwf	playNote@duration+1
+  2128  0299  3000               	movlw	0
+  2129  029A  3187  27B8  3180   	fcall	_playNote
+  2130                           
+  2131                           ;main.c: 458:     playNote(0x19, 250);
+  2132  029D  30FA               	movlw	250
+  2133  029E  00F3               	movwf	playNote@duration
+  2134  029F  3000               	movlw	0
+  2135  02A0  00F4               	movwf	playNote@duration+1
+  2136  02A1  3019               	movlw	25
+  2137  02A2  3187  27B8  3180   	fcall	_playNote
+  2138                           
+  2139                           ;main.c: 459:     playNote(0x16, 750);
+  2140  02A5  30EE               	movlw	238
+  2141  02A6  00F3               	movwf	playNote@duration
+  2142  02A7  3002               	movlw	2
+  2143  02A8  00F4               	movwf	playNote@duration+1
+  2144  02A9  3016               	movlw	22
+  2145  02AA  3187  27B8  3180   	fcall	_playNote
+  2146                           
+  2147                           ;main.c: 460:     playNote(0x00, 1250);
+  2148  02AD  30E2               	movlw	226
+  2149  02AE  00F3               	movwf	playNote@duration
+  2150  02AF  3004               	movlw	4
+  2151  02B0  00F4               	movwf	playNote@duration+1
+  2152  02B1  3000               	movlw	0
+  2153  02B2  3187  27B8  3180   	fcall	_playNote
+  2154                           
+  2155                           ;main.c: 462:     playNote(0x1D, 500);
+  2156  02B5  30F4               	movlw	244
+  2157  02B6  00F3               	movwf	playNote@duration
+  2158  02B7  3001               	movlw	1
+  2159  02B8  00F4               	movwf	playNote@duration+1
+  2160  02B9  301D               	movlw	29
+  2161  02BA  3187  27B8  3180   	fcall	_playNote
+  2162                           
+  2163                           ;main.c: 463:     playNote(0x00, 500);
+  2164  02BD  30F4               	movlw	244
+  2165  02BE  00F3               	movwf	playNote@duration
+  2166  02BF  3001               	movlw	1
+  2167  02C0  00F4               	movwf	playNote@duration+1
+  2168  02C1  3000               	movlw	0
+  2169  02C2  3187  27B8  3180   	fcall	_playNote
+  2170                           
+  2171                           ;main.c: 465:     playNote(0x1D, 500);
+  2172  02C5  30F4               	movlw	244
+  2173  02C6  00F3               	movwf	playNote@duration
+  2174  02C7  3001               	movlw	1
+  2175  02C8  00F4               	movwf	playNote@duration+1
+  2176  02C9  301D               	movlw	29
+  2177  02CA  3187  27B8  3180   	fcall	_playNote
+  2178                           
+  2179                           ;main.c: 466:     playNote(0x00, 500);
+  2180  02CD  30F4               	movlw	244
+  2181  02CE  00F3               	movwf	playNote@duration
+  2182  02CF  3001               	movlw	1
+  2183  02D0  00F4               	movwf	playNote@duration+1
+  2184  02D1  3000               	movlw	0
+  2185  02D2  3187  27B8  3180   	fcall	_playNote
+  2186                           
+  2187                           ;main.c: 468:     playNote(0x1D, 500);
+  2188  02D5  30F4               	movlw	244
+  2189  02D6  00F3               	movwf	playNote@duration
+  2190  02D7  3001               	movlw	1
+  2191  02D8  00F4               	movwf	playNote@duration+1
+  2192  02D9  301D               	movlw	29
+  2193  02DA  3187  27B8  3180   	fcall	_playNote
+  2194                           
+  2195                           ;main.c: 469:     playNote(0x00, 500);
+  2196  02DD  30F4               	movlw	244
+  2197  02DE  00F3               	movwf	playNote@duration
+  2198  02DF  3001               	movlw	1
+  2199  02E0  00F4               	movwf	playNote@duration+1
+  2200  02E1  3000               	movlw	0
+  2201  02E2  3187  27B8  3180   	fcall	_playNote
+  2202                           
+  2203                           ;main.c: 471:     playNote(0x1E, 500);
+  2204  02E5  30F4               	movlw	244
+  2205  02E6  00F3               	movwf	playNote@duration
+  2206  02E7  3001               	movlw	1
+  2207  02E8  00F4               	movwf	playNote@duration+1
+  2208  02E9  301E               	movlw	30
+  2209  02EA  3187  27B8  3180   	fcall	_playNote
+  2210                           
+  2211                           ;main.c: 472:     playNote(0x00, 250);
+  2212  02ED  30FA               	movlw	250
+  2213  02EE  00F3               	movwf	playNote@duration
+  2214  02EF  3000               	movlw	0
+  2215  02F0  00F4               	movwf	playNote@duration+1
+  2216  02F1  3000               	movlw	0
+  2217  02F2  3187  27B8  3180   	fcall	_playNote
+  2218                           
+  2219                           ;main.c: 474:     playNote(0x19, 250);
+  2220  02F5  30FA               	movlw	250
+  2221  02F6  00F3               	movwf	playNote@duration
+  2222  02F7  3000               	movlw	0
+  2223  02F8  00F4               	movwf	playNote@duration+1
+  2224  02F9  3019               	movlw	25
+  2225  02FA  3187  27B8  3180   	fcall	_playNote
+  2226                           
+  2227                           ;main.c: 475:     playNote(0x15, 500);
+  2228  02FD  30F4               	movlw	244
+  2229  02FE  00F3               	movwf	playNote@duration
+  2230  02FF  3001               	movlw	1
+  2231  0300  00F4               	movwf	playNote@duration+1
+  2232  0301  3015               	movlw	21
+  2233  0302  3187  27B8  3180   	fcall	_playNote
+  2234                           
+  2235                           ;main.c: 476:     playNote(0x00, 500);
+  2236  0305  30F4               	movlw	244
+  2237  0306  00F3               	movwf	playNote@duration
+  2238  0307  3001               	movlw	1
+  2239  0308  00F4               	movwf	playNote@duration+1
+  2240  0309  3000               	movlw	0
+  2241  030A  3187  27B8  3180   	fcall	_playNote
+  2242                           
+  2243                           ;main.c: 478:     playNote(0x12, 500);
+  2244  030D  30F4               	movlw	244
+  2245  030E  00F3               	movwf	playNote@duration
+  2246  030F  3001               	movlw	1
+  2247  0310  00F4               	movwf	playNote@duration+1
+  2248  0311  3012               	movlw	18
+  2249  0312  3187  27B8  3180   	fcall	_playNote
+  2250                           
+  2251                           ;main.c: 479:     playNote(0x00, 250);
+  2252  0315  30FA               	movlw	250
+  2253  0316  00F3               	movwf	playNote@duration
+  2254  0317  3000               	movlw	0
+  2255  0318  00F4               	movwf	playNote@duration+1
+  2256  0319  3000               	movlw	0
+  2257  031A  3187  27B8  3180   	fcall	_playNote
+  2258                           
+  2259                           ;main.c: 481:     playNote(0x19, 250);
+  2260  031D  30FA               	movlw	250
+  2261  031E  00F3               	movwf	playNote@duration
+  2262  031F  3000               	movlw	0
+  2263  0320  00F4               	movwf	playNote@duration+1
+  2264  0321  3019               	movlw	25
+  2265  0322  3187  27B8  3180   	fcall	_playNote
+  2266                           
+  2267                           ;main.c: 482:     playNote(0x16, 750);
+  2268  0325  30EE               	movlw	238
+  2269  0326  00F3               	movwf	playNote@duration
+  2270  0327  3002               	movlw	2
+  2271  0328  00F4               	movwf	playNote@duration+1
+  2272  0329  3016               	movlw	22
+  2273  032A  3187  27B8  3180   	fcall	_playNote
+  2274                           
+  2275                           ;main.c: 483:     playNote(0x00, 1000);
+  2276  032D  30E8               	movlw	232
+  2277  032E  00F3               	movwf	playNote@duration
+  2278  032F  3003               	movlw	3
+  2279  0330  00F4               	movwf	playNote@duration+1
+  2280  0331  3000               	movlw	0
+  2281  0332  3187  27B8  3180   	fcall	_playNote
+  2282                           
+  2283                           ;main.c: 485:     playNote(0x22, 500);
+  2284  0335  30F4               	movlw	244
+  2285  0336  00F3               	movwf	playNote@duration
+  2286  0337  3001               	movlw	1
+  2287  0338  00F4               	movwf	playNote@duration+1
+  2288  0339  3022               	movlw	34
+  2289  033A  3187  27B8  3180   	fcall	_playNote
+  2290                           
+  2291                           ;main.c: 486:     playNote(0x00, 500);
+  2292  033D  30F4               	movlw	244
+  2293  033E  00F3               	movwf	playNote@duration
+  2294  033F  3001               	movlw	1
+  2295  0340  00F4               	movwf	playNote@duration+1
+  2296  0341  3000               	movlw	0
+  2297  0342  3187  27B8  3180   	fcall	_playNote
+  2298                           
+  2299                           ;main.c: 488:     playNote(0x16, 500);
+  2300  0345  30F4               	movlw	244
+  2301  0346  00F3               	movwf	playNote@duration
+  2302  0347  3001               	movlw	1
+  2303  0348  00F4               	movwf	playNote@duration+1
+  2304  0349  3016               	movlw	22
+  2305  034A  3187  27B8  3180   	fcall	_playNote
+  2306                           
+  2307                           ;main.c: 489:     playNote(0x00, 250);
+  2308  034D  30FA               	movlw	250
+  2309  034E  00F3               	movwf	playNote@duration
+  2310  034F  3000               	movlw	0
+  2311  0350  00F4               	movwf	playNote@duration+1
+  2312  0351  3000               	movlw	0
+  2313  0352  3187  27B8  3180   	fcall	_playNote
+  2314                           
+  2315                           ;main.c: 491:     playNote(0x16, 250);
+  2316  0355  30FA               	movlw	250
+  2317  0356  00F3               	movwf	playNote@duration
+  2318  0357  3000               	movlw	0
+  2319  0358  00F4               	movwf	playNote@duration+1
+  2320  0359  3016               	movlw	22
+  2321  035A  3187  27B8  3180   	fcall	_playNote
+  2322                           
+  2323                           ;main.c: 492:     playNote(0x22, 500);
+  2324  035D  30F4               	movlw	244
+  2325  035E  00F3               	movwf	playNote@duration
+  2326  035F  3001               	movlw	1
+  2327  0360  00F4               	movwf	playNote@duration+1
+  2328  0361  3022               	movlw	34
+  2329  0362  3187  27B8  3180   	fcall	_playNote
+  2330                           
+  2331                           ;main.c: 493:     playNote(0x00, 500);
+  2332  0365  30F4               	movlw	244
+  2333  0366  00F3               	movwf	playNote@duration
+  2334  0367  3001               	movlw	1
+  2335  0368  00F4               	movwf	playNote@duration+1
+  2336  0369  3000               	movlw	0
+  2337  036A  3187  27B8  3180   	fcall	_playNote
+  2338                           
+  2339                           ;main.c: 495:     playNote(0x21, 500);
+  2340  036D  30F4               	movlw	244
+  2341  036E  00F3               	movwf	playNote@duration
+  2342  036F  3001               	movlw	1
+  2343  0370  00F4               	movwf	playNote@duration+1
+  2344  0371  3021               	movlw	33
+  2345  0372  3187  27B8  3180   	fcall	_playNote
+  2346                           
+  2347                           ;main.c: 496:     playNote(0x00, 250);
+  2348  0375  30FA               	movlw	250
+  2349  0376  00F3               	movwf	playNote@duration
+  2350  0377  3000               	movlw	0
+  2351  0378  00F4               	movwf	playNote@duration+1
+  2352  0379  3000               	movlw	0
+  2353  037A  3187  27B8  3180   	fcall	_playNote
+  2354                           
+  2355                           ;main.c: 498:     playNote(0x20, 250);
+  2356  037D  30FA               	movlw	250
+  2357  037E  00F3               	movwf	playNote@duration
+  2358  037F  3000               	movlw	0
+  2359  0380  00F4               	movwf	playNote@duration+1
+  2360  0381  3020               	movlw	32
+  2361  0382  3187  27B8  3180   	fcall	_playNote
+  2362                           
+  2363                           ;main.c: 499:     playNote(0x1F, 250);
+  2364  0385  30FA               	movlw	250
+  2365  0386  00F3               	movwf	playNote@duration
+  2366  0387  3000               	movlw	0
+  2367  0388  00F4               	movwf	playNote@duration+1
+  2368  0389  301F               	movlw	31
+  2369  038A  3187  27B8  3180   	fcall	_playNote
+  2370                           
+  2371                           ;main.c: 500:     playNote(0x1E, 250);
+  2372  038D  30FA               	movlw	250
+  2373  038E  00F3               	movwf	playNote@duration
+  2374  038F  3000               	movlw	0
+  2375  0390  00F4               	movwf	playNote@duration+1
+  2376  0391  301E               	movlw	30
+  2377  0392  3187  27B8  3180   	fcall	_playNote
+  2378                           
+  2379                           ;main.c: 501:     playNote(0x1F, 500);
+  2380  0395  30F4               	movlw	244
+  2381  0396  00F3               	movwf	playNote@duration
+  2382  0397  3001               	movlw	1
+  2383  0398  00F4               	movwf	playNote@duration+1
+  2384  0399  301F               	movlw	31
+  2385  039A  3187  27B8  3180   	fcall	_playNote
+  2386                           
+  2387                           ;main.c: 502:     playNote(0x00, 500);
+  2388  039D  30F4               	movlw	244
+  2389  039E  00F3               	movwf	playNote@duration
+  2390  039F  3001               	movlw	1
+  2391  03A0  00F4               	movwf	playNote@duration+1
+  2392  03A1  3000               	movlw	0
+  2393  03A2  3187  27B8  3180   	fcall	_playNote
+  2394                           
+  2395                           ;main.c: 504:     playNote(0x1A, 500);
+  2396  03A5  30F4               	movlw	244
+  2397  03A6  00F3               	movwf	playNote@duration
+  2398  03A7  3001               	movlw	1
+  2399  03A8  00F4               	movwf	playNote@duration+1
+  2400  03A9  301A               	movlw	26
+  2401  03AA  3187  27B8  3180   	fcall	_playNote
+  2402                           
+  2403                           ;main.c: 505:     playNote(0x1E, 750);
+  2404  03AD  30EE               	movlw	238
+  2405  03AE  00F3               	movwf	playNote@duration
+  2406  03AF  3002               	movlw	2
+  2407  03B0  00F4               	movwf	playNote@duration+1
+  2408  03B1  301E               	movlw	30
+  2409  03B2  3187  27B8  3180   	fcall	_playNote
+  2410                           
+  2411                           ;main.c: 506:     playNote(0x00, 250);
+  2412  03B5  30FA               	movlw	250
+  2413  03B6  00F3               	movwf	playNote@duration
+  2414  03B7  3000               	movlw	0
+  2415  03B8  00F4               	movwf	playNote@duration+1
+  2416  03B9  3000               	movlw	0
+  2417  03BA  3187  27B8  3180   	fcall	_playNote
+  2418                           
+  2419                           ;main.c: 508:     playNote(0x1D, 500);
+  2420  03BD  30F4               	movlw	244
+  2421  03BE  00F3               	movwf	playNote@duration
+  2422  03BF  3001               	movlw	1
+  2423  03C0  00F4               	movwf	playNote@duration+1
+  2424  03C1  301D               	movlw	29
+  2425  03C2  3187  27B8  3180   	fcall	_playNote
+  2426                           
+  2427                           ;main.c: 509:     playNote(0x00, 250);
+  2428  03C5  30FA               	movlw	250
+  2429  03C6  00F3               	movwf	playNote@duration
+  2430  03C7  3000               	movlw	0
+  2431  03C8  00F4               	movwf	playNote@duration+1
+  2432  03C9  3000               	movlw	0
+  2433  03CA  3187  27B8  3180   	fcall	_playNote
+  2434                           
+  2435                           ;main.c: 511:     playNote(0x1C, 250);
+  2436  03CD  30FA               	movlw	250
+  2437  03CE  00F3               	movwf	playNote@duration
+  2438  03CF  3000               	movlw	0
+  2439  03D0  00F4               	movwf	playNote@duration+1
+  2440  03D1  301C               	movlw	28
+  2441  03D2  3187  27B8  3180   	fcall	_playNote
+  2442                           
+  2443                           ;main.c: 512:     playNote(0x1B, 250);
+  2444  03D5  30FA               	movlw	250
+  2445  03D6  00F3               	movwf	playNote@duration
+  2446  03D7  3000               	movlw	0
+  2447  03D8  00F4               	movwf	playNote@duration+1
+  2448  03D9  301B               	movlw	27
+  2449  03DA  3187  27B8  3180   	fcall	_playNote
+  2450                           
+  2451                           ;main.c: 513:     playNote(0x1A, 250);
+  2452  03DD  30FA               	movlw	250
+  2453  03DE  00F3               	movwf	playNote@duration
+  2454  03DF  3000               	movlw	0
+  2455  03E0  00F4               	movwf	playNote@duration+1
+  2456  03E1  301A               	movlw	26
+  2457  03E2  3187  27B8  3180   	fcall	_playNote
+  2458                           
+  2459                           ;main.c: 514:     playNote(0x1B, 500);
+  2460  03E5  30F4               	movlw	244
+  2461  03E6  00F3               	movwf	playNote@duration
+  2462  03E7  3001               	movlw	1
+  2463  03E8  00F4               	movwf	playNote@duration+1
+  2464  03E9  301B               	movlw	27
+  2465  03EA  3187  27B8  3180   	fcall	_playNote
+  2466                           
+  2467                           ;main.c: 515:     playNote(0x00, 500);
+  2468  03ED  30F4               	movlw	244
+  2469  03EE  00F3               	movwf	playNote@duration
+  2470  03EF  3001               	movlw	1
+  2471  03F0  00F4               	movwf	playNote@duration+1
+  2472  03F1  3000               	movlw	0
+  2473  03F2  3187  27B8  3180   	fcall	_playNote
+  2474                           
+  2475                           ;main.c: 517:     playNote(0x16, 500);
+  2476  03F5  30F4               	movlw	244
+  2477  03F6  00F3               	movwf	playNote@duration
+  2478  03F7  3001               	movlw	1
+  2479  03F8  00F4               	movwf	playNote@duration+1
+  2480  03F9  3016               	movlw	22
+  2481  03FA  3187  27B8  3180   	fcall	_playNote
+  2482                           
+  2483                           ;main.c: 518:     playNote(0x19, 500);
+  2484  03FD  30F4               	movlw	244
+  2485  03FE  00F3               	movwf	playNote@duration
+  2486  03FF  3001               	movlw	1
+  2487  0400  00F4               	movwf	playNote@duration+1
+  2488  0401  3019               	movlw	25
+  2489  0402  3187  27B8  3180   	fcall	_playNote
+  2490                           
+  2491                           ;main.c: 519:     playNote(0x00, 500);
+  2492  0405  30F4               	movlw	244
+  2493  0406  00F3               	movwf	playNote@duration
+  2494  0407  3001               	movlw	1
+  2495  0408  00F4               	movwf	playNote@duration+1
+  2496  0409  3000               	movlw	0
+  2497  040A  3187  27B8  3180   	fcall	_playNote
+  2498                           
+  2499                           ;main.c: 521:     playNote(0x12, 500);
+  2500  040D  30F4               	movlw	244
+  2501  040E  00F3               	movwf	playNote@duration
+  2502  040F  3001               	movlw	1
+  2503  0410  00F4               	movwf	playNote@duration+1
+  2504  0411  3012               	movlw	18
+  2505  0412  3187  27B8  3180   	fcall	_playNote
+  2506                           
+  2507                           ;main.c: 522:     playNote(0x00, 250);
+  2508  0415  30FA               	movlw	250
+  2509  0416  00F3               	movwf	playNote@duration
+  2510  0417  3000               	movlw	0
+  2511  0418  00F4               	movwf	playNote@duration+1
+  2512  0419  3000               	movlw	0
+  2513  041A  3187  27B8  3180   	fcall	_playNote
+  2514                           
+  2515                           ;main.c: 524:     playNote(0x19, 250);
+  2516  041D  30FA               	movlw	250
+  2517  041E  00F3               	movwf	playNote@duration
+  2518  041F  3000               	movlw	0
+  2519  0420  00F4               	movwf	playNote@duration+1
+  2520  0421  3019               	movlw	25
+  2521  0422  3187  27B8  3180   	fcall	_playNote
+  2522                           
+  2523                           ;main.c: 525:     playNote(0x16, 500);
+  2524  0425  30F4               	movlw	244
+  2525  0426  00F3               	movwf	playNote@duration
+  2526  0427  3001               	movlw	1
+  2527  0428  00F4               	movwf	playNote@duration+1
+  2528  0429  3016               	movlw	22
+  2529  042A  3187  27B8  3180   	fcall	_playNote
+  2530                           
+  2531                           ;main.c: 526:     playNote(0x00, 500);
+  2532  042D  30F4               	movlw	244
+  2533  042E  00F3               	movwf	playNote@duration
+  2534  042F  3001               	movlw	1
+  2535  0430  00F4               	movwf	playNote@duration+1
+  2536  0431  3000               	movlw	0
+  2537  0432  3187  27B8  3180   	fcall	_playNote
+  2538                           
+  2539                           ;main.c: 528:     playNote(0x12, 500);
+  2540  0435  30F4               	movlw	244
+  2541  0436  00F3               	movwf	playNote@duration
+  2542  0437  3001               	movlw	1
+  2543  0438  00F4               	movwf	playNote@duration+1
+  2544  0439  3012               	movlw	18
+  2545  043A  3187  27B8  3180   	fcall	_playNote
+  2546                           
+  2547                           ;main.c: 529:     playNote(0x00, 250);
+  2548  043D  30FA               	movlw	250
+  2549  043E  00F3               	movwf	playNote@duration
+  2550  043F  3000               	movlw	0
+  2551  0440  00F4               	movwf	playNote@duration+1
+  2552  0441  3000               	movlw	0
+  2553  0442  3187  27B8  3180   	fcall	_playNote
+  2554                           
+  2555                           ;main.c: 531:     playNote(0x19, 250);
+  2556  0445  30FA               	movlw	250
+  2557  0446  00F3               	movwf	playNote@duration
+  2558  0447  3000               	movlw	0
+  2559  0448  00F4               	movwf	playNote@duration+1
+  2560  0449  3019               	movlw	25
+  2561  044A  3187  27B8  3180   	fcall	_playNote
+  2562                           
+  2563                           ;main.c: 532:     playNote(0x16, 750);
+  2564  044D  30EE               	movlw	238
+  2565  044E  00F3               	movwf	playNote@duration
+  2566  044F  3002               	movlw	2
+  2567  0450  00F4               	movwf	playNote@duration+1
+  2568  0451  3016               	movlw	22
+  2569  0452  3187  27B8  3180   	fcall	_playNote
+  2570                           
+  2571                           ;main.c: 533:     playNote(0x00, 1250);
+  2572  0455  30E2               	movlw	226
+  2573  0456  00F3               	movwf	playNote@duration
+  2574  0457  3004               	movlw	4
+  2575  0458  00F4               	movwf	playNote@duration+1
+  2576  0459  3000               	movlw	0
+  2577  045A  3187  27B8  3180   	fcall	_playNote
+  2578  045D                     l139:
+  2579  045D  0008               	return
+  2580  045E                     __end_of_imperialMarch:
+  2581                           
+  2582                           	psect	text3
+  2583  05DF                     __ptext3:	
+  2584 ;; *************** function _gargoyles *****************
+  2585 ;; Defined at:
+  2586 ;;		line 539 in file "main.c"
+  2587 ;; Parameters:    Size  Location     Type
+  2588 ;;		None
+  2589 ;; Auto vars:     Size  Location     Type
+  2590 ;;		None
+  2591 ;; Return value:  Size  Location     Type
+  2592 ;;                  1    wreg      void 
+  2593 ;; Registers used:
+  2594 ;;		wreg, fsr0l, fsr0h, status,2, status,0, pclath, cstack
+  2595 ;; Tracked objects:
+  2596 ;;		On entry : 0/0
+  2597 ;;		On exit  : 0/0
+  2598 ;;		Unchanged: 0/0
+  2599 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  2600 ;;      Params:         0       0       0       0
+  2601 ;;      Locals:         0       0       0       0
+  2602 ;;      Temps:          0       0       0       0
+  2603 ;;      Totals:         0       0       0       0
+  2604 ;;Total ram usage:        0 bytes
+  2605 ;; Hardware stack levels used: 1
+  2606 ;; Hardware stack levels required when called: 3
+  2607 ;; This function calls:
+  2608 ;;		_playNote
+  2609 ;; This function is called by:
+  2610 ;;		_main
+  2611 ;; This function uses a non-reentrant model
+  2612 ;;
+  2613                           
+  2614                           
+  2615                           ;psect for function _gargoyles
+  2616  05DF                     _gargoyles:
+  2617  05DF                     l1004:	
+  2618                           ;incstack = 0
+  2619                           ; Regs used in _gargoyles: [wreg-fsr0h+status,2+status,0+pclath+cstack]
+  2620                           
+  2621                           
+  2622                           ;main.c: 540:     playNote(0x12, 1598);
+  2623  05DF  303E               	movlw	62
+  2624  05E0  00F3               	movwf	playNote@duration
+  2625  05E1  3006               	movlw	6
+  2626  05E2  00F4               	movwf	playNote@duration+1
+  2627  05E3  3012               	movlw	18
+  2628  05E4  3187  27B8  3185   	fcall	_playNote
+  2629                           
+  2630                           ;main.c: 541:     playNote(0x10, 398);
+  2631  05E7  308E               	movlw	142
+  2632  05E8  00F3               	movwf	playNote@duration
+  2633  05E9  3001               	movlw	1
+  2634  05EA  00F4               	movwf	playNote@duration+1
+  2635  05EB  3010               	movlw	16
+  2636  05EC  3187  27B8  3185   	fcall	_playNote
+  2637                           
+  2638                           ;main.c: 542:     playNote(0x0E, 398);
+  2639  05EF  308E               	movlw	142
+  2640  05F0  00F3               	movwf	playNote@duration
+  2641  05F1  3001               	movlw	1
+  2642  05F2  00F4               	movwf	playNote@duration+1
+  2643  05F3  300E               	movlw	14
+  2644  05F4  3187  27B8  3185   	fcall	_playNote
+  2645                           
+  2646                           ;main.c: 543:     playNote(0x0D, 398);
+  2647  05F7  308E               	movlw	142
+  2648  05F8  00F3               	movwf	playNote@duration
+  2649  05F9  3001               	movlw	1
+  2650  05FA  00F4               	movwf	playNote@duration+1
+  2651  05FB  300D               	movlw	13
+  2652  05FC  3187  27B8  3185   	fcall	_playNote
+  2653                           
+  2654                           ;main.c: 544:     playNote(0x0B, 398);
+  2655  05FF  308E               	movlw	142
+  2656  0600  00F3               	movwf	playNote@duration
+  2657  0601  3001               	movlw	1
+  2658  0602  00F4               	movwf	playNote@duration+1
+  2659  0603  300B               	movlw	11
+  2660  0604  3187  27B8  3185   	fcall	_playNote
+  2661                           
+  2662                           ;main.c: 545:     playNote(0x13, 1988);
+  2663  0607  30C4               	movlw	196
+  2664  0608  00F3               	movwf	playNote@duration
+  2665  0609  3007               	movlw	7
+  2666  060A  00F4               	movwf	playNote@duration+1
+  2667  060B  3013               	movlw	19
+  2668  060C  3187  27B8  3185   	fcall	_playNote
+  2669                           
+  2670                           ;main.c: 546:     playNote(0x12, 198);
+  2671  060F  30C6               	movlw	198
+  2672  0610  00F3               	movwf	playNote@duration
+  2673  0611  3000               	movlw	0
+  2674  0612  00F4               	movwf	playNote@duration+1
+  2675  0613  3012               	movlw	18
+  2676  0614  3187  27B8  3185   	fcall	_playNote
+  2677                           
+  2678                           ;main.c: 547:     playNote(0x10, 198);
+  2679  0617  30C6               	movlw	198
+  2680  0618  00F3               	movwf	playNote@duration
+  2681  0619  3000               	movlw	0
+  2682  061A  00F4               	movwf	playNote@duration+1
+  2683  061B  3010               	movlw	16
+  2684  061C  3187  27B8  3185   	fcall	_playNote
+  2685                           
+  2686                           ;main.c: 548:     playNote(0x0D, 1465);
+  2687  061F  30B9               	movlw	185
+  2688  0620  00F3               	movwf	playNote@duration
+  2689  0621  3005               	movlw	5
+  2690  0622  00F4               	movwf	playNote@duration+1
+  2691  0623  300D               	movlw	13
+  2692  0624  3187  27B8  3185   	fcall	_playNote
+  2693                           
+  2694                           ;main.c: 549:     playNote(0x00, 133);
+  2695  0627  3085               	movlw	133
+  2696  0628  00F3               	movwf	playNote@duration
+  2697  0629  3000               	movlw	0
+  2698  062A  00F4               	movwf	playNote@duration+1
+  2699  062B  3000               	movlw	0
+  2700  062C  3187  27B8  3185   	fcall	_playNote
+  2701                           
+  2702                           ;main.c: 550:     playNote(0x12, 1598);
+  2703  062F  303E               	movlw	62
+  2704  0630  00F3               	movwf	playNote@duration
+  2705  0631  3006               	movlw	6
+  2706  0632  00F4               	movwf	playNote@duration+1
+  2707  0633  3012               	movlw	18
+  2708  0634  3187  27B8  3185   	fcall	_playNote
+  2709                           
+  2710                           ;main.c: 551:     playNote(0x0E, 398);
+  2711  0637  308E               	movlw	142
+  2712  0638  00F3               	movwf	playNote@duration
+  2713  0639  3001               	movlw	1
+  2714  063A  00F4               	movwf	playNote@duration+1
+  2715  063B  300E               	movlw	14
+  2716  063C  3187  27B8  3185   	fcall	_playNote
+  2717                           
+  2718                           ;main.c: 552:     playNote(0x10, 398);
+  2719  063F  308E               	movlw	142
+  2720  0640  00F3               	movwf	playNote@duration
+  2721  0641  3001               	movlw	1
+  2722  0642  00F4               	movwf	playNote@duration+1
+  2723  0643  3010               	movlw	16
+  2724  0644  3187  27B8  3185   	fcall	_playNote
+  2725                           
+  2726                           ;main.c: 553:     playNote(0x12, 398);
+  2727  0647  308E               	movlw	142
+  2728  0648  00F3               	movwf	playNote@duration
+  2729  0649  3001               	movlw	1
+  2730  064A  00F4               	movwf	playNote@duration+1
+  2731  064B  3012               	movlw	18
+  2732  064C  3187  27B8  3185   	fcall	_playNote
+  2733                           
+  2734                           ;main.c: 554:     playNote(0x10, 398);
+  2735  064F  308E               	movlw	142
+  2736  0650  00F3               	movwf	playNote@duration
+  2737  0651  3001               	movlw	1
+  2738  0652  00F4               	movwf	playNote@duration+1
+  2739  0653  3010               	movlw	16
+  2740  0654  3187  27B8  3185   	fcall	_playNote
+  2741                           
+  2742                           ;main.c: 555:     playNote(0x10, 798);
+  2743  0657  301E               	movlw	30
+  2744  0658  00F3               	movwf	playNote@duration
+  2745  0659  3003               	movlw	3
+  2746  065A  00F4               	movwf	playNote@duration+1
+  2747  065B  3010               	movlw	16
+  2748  065C  3187  27B8  3185   	fcall	_playNote
+  2749                           
+  2750                           ;main.c: 556:     playNote(0x13, 798);
+  2751  065F  301E               	movlw	30
+  2752  0660  00F3               	movwf	playNote@duration
+  2753  0661  3003               	movlw	3
+  2754  0662  00F4               	movwf	playNote@duration+1
+  2755  0663  3013               	movlw	19
+  2756  0664  3187  27B8  3185   	fcall	_playNote
+  2757                           
+  2758                           ;main.c: 557:     playNote(0x16, 1465);
+  2759  0667  30B9               	movlw	185
+  2760  0668  00F3               	movwf	playNote@duration
+  2761  0669  3005               	movlw	5
+  2762  066A  00F4               	movwf	playNote@duration+1
+  2763  066B  3016               	movlw	22
+  2764  066C  3187  27B8  3185   	fcall	_playNote
+  2765                           
+  2766                           ;main.c: 558:     playNote(0x00, 133);
+  2767  066F  3085               	movlw	133
+  2768  0670  00F3               	movwf	playNote@duration
+  2769  0671  3000               	movlw	0
+  2770  0672  00F4               	movwf	playNote@duration+1
+  2771  0673  3000               	movlw	0
+  2772  0674  3187  27B8  3185   	fcall	_playNote
+  2773                           
+  2774                           ;main.c: 559:     playNote(0x0B, 1598);
+  2775  0677  303E               	movlw	62
+  2776  0678  00F3               	movwf	playNote@duration
+  2777  0679  3006               	movlw	6
+  2778  067A  00F4               	movwf	playNote@duration+1
+  2779  067B  300B               	movlw	11
+  2780  067C  3187  27B8  3185   	fcall	_playNote
+  2781                           
+  2782                           ;main.c: 560:     playNote(0x0B, 398);
+  2783  067F  308E               	movlw	142
+  2784  0680  00F3               	movwf	playNote@duration
+  2785  0681  3001               	movlw	1
+  2786  0682  00F4               	movwf	playNote@duration+1
+  2787  0683  300B               	movlw	11
+  2788  0684  3187  27B8  3185   	fcall	_playNote
+  2789                           
+  2790                           ;main.c: 561:     playNote(0x0D, 398);
+  2791  0687  308E               	movlw	142
+  2792  0688  00F3               	movwf	playNote@duration
+  2793  0689  3001               	movlw	1
+  2794  068A  00F4               	movwf	playNote@duration+1
+  2795  068B  300D               	movlw	13
+  2796  068C  3187  27B8  3185   	fcall	_playNote
+  2797                           
+  2798                           ;main.c: 562:     playNote(0x0E, 398);
+  2799  068F  308E               	movlw	142
+  2800  0690  00F3               	movwf	playNote@duration
+  2801  0691  3001               	movlw	1
+  2802  0692  00F4               	movwf	playNote@duration+1
+  2803  0693  300E               	movlw	14
+  2804  0694  3187  27B8  3185   	fcall	_playNote
+  2805                           
+  2806                           ;main.c: 563:     playNote(0x0B, 398);
+  2807  0697  308E               	movlw	142
+  2808  0698  00F3               	movwf	playNote@duration
+  2809  0699  3001               	movlw	1
+  2810  069A  00F4               	movwf	playNote@duration+1
+  2811  069B  300B               	movlw	11
+  2812  069C  3187  27B8  3185   	fcall	_playNote
+  2813                           
+  2814                           ;main.c: 564:     playNote(0x10, 798);
+  2815  069F  301E               	movlw	30
+  2816  06A0  00F3               	movwf	playNote@duration
+  2817  06A1  3003               	movlw	3
+  2818  06A2  00F4               	movwf	playNote@duration+1
+  2819  06A3  3010               	movlw	16
+  2820  06A4  3187  27B8  3185   	fcall	_playNote
+  2821                           
+  2822                           ;main.c: 565:     playNote(0x13, 798);
+  2823  06A7  301E               	movlw	30
+  2824  06A8  00F3               	movwf	playNote@duration
+  2825  06A9  3003               	movlw	3
+  2826  06AA  00F4               	movwf	playNote@duration+1
+  2827  06AB  3013               	movlw	19
+  2828  06AC  3187  27B8  3185   	fcall	_playNote
+  2829                           
+  2830                           ;main.c: 566:     playNote(0x12, 798);
+  2831  06AF  301E               	movlw	30
+  2832  06B0  00F3               	movwf	playNote@duration
+  2833  06B1  3003               	movlw	3
+  2834  06B2  00F4               	movwf	playNote@duration+1
+  2835  06B3  3012               	movlw	18
+  2836  06B4  3187  27B8  3185   	fcall	_playNote
+  2837                           
+  2838                           ;main.c: 567:     playNote(0x16, 798);
+  2839  06B7  301E               	movlw	30
+  2840  06B8  00F3               	movwf	playNote@duration
+  2841  06B9  3003               	movlw	3
+  2842  06BA  00F4               	movwf	playNote@duration+1
+  2843  06BB  3016               	movlw	22
+  2844  06BC  3187  27B8  3185   	fcall	_playNote
+  2845                           
+  2846                           ;main.c: 568:     playNote(0x17, 1598);
+  2847  06BF  303E               	movlw	62
+  2848  06C0  00F3               	movwf	playNote@duration
+  2849  06C1  3006               	movlw	6
+  2850  06C2  00F4               	movwf	playNote@duration+1
+  2851  06C3  3017               	movlw	23
+  2852  06C4  3187  27B8  3185   	fcall	_playNote
+  2853  06C7                     l142:
+  2854  06C7  0008               	return
+  2855  06C8                     __end_of_gargoyles:
+  2856                           
+  2857                           	psect	text4
+  2858  07B8                     __ptext4:	
+  2859 ;; *************** function _playNote *****************
+  2860 ;; Defined at:
+  2861 ;;		line 335 in file "main.c"
+  2862 ;; Parameters:    Size  Location     Type
+  2863 ;;  note            1    wreg     unsigned char 
+  2864 ;;  duration        2    3[COMMON] unsigned int 
+  2865 ;; Auto vars:     Size  Location     Type
+  2866 ;;  note            1    5[COMMON] unsigned char 
+  2867 ;; Return value:  Size  Location     Type
+  2868 ;;                  1    wreg      void 
+  2869 ;; Registers used:
+  2870 ;;		wreg, fsr0l, fsr0h, status,2, status,0, pclath, cstack
+  2871 ;; Tracked objects:
+  2872 ;;		On entry : 0/0
+  2873 ;;		On exit  : 0/0
+  2874 ;;		Unchanged: 0/0
+  2875 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  2876 ;;      Params:         2       0       0       0
+  2877 ;;      Locals:         1       0       0       0
+  2878 ;;      Temps:          0       0       0       0
+  2879 ;;      Totals:         3       0       0       0
+  2880 ;;Total ram usage:        3 bytes
+  2881 ;; Hardware stack levels used: 1
+  2882 ;; Hardware stack levels required when called: 2
+  2883 ;; This function calls:
+  2884 ;;		_blockingDelay
+  2885 ;; This function is called by:
+  2886 ;;		_imperialMarch
+  2887 ;;		_gargoyles
+  2888 ;;		_sheRa
+  2889 ;; This function uses a non-reentrant model
+  2890 ;;
+  2891                           
+  2892                           
+  2893                           ;psect for function _playNote
+  2894  07B8                     _playNote:
+  2895                           
+  2896                           ;incstack = 0
+  2897                           ; Regs used in _playNote: [wreg-fsr0h+status,2+status,0+pclath+cstack]
+  2898                           ;playNote@note stored from wreg
+  2899  07B8  00F5               	movwf	playNote@note
+  2900  07B9                     l968:
+  2901                           
+  2902                           ;main.c: 336:     if (note > 0) {
+  2903  07B9  0875               	movf	playNote@note,w
+  2904  07BA  1903               	btfsc	3,2
+  2905  07BB  2FBD               	goto	u261
+  2906  07BC  2FBE               	goto	u260
+  2907  07BD                     u261:
+  2908  07BD  2FCB               	goto	l974
+  2909  07BE                     u260:
+  2910  07BE                     l970:
+  2911                           
+  2912                           ;main.c: 337:         noGate = 0;
+  2913  07BE  0020               	movlb	0	; select bank0
+  2914  07BF  01A6               	clrf	_noGate
+  2915  07C0  01A7               	clrf	_noGate+1
+  2916  07C1                     l972:
+  2917                           
+  2918                           ;main.c: 338:         PR2 = notes[note];
+  2919  07C1  0875               	movf	playNote@note,w
+  2920  07C2  3E94               	addlw	low (_notes| (0+32768))
+  2921  07C3  0084               	movwf	4
+  2922  07C4  3087               	movlw	high (_notes| (0+32768))
+  2923  07C5  1803               	skipnc
+  2924  07C6  3E01               	addlw	1
+  2925  07C7  0085               	movwf	5
+  2926  07C8  0800               	movf	0,w	;code access
+  2927  07C9  009B               	movwf	27	;volatile
+  2928                           
+  2929                           ;main.c: 339:     } else {
+  2930  07CA  2FD0               	goto	l976
+  2931  07CB                     l974:
+  2932                           
+  2933                           ;main.c: 340:         noGate = 1;
+  2934  07CB  3001               	movlw	1
+  2935  07CC  0020               	movlb	0	; select bank0
+  2936  07CD  00A6               	movwf	_noGate
+  2937  07CE  3000               	movlw	0
+  2938  07CF  00A7               	movwf	_noGate+1
+  2939  07D0                     l976:
+  2940                           
+  2941                           ;main.c: 342:     blockingDelay(duration);
+  2942  07D0  0874               	movf	playNote@duration+1,w
+  2943  07D1  00F2               	movwf	blockingDelay@mSecs+1
+  2944  07D2  0873               	movf	playNote@duration,w
+  2945  07D3  00F1               	movwf	blockingDelay@mSecs
+  2946  07D4  3187  27ED  3187   	fcall	_blockingDelay
+  2947  07D7                     l136:
+  2948  07D7  0008               	return
+  2949  07D8                     __end_of_playNote:
+  2950                           
+  2951                           	psect	text5
+  2952  07ED                     __ptext5:	
+  2953 ;; *************** function _blockingDelay *****************
+  2954 ;; Defined at:
+  2955 ;;		line 328 in file "main.c"
+  2956 ;; Parameters:    Size  Location     Type
+  2957 ;;  mSecs           2    1[COMMON] unsigned int 
+  2958 ;; Auto vars:     Size  Location     Type
+  2959 ;;		None
+  2960 ;; Return value:  Size  Location     Type
+  2961 ;;                  1    wreg      void 
+  2962 ;; Registers used:
+  2963 ;;		wreg, status,2, status,0
+  2964 ;; Tracked objects:
+  2965 ;;		On entry : 0/0
+  2966 ;;		On exit  : 0/0
+  2967 ;;		Unchanged: 0/0
+  2968 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  2969 ;;      Params:         2       0       0       0
+  2970 ;;      Locals:         0       0       0       0
+  2971 ;;      Temps:          0       0       0       0
+  2972 ;;      Totals:         2       0       0       0
+  2973 ;;Total ram usage:        2 bytes
+  2974 ;; Hardware stack levels used: 1
+  2975 ;; Hardware stack levels required when called: 1
+  2976 ;; This function calls:
+  2977 ;;		Nothing
+  2978 ;; This function is called by:
+  2979 ;;		_main
+  2980 ;;		_playNote
+  2981 ;; This function uses a non-reentrant model
+  2982 ;;
+  2983                           
+  2984                           
+  2985                           ;psect for function _blockingDelay
+  2986  07ED                     _blockingDelay:
+  2987  07ED                     l964:	
+  2988                           ;incstack = 0
+  2989                           ; Regs used in _blockingDelay: [wreg+status,2+status,0]
+  2990                           
+  2991                           
+  2992                           ;main.c: 329:     genericDelay = mSecs;
+  2993  07ED  0872               	movf	blockingDelay@mSecs+1,w
+  2994  07EE  0020               	movlb	0	; select bank0
+  2995  07EF  00A1               	movwf	_genericDelay+1
+  2996  07F0  0871               	movf	blockingDelay@mSecs,w
+  2997  07F1  00A0               	movwf	_genericDelay
+  2998  07F2                     l966:	
+  2999                           ;main.c: 330:     while (genericDelay > 0);
+  3000                           
+  3001  07F2  0820               	movf	_genericDelay,w
+  3002  07F3  0421               	iorwf	_genericDelay+1,w
+  3003  07F4  1D03               	btfss	3,2
+  3004  07F5  2FF7               	goto	u251
+  3005  07F6  2FF8               	goto	u250
+  3006  07F7                     u251:
+  3007  07F7  2FF2               	goto	l966
+  3008  07F8                     u250:
+  3009  07F8                     l131:
+  3010  07F8  0008               	return
+  3011  07F9                     __end_of_blockingDelay:
+  3012                           
+  3013                           	psect	text6
+  3014  076A                     __ptext6:	
+  3015 ;; *************** function _eeprom_write *****************
+  3016 ;; Defined at:
+  3017 ;;		line 6 in file "C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\pic\__eewrite.c"
+  3018 ;; Parameters:    Size  Location     Type
+  3019 ;;  addr            1    wreg     unsigned char 
+  3020 ;;  value           1    1[COMMON] unsigned char 
+  3021 ;; Auto vars:     Size  Location     Type
+  3022 ;;  addr            1    4[COMMON] unsigned char 
+  3023 ;; Return value:  Size  Location     Type
+  3024 ;;                  1    wreg      void 
+  3025 ;; Registers used:
+  3026 ;;		wreg, status,2, status,0
+  3027 ;; Tracked objects:
+  3028 ;;		On entry : 0/0
+  3029 ;;		On exit  : 0/0
+  3030 ;;		Unchanged: 0/0
+  3031 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  3032 ;;      Params:         1       0       0       0
+  3033 ;;      Locals:         1       0       0       0
+  3034 ;;      Temps:          2       0       0       0
+  3035 ;;      Totals:         4       0       0       0
+  3036 ;;Total ram usage:        4 bytes
+  3037 ;; Hardware stack levels used: 1
+  3038 ;; Hardware stack levels required when called: 1
+  3039 ;; This function calls:
+  3040 ;;		Nothing
+  3041 ;; This function is called by:
+  3042 ;;		_main
+  3043 ;; This function uses a non-reentrant model
+  3044 ;;
+  3045                           
+  3046                           
+  3047                           ;psect for function _eeprom_write
+  3048  076A                     _eeprom_write:
+  3049                           
+  3050                           ;incstack = 0
+  3051                           ; Regs used in _eeprom_write: [wreg+status,2+status,0]
+  3052                           ;eeprom_write@addr stored from wreg
+  3053  076A  00F4               	movwf	eeprom_write@addr
+  3054  076B                     l321:	
+  3055                           ;C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\pic\__eewrite.c: 6: eeprom_write(u
+      +                          nsigned char addr, unsigned char value);C:\Program Files\Microchip\xc8\v2.32\pic\sources
+      +                          \c99\pic\__eewrite.c: 7: {;C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\pic\__ee
+      +                          write.c: 8:  do{ while (EECON1bits.WR) { continue; } EEADR = (addr); EEDATA = (value); E
+      +                          ECON1 &= 0x3F; STATUSbits.CARRY = 0; if (INTCONbits.GIE) { STATUSbits.CARRY = 1; } INTCO
+      +                          Nbits.GIE = 0; EECON1bits.WREN = 1; EECON2 = 0x55; EECON2 = 0xAA; EECON1bits.WR = 1; EEC
+      +                          ON1bits.WREN = 0; if (STATUSbits.CARRY) { INTCONbits.GIE = 1; } } while (0);
+  3056                           
+  3057  076B                     l322:
+  3058  076B  0023               	movlb	3	; select bank3
+  3059  076C  1895               	btfsc	21,1	;volsfr
+  3060  076D  2F6F               	goto	u281
+  3061  076E  2F70               	goto	u280
+  3062  076F                     u281:
+  3063  076F  2F6B               	goto	l322
+  3064  0770                     u280:
+  3065  0770                     l982:
+  3066  0770  0874               	movf	eeprom_write@addr,w
+  3067  0771  00F2               	movwf	??_eeprom_write
+  3068  0772  01F3               	clrf	??_eeprom_write+1
+  3069  0773  0872               	movf	??_eeprom_write,w
+  3070  0774  0091               	movwf	17	;volatile
+  3071  0775  0873               	movf	??_eeprom_write+1,w
+  3072  0776  0092               	movwf	18	;volatile
+  3073  0777  0871               	movf	eeprom_write@value,w
+  3074  0778  0093               	movwf	19	;volatile
+  3075  0779                     l984:
+  3076  0779  303F               	movlw	63
+  3077  077A  00F2               	movwf	??_eeprom_write
+  3078  077B  0872               	movf	??_eeprom_write,w
+  3079  077C  0595               	andwf	21,f	;volsfr
+  3080  077D                     l986:
+  3081  077D  0020               	movlb	0	; select bank0
+  3082  077E  1003               	bcf	3,0	;volatile
+  3083  077F                     l988:
+  3084  077F  1F8B               	btfss	11,7	;volatile
+  3085  0780  2F82               	goto	u291
+  3086  0781  2F83               	goto	u290
+  3087  0782                     u291:
+  3088  0782  2F84               	goto	l325
+  3089  0783                     u290:
+  3090  0783                     l990:
+  3091  0783  1403               	bsf	3,0	;volatile
+  3092  0784                     l325:
+  3093  0784  138B               	bcf	11,7	;volatile
+  3094  0785  0023               	movlb	3	; select bank3
+  3095  0786  1515               	bsf	21,2	;volsfr
+  3096  0787                     l992:
+  3097  0787  3055               	movlw	85
+  3098  0788  0096               	movwf	22	;volsfr
+  3099  0789  30AA               	movlw	170
+  3100  078A  0096               	movwf	22	;volsfr
+  3101  078B                     l994:
+  3102  078B  1495               	bsf	21,1	;volsfr
+  3103  078C                     l996:
+  3104  078C  1115               	bcf	21,2	;volsfr
+  3105  078D                     l998:
+  3106  078D  0020               	movlb	0	; select bank0
+  3107  078E  1C03               	btfss	3,0	;volatile
+  3108  078F  2F91               	goto	u301
+  3109  0790  2F92               	goto	u300
+  3110  0791                     u301:
+  3111  0791  2F93               	goto	l328
+  3112  0792                     u300:
+  3113  0792                     l1000:
+  3114  0792  178B               	bsf	11,7	;volatile
+  3115  0793                     l328:
+  3116  0793  0008               	return
+  3117  0794                     __end_of_eeprom_write:
+  3118                           
+  3119                           	psect	text7
+  3120  07D8                     __ptext7:	
+  3121 ;; *************** function _eeprom_read *****************
+  3122 ;; Defined at:
+  3123 ;;		line 6 in file "C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\pic\__eeread.c"
+  3124 ;; Parameters:    Size  Location     Type
+  3125 ;;  addr            1    wreg     unsigned char 
+  3126 ;; Auto vars:     Size  Location     Type
+  3127 ;;  addr            1    4[COMMON] unsigned char 
+  3128 ;; Return value:  Size  Location     Type
+  3129 ;;                  1    wreg      unsigned char 
+  3130 ;; Registers used:
+  3131 ;;		wreg, status,2, status,0
+  3132 ;; Tracked objects:
+  3133 ;;		On entry : 0/0
+  3134 ;;		On exit  : 0/0
+  3135 ;;		Unchanged: 0/0
+  3136 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  3137 ;;      Params:         0       0       0       0
+  3138 ;;      Locals:         1       0       0       0
+  3139 ;;      Temps:          3       0       0       0
+  3140 ;;      Totals:         4       0       0       0
+  3141 ;;Total ram usage:        4 bytes
+  3142 ;; Hardware stack levels used: 1
+  3143 ;; Hardware stack levels required when called: 1
+  3144 ;; This function calls:
+  3145 ;;		Nothing
+  3146 ;; This function is called by:
+  3147 ;;		_main
+  3148 ;; This function uses a non-reentrant model
+  3149 ;;
+  3150                           
+  3151                           
+  3152                           ;psect for function _eeprom_read
+  3153  07D8                     _eeprom_read:
+  3154                           
+  3155                           ;incstack = 0
+  3156                           ; Regs used in _eeprom_read: [wreg+status,2+status,0]
+  3157                           ;eeprom_read@addr stored from wreg
+  3158  07D8  00F4               	movwf	eeprom_read@addr
+  3159  07D9                     l302:	
+  3160                           ;C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\pic\__eeread.c: 6: eeprom_read(uns
+      +                          igned char addr);C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\pic\__eeread.c: 7:
+      +                           {;C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\pic\__eeread.c: 8:  do
+  3161                           
+  3162  07D9  0064               	clrwdt	;# 
+  3163  07DA  0023               	movlb	3	; select bank3
+  3164  07DB  1895               	btfsc	21,1	;volsfr
+  3165  07DC  2FDE               	goto	u271
+  3166  07DD  2FDF               	goto	u270
+  3167  07DE                     u271:
+  3168  07DE  2FD9               	goto	l302
+  3169  07DF                     u270:
+  3170  07DF                     l978:
+  3171                           
+  3172                           ;C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\pic\__eeread.c: 18:  return ( EEAD
+      +                          R = addr, EECON1 &= 0x3F, EECON1bits.RD = 1, EEDATA);
+  3173  07DF  0874               	movf	eeprom_read@addr,w
+  3174  07E0  00F1               	movwf	??_eeprom_read
+  3175  07E1  01F2               	clrf	??_eeprom_read+1
+  3176  07E2  0871               	movf	??_eeprom_read,w
+  3177  07E3  0091               	movwf	17	;volatile
+  3178  07E4  0872               	movf	??_eeprom_read+1,w
+  3179  07E5  0092               	movwf	18	;volatile
+  3180  07E6  303F               	movlw	63
+  3181  07E7  00F3               	movwf	??_eeprom_read+2
+  3182  07E8  0873               	movf	??_eeprom_read+2,w
+  3183  07E9  0595               	andwf	21,f	;volsfr
+  3184  07EA  1415               	bsf	21,0	;volsfr
+  3185  07EB  0813               	movf	19,w	;volatile
+  3186  07EC                     l304:
+  3187  07EC  0008               	return
+  3188  07ED                     __end_of_eeprom_read:
+  3189                           
+  3190                           	psect	intentry
+  3191  0004                     __pintentry:	
+  3192 ;; *************** function _isr *****************
+  3193 ;; Defined at:
+  3194 ;;		line 285 in file "main.c"
+  3195 ;; Parameters:    Size  Location     Type
+  3196 ;;		None
+  3197 ;; Auto vars:     Size  Location     Type
+  3198 ;;		None
+  3199 ;; Return value:  Size  Location     Type
+  3200 ;;                  1    wreg      void 
+  3201 ;; Registers used:
+  3202 ;;		wreg, status,2, status,0
+  3203 ;; Tracked objects:
+  3204 ;;		On entry : 0/0
+  3205 ;;		On exit  : 0/0
+  3206 ;;		Unchanged: 0/0
+  3207 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  3208 ;;      Params:         0       0       0       0
+  3209 ;;      Locals:         0       0       0       0
+  3210 ;;      Temps:          1       0       0       0
+  3211 ;;      Totals:         1       0       0       0
+  3212 ;;Total ram usage:        1 bytes
+  3213 ;; Hardware stack levels used: 1
+  3214 ;; This function calls:
+  3215 ;;		Nothing
+  3216 ;; This function is called by:
+  3217 ;;		Interrupt level 1
+  3218 ;; This function uses a non-reentrant model
+  3219 ;;
+  3220                           
+  3221  0004                     _isr:
+  3222                           
+  3223                           ;incstack = 0
+  3224  0004  147E               	bsf	int$flags,0	;set compiler interrupt flag (level 1)
+  3225                           
+  3226                           ; Regs used in _isr: [wreg+status,2+status,0]
+  3227  0005  3180               	pagesel	$
+  3228  0006                     i1l1102:
+  3229                           
+  3230                           ;main.c: 289:     if (PIR1bits.TMR2IF) {
+  3231  0006  0020               	movlb	0	; select bank0
+  3232  0007  1C91               	btfss	17,1	;volatile
+  3233  0008  280A               	goto	u37_21
+  3234  0009  280B               	goto	u37_20
+  3235  000A                     u37_21:
+  3236  000A  2823               	goto	i1l1116
+  3237  000B                     u37_20:
+  3238  000B                     i1l1104:
+  3239                           
+  3240                           ;main.c: 290:         if (!noGate) {
+  3241  000B  0826               	movf	_noGate,w
+  3242  000C  0427               	iorwf	_noGate+1,w
+  3243  000D  1D03               	btfss	3,2
+  3244  000E  2810               	goto	u38_21
+  3245  000F  2811               	goto	u38_20
+  3246  0010                     u38_21:
+  3247  0010  2820               	goto	i1l1112
+  3248  0011                     u38_20:
+  3249  0011                     i1l1106:
+  3250                           
+  3251                           ;main.c: 291:             postscaler ^= 1;
+  3252  0011  3001               	movlw	1
+  3253  0012  06A4               	xorwf	_postscaler,f
+  3254  0013  3000               	movlw	0
+  3255  0014  06A5               	xorwf	_postscaler+1,f
+  3256  0015                     i1l1108:
+  3257                           
+  3258                           ;main.c: 292:             if (postscaler) {
+  3259  0015  0824               	movf	_postscaler,w
+  3260  0016  0425               	iorwf	_postscaler+1,w
+  3261  0017  1903               	btfsc	3,2
+  3262  0018  281A               	goto	u39_21
+  3263  0019  281B               	goto	u39_20
+  3264  001A                     u39_21:
+  3265  001A  2822               	goto	i1l1114
+  3266  001B                     u39_20:
+  3267  001B                     i1l1110:
+  3268                           
+  3269                           ;main.c: 293:                 gate ^= 1;
+  3270  001B  3001               	movlw	1
+  3271  001C  06A8               	xorwf	_gate,f
+  3272  001D  3000               	movlw	0
+  3273  001E  06A9               	xorwf	_gate+1,f
+  3274  001F  2822               	goto	i1l1114
+  3275  0020                     i1l1112:
+  3276                           
+  3277                           ;main.c: 296:             gate = 0;
+  3278  0020  01A8               	clrf	_gate
+  3279  0021  01A9               	clrf	_gate+1
+  3280  0022                     i1l1114:
+  3281                           
+  3282                           ;main.c: 298:         PIR1bits.TMR2IF = 0;
+  3283  0022  1091               	bcf	17,1	;volatile
+  3284  0023                     i1l1116:
+  3285                           
+  3286                           ;main.c: 303:     if (INTCONbits.TMR0IF) {
+  3287  0023  1D0B               	btfss	11,2	;volatile
+  3288  0024  2826               	goto	u40_21
+  3289  0025  2827               	goto	u40_20
+  3290  0026                     u40_21:
+  3291  0026  2860               	goto	i1l125
+  3292  0027                     u40_20:
+  3293  0027                     i1l1118:
+  3294                           
+  3295                           ;main.c: 304:         if (clockDivider < 15) {
+  3296  0027  300F               	movlw	15
+  3297  0028  027C               	subwf	_clockDivider,w
+  3298  0029  1803               	skipnc
+  3299  002A  282C               	goto	u41_21
+  3300  002B  282D               	goto	u41_20
+  3301  002C                     u41_21:
+  3302  002C  2832               	goto	i1l1122
+  3303  002D                     u41_20:
+  3304  002D                     i1l1120:
+  3305                           
+  3306                           ;main.c: 305:             clockDivider++;
+  3307  002D  3001               	movlw	1
+  3308  002E  00F0               	movwf	??_isr
+  3309  002F  0870               	movf	??_isr,w
+  3310  0030  07FC               	addwf	_clockDivider,f
+  3311                           
+  3312                           ;main.c: 306:         } else {
+  3313  0031  283D               	goto	i1l1128
+  3314  0032                     i1l1122:
+  3315                           
+  3316                           ;main.c: 307:             if (genericDelay > 0) genericDelay--;
+  3317  0032  0820               	movf	_genericDelay,w
+  3318  0033  0421               	iorwf	_genericDelay+1,w
+  3319  0034  1903               	btfsc	3,2
+  3320  0035  2837               	goto	u42_21
+  3321  0036  2838               	goto	u42_20
+  3322  0037                     u42_21:
+  3323  0037  283C               	goto	i1l1126
+  3324  0038                     u42_20:
+  3325  0038                     i1l1124:
+  3326  0038  3001               	movlw	1
+  3327  0039  02A0               	subwf	_genericDelay,f
+  3328  003A  3000               	movlw	0
+  3329  003B  3BA1               	subwfb	_genericDelay+1,f
+  3330  003C                     i1l1126:
+  3331                           
+  3332                           ;main.c: 308:             clockDivider = 0;
+  3333  003C  01FC               	clrf	_clockDivider
+  3334  003D                     i1l1128:
+  3335                           
+  3336                           ;main.c: 314:         if (gate || forceArc) {
+  3337  003D  0828               	movf	_gate,w
+  3338  003E  0429               	iorwf	_gate+1,w
+  3339  003F  1D03               	btfss	3,2
+  3340  0040  2842               	goto	u43_21
+  3341  0041  2843               	goto	u43_20
+  3342  0042                     u43_21:
+  3343  0042  2849               	goto	i1l1132
+  3344  0043                     u43_20:
+  3345  0043                     i1l1130:
+  3346  0043  082A               	movf	_forceArc,w
+  3347  0044  042B               	iorwf	_forceArc+1,w
+  3348  0045  1903               	btfsc	3,2
+  3349  0046  2848               	goto	u44_21
+  3350  0047  2849               	goto	u44_20
+  3351  0048                     u44_21:
+  3352  0048  285C               	goto	i1l121
+  3353  0049                     u44_20:
+  3354  0049                     i1l1132:
+  3355                           
+  3356                           ;main.c: 315:             pinState ^= 1;
+  3357  0049  3001               	movlw	(0+1) shl (_pinState& (0+7))
+  3358  004A  06FB               	xorwf	_pinState/(0+8),f
+  3359  004B                     i1l1134:
+  3360                           
+  3361                           ;main.c: 316:             LATA2 = pinState;
+  3362  004B  187B               	btfsc	_pinState/(0+8),_pinState& (0+7)
+  3363  004C  284E               	goto	u45_21
+  3364  004D  2851               	goto	u45_20
+  3365  004E                     u45_21:
+  3366  004E  0022               	movlb	2	; select bank2
+  3367  004F  150C               	bsf	12,2	;volatile
+  3368  0050  2853               	goto	u46_24
+  3369  0051                     u45_20:
+  3370  0051  0022               	movlb	2	; select bank2
+  3371  0052  110C               	bcf	12,2	;volatile
+  3372  0053                     u46_24:
+  3373  0053                     i1l1136:
+  3374                           
+  3375                           ;main.c: 317:             LATA1 = (pinState^1);
+  3376  0053  1C7B               	btfss	_pinState/(0+8),_pinState& (0+7)
+  3377  0054  2856               	goto	u47_21
+  3378  0055  2859               	goto	u47_20
+  3379  0056                     u47_21:
+  3380  0056  0022               	movlb	2	; select bank2
+  3381  0057  148C               	bsf	12,1	;volatile
+  3382  0058  285B               	goto	u48_24
+  3383  0059                     u47_20:
+  3384  0059  0022               	movlb	2	; select bank2
+  3385  005A  108C               	bcf	12,1	;volatile
+  3386  005B                     u48_24:
+  3387                           
+  3388                           ;main.c: 318:         } else {
+  3389  005B  285F               	goto	i1l124
+  3390  005C                     i1l121:
+  3391                           
+  3392                           ;main.c: 319:             LATA2 = 0;
+  3393  005C  0022               	movlb	2	; select bank2
+  3394  005D  110C               	bcf	12,2	;volatile
+  3395                           
+  3396                           ;main.c: 320:             LATA1 = 0;
+  3397  005E  108C               	bcf	12,1	;volatile
+  3398  005F                     i1l124:	
+  3399                           ;main.c: 321:         }
+  3400                           
+  3401                           
+  3402                           ;main.c: 322:         INTCONbits.TMR0IF = 0;
+  3403  005F  110B               	bcf	11,2	;volatile
+  3404  0060                     i1l125:
+  3405  0060  107E               	bcf	int$flags,0	;clear compiler interrupt flag (level 1)
+  3406  0061  0009               	retfie
+  3407  0062                     __end_of_isr:
+  3408  007E                     btemp	set	126	;btemp
+  3409  007E                     int$flags	set	126
+  3410  007E                     wtemp0	set	126
+  3411                           
+  3412                           	psect	config
+  3413                           
+  3414                           ;Config register CONFIG1 @ 0x8007
+  3415                           ;	Oscillator Selection
+  3416                           ;	FOSC = INTOSC, INTOSC oscillator: I/O function on CLKIN pin
+  3417                           ;	Watchdog Timer Enable
+  3418                           ;	WDTE = OFF, WDT disabled
+  3419                           ;	Power-up Timer Enable
+  3420                           ;	PWRTE = OFF, PWRT disabled
+  3421                           ;	MCLR Pin Function Select
+  3422                           ;	MCLRE = OFF, MCLR/VPP pin function is digital input
+  3423                           ;	Flash Program Memory Code Protection
+  3424                           ;	CP = OFF, Program memory code protection is disabled
+  3425                           ;	Data Memory Code Protection
+  3426                           ;	CPD = OFF, Data memory code protection is disabled
+  3427                           ;	Brown-out Reset Enable
+  3428                           ;	BOREN = ON, Brown-out Reset enabled
+  3429                           ;	Clock Out Enable
+  3430                           ;	CLKOUTEN = OFF, CLKOUT function is disabled. I/O or oscillator function on the CLKOUT 
+      +                          pin
+  3431                           ;	Internal/External Switchover
+  3432                           ;	IESO = ON, Internal/External Switchover mode is enabled
+  3433                           ;	Fail-Safe Clock Monitor Enable
+  3434                           ;	FCMEN = ON, Fail-Safe Clock Monitor is enabled
+  3435  8007                     	org	32775
+  3436  8007  3FA4               	dw	16292
+  3437                           
+  3438                           ;Config register CONFIG2 @ 0x8008
+  3439                           ;	Flash Memory Self-Write Protection
+  3440                           ;	WRT = OFF, Write protection off
+  3441                           ;	PLL Enable
+  3442                           ;	PLLEN = ON, 4x PLL enabled
+  3443                           ;	Stack Overflow/Underflow Reset Enable
+  3444                           ;	STVREN = ON, Stack Overflow or Underflow will cause a Reset
+  3445                           ;	Brown-out Reset Voltage Selection
+  3446                           ;	BORV = LO, Brown-out Reset Voltage (Vbor), low trip point selected.
+  3447                           ;	Low-Voltage Programming Enable
+  3448                           ;	LVP = ON, Low-voltage programming enabled
+  3449  8008                     	org	32776
+  3450  8008  3FFF               	dw	16383
+
+Data Sizes:
+    Strings     0
+    Constant    36
+    Data        0
+    BSS         11
+    Persistent  36
+    Stack       0
+
+Auto Spaces:
+    Space          Size  Autos    Used
+    COMMON           14     10      13
+    BANK0            80      1      14
+    BANK1            80      0       0
+    BANK2            80      0       0
+
+Pointer List with Targets:
+
+    None.
+
+Critical Paths under _main in COMMON
+
+    _sheRa->_playNote
+    _imperialMarch->_playNote
+    _gargoyles->_playNote
+    _playNote->_blockingDelay
+
+Critical Paths under _isr in COMMON
+
+    None.
+
+Critical Paths under _main in BANK0
+
+    None.
+
+Critical Paths under _isr in BANK0
+
+    None.
+
+Critical Paths under _main in BANK1
+
+    None.
+
+Critical Paths under _isr in BANK1
+
+    None.
+
+Critical Paths under _main in BANK2
+
+    None.
+
+Critical Paths under _isr in BANK2
+
+    None.
+
+Call Graph Tables:
+
+ ---------------------------------------------------------------------------------
+ (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+ ---------------------------------------------------------------------------------
+ (0) _main                                                 5     1      4   48004
+                                              6 COMMON     4     0      4
+                                              0 BANK0      1     1      0
+                      _blockingDelay
+                        _eeprom_read
+                       _eeprom_write
+                          _gargoyles
+                      _imperialMarch
+                              _sheRa
+ ---------------------------------------------------------------------------------
+ (1) _sheRa                                                0     0      0   15820
+                           _playNote
+ ---------------------------------------------------------------------------------
+ (1) _imperialMarch                                        0     0      0   15820
+                           _playNote
+ ---------------------------------------------------------------------------------
+ (1) _gargoyles                                            0     0      0   15820
+                           _playNote
+ ---------------------------------------------------------------------------------
+ (2) _playNote                                             3     1      2   15820
+                                              3 COMMON     3     1      2
+                      _blockingDelay
+ ---------------------------------------------------------------------------------
+ (3) _blockingDelay                                        2     0      2     402
+                                              1 COMMON     2     0      2
+ ---------------------------------------------------------------------------------
+ (1) _eeprom_write                                         4     3      1     120
+                                              1 COMMON     4     3      1
+ ---------------------------------------------------------------------------------
+ (1) _eeprom_read                                          4     4      0      22
+                                              1 COMMON     4     4      0
+ ---------------------------------------------------------------------------------
+ Estimated maximum stack depth 3
+ ---------------------------------------------------------------------------------
+ (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+ ---------------------------------------------------------------------------------
+ (4) _isr                                                  1     1      0       0
+                                              0 COMMON     1     1      0
+ ---------------------------------------------------------------------------------
+ Estimated maximum stack depth 4
+ ---------------------------------------------------------------------------------
+
+ Call Graph Graphs:
+
+ _main (ROOT)
+   _blockingDelay
+   _eeprom_read
+   _eeprom_write
+   _gargoyles
+     _playNote
+       _blockingDelay
+   _imperialMarch
+     _playNote
+   _sheRa
+     _playNote
+
+ _isr (ROOT)
+
+ Address spaces:
+Name               Size   Autos  Total    Cost      Usage
+BIGRAM              F0      0       0       0        0.0%
+EEDATA             100      0       0       0        0.0%
+NULL                 0      0       0       0        0.0%
+CODE                 0      0       0       0        0.0%
+BITCOMMON            E      0       1       1        7.1%
+BITSFR0              0      0       0       1        0.0%
+SFR0                 0      0       0       1        0.0%
+COMMON               E      A       D       2       92.9%
+BITSFR1              0      0       0       2        0.0%
+SFR1                 0      0       0       2        0.0%
+BITSFR2              0      0       0       3        0.0%
+SFR2                 0      0       0       3        0.0%
+STACK                0      0       0       3        0.0%
+BITSFR3              0      0       0       4        0.0%
+SFR3                 0      0       0       4        0.0%
+ABS                  0      0      1B       4        0.0%
+BITBANK0            50      0       0       5        0.0%
+BITSFR4              0      0       0       5        0.0%
+SFR4                 0      0       0       5        0.0%
+BANK0               50      1       E       6       17.5%
+BITSFR5              0      0       0       6        0.0%
+SFR5                 0      0       0       6        0.0%
+BITBANK1            50      0       0       7        0.0%
+BITSFR6              0      0       0       7        0.0%
+SFR6                 0      0       0       7        0.0%
+BANK1               50      0       0       8        0.0%
+BITSFR7              0      0       0       8        0.0%
+SFR7                 0      0       0       8        0.0%
+BITBANK2            50      0       0       9        0.0%
+BITSFR8              0      0       0       9        0.0%
+SFR8                 0      0       0       9        0.0%
+BANK2               50      0       0      10        0.0%
+BITSFR9              0      0       0      10        0.0%
+SFR9                 0      0       0      10        0.0%
+BITSFR10             0      0       0      11        0.0%
+SFR10                0      0       0      11        0.0%
+DATA                 0      0      1B      11        0.0%
+BITSFR11             0      0       0      12        0.0%
+SFR11                0      0       0      12        0.0%
+BITSFR12             0      0       0      13        0.0%
+SFR12                0      0       0      13        0.0%
+BITSFR13             0      0       0      14        0.0%
+SFR13                0      0       0      14        0.0%
+BITSFR14             0      0       0      15        0.0%
+SFR14                0      0       0      15        0.0%
+BITSFR15             0      0       0      16        0.0%
+SFR15                0      0       0      16        0.0%
+BITSFR16             0      0       0      17        0.0%
+SFR16                0      0       0      17        0.0%
+BITSFR17             0      0       0      18        0.0%
+SFR17                0      0       0      18        0.0%
+BITSFR18             0      0       0      19        0.0%
+SFR18                0      0       0      19        0.0%
+BITSFR19             0      0       0      20        0.0%
+SFR19                0      0       0      20        0.0%
+BITSFR20             0      0       0      21        0.0%
+SFR20                0      0       0      21        0.0%
+BITSFR21             0      0       0      22        0.0%
+SFR21                0      0       0      22        0.0%
+BITSFR22             0      0       0      23        0.0%
+SFR22                0      0       0      23        0.0%
+BITSFR23             0      0       0      24        0.0%
+SFR23                0      0       0      24        0.0%
+BITSFR24             0      0       0      25        0.0%
+SFR24                0      0       0      25        0.0%
+BITSFR25             0      0       0      26        0.0%
+SFR25                0      0       0      26        0.0%
+BITSFR26             0      0       0      27        0.0%
+SFR26                0      0       0      27        0.0%
+BITSFR27             0      0       0      28        0.0%
+SFR27                0      0       0      28        0.0%
+BITSFR28             0      0       0      29        0.0%
+SFR28                0      0       0      29        0.0%
+BITSFR29             0      0       0      30        0.0%
+SFR29                0      0       0      30        0.0%
+BITSFR30             0      0       0      31        0.0%
+SFR30                0      0       0      31        0.0%
+BITSFR31             0      0       0      32        0.0%
+SFR31                0      0       0      32        0.0%
+
+
+Microchip Technology PIC Macro Assembler V2.32 build 20210201212658 
+Symbol Table                                                                                   Sun Sep 19 18:42:38 2021
+
+                     l91 072A                       l92 072A                       l96 073E  
+                     l97 073E                       l99 0767                      l101 0752  
+                    l102 0752                      l106 0766                      l131 07F8  
+                    l107 0766                      l302 07D9                      l142 06C7  
+                    l304 07EC                      l136 07D7                      l321 076B  
+                    l145 05DE                      l322 076B                      l139 045D  
+                    l325 0784                      l328 0793                      l970 07BE  
+                    l964 07ED                      l972 07C1                      l990 0783  
+                    l982 0770                      l966 07F2                      l974 07CB  
+                    l992 0787                      l984 0779                      l976 07D0  
+                    l968 07B9                      l978 07DF                      l994 078B  
+                    l986 077D                      _GIE 005F                      l996 078C  
+                    l988 077F                      l998 078D                      u300 0792  
+                    u301 0791                      u250 07F8                      u251 07F7  
+                    u260 07BE                      u500 071B                      u261 07BD  
+                    u501 071A                      u270 07DF                      u510 072A  
+                    _PR2 001B                      u271 07DE                      u511 0729  
+                    u280 0770                      u520 0731                      u281 076F  
+                    u521 0730                      u290 0783                      u530 0745  
+                    u291 0782                      u531 0744                      u540 0759  
+                    u541 0758                      u490 0709                      u491 0708  
+                    _isr 0004                     l1000 0792                     l1002 0075  
+                   l1004 05DF                     l1006 045E                     l1200 0715  
+                   l1210 0731                     l1202 071B                     l1220 074C  
+                   l1212 0738                     l1204 071D                     l1140 06CA  
+                   l1230 0763                     l1222 074F                     l1214 073B  
+                   l1206 0725                     l1150 06D6                     l1142 06CD  
+                   l1224 0753                     l1216 073F                     l1208 072B  
+                   l1160 06E5                     l1152 06D8                     l1144 06D1  
+                   l1226 0759                     l1218 0745                     l1170 06F2  
+                   l1162 06ED                     l1154 06D9                     l1146 06D2  
+                   l1138 06C8                     l1228 0760                     l1180 06F7  
+                   l1172 06F3                     l1164 06EE                     l1156 06DA  
+                   l1148 06D3                     l1190 06FE                     l1182 06F9  
+                   l1174 06F4                     l1166 06F0                     l1158 06DD  
+                   l1192 06FF                     l1184 06FB                     l1176 06F5  
+                   l1168 06F1                     l1194 0704                     l1186 06FC  
+                   l1178 06F6                     l1196 0709                     l1188 06FD  
+                   l1198 0710                     ?_isr 0070                     _PEIE 005E  
+                   _INTE 005C                     _RCIE 048D           ??_eeprom_write 0072  
+                   _gate 0028                     _main 06C8                     fsr0h 0005  
+                   indf0 0000                     fsr0l 0004                     btemp 007E  
+                   start 0062         playNote@duration 0073                    ??_isr 0070  
+                  ?_main 0076                    _EEADR 0191                    _LATA0 0860  
+                  _LATA1 0861                    _LATA2 0862                    _LATA4 0864  
+                  _LATA5 0865                    i1l121 005C                    i1l124 005F  
+                  i1l125 0060                    u40_20 0027                    u40_21 0026  
+                  u41_20 002D                    u41_21 002C                    u42_20 0038  
+                  u42_21 0037                    u43_20 0043                    u43_21 0042  
+                  u44_20 0049                    u44_21 0048                    u45_20 0051  
+                  u37_20 000B                    u45_21 004E                    u37_21 000A  
+                  u38_20 0011                    u38_21 0010                    u46_24 0053  
+                  u47_20 0059                    u39_20 001B                    u47_21 0056  
+                  u39_21 001A                    u48_24 005B                    _sheRa 045E  
+                  _notes 0794           __pbitbssCOMMON 03D8                    status 0003  
+                  wtemp0 007E          __initialization 0064             __end_of_main 076A  
+                 ??_main 002D                   ?_sheRa 0070                   _EEDATA 0193  
+                 _EECON1 0195                   _EECON2 0196                   _ANSELA 018C  
+                 i1l1110 001B                   i1l1102 0006                   i1l1120 002D  
+                 i1l1112 0020                   i1l1104 000B                   i1l1130 0043  
+                 i1l1122 0032                   i1l1114 0022                   i1l1106 0011  
+                 i1l1132 0049                   i1l1124 0038                   i1l1108 0015  
+                 i1l1116 0023                   i1l1134 004B                   i1l1126 003C  
+                 i1l1118 0027                   i1l1136 0053                   i1l1128 003D  
+                 _TMR0IE 005D                   _TMR2IE 0489                   _TRISA0 0460  
+                 _TRISA1 0461                   _TRISA2 0462                   _TRISA3 0463  
+                 _TRISA4 0464     __size_of_eeprom_read 0015                   _noGate 0026  
+   __end_of_eeprom_write 0794         __end_of_playNote 07D8   __size_of_imperialMarch 03E9  
+__end_of__initialization 0071          eeprom_read@addr 0074           __pcstackCOMMON 0070  
+          __end_of_sheRa 05DF            __end_of_notes 07B8    __end_of_blockingDelay 07F9  
+     __size_of_gargoyles 00E9        eeprom_write@value 0071                  ??_sheRa 0076  
+             __pbssBANK0 0020               __pnvCOMMON 007A            _imperialMarch 0075  
+             __pmaintext 06C8               __pintentry 0004             _clockDivider 007C  
+         ?_imperialMarch 0070                ?_playNote 0073        __end_of_gargoyles 06C8  
+  __size_of_eeprom_write 002A                  _eeIndex 007A                  __ptext1 045E  
+                __ptext2 0075                  __ptext3 05DF                  __ptext4 07B8  
+                __ptext5 07ED                  __ptext6 076A                  __ptext7 07D8  
+              _T2CONbits 001C             __size_of_isr 005E             _genericDelay 0020  
+   end_of_initialization 0071             _eeprom_write 076A               ??_playNote 0075  
+             _postscaler 0024          ??_imperialMarch 0076            ??_eeprom_read 0071  
+            _eeMagicByte 002C      start_initialization 0064              __end_of_isr 0062  
+     blockingDelay@mSecs 0071      __end_of_eeprom_read 07ED              __pbssCOMMON 007C  
+              ___latbits 0001            __pcstackBANK0 002D         eeprom_write@addr 0074  
+              __pnvBANK0 002A   __size_of_blockingDelay 000C        __size_of_playNote 0020  
+              _gargoyles 05DF             playNote@note 0075           __size_of_sheRa 0181  
+              _playIndex 0022              _eeprom_read 07D8                 _PIR1bits 0011  
+             ?_gargoyles 0070                 _WPUAbits 020C            _blockingDelay 07ED  
+             _EECON1bits 0195           ?_blockingDelay 0071                 _forceArc 002A  
+          __size_of_main 00A2    __end_of_imperialMarch 045E                 _pinState 03D8  
+               _playNote 07B8                 int$flags 007E              ??_gargoyles 0076  
+               main@argc 0076                 main@argv 0078               _INTCONbits 000B  
+               intlevel1 0000               _OSCCONbits 0099            __pstringtext1 0794  
+        ??_blockingDelay 0073               _OPTION_REG 0095            ?_eeprom_write 0071  
+             _STATUSbits 0003             ?_eeprom_read 0070  

@@ -36,8 +36,6 @@
   (or awkward silence), etc, etc
   
   Edit: Added Imperial March by request.
-  
-  Edit: Added Cantina Band by request.
 */
 
 #include <stdio.h>
@@ -109,46 +107,6 @@ __EEPROM_DATA(0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00);
 #define     Bb3             0x23
 #define     B3              0x24
 
-// Define notes in MIDI Note values
-#define     M48             0x01 // C1
-#define     M49             0x02
-#define     M50             0x03
-#define     M51             0x04
-#define     M52             0x05
-#define     M53             0x06
-#define     M54             0x07
-#define     M55             0x08
-#define     M56             0x09
-#define     M57             0x0A
-#define     M58             0x0B
-#define     M59             0x0C
-
-#define     M60             0x0D //C2
-#define     M61             0x0E
-#define     M62             0x0F
-#define     M63             0x10
-#define     M64             0x11
-#define     M65             0x12
-#define     M66             0x13
-#define     M67             0x14
-#define     M68             0x15
-#define     M69             0x16
-#define     M70             0x17
-#define     M71             0x18
-
-#define     M72             0x19 //C3
-#define     M73             0x1A
-#define     M74             0x1B
-#define     M75             0x1C
-#define     M76             0x1D
-#define     M77             0x1E
-#define     M78             0x1F
-#define     M79             0x20
-#define     M80             0x21
-#define     M81             0x22
-#define     M82             0x23
-#define     M83             0x24
-
 #define     NOTE_FULL       0xC0
 #define     NOTE_HALF       0x80
 #define     NOTE_QUARTER    0x40
@@ -191,9 +149,7 @@ unsigned char eeMagicByte=0;
 void blockingDelay(unsigned int mSecs);
 void playNote(unsigned char note, unsigned int duration);
 void imperialMarch(void);
-void cantinaBand(void);
-void gargoyles(void);
-void sheRa(void);
+void numberOne(void);
 
 // Main program
 
@@ -250,22 +206,31 @@ int main(int argc, char** argv) {
     
     // Main program loop
     do{
-        forceArc=1;                         // Start the arc (no modulation)
-        blockingDelay(2000);                // Delay for two seconds
-        forceArc=0;                         // Disable the Arc (prepare for modulation)
-        // imperialMarch();                 // Uncomment this line to play the Imperial March tune from Star Wars
-		// cantinaBand();					// Uncomment this line to play the Cantina Band tune from Star Wars
-        gargoyles();                        // Uncomment this line to play the Gargoyles theme
-        forceArc=0;
-        blockingDelay(2000);
-        sheRa();                            // Uncomment this line to play the She-Ra Princess of Power transformmation theme
-        while(1);                           // Hang here once the tune finishes until powered down
+        
+        forceArc=1;                                 // Start the arc (no modulation)
+        if(!eeMagicByte){                           // Check if our Magic Byte is set
+            if(eeIndex<20){                         // Check if the number of power cycles is within range
+                if(eeIndex==0) blockingDelay(500);  // Delay half a second on the first boot (otherwise program verification fails, as EEPROM is written before verification)
+                eeIndex++;                          // Increment our power cycle counter
+                eeprom_write(EE_INDEX,eeIndex);     // Write it to EEPROM
+                while(1);                           // Hang here until powered down
+            } else {                                // We've hit our power cycle target
+                eeMagicByte=1;                      // Prepare our magic byte
+                blockingDelay(2000);                // Delay for two seconds
+                forceArc=0;                         // Disable the Arc (prepare for modulation)
+                numberOne();                        // Play the tune (this function also writes the magic byte to EEPROM);
+                // imperialMarch();                 // Uncomment this line to play the Imperial March tune from Star Wars
+                while(1);                           // Hang here once the tune finishes until powered down
+            }
+        }
+        while(1);                                   // If our magic byte is set in EEPROM, we just hang here forever
+        
     } while(1);
     return (EXIT_SUCCESS);
 }
 
 // Our global interrupt service routine
-static void __interrupt() isr(void)			
+static void interrupt isr(void)			
 {
     // Timer2 interrupt
     // We're basically using Timer 2 to gate Timer 1 in software.
@@ -293,14 +258,14 @@ static void __interrupt() isr(void)
         }
         
         // Here's our exceptionally shitty complementary PWM generator
-        // You can't simply set LATA4 to the inverse of LATA1 without
+        // You can't simply set LATA2 to the inverse of LATA1 without
         // using an intermediate variable, trust me, it shits itself. 
         if(gate || forceArc){
             pinState^=1;
-            LATA4=pinState;
+            LATA2=pinState;
             LATA1=(pinState^1);
         } else {
-            LATA4=0;
+            LATA2=0;
             LATA1=0;
         }
         INTCONbits.TMR0IF=0;
@@ -516,243 +481,281 @@ void imperialMarch(void){
     
 }
 
-void cantinaBand(void){
-    playNote(B1,250);
-    playNote(SILENCE,250);
+// The "We are Number One" tune itself
+// We write to EEPROM a few seconds in
+void numberOne(void){
+    playNote(F1,200);       
 
-    playNote(E2,250);
-    playNote(SILENCE,250);
+    playNote(SILENCE,1000);
+    
+    playNote(C2,200);       
 
-    playNote(B1,250);
-    playNote(SILENCE,250);
+    playNote(SILENCE,200);
+    
+    playNote(B1,200);
+    playNote(C2,200);
+    playNote(B1,200);
+    playNote(C2,200);    
+    playNote(B1,200);
 
-    playNote(E2,250);
-    playNote(SILENCE,250);
+    playNote(SILENCE,200);
 
-    playNote(B1,250);
-    playNote(E2,250);
-    playNote(SILENCE,250);
+    playNote(C2,200);    
 
-    playNote(B1,400);    
-    playNote(SILENCE,100);
-    
-    playNote(Bb1,250);    
-    playNote(B1,250);    
-    playNote(SILENCE,250);
+    playNote(SILENCE,200);
 
-    playNote(B1,250);    
-    playNote(Bb1,250);    
-    playNote(B1,250);    
-    playNote(A1,350);    
-    playNote(SILENCE,150);
-    
-    playNote(Ab1,250);    
-    playNote(A1,250);    
-    playNote(SILENCE,250);
-    
-    playNote(G1,450);    
-    playNote(SILENCE,550);
+    playNote(Ab1,200);    
 
-    playNote(E1,350);    
-    playNote(SILENCE,650);
+    playNote(SILENCE,600);
 
-    //
-    
-    playNote(B1,250);
-    playNote(SILENCE,250);
+    playNote(F1,200); 
 
-    playNote(E2,250);
-    playNote(SILENCE,250);
+    eeprom_write(EE_MAGICBYTE,eeMagicByte);
+    
+    playNote(SILENCE,1000);
+    
+    playNote(F1,200); 
 
-    playNote(B1,250);
-    playNote(SILENCE,250);
+    playNote(SILENCE,200);
+    
+    playNote(Ab1,200);    
+    
+    playNote(SILENCE,200);
 
-    playNote(E2,250);
-    playNote(SILENCE,250);
+    playNote(C2,200);    
 
-    playNote(B1,250);
-    playNote(E2,250);
-    playNote(SILENCE,250);
+    playNote(SILENCE,200);
 
-    playNote(B1,400);    
-    playNote(SILENCE,100);
-    
-    playNote(Bb1,250);    
-    playNote(B1,250);    
-    playNote(SILENCE,250);
-    
-    playNote(A1,250);    
-    playNote(SILENCE,250);
+    playNote(Db2,200);    
 
-    playNote(A1,250);    
-    playNote(SILENCE,500);
+    playNote(SILENCE,600);
+    
+    playNote(Ab1,200);    
+    
+    playNote(SILENCE,600);
+    
+    playNote(Db2,200);   
+    
+    playNote(SILENCE,600);
+    
+    playNote(Eb2,200);   
+    
+    playNote(SILENCE,600);
+        
+    playNote(C2,200);  
+    playNote(SILENCE,200);
+    playNote(Db2,200);  
+    playNote(SILENCE,200);    
+    playNote(C2,200);  
+    playNote(SILENCE,200);
+    playNote(Db2,200);  
+    playNote(SILENCE,200);    
+    playNote(C2,200);  
+    playNote(SILENCE,200);
 
-    playNote(A1,250);    
-    playNote(A1,250);    
+    
+    playNote(SILENCE,1250);
+    
+    playNote(F1,200);      
 
-    playNote(SILENCE,250);
+    playNote(SILENCE,1000);
     
-    playNote(D2,250);
-    playNote(SILENCE,250);
+    playNote(C2,200);       
 
-    playNote(C2,250);
-    playNote(SILENCE,250);
+    playNote(SILENCE,200);
+    
+    playNote(B1,200);
+    playNote(C2,200);
+    playNote(B1,200);
+    playNote(C2,200);    
+    playNote(B1,200);
 
-    playNote(B1,250);
-    playNote(SILENCE,250);
+    playNote(SILENCE,200);
 
-    playNote(A1,250);
-    playNote(SILENCE,250);
-    
-    
-    playNote(B1,250);
-    playNote(SILENCE,250);
-    
-    playNote(E2,250);
-    playNote(SILENCE,250);
-    
-    
-    playNote(B1,250);
-    playNote(SILENCE,250);
+    playNote(C2,200);    
 
-    playNote(E2,250);
-    playNote(SILENCE,250);
-       
-    playNote(B1,250);
-    playNote(E2,250);
-    playNote(SILENCE,250);
+    playNote(SILENCE,200);
+
+    playNote(Ab1,200);    
+
+    playNote(SILENCE,600);
+
+    playNote(F1,200); 
+
+    playNote(SILENCE,1000);
     
-    playNote(B1,500);
+    playNote(F1,200); 
+
+    playNote(SILENCE,200);
+    
+    playNote(Ab1,200);    
+    
+    playNote(SILENCE,200);
+
+    playNote(C2,200);    
+
+    playNote(SILENCE,200);
+
+    playNote(Db2,200);    
+
+    playNote(SILENCE,600);
+    
+    playNote(Ab1,200);    
+    
+    playNote(SILENCE,600);
+    
+    playNote(Db2,200);   
+    
+    playNote(SILENCE,600);
+    
+    playNote(Eb2,200);   
+    
+    playNote(SILENCE,600);
+    
+    playNote(C2,200);  
+    playNote(SILENCE,200);
+    playNote(Db2,200);  
+    playNote(SILENCE,200);    
+    playNote(C2,200);  
+    playNote(SILENCE,200);
+    playNote(Db2,200);  
+    playNote(SILENCE,200);    
+    playNote(C2,200);  
+    playNote(SILENCE,200);
+
+    
+    playNote(SILENCE,1250);
+    
+    
+    playNote(G1,200);  
+    playNote(SILENCE,200);
+
+    playNote(Ab1,200);  
+    playNote(SILENCE,200);
+
+    playNote(G1,200);  
+    playNote(SILENCE,200);
+
+    playNote(F1,200);  
+    playNote(SILENCE,200);
+
+    playNote(G1,200);  
+    playNote(SILENCE,200);
+
+    playNote(Ab1,200);  
+    playNote(SILENCE,200);
+
+    playNote(G1,200);  
+    playNote(SILENCE,200);
+
+    playNote(F1,200);  
+    playNote(SILENCE,200);
+
+    playNote(Ab1,200);  
+    playNote(SILENCE,400);
+
+    playNote(F1,200);  
+    playNote(SILENCE,400);
+
+    playNote(C2,200);  
+    playNote(SILENCE,1400);
+    
+    playNote(C2,200);  
+    playNote(SILENCE,200);
+    
+    playNote(Db2,200);  
+    playNote(SILENCE,200);
+    
+    playNote(Db2,200);  
+    playNote(SILENCE,200);
+
+    playNote(Db2,200);  
+    playNote(SILENCE,200);
+
+    playNote(Db2,200);  
+    playNote(SILENCE,200);
+
+    playNote(Db2,200);  
+    playNote(SILENCE,600);
+    
+    playNote(Eb2,200);  
+    playNote(SILENCE,600);
+    
+    playNote(C2,200);  
+    playNote(SILENCE,400);    
+    
+    playNote(Db2,200);  
+    playNote(SILENCE,400);    
+
+    playNote(C2,200);  
+    playNote(SILENCE,400);    
+    
+    playNote(SILENCE,1250); 
     
 
-    playNote(Bb1,250);
-    playNote(B1,250);
-    playNote(SILENCE,250);
+    playNote(G1,200);  
+    playNote(SILENCE,200);
 
-    playNote(B1,250);
-    playNote(Bb1,250);
-    playNote(B1,250);
-    playNote(A1,250);
-    playNote(SILENCE,250);
-    
-    playNote(Ab1,250);
-    playNote(A1,250);
-    playNote(SILENCE,250);
-    
-    playNote(G1,250);
-    playNote(SILENCE,750);
-    
-    playNote(E1,250);
-    playNote(SILENCE,750);
-    
-    playNote(E1,250);
-    playNote(SILENCE,750);
+    playNote(Ab1,200);  
+    playNote(SILENCE,200);
 
-    playNote(G1,250);
-    playNote(SILENCE,750);
-    
-    playNote(B1,250);
-    playNote(SILENCE,750);
-    
-    playNote(D2,250);
-    playNote(SILENCE,750);
-    
-    playNote(F2,250);
-    playNote(SILENCE,250);
-    
-    playNote(E2,250);
-    playNote(SILENCE,250);
-    
-    playNote(Bb1,250);
-    playNote(B1,250);
-    playNote(SILENCE,250);
-    
-    playNote(G1,500);
-    playNote(SILENCE,250);
-    
-}
+    playNote(G1,200);  
+    playNote(SILENCE,200);
 
-// Gargoyles theme
-void gargoyles(void){
-    playNote(M65, 1598);
-    playNote(M63, 398);
-    playNote(M61, 398);
-    playNote(M60, 398);
-    playNote(M58, 398);
-    playNote(M66, 1988);
-    playNote(M65, 198);
-    playNote(M63, 198);
-    playNote(M60, 1465);
-    playNote(SILENCE,133);
-    playNote(M65, 1598);
-    playNote(M61, 398);
-    playNote(M63, 398);
-    playNote(M65, 398);
-    playNote(M63, 398);
-    playNote(M63, 798);
-    playNote(M66, 798);
-    playNote(M69, 1465);
-    playNote(SILENCE,133);
-    playNote(M58, 1598);
-    playNote(M58, 398);
-    playNote(M60, 398);
-    playNote(M61, 398);
-    playNote(M58, 398);
-    playNote(M63, 798);
-    playNote(M66, 798);
-    playNote(M65, 798);
-    playNote(M69, 798);
-    playNote(M70, 1598);
-}
+    playNote(F1,200);  
+    playNote(SILENCE,200);
 
-// She-Ra: Princess of Power transformation theme
-void sheRa(void){
-    playNote(M58, 216);
-    playNote(M60, 216);
-    playNote(M61, 433);
-    playNote(M65, 444);
-    playNote(M66, 651);
-    playNote(M65, 107);
-    playNote(M63, 107);
-    playNote(M65, 868);
-    playNote(SILENCE, 433);
-    playNote(M58, 216);
-    playNote(M60, 216);
-    playNote(M61, 433);
-    playNote(M65, 433);
-    playNote(M70, 433);
-    playNote(M68, 433);
-    playNote(M65, 868);
-    playNote(SILENCE, 433);
-    playNote(M58, 216);
-    playNote(M60, 216);
-    playNote(M61, 433);
-    playNote(M65, 433);
-    playNote(M66, 651);
-    playNote(M65, 107);
-    playNote(M63, 107);
-    playNote(M65, 868);
-    playNote(M66, 325);
-    playNote(M65, 325);
-    playNote(M66, 216);
-    playNote(M68, 651);
-    playNote(M65, 98);
-    playNote(M63, 107);
-    playNote(M63, 1738);
-    playNote(SILENCE, 433);
-    playNote(M67, 216);
-    playNote(M69, 216);
-    playNote(M70, 433);
-    playNote(M74, 433);
-    playNote(M75, 651);
-    playNote(M74, 107);
-    playNote(M72, 107);
-    playNote(M74, 868);
-    playNote(M75, 325);
-    playNote(M74, 325);
-    playNote(M75, 216);
-    playNote(M77, 651);
-    playNote(M79, 107);
-    playNote(M81, 107);
-    playNote(M82, 1738);
+    playNote(G1,200);  
+    playNote(SILENCE,200);
+
+    playNote(Ab1,200);  
+    playNote(SILENCE,200);
+
+    playNote(G1,200);  
+    playNote(SILENCE,200);
+
+    playNote(F1,200);  
+    playNote(SILENCE,200);
+
+    playNote(Ab1,200);  
+    playNote(SILENCE,400);
+
+    playNote(F1,200);  
+    playNote(SILENCE,400);
+
+    playNote(C2,200);  
+    playNote(SILENCE,1400);
+    
+    playNote(C2,200);  
+    playNote(SILENCE,200);
+    
+    playNote(Db2,200);  
+    playNote(SILENCE,200);
+    
+    playNote(Db2,200);  
+    playNote(SILENCE,200);
+
+    playNote(Db2,200);  
+    playNote(SILENCE,200);
+
+    playNote(Db2,200);  
+    playNote(SILENCE,200);
+
+    playNote(Db2,200);  
+    playNote(SILENCE,600);
+    
+    playNote(Eb2,200);  
+    playNote(SILENCE,600);
+    
+    playNote(C2,200);  
+    playNote(SILENCE,400);    
+    
+    playNote(Db2,200);  
+    playNote(SILENCE,400);    
+
+    playNote(C2,200);  
+    playNote(SILENCE,400);    
+    
+    playNote(SILENCE,1250); 
+    
 }
