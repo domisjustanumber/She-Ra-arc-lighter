@@ -45,14 +45,15 @@
 #include <xc.h>
 
 // CONFIG1
-#pragma config RSTOSC = 0b00      // Oscillator Selection (INTOSC oscillator: I/O function on CLKIN pin)
-#pragma config WDTE = OFF       // Watchdog Timer Enable (WDT disabled)
-#pragma config PWRTS = PWRT_OFF      // Power-up Timer Enable (PWRT disabled)
-#pragma config MCLRE = 0        // MCLR Pin Function Select (MCLR/VPP pin function is digital input)
+#pragma config RSTOSC = 0b00      // Use HFINTOSC @ 32 MHz after a reset
+// #pragma config FEXTOSC = 0b01    // Disable external oscillator (not needed)
+#pragma config WDTE = 0b00       // Watchdog Timer Enable (WDT disabled)
+// #pragma config PWRTS = PWRT_OFF      // Power-up Timer Enable (PWRT disabled)
+#pragma config MCLRE = 0        // Need this along with the LVP flag to allow us to use pin 4 as an input. Also disables hardware debugging.
 #pragma config CP = OFF         // Flash Program Memory Code Protection (Program memory code protection is disabled)
 // #pragma config CPD = OFF        // Data Memory Code Protection (Data memory code protection is disabled)
-#pragma config BOREN = ON       // Brown-out Reset Enable (Brown-out Reset enabled)
-#pragma config CLKOUTEN = OFF   // Clock Out Enable (CLKOUT function is disabled. I/O or oscillator function on the CLKOUT pin)
+#pragma config BOREN = 0b11       // Brown-out Reset is always enabled
+#pragma config CLKOUTEN = 1   // Clock Out disabled (This is an inverse setting, so 1 is disabled. CLKOUT pin is usable as an IO port)
 // #pragma config IESO = ON        // Internal/External Switchover (Internal/External Switchover mode is enabled)
 // #pragma config FCMEN = ON       // Fail-Safe Clock Monitor Enable (Fail-Safe Clock Monitor is enabled)
 
@@ -62,8 +63,8 @@
 #pragma config STVREN = ON      // Stack Overflow/Underflow Reset Enable (Stack Overflow or Underflow will cause a Reset)
 #pragma config BORV = LO        // Brown-out Reset Voltage Selection (Brown-out Reset Voltage (Vbor), low trip point selected.)
 
-// CONFIG3
-#pragma config LVP = OFF
+// CONFIG4
+#pragma config LVP = OFF  // Need this along with the MCLRE flag to allow us to use pin 4 as an input.
 
 
 // Wipe the first handful of bytes from EEPROM, because why not.
@@ -174,16 +175,24 @@ const unsigned char notes[36] = {
 
 // Define our variables, again a lot of these are redundant
 // and/or unused, meh.
-unsigned char clockDivider = 0;
-__bit pinState = 0;
+/**********************************************************************************************************************************/
+unsigned char clockDivider = 15; ///// Set to 0 for prod, 15 for testing
+unsigned char debugging = 1; ///// Set this to disable the stuff that breaks the simulator
+/**********************************************************************************************************************************/
 
+__bit pinState = 0;
 unsigned forceArc = 0;
 unsigned gate = 0;
-unsigned noGate = 0;
+unsigned noGate = 1;
 
 unsigned postscaler = 0;
 unsigned int playIndex = 0;
 unsigned int genericDelay = 0;
+
+unsigned char poweredOn = 0; // Flag to say if we're currently powered up or not
+unsigned char showCharge = 0; // Flag to say if we're currently showing the charge indicator or not
+unsigned char doingTheArc = 0; // Flag to say if we're currently doing the arc or not
+unsigned char lowPowerMode = 0; // Flag to say if we're currently in low power mode or not
 
 unsigned char runIndex = 0;
 
@@ -197,8 +206,8 @@ unsigned long calibrationMV = 0; // Holds our chip-specific FVR calibration valu
 void doTheArc(void);
 void blockingDelay(unsigned int mSecs);
 void playNote(unsigned char note, unsigned int duration);
-void goToLPmode(unsigned char sleepy);
-void showCharge(void);
+void goToLPmode(void);
+void chargeIndicator(void);
 
 void imperialMarch(void);
 void cantinaBand(void);
@@ -208,32 +217,6 @@ void sheRa(void);
 // Main program
 
 int main(int argc, char** argv) {
-
-    // Set up our tristate registers (define pins as inputs or outputs)
-    TRISA0 = 1; // Set RA0 (pin 13) as an input for the lid switch
-    WPUA0 = 1; // Enable weak pull up resistor
-    TRISA1 = 0;
-    TRISA2 = 0;
-    TRISA3 = 1; // Set RA3 (pin 4) as an input for our button switch
-    ///// WPUA3 = 1; // Enable weak pull up resistor
-    TRISA4 = 1; // Set RA4 (pin3) as an input for our battery voltage
-    TRISA5 = 1; // Set RA5 (pin 2) as an input for our charging flag
-    TRISC0 = 0;
-    TRISC1 = 0;
-    TRISC2 = 0;
-    TRISC3 = 0;
-    TRISC4 = 0;
-    TRISC5 = 0;
-
-    // Set the default states of our digital output pins
-    LATA1 = 1;
-    LATA2 = 1;
-    LATC0 = 1;
-    LATC1 = 1;
-    LATC2 = 1;
-    LATC3 = 1; ////// Power the touch sensor at least for now.
-    LATC4 = 0;
-    LATC5 = 0;
 
     // Switch Analog A ports to digital IO mode
     // 1 is analog, 0 is digital.
@@ -250,27 +233,54 @@ int main(int argc, char** argv) {
     // All Analog C ports are digital IO so just ram an 8-bit hex 0 into that register
     ANSELC = 0x0;
 
+    // Set up our tristate registers (define pins as inputs or outputs)
+    TRISA0 = 1; // Set RA0 (pin 13) as an input for the lid switch
+    WPUA0 = 1; // Enable weak pull up resistor
+    TRISA1 = 0;
+    TRISA2 = 0;
+    TRISA3 = 1; // Set RA3 (pin 4) as an input for our button switch
+    WPUA3 = 1; // Enable weak pull up resistor
+    TRISA4 = 1; // Set RA4 (pin3) as an input for our battery voltage
+    TRISA5 = 1; // Set RA5 (pin 2) as an input for our charging flag
+    TRISC0 = 0;
+    TRISC1 = 0;
+    TRISC2 = 0;
+    TRISC3 = 0;
+    TRISC4 = 0;
+    TRISC5 = 0;
+
+    // Set the default states of our digital output pins
+    LATA1 = 1;
+    LATA2 = 1;
+    LATC0 = 1;
+    LATC1 = 1;
+    LATC2 = 1;
+    LATC3 = 0; ////// Power the touch sensor at least for now.
+    LATC4 = 0;
+    LATC5 = 0;
+
     // Set up our oscillator (12F version)
     // OSCCONbits.IRCF=14;     // Set internal oscillator to 8 MHz (or 32MHz if PLL gets set below)
     // OSCCONbits.SPLLEN=0x01; // Disable software Phase Locked Loop (PLL) bit. This is ignored as we set PLL in the config bits. Ergo we're at 32 MHz
 
-
     // Set up our oscillator (16F version)
-    OSCSTATbits.HFOR = 1; // Enable HF oscillator
+    OSCENbits.HFOEN = 1; // Enable HF oscillator
     OSCFRQbits.FRQ = 0b101; // Set the HF Internal Oscillator to 32 MHz
 
     // Set up our timers
     // Timer0
-    T0CON0bits.MD16 = 0; // 8 bit timer
+    T0CON0bits.MD16 = 0; // Not using 16 bit timers (8 bit timer)
     T0CON0bits.OUTPS = 0b0000; // 1:1 output (post) scaler
     T0CON1bits.CS = 0b010; // FOSC/4 as our input (match the PIC12F)
+    T0CON1bits.ASYNC = 0; // Not running in ASYNC mode, so Timer 0 stops in Sleep mode.
     T0CON0bits.EN = 1; // Enable Timer0
 
     // Timer2
     PR2 = 0x1E; // Set our initial note for regular arcs
     T2CLKCON = 0b001; // Set the input to FOSC/4
     T2CONbits.T2CKPS = 0b111; // Sets the prescaler to 64
-    T2CONbits.TMR2ON = 1;
+    T2HLTbits.PSYNC = 1; // Prescaler is synced to FOSC/4 so it doesn't run during sleep
+    T2CONbits.TMR2ON = 1; // Turn Timer 2 on
 
     // Enable timer interrupts so the blockingDelay function works    
     TMR0IE = 1;
@@ -282,21 +292,21 @@ int main(int argc, char** argv) {
 
     // Each chip has it's own calibration value for the internal fixed reference voltage
     // Read this calibration value in mV so we can accurately measure battery voltage against it
-    NVMCON1bits.NVMREGS = 1; // We want to read the DIA calibration bits from NVM
+    if (!debugging) NVMCON1bits.NVMREGS = 1; // We want to read the DIA calibration bits from NVM
     NVMADR = 0x8118; // The address of the FVR 1x calibration value in the NVM DIA
     NVMCON1bits.RD = 1; // Start the read
     calibrationMV = NVMADR; // This should now contain the calibrated FVR 1x value
-    NVMCON1bits.NVMREGS = 0; // Go back to reading usual registers
+    if (!debugging) NVMCON1bits.NVMREGS = 0; // Go back to reading usual registers
 
     // Set up the ADC
-    ADCON1bits.CS = 0b001; // Convert at FOSC/8 speed
+    ADCON1bits.CS = 0b110; // Convert at FOSC/64 speed
     ADCON1bits.PREF = 0b00; // Use VDD as the voltage reference
     ADCON0bits.CHS = 0b011110; // Connect the FVR to the ADC
     ADCON1bits.FM = 1; // Right-align the 10 reading bits in the 16 bit register
     ADACT = 0x0; // Disable the auto-conversion trigger (interrupt generator?)
 
     ///// Comment this below line out for simulator testing (otherwise it borks)
-    ADCON0bits.ON = 1; // Enable the ADC
+    if (!debugging) ADCON0bits.ON = 1; // Enable the ADC
 
     // Set up the option register
     // I think this just resets a bunch of settings on the 12F. See page 145 of manual
@@ -323,20 +333,37 @@ int main(int argc, char** argv) {
 
     // Flash the power light a few times to show we're working
     LATC2 = 0;
-    blockingDelay(500);
+    blockingDelay(100);
     LATC2 = 1;
-    blockingDelay(500);
+    blockingDelay(100);
     LATC2 = 0;
-    blockingDelay(500);
+    blockingDelay(100);
     LATC2 = 1;
-    blockingDelay(500);
+    blockingDelay(100);
     LATC2 = 0;
-    blockingDelay(500);
+    blockingDelay(100);
     LATC2 = 1;
 
-    if (PORTAbits.RA5) showCharge(); // if we're plugged in, do the charging routine
-    else SLEEP(); // else sleep and wait for interrupts
-    while (1); // let's hang out forever.
+    if (PORTAbits.RA5) showCharge = 1; // if we're plugged in, do the charging routine
+
+    // if we get woken up, run through these things
+    do {
+        if (doingTheArc) doTheArc();
+        if (showCharge) chargeIndicator();
+        if (poweredOn) {
+            // Turn the power light on
+            LATC2 = 0;
+            // Fire up the touch sensor
+            LATC3 = 1;
+        } else {
+            // Turn the power light off
+            LATC2 = 1;
+            // Turn the touch sensor off
+            LATC3 = 0;
+        }
+        if (lowPowerMode) goToLPmode();
+        SLEEP();
+    } while (1); // let's hang out forever.
     return (EXIT_SUCCESS);
 }
 
@@ -346,18 +373,21 @@ static void __interrupt() isr(void) {
 
     // Pin change triggered something - let's find out what
     if (PIR0bits.IOCIF) {
+
         // Charger pin changed (RA5)
         if (IOCAF5) {
             IOCAF5 = 0;
             if (PORTAbits.RA5) {
-
                 // Charger was plugged in
-                // Turn off everything, but don't sleep
-                goToLPmode(0);
-                showCharge(); // Run the charging routine
+                poweredOn = 0;
+                showCharge = 1;
+                doingTheArc = 0;
+                lowPowerMode = 0;
             } else {
                 // Charger was unplugged, so go to sleep
-                goToLPmode(1);
+                poweredOn = 0;
+                lowPowerMode = 1;
+                showCharge = 0;
             }
         }
 
@@ -366,22 +396,16 @@ static void __interrupt() isr(void) {
             IOCAF0 = 0;
             // Lid opened, and we're not charging
             if (!PORTAbits.RA0 && !PORTAbits.RA5) {
-
-                // Turn the power light on
-                LATC2 = 0;
-
-                // Show the battery charge level
-                showCharge();
-
-                // Fire up the touch sensor and wait in sleep mode
-                LATC3 = 1;
-
-                SLEEP();
+                lowPowerMode = 0;
+                poweredOn = 1;
+                showCharge = 1;
             }
             // Lid has been closed, and we're not charging
             if (PORTAbits.RA0 && !PORTAbits.RA5) {
                 // We're done, let's sleep
-                goToLPmode(1);
+                showCharge = 0;
+                poweredOn = 0;
+                lowPowerMode = 1;
             }
         }
 
@@ -390,21 +414,17 @@ static void __interrupt() isr(void) {
             IOCAF3 = 0;
             // button was pressed, lid is open, and we're not also charging...let's go!
             if (!PORTAbits.RA3 && !PORTAbits.RA0 && !PORTAbits.RA5) {
-                // Do the thing
-                doTheArc();
+                lowPowerMode = 0;
+                showCharge = 0;
+                doingTheArc = 1;
             }
 
-
-            // Power button was released and we're not charging, turn off the arc and 1-4 LEDs. Go to sleep in wait.
-            ////////
+            // Power button was released and we're not charging, turn off the arc and 1-4 LEDs.
             if (PORTAbits.RA3 && !PORTAbits.RA5) {
-                IOCAF3 = 0;
-                forceArc = 0;
-                LATA1 = 1;
-                LATA2 = 1;
-                LATC0 = 1;
-                LATC1 = 1;
-                SLEEP();
+                lowPowerMode = 0;
+                doingTheArc = 0;
+                poweredOn = 1;
+                showCharge = 1;
             }
         }
     }
@@ -433,7 +453,8 @@ static void __interrupt() isr(void) {
             clockDivider++;
         } else {
             if (genericDelay > 0) genericDelay--;
-            clockDivider = 0;
+            if (debugging) clockDivider = CLOCK_DIVIDER;
+            else clockDivider = 0;
         }
 
         // Here's our exceptionally shitty complementary PWM generator
@@ -454,12 +475,10 @@ static void __interrupt() isr(void) {
 // Do the fun stuff
 
 void doTheArc() {
-    // Enable our timer interrupts
-    ///// TMR0IE = 1;
-    ///// TMR2IE = 1;
 
     forceArc = 1; // Start the arc (no modulation)
     runIndex++;
+    if (runIndex > 4) runIndex = 1;
     switch (runIndex) {
         case 1:
             // Show only LED 1
@@ -467,7 +486,7 @@ void doTheArc() {
             LATA2 = 1;
             LATC0 = 1;
             LATC1 = 1;
-            blockingDelay(1);
+            while(doingTheArc);
             break;
 
         case 2:
@@ -477,7 +496,7 @@ void doTheArc() {
             LATC0 = 1;
             LATC1 = 1;
 
-            blockingDelay(2000); // Delay for two seconds
+            blockingDelay(1000); // Delay for a second
             forceArc = 0; // Disable the Arc (prepare for modulation)
             imperialMarch(); // Play the Imperial March
             forceArc = 0; // Disable the Arc
@@ -490,7 +509,7 @@ void doTheArc() {
             LATC0 = 0;
             LATC1 = 1;
 
-            blockingDelay(2000); // Delay for two seconds
+            blockingDelay(1000); // Delay for a second
             forceArc = 0; // Disable the Arc (prepare for modulation)
             gargoyles(); // Play the Gargoyles theme
             forceArc = 0; // Disable the Arc
@@ -503,7 +522,7 @@ void doTheArc() {
             LATC0 = 1;
             LATC1 = 0;
 
-            blockingDelay(2000); // Delay for two seconds
+            blockingDelay(1000); // Delay for a second
             forceArc = 0; // Disable the Arc (prepare for modulation)
             sheRa(); // Play the She Ra transform theme
             forceArc = 0; // Disable the Arc
@@ -512,70 +531,61 @@ void doTheArc() {
         default:
             break;
     }
-    if (runIndex > 4) runIndex = 0;
-    // Clear the 4 LEDs
-    LATA1 = 1;
-    LATA2 = 1;
-    LATC0 = 1;
-    LATC1 = 1;
-    SLEEP();
 }
 
 // Generic delay function
 
 void blockingDelay(unsigned int mSecs) {
     // Comment these lines out to do nothing for simulator testing
-    genericDelay = mSecs;
+    if (debugging) genericDelay = 1;
+    else genericDelay = mSecs;
     while (genericDelay > 0);
 }
 
 // Note player function
 
 void playNote(unsigned char note, unsigned int duration) {
-    if (note > 0) {
-        noGate = 0;
-        PR2 = notes[note];
+    if (doingTheArc) {
+        if (note > 0) {
+            noGate = 0;
+            PR2 = notes[note];
+        } else {
+            noGate = 1;
+        }
+        blockingDelay(duration);
     } else {
-        noGate = 1;
+        forceArc = 0;
     }
-    blockingDelay(duration);
 }
 
 // Clear interrupts, turn stuff off, go sleepy times
 
-void goToLPmode(unsigned char sleepy) {
+void goToLPmode() {
     forceArc = 0; // Turn off the arc
     // XORWF IOCAF,w;
     // ANDWF IOCAF,f;
-    IOCAF = 0x0; // Clear all pin change interrupt flags
-    IOCCF = 0x0; // Clear all pin change interrupt flags
+    //   IOCAF = 0x0; // Clear all pin change interrupt flags
+    //   IOCCF = 0x0; // Clear all pin change interrupt flags
 
-    ADCON0bits.ON = 0; // Disable the ADC to save power
+    /////    ADCON0bits.ON = 0; // Disable the ADC to save power
 
     // Remove timer interrupts
     ///// TMR0IE = 0;
     ///// TMR2IE = 0;
 
-    // Turn off the LEDs
+    LATC3 = 0; // Turn off the touch sensor
+
+    // Turn off the LEDs if we're not in charge mode
     LATA1 = 1; // Turn off LED 1
     LATA2 = 1; // Turn off LED 2
     LATC0 = 1; // Turn off LED 3
     LATC1 = 1; // Turn off LED 4
     LATC2 = 1; // Turn off the power LED
-    // LATC3 = 0; // Turn off the touch sensor
-
-    if (sleepy) {
-        SLEEP();
-    }
 }
 
-void showCharge(void) {
-    ADCON0bits.ON = 1; // Turn the ADC on
+void chargeIndicator(void) {
 
-    // Enable our timer interrupts    
-    ///// TMR0IE = 1;
-    ///// TMR2IE = 1;
-
+    if (!debugging) ADCON0bits.ON = 1; // Turn the ADC on
     charging = PORTAbits.RA5;
 
     // We're going to measure the fixed 1.024v internal reference against VDD (the battery voltage)
@@ -583,9 +593,9 @@ void showCharge(void) {
 
     do {
         ADCON0bits.GO = 1; // Start an ADC measurement
-        while (ADCON0bits.GO == 1); // wait for the conversion to end (GO bit gets reset when read is complete)
+        if (!debugging) while (ADCON0bits.GO == 1); // wait for the conversion to end (GO bit gets reset when read is complete)
         adcVolts = ADRES;
-        battVolts = ((calibrationMV * 1204) / adcVolts) / 10; // Should give us battery voltage x100 (e.g. 3.7v is 370)
+        if (!debugging) battVolts = ((calibrationMV * 1204) / adcVolts) / 10; // Should give us battery voltage x100 (e.g. 3.7v is 370)
 
         if (battVolts > 415) {
             // Battery is over 4.15v (95%)
@@ -594,7 +604,7 @@ void showCharge(void) {
             LATA2 = 0;
             LATC0 = 0;
             LATC1 = 0;
-            if (charging) SLEEP(); // Our work here is done, go to sleep and leave the lights on
+            if (charging) lowPowerMode = 1; // Our work here is done, go to sleep and leave the lights on
         } else if (battVolts > 398) {
             // Battery is over 3.98v (75%)
             // 3 LEDs on, #4 blinky
@@ -633,10 +643,10 @@ void showCharge(void) {
             LATC0 = 1;
             LATC1 = 1;
         }
-        chargeCycle ^= 1; // Invert the value
         if (charging) {
+            chargeCycle ^= 1; // Invert the value
             // wait before updating the LEDs
-            blockingDelay(1000);
+            blockingDelay(500);
             // See if we're still charging
             charging = PORTAbits.RA5;
         }

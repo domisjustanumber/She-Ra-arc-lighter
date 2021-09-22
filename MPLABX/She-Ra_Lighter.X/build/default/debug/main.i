@@ -5567,8 +5567,8 @@ const unsigned char notes[36] = {
 
 
 
-unsigned char clockDivider = 0;
-unsigned char debugging = 0;
+unsigned char clockDivider = 15;
+unsigned char debugging = 1;
 
 
 __bit pinState = 0;
@@ -5867,7 +5867,6 @@ void doTheArc() {
             LATC0 = 1;
             LATC1 = 1;
             while(doingTheArc);
-
             break;
 
         case 2:
@@ -5943,7 +5942,7 @@ void playNote(unsigned char note, unsigned int duration) {
 
 void goToLPmode() {
     forceArc = 0;
-# 577 "main.c"
+# 576 "main.c"
     LATC3 = 0;
 
 

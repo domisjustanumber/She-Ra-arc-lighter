@@ -17,19 +17,19 @@
 [v _isr isr `II(v  1 s 1 isr ]
 "477
 [v _doTheArc doTheArc `(v  1 e 1 0 ]
-"539
+"538
 [v _blockingDelay blockingDelay `(v  1 e 1 0 ]
-"548
+"547
 [v _playNote playNote `(v  1 e 1 0 ]
-"564
+"563
 [v _goToLPmode goToLPmode `(v  1 e 1 0 ]
-"587
+"586
 [v _chargeIndicator chargeIndicator `(v  1 e 1 0 ]
-"660
+"659
 [v _imperialMarch imperialMarch `(v  1 e 1 0 ]
-"1007
+"1006
 [v _gargoyles gargoyles `(v  1 e 1 0 ]
-"1041
+"1040
 [v _sheRa sheRa `(v  1 e 1 0 ]
 [s S415 . 1 `uc 1 RA0 1 0 :1:0 
 `uc 1 RA1 1 0 :1:1 
@@ -373,50 +373,50 @@
 {
 "368
 } 0
-"564
+"563
 [v _goToLPmode goToLPmode `(v  1 e 1 0 ]
 {
-"585
+"584
 } 0
 "477
 [v _doTheArc doTheArc `(v  1 e 1 0 ]
 {
-"535
+"534
 } 0
-"1041
+"1040
 [v _sheRa sheRa `(v  1 e 1 0 ]
 {
-"1090
+"1089
 } 0
-"660
+"659
 [v _imperialMarch imperialMarch `(v  1 e 1 0 ]
 {
-"847
+"846
 } 0
-"1007
+"1006
 [v _gargoyles gargoyles `(v  1 e 1 0 ]
 {
-"1037
+"1036
 } 0
-"548
+"547
 [v _playNote playNote `(v  1 e 1 0 ]
 {
 [v playNote@note note `uc  1 a 1 wreg ]
 [v playNote@note note `uc  1 a 1 wreg ]
 [v playNote@duration duration `ui  1 p 2 3 ]
 [v playNote@note note `uc  1 a 1 5 ]
-"560
+"559
 } 0
-"587
+"586
 [v _chargeIndicator chargeIndicator `(v  1 e 1 0 ]
 {
-"655
+"654
 } 0
-"539
+"538
 [v _blockingDelay blockingDelay `(v  1 e 1 0 ]
 {
 [v blockingDelay@mSecs mSecs `ui  1 p 2 1 ]
-"544
+"543
 } 0
 "15 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\Umul32.c
 [v ___lmul __lmul `(ul  1 e 4 0 ]

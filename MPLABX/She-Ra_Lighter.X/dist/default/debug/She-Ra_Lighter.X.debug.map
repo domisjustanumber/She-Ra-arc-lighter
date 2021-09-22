@@ -3,17 +3,16 @@ Microchip MPLAB XC8 Compiler V2.32
 Linker command line:
 
 -W-3 --edf=C:\Program Files\Microchip\xc8\v2.32\pic\dat\en_msgs.txt -cn \
-  -h+dist/default/production\She-Ra_Lighter.X.production.sym \
-  --cmf=dist/default/production\She-Ra_Lighter.X.production.cmf -z \
-  -Q16F15224 -oC:\Users\dinku\AppData\Local\Temp\xcAsqr8.4 \
-  --defsym=__MPLAB_BUILD=1 \
-  -Mdist/default/production/She-Ra_Lighter.X.production.map -E1 \
-  -ver=XC8 Compiler --acfsm=1493 -ASTACK=02036h-021EFh -pstack=STACK \
-  -ACODE=00h-07FFhx2 -ASTRCODE=00h-0FFFh -ASTRING=00h-0FFhx16 \
-  -ACONST=00h-0FFhx16 -AENTRY=00h-0FFhx16 -ACOMMON=070h-07Fh \
-  -ABANK0=020h-06Fh -ABANK1=0A0h-0EFh -ABANK2=0120h-016Fh \
-  -ABANK3=01A0h-01EFh -ABANK4=0220h-026Fh -ABANK5=02A0h-02EFh \
-  -ABANK6=0320h-032Fh -ABIGRAM=02000h-021EFh \
+  -h+dist/default/debug\She-Ra_Lighter.X.debug.sym \
+  --cmf=dist/default/debug\She-Ra_Lighter.X.debug.cmf -z -Q16F15224 \
+  -oC:\Users\dinku\AppData\Local\Temp\xcAs2hs.4 --defsym=__MPLAB_BUILD=1 \
+  -Mdist/default/debug/She-Ra_Lighter.X.debug.map -E1 -ver=XC8 Compiler \
+  --acfsm=1493 -ASTACK=02036h-021EFh -pstack=STACK -ACODE=00h-07FFhx2 \
+  -ASTRCODE=00h-0FFFh -ASTRING=00h-0FFhx16 -ACONST=00h-0FFhx16 \
+  -AENTRY=00h-0FFhx16 -ACOMMON=070h-07Fh -ABANK0=020h-06Fh \
+  -ABANK1=0A0h-0EFh -ABANK2=0120h-016Fh -ABANK3=01A0h-01EFh \
+  -ABANK4=0220h-026Fh -ABANK5=02A0h-02EFh -ABANK6=0320h-032Fh \
+  -ABIGRAM=02000h-021EFh \
   -ARAM=020h-06Fh,0A0h-0EFh,0120h-016Fh,01A0h-01EFh,0220h-026Fh,02A0h-02EFh,0320h-032Fh \
   -AABS1=020h-07Fh,0A0h-0EFh,0120h-016Fh,01A0h-01EFh,0220h-026Fh,02A0h-02EFh,0320h-032Fh \
   -ASFR0=00h-01Fh -ASFR1=080h-09Fh -ASFR2=0100h-011Fh -ASFR3=0180h-019Fh \
@@ -40,8 +39,8 @@ Linker command line:
   -ACONFIG=08007h-0800Bh -DCONFIG=2 -AIDLOC=08000h-08003h -DIDLOC=2 \
   -DCODE=2 -DSTRCODE=2 -DSTRING=2 -DCONST=2 -DENTRY=2 \
   -preset_vec=00h,intentry=04h,init,end_init -ppowerup=CODE -pcinit=CODE \
-  -pfunctab=ENTRY -k C:\Users\dinku\AppData\Local\Temp\xcAsqr8.o \
-  dist/default/production\She-Ra_Lighter.X.production.o 
+  -pfunctab=ENTRY -k C:\Users\dinku\AppData\Local\Temp\xcAs2hs.o \
+  dist/default/debug\She-Ra_Lighter.X.debug.o 
 
 Object code version is 3.11
 
@@ -50,58 +49,58 @@ Machine type is 16F15224
 
 
                 Name                               Link     Load   Length Selector   Space Scale
-C:\Users\dinku\AppData\Local\Temp\xcAsqr8.o
+C:\Users\dinku\AppData\Local\Temp\xcAs2hs.o
                 end_init                             CE       CE        2        8       0
                 reset_vec                             0        0        2        0       0
                 config                             8007     8007        5        0       4
-dist/default/production\She-Ra_Lighter.X.production.o
-                cinit                                D0       D0       15        8       0
+dist/default/debug\She-Ra_Lighter.X.debug.o
+                cinit                                D0       D0       1D        8       0
                 intentry                              4        4       CA        8       0
                 config                             8007     8007        5        0       4
                 text10                              DDB      DDB       5B     1BB6       0
-                text9                               7B0      7B0       36        8       0
+                text9                               7B8      7B8       36        8       0
                 text8                               D9D      D9D       16     1B3A       0
-                text7                               64F      64F       F5        8       0
+                text7                               657      657       F5        8       0
                 text6                               DB3      DB3       28     1B66       0
                 text5                               F17      F17       E9     1E2E       0
-                text4                                E5       E5      3E9        8       0
-                text3                               4CE      4CE      181        8       0
-                text2                               744      744       6C        8       0
+                text4                                ED       ED      3E9        8       0
+                text3                               4D6      4D6      181        8       0
+                text2                               74C      74C       6C        8       0
                 text1                               D93      D93        A     1B26       0
                 maintext                            E36      E36       E1     1C6C       0
-                cstackBANK0                          3B       3B       19       20       1
+                cstackBANK0                          39       39       19       20       1
                 cstackCOMMON                         70       70        B       70       1
                 clrtext                             D8D      D8D        6     1B1A       0
-                dataBANK0                            54       54        2       20       1
-                bssBANK0                             20       20       1B       20       1
+                dataBANK0                            52       52        4       20       1
+                bssBANK0                             20       20       19       20       1
                 bitbssCOMMON                        3D8       7B        1       70       1     8
-                stringtext1                         7E6      7E6       24      FCC       0
-                idataBANK0                            2        2        2        0       0
+                stringtext1                         7EE      7EE       24      FDC       0
+                idataBANK0                          D89      D89        4     1B12       0
 
 TOTAL           Name                               Link     Load   Length     Space
         CLASS   STACK          
 
         CLASS   CODE           
                 end_init                             CE       CE        2         0
-                cinit                                D0       D0       15         0
+                cinit                                D0       D0       1D         0
                 intentry                              4        4       CA         0
                 reset_vec                             0        0        2         0
                 text10                              DDB      DDB       5B         0
-                text9                               7B0      7B0       36         0
+                text9                               7B8      7B8       36         0
                 text8                               D9D      D9D       16         0
-                text7                               64F      64F       F5         0
+                text7                               657      657       F5         0
                 text6                               DB3      DB3       28         0
                 text5                               F17      F17       E9         0
-                text4                                E5       E5      3E9         0
-                text3                               4CE      4CE      181         0
-                text2                               744      744       6C         0
+                text4                                ED       ED      3E9         0
+                text3                               4D6      4D6      181         0
+                text2                               74C      74C       6C         0
                 text1                               D93      D93        A         0
                 maintext                            E36      E36       E1         0
                 clrtext                             D8D      D8D        6         0
-                idataBANK0                            2        2        2         0
+                idataBANK0                          D89      D89        4         0
 
         CLASS   STRCODE        
-                stringtext1                         7E6      7E6       24         0
+                stringtext1                         7EE      7EE       24         0
 
         CLASS   STRING         
 
@@ -114,9 +113,9 @@ TOTAL           Name                               Link     Load   Length     Sp
                 bitbssCOMMON                        3D8       7B        1         1
 
         CLASS   BANK0          
-                cstackBANK0                          3B       3B       19         1
-                dataBANK0                            54       54        2         1
-                bssBANK0                             20       20       1B         1
+                cstackBANK0                          39       39       19         1
+                dataBANK0                            52       52        4         1
+                bssBANK0                             20       20       19         1
 
         CLASS   BANK1          
 
@@ -390,11 +389,12 @@ TOTAL           Name                               Link     Load   Length     Sp
 
 SEGMENTS        Name                           Load    Length   Top    Selector   Space  Class     Delta
 
-                reset_vec                      000000  000004  000004         0       0  CODE        2
-                intentry                       000004  0007E2  0007E6         8       0  CODE        2
+                reset_vec                      000000  000002  000002         0       0  CODE        2
+                intentry                       000004  0007EA  0007EE         8       0  CODE        2
                 bssBANK0                       000020  000036  000056        20       1  BANK0       1
                 cstackCOMMON                   000070  00000C  00007C        70       1  COMMON      1
-                stringtext1                    0007E6  000024  00080A       FCC       0  STRCODE     2
+                stringtext1                    0007EE  000024  000812       FDC       0  STRCODE     2
+                idataBANK0                     000D89  000004  000D8D      1B12       0  CODE        2
                 clrtext                        000D8D  000006  000D93      1B1A       0  CODE        2
                 text1                          000D93  00000A  000D9D      1B26       0  CODE        2
                 text8                          000D9D  000016  000DB3      1B3A       0  CODE        2
@@ -415,10 +415,13 @@ UNUSED ADDRESS RANGES
         BANK5            002A0-002EF              50           1
         BANK6            00320-0032F              10           1
         BIGRAM           02000-021EF             1F0           1
-        CODE             0080A-00D8C             583           2
+        CODE             00002-00003               2           2
+                         00812-00D88             577
         COMMON           0007C-0007D               2           1
-        CONST            0080A-00D8C             100           2
-        ENTRY            0080A-00D8C             100           2
+        CONST            00002-00003               2           2
+                         00812-00D88             100
+        ENTRY            00002-00003               2           2
+                         00812-00D88             100
         IDLOC            08000-08003               4           2
         RAM              00056-0006F              1A           1
                          000A0-000EF              50
@@ -492,12 +495,14 @@ UNUSED ADDRESS RANGES
         SFR8             00400-0046F              70           1
         SFR9             00480-004EF              70           1
         STACK            02036-021EF             1BA           1
-        STRCODE          0080A-00D8C             583           2
-        STRING           0080A-00D8C             100           2
+        STRCODE          00002-00003               2           2
+                         00812-00D88             577
+        STRING           00002-00003               2           2
+                         00812-00D88             100
 
                                   Symbol Table
 
-?___lldiv                 cstackBANK0  0003F
+?___lldiv                 cstackBANK0  0003D
 ?___lmul                  cstackCOMMON 00071
 _ADACT                    (abs)        0009F
 _ADCON0bits               (abs)        0009D
@@ -624,7 +629,7 @@ __Hbank9                  bank9        00000
 __Hbigram                 bigram       00000
 __HbitbssCOMMON           bitbssCOMMON 00000
 __HbssBANK0               bssBANK0     00000
-__Hcinit                  cinit        000E5
+__Hcinit                  cinit        000ED
 __Hclrtext                clrtext      00000
 __Hcode                   code         00000
 __Hcommon                 common       00000
@@ -880,51 +885,51 @@ __S2                      (abs)        00000
 ___int_sp                 stack        00000
 ___latbits                (abs)        00001
 ___lldiv                  text10       00DDB
-___lldiv@counter          cstackBANK0  0004B
-___lldiv@dividend         cstackBANK0  00043
-___lldiv@divisor          cstackBANK0  0003F
-___lldiv@quotient         cstackBANK0  00047
-___lmul                   text9        007B0
+___lldiv@counter          cstackBANK0  00049
+___lldiv@dividend         cstackBANK0  00041
+___lldiv@divisor          cstackBANK0  0003D
+___lldiv@quotient         cstackBANK0  00045
+___lmul                   text9        007B8
 ___lmul@multiplicand      cstackCOMMON 00075
 ___lmul@multiplier        cstackCOMMON 00071
-___lmul@product           cstackBANK0  0003B
+___lmul@product           cstackBANK0  00039
 ___sp                     stack        00000
 ___stackhi                (abs)        021EF
 ___stacklo                (abs)        02036
 __end_of___lldiv          text10       00E36
-__end_of___lmul           text9        007E6
-__end_of__initialization  cinit        000E1
+__end_of___lmul           text9        007EE
+__end_of__initialization  cinit        000E9
 __end_of_blockingDelay    text8        00DB3
-__end_of_chargeIndicator  text7        00744
-__end_of_doTheArc         text2        007B0
+__end_of_chargeIndicator  text7        0074C
+__end_of_doTheArc         text2        007B8
 __end_of_gargoyles        text5        01000
 __end_of_goToLPmode       text1        00D9D
-__end_of_imperialMarch    text4        004CE
+__end_of_imperialMarch    text4        004D6
 __end_of_isr              intentry     000CE
 __end_of_main             maintext     00F17
-__end_of_notes            stringtext1  0080A
+__end_of_notes            stringtext1  00812
 __end_of_playNote         text6        00DDB
-__end_of_sheRa            text3        0064F
+__end_of_sheRa            text3        00657
 __initialization          cinit        000D0
 __pbitbssCOMMON           bitbssCOMMON 003D8
 __pbssBANK0               bssBANK0     00020
-__pcstackBANK0            cstackBANK0  0003B
+__pcstackBANK0            cstackBANK0  00039
 __pcstackCOMMON           cstackCOMMON 00070
-__pdataBANK0              dataBANK0    00054
-__pidataBANK0             idataBANK0   00002
+__pdataBANK0              dataBANK0    00052
+__pidataBANK0             idataBANK0   00D89
 __pintentry               intentry     00004
 __pmaintext               maintext     00E36
-__pstringtext1            stringtext1  007E6
+__pstringtext1            stringtext1  007EE
 __ptext1                  text1        00D93
 __ptext10                 text10       00DDB
-__ptext2                  text2        00744
-__ptext3                  text3        004CE
-__ptext4                  text4        000E5
+__ptext2                  text2        0074C
+__ptext3                  text3        004D6
+__ptext4                  text4        000ED
 __ptext5                  text5        00F17
 __ptext6                  text6        00DB3
-__ptext7                  text7        0064F
+__ptext7                  text7        00657
 __ptext8                  text8        00D9D
-__ptext9                  text9        007B0
+__ptext9                  text9        007B8
 __size_of___lldiv         (abs)        00000
 __size_of___lmul          (abs)        00000
 __size_of_blockingDelay   (abs)        00000
@@ -942,35 +947,35 @@ _battVolts                bssBANK0     00026
 _blockingDelay            text8        00D9D
 _calibrationMV            bssBANK0     00020
 _chargeCycle              bssBANK0     00033
-_chargeIndicator          text7        0064F
-_chargeIndicator$1040     cstackBANK0  0004C
+_chargeIndicator          text7        00657
+_chargeIndicator$1040     cstackBANK0  0004A
 _charging                 bssBANK0     00032
-_clockDivider             bssBANK0     0003A
-_debugging                bssBANK0     00039
-_doTheArc                 text2        00744
+_clockDivider             dataBANK0    00055
+_debugging                dataBANK0    00054
+_doTheArc                 text2        0074C
 _doingTheArc              bssBANK0     00036
 _forceArc                 bssBANK0     00030
 _gargoyles                text5        00F17
 _gate                     bssBANK0     0002E
 _genericDelay             bssBANK0     00028
 _goToLPmode               text1        00D93
-_imperialMarch            text4        000E5
+_imperialMarch            text4        000ED
 _isr                      intentry     00004
 _lowPowerMode             bssBANK0     00035
 _main                     maintext     00E36
-_noGate                   dataBANK0    00054
-_notes                    stringtext1  007E6
+_noGate                   dataBANK0    00052
+_notes                    stringtext1  007EE
 _pinState                 bitbssCOMMON 003D8
 _playNote                 text6        00DB3
 _postscaler               bssBANK0     0002C
 _poweredOn                bssBANK0     00038
 _runIndex                 bssBANK0     00034
-_sheRa                    text3        004CE
+_sheRa                    text3        004D6
 _showCharge               bssBANK0     00037
 blockingDelay@mSecs       cstackCOMMON 00071
 btemp                     (abs)        0007E
 clear_ram0                clrtext      00D8D
-end_of_initialization     cinit        000E1
+end_of_initialization     cinit        000E9
 int$flags                 (abs)        0007E
 intlevel0                 functab      00000
 intlevel1                 functab      00000
@@ -990,13 +995,13 @@ MODULE INFORMATION
 
 Module		Function		Class		Link	Load	Size
 shared
-		_notes         		STRCODE        	07E6	0000	36
-		__initialization		CODE           	00D0	0000	17
+		_notes         		STRCODE        	07EE	0000	36
+		__initialization		CODE           	00D0	0000	25
 
-shared estimated size: 53
+shared estimated size: 61
 
 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\Umul32.c
-		___lmul        		CODE           	07B0	0000	54
+		___lmul        		CODE           	07B8	0000	54
 
 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\Umul32.c estimated size: 54
 
@@ -1008,14 +1013,14 @@ C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\__lldiv.c estimated 
 main.c
 		_gargoyles     		CODE           	0F17	0000	233
 		_blockingDelay 		CODE           	0D9D	0000	22
-		_doTheArc      		CODE           	0744	0000	108
+		_doTheArc      		CODE           	074C	0000	108
 		_main          		CODE           	0E36	0000	225
 		_goToLPmode    		CODE           	0D93	0000	10
 		_isr           		CODE           	0004	0000	202
 		_playNote      		CODE           	0DB3	0000	40
-		_sheRa         		CODE           	04CE	0000	385
-		_chargeIndicator		CODE           	064F	0000	245
-		_imperialMarch 		CODE           	00E5	0000	1001
+		_sheRa         		CODE           	04D6	0000	385
+		_chargeIndicator		CODE           	0657	0000	245
+		_imperialMarch 		CODE           	00ED	0000	1001
 
 main.c estimated size: 2471
 
