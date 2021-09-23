@@ -11,24 +11,20 @@
 [v ___lmul __lmul `(ul  1 e 4 0 ]
 "4 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\Umul8_16.c
 [v __Umul8_16 _Umul8_16 `(ui  1 e 2 0 ]
-"188 C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
+"365 C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
 [v _main main `(i  1 e 2 0 ]
-"354
+"531
 [v _isr isr `II(v  1 s 1 isr ]
-"463
+"640
 [v _doTheArc doTheArc `(v  1 e 1 0 ]
-"514
+"690
 [v _blockingDelay blockingDelay `(v  1 e 1 0 ]
-"521
+"697
 [v _playNote playNote `(v  1 e 1 0 ]
-"535
+"709
 [v _goToLPmode goToLPmode `(v  1 e 1 0 ]
-"564
+"738
 [v _chargeIndicator chargeIndicator `(v  1 e 1 0 ]
-"633
-[v _sheRa sheRa `(v  1 e 1 0 ]
-"698
-[v _gargoyles gargoyles `(v  1 e 1 0 ]
 "56 source/button_debounce.c
 [v _ButtonDebounceInit ButtonDebounceInit `(v  1 e 1 0 ]
 "73
@@ -193,7 +189,7 @@
 "4949
 [u S440 . 1 `S435 1 . 1 0 ]
 [v _PIR0bits PIR0bits `VES440  1 e 1 @1804 ]
-[s S496 . 1 `uc 1 ADIF 1 0 :1:0 
+[s S466 . 1 `uc 1 ADIF 1 0 :1:0 
 `uc 1 SSP1IF 1 0 :1:1 
 `uc 1 BCL1IF 1 0 :1:2 
 `uc 1 TX1IF 1 0 :1:3 
@@ -203,23 +199,8 @@
 `uc 1 CCP1IF 1 0 :1:7 
 ]
 "4986
-[u S505 . 1 `S496 1 . 1 0 ]
-[v _PIR1bits PIR1bits `VES505  1 e 1 @1805 ]
-[s S466 . 1 `uc 1 SEN 1 0 :1:0 
-`uc 1 PS 1 0 :5:1 
-`uc 1 . 1 0 :1:6 
-`uc 1 CS 1 0 :1:7 
-]
-"5214
-[s S471 . 1 `uc 1 WDTSEN 1 0 :1:0 
-`uc 1 WDTPS 1 0 :5:1 
-`uc 1 . 1 0 :1:6 
-`uc 1 WDTCS 1 0 :1:7 
-]
-[s S476 . 1 `uc 1 SWDTEN 1 0 :1:0 
-]
-[u S478 . 1 `S466 1 . 1 0 `S471 1 . 1 0 `S476 1 . 1 0 ]
-[v _WDTCONbits WDTCONbits `VES478  1 e 1 @2060 ]
+[u S475 . 1 `S466 1 . 1 0 ]
+[v _PIR1bits PIR1bits `VES475  1 e 1 @1805 ]
 "5359
 [v _NVMADR NVMADR `VEus  1 e 2 @2074 ]
 [s S340 . 1 `uc 1 RD 1 0 :1:0 
@@ -283,8 +264,6 @@
 [v _INTE INTE `VEb  1 e 0 @14512 ]
 "9266
 [v _IOCAF0 IOCAF0 `VEb  1 e 0 @63992 ]
-"9281
-[v _IOCAF5 IOCAF5 `VEb  1 e 0 @63997 ]
 "9284
 [v _IOCAN0 IOCAN0 `VEb  1 e 0 @63984 ]
 "9302
@@ -343,91 +322,85 @@
 [v _WPUA3 WPUA3 `VEb  1 e 0 @63947 ]
 "131 C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
 [v _notes notes `DC[36]uc  1 e 36 0 ]
-"140
+"138
+[v _sheRa sheRa `DC[60][2]ui  1 e 240 0 ]
+"202
+[v _gargoyles gargoyles `DC[112][2]ui  1 e 448 0 ]
+"320
 [v _debugging debugging `uc  1 e 1 0 ]
-"143
+"323
 [v _clockDivider clockDivider `uc  1 e 1 0 ]
-"144
+"324
 [v _buttonDebounce buttonDebounce `uc  1 e 1 0 ]
-"146
+"326
+[v _i i `ui  1 e 2 0 ]
+"328
 [v _pinState pinState `b  1 e 0 0 ]
-"147
+"329
 [v _forceArc forceArc `ui  1 e 2 0 ]
-"148
+"330
 [v _gate gate `ui  1 e 2 0 ]
-"149
+"331
 [v _noGate noGate `ui  1 e 2 0 ]
-"152
+"334
 [v _postscaler postscaler `ui  1 e 2 0 ]
-"154
+"336
 [v _genericDelay genericDelay `ui  1 e 2 0 ]
-"156
+"338
 [v _poweredOn poweredOn `ui  1 e 2 0 ]
-"157
+"339
 [v _showCharge showCharge `ui  1 e 2 0 ]
-"158
+"340
 [v _lowPowerMode lowPowerMode `ui  1 e 2 0 ]
-"161
+"343
 [v _gotTheTouch gotTheTouch `ui  1 e 2 0 ]
-"162
+"344
 [v _charging charging `ui  1 e 2 0 ]
 [s S22 . 12 `[8]uc 1 state 8 0 `uc 1 index 1 8 `uc 1 debouncedState 1 9 `uc 1 changed 1 10 `uc 1 pullType 1 11 ]
-"164
+"346
 [v _aPorts aPorts `S22  1 e 12 0 ]
-"166
+"348
 [v _runIndex runIndex `uc  1 e 1 0 ]
-"168
+"350
 [v _battVolts battVolts `ui  1 e 2 0 ]
-"169
+"351
 [v _chargeCycle chargeCycle `uc  1 e 1 0 ]
-"170
+"352
 [v _adcVolts adcVolts `ui  1 e 2 0 ]
-"171
+"353
 [v _calibrationMV calibrationMV `ul  1 e 4 0 ]
-"188
+"365
 [v _main main `(i  1 e 2 0 ]
 {
-"350
+"527
 } 0
-"535
+"709
 [v _goToLPmode goToLPmode `(v  1 e 1 0 ]
 {
-"552
+"726
 } 0
-"463
+"640
 [v _doTheArc doTheArc `(v  1 e 1 0 ]
 {
-"510
+"686
 } 0
-"633
-[v _sheRa sheRa `(v  1 e 1 0 ]
-{
-"694
-} 0
-"698
-[v _gargoyles gargoyles `(v  1 e 1 0 ]
-{
-"811
-} 0
-"521
+"697
 [v _playNote playNote `(v  1 e 1 0 ]
 {
-[v playNote@note note `uc  1 a 1 wreg ]
-[v playNote@note note `uc  1 a 1 wreg ]
-[v playNote@duration duration `ui  1 p 2 2 ]
-[v playNote@note note `uc  1 a 1 4 ]
-"531
+[v playNote@note note `ui  1 p 2 2 ]
+[v playNote@duration duration `ui  1 p 2 4 ]
+"705
 } 0
-"564
+"738
 [v _chargeIndicator chargeIndicator `(v  1 e 1 0 ]
 {
-"629
+"803
 } 0
-"514
+"690
 [v _blockingDelay blockingDelay `(v  1 e 1 0 ]
 {
 [v blockingDelay@mSecs mSecs `ui  1 p 2 0 ]
-"517
+"693
 } 0
 "15 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\Umul32.c
 [v ___lmul __lmul `(ul  1 e 4 0 ]
@@ -466,10 +439,10 @@
 [v ButtonDebounceInit@port port `*.4S22  1 a 1 3 ]
 "70
 } 0
-"354 C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
+"531 C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
 [v _isr isr `II(v  1 s 1 isr ]
 {
-"459
+"636
 } 0
 "73 source/button_debounce.c
 [v _ButtonProcess ButtonProcess `(v  1 e 1 0 ]

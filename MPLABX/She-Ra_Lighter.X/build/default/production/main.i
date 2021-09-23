@@ -5607,6 +5607,186 @@ const unsigned char notes[36] = {
 };
 
 
+const unsigned int sheRa[60][2] = {
+    { 0x0B, 216},
+    { 0x0D, 216},
+    { 0x0E, 412},
+    { 0x00, 21},
+    { 0x12, 423},
+    { 0x00, 21},
+    { 0x13, 651},
+    { 0x12, 107},
+    { 0x10, 107},
+    { 0x12, 868},
+    { 0x00, 433},
+    { 0x0B, 216},
+    { 0x0D, 216},
+    { 0x0E, 433},
+    { 0x12, 433},
+    { 0x17, 412},
+    { 0x00, 21},
+    { 0x15, 412},
+    { 0x00, 21},
+    { 0x12, 868},
+    { 0x00, 433},
+    { 0x0B, 216},
+    { 0x0D, 216},
+    { 0x0E, 433},
+    { 0x12, 433},
+    { 0x13, 651},
+    { 0x12, 107},
+    { 0x10, 107},
+    { 0x12, 868},
+    { 0x13, 303},
+    { 0x00, 21},
+    { 0x12, 303},
+    { 0x00, 21},
+    { 0x13, 194},
+    { 0x00, 21},
+    { 0x15, 651},
+    { 0x12, 98},
+    { 0x10, 107},
+    { 0x12, 1738},
+    { 0x00, 433},
+    { 0x14, 216},
+    { 0x16, 216},
+    { 0x17, 433},
+    { 0x1B, 433},
+    { 0x1C, 651},
+    { 0x1B, 107},
+    { 0x19, 107},
+    { 0x1B, 846},
+    { 0x00, 21},
+    { 0x1C, 303},
+    { 0x00, 21},
+    { 0x1B, 303},
+    { 0x00, 21},
+    { 0x1C, 194},
+    { 0x00, 21},
+    { 0x1E, 629},
+    { 0x00, 21},
+    { 0x20, 107},
+    { 0x22, 107},
+    { 0x23, 1738}
+};
+
+
+const unsigned int gargoyles[112][2] = {
+    { 0x1E, 1598},
+    { 0x1C, 358},
+    { 0x00, 40},
+    { 0x1A, 358},
+    { 0x00, 40},
+    { 0x19, 358},
+    { 0x00, 40},
+    { 0x17, 358},
+    { 0x00, 40},
+    { 0x1F, 1198},
+    { 0x1E, 198},
+    { 0x1C, 198},
+    { 0x19, 1385},
+    { 0x00, 80},
+    { 0x1E, 1598},
+    { 0x1A, 378},
+    { 0x00, 20},
+    { 0x1C, 378},
+    { 0x00, 20},
+    { 0x1E, 378},
+    { 0x00, 20},
+    { 0x1C, 378},
+    { 0x00, 20},
+    { 0x1C, 758},
+    { 0x00, 40},
+    { 0x1F, 758},
+    { 0x00, 40},
+    { 0x22, 1385},
+    { 0x00, 80},
+    { 0x1A, 778},
+    { 0x00, 20},
+    { 0x19, 378},
+    { 0x00, 20},
+    { 0x17, 358},
+    { 0x00, 40},
+    { 0x19, 798},
+    { 0x1C, 758},
+    { 0x00, 40},
+    { 0x1C, 758},
+    { 0x00, 40},
+    { 0x1A, 358},
+    { 0x00, 40},
+    { 0x19, 358},
+    { 0x00, 40},
+    { 0x1A, 798},
+    { 0x1E, 758},
+    { 0x00, 40},
+    { 0x1E, 758},
+    { 0x00, 40},
+    { 0x1D, 358},
+    { 0x00, 40},
+    { 0x1B, 358},
+    { 0x00, 40},
+    { 0x1D, 798},
+    { 0x20, 758},
+    { 0x00, 40},
+    { 0x20, 758},
+    { 0x00, 40},
+    { 0x1E, 358},
+    { 0x00, 40},
+    { 0x1D, 358},
+    { 0x00, 40},
+    { 0x22, 1518},
+    { 0x00, 80},
+    { 0x1E, 1598},
+    { 0x1C, 358},
+    { 0x00, 40},
+    { 0x1A, 358},
+    { 0x00, 40},
+    { 0x19, 358},
+    { 0x00, 40},
+    { 0x17, 358},
+    { 0x00, 40},
+    { 0x1F, 1198},
+    { 0x1E, 198},
+    { 0x1C, 198},
+    { 0x19, 1385},
+    { 0x00, 80},
+    { 0x1E, 1598},
+    { 0x1A, 378},
+    { 0x00, 20},
+    { 0x1C, 378},
+    { 0x00, 20},
+    { 0x1E, 378},
+    { 0x00, 20},
+    { 0x1C, 378},
+    { 0x00, 20},
+    { 0x1C, 758},
+    { 0x00, 40},
+    { 0x1F, 758},
+    { 0x00, 40},
+    { 0x22, 1465},
+    { 0x00, 40},
+    { 0x23, 778},
+    { 0x00, 20},
+    { 0x23, 111},
+    { 0x00, 20},
+    { 0x23, 111},
+    { 0x00, 20},
+    { 0x23, 111},
+    { 0x00, 20},
+    { 0x23, 778},
+    { 0x00, 20},
+    { 0x23, 111},
+    { 0x00, 20},
+    { 0x23, 111},
+    { 0x00, 20},
+    { 0x23, 111},
+    { 0x00, 20},
+    { 0x23, 111},
+    { 0x00, 20},
+    { 0x23, 798}
+};
+
+
 
 
 unsigned char debugging = 0;
@@ -5614,6 +5794,8 @@ unsigned char debugging = 0;
 
 unsigned char clockDivider = 0;
 unsigned char buttonDebounce = 0;
+
+unsigned int i;
 
 __bit pinState = 0;
 unsigned forceArc = 0;
@@ -5645,15 +5827,10 @@ unsigned long calibrationMV = 0;
 
 void doTheArc(void);
 void blockingDelay(unsigned int mSecs);
-void playNote(unsigned char note, unsigned int duration);
+void playNote(unsigned int note, unsigned int duration);
 void goToLPmode(void);
 void checkForCharging(void);
 void chargeIndicator(void);
-
-void imperialMarch(void);
-void cantinaBand(void);
-void gargoyles(void);
-void sheRa(void);
 
 
 
@@ -5753,7 +5930,7 @@ int main(int argc, char** argv) {
 
 
     if (!debugging) ADCON0bits.ON = 1;
-# 296 "main.c"
+# 473 "main.c"
     IOCAN0 = 1;
     IOCAP0 = 1;
     INTE = 0;
@@ -5791,7 +5968,7 @@ int main(int argc, char** argv) {
             LATC3 = 0;
         }
         if (lowPowerMode) goToLPmode();
-# 348 "main.c"
+# 525 "main.c"
     } while (1);
     return (0);
 }
@@ -5802,29 +5979,7 @@ static void __attribute__((picinterrupt(("")))) isr(void) {
 
 
     if (PIR0bits.IOCIF) {
-
-
-
-        if (IOCAF5) {
-            IOCAF5 = 0;
-
-            if (PORTAbits.RA5) {
-
-                poweredOn = 0;
-                showCharge = 1;
-                gotTheTouch = 0;
-                lowPowerMode = 0;
-            } else {
-
-                poweredOn = 0;
-                showCharge = 1;
-                gotTheTouch = 0;
-                lowPowerMode = 0;
-                WDTCONbits.SEN = 0;
-            }
-        }
-
-
+# 558 "main.c"
         if (IOCAF0) {
             IOCAF0 = 0;
 
@@ -5873,7 +6028,7 @@ static void __attribute__((picinterrupt(("")))) isr(void) {
 
 
             if (poweredOn) {
-                if (buttonDebounce < 5) buttonDebounce++;
+                if (buttonDebounce < 1) buttonDebounce++;
                 else {
 
 
@@ -5931,8 +6086,7 @@ void doTheArc() {
 
             blockingDelay(1000);
             forceArc = 0;
-            sheRa();
-            forceArc = 0;
+            for (i = 0; i < sizeof (sheRa) && gotTheTouch; i++) playNote(sheRa[i][0], sheRa[i][1]);
             break;
 
         case 3:
@@ -5944,15 +6098,15 @@ void doTheArc() {
 
             blockingDelay(1000);
             forceArc = 0;
-            gargoyles();
-            forceArc = 0;
+            for (i = 0; i < sizeof (gargoyles) && gotTheTouch; i++) playNote(gargoyles[i][0], gargoyles[i][1]);
             break;
 
         default:
             break;
     }
 
-    poweredOn = 0;
+
+    forceArc = 0;
 
 }
 
@@ -5965,16 +6119,14 @@ void blockingDelay(unsigned int mSecs) {
 
 
 
-void playNote(unsigned char note, unsigned int duration) {
-    if (gotTheTouch) {
-        if (note > 0) {
-            noGate = 0;
-            PR2 = notes[note];
-        } else {
-            noGate = 1;
-        }
-        blockingDelay(duration);
-    } else noGate = 1;
+void playNote(unsigned int note, unsigned int duration) {
+    if (note > 0) {
+        noGate = 0;
+        PR2 = notes[note];
+    } else {
+        noGate = 1;
+    }
+    blockingDelay(duration);
 }
 
 
@@ -5992,7 +6144,7 @@ void goToLPmode() {
     LATC2 = 1;
 
 
-    WDTCONbits.PS = 0b01101;
+
 
     __asm("sleep");
 
@@ -6073,186 +6225,4 @@ void chargeIndicator(void) {
         blockingDelay(500);
 
     }
-}
-
-
-
-void sheRa(void) {
-    playNote(0x0B, 216);
-    playNote(0x0D, 216);
-    playNote(0x0E, 412);
-    playNote(0x00, 21);
-    playNote(0x12, 423);
-    playNote(0x00, 21);
-    playNote(0x13, 651);
-    playNote(0x12, 107);
-    playNote(0x10, 107);
-    playNote(0x12, 868);
-    playNote(0x00, 433);
-    playNote(0x0B, 216);
-    playNote(0x0D, 216);
-    playNote(0x0E, 433);
-    playNote(0x12, 433);
-    playNote(0x17, 412);
-    playNote(0x00, 21);
-    playNote(0x15, 412);
-    playNote(0x00, 21);
-    playNote(0x12, 868);
-    playNote(0x00, 433);
-    playNote(0x0B, 216);
-    playNote(0x0D, 216);
-    playNote(0x0E, 433);
-    playNote(0x12, 433);
-    playNote(0x13, 651);
-    playNote(0x12, 107);
-    playNote(0x10, 107);
-    playNote(0x12, 868);
-    playNote(0x13, 303);
-    playNote(0x00, 21);
-    playNote(0x12, 303);
-    playNote(0x00, 21);
-    playNote(0x13, 194);
-    playNote(0x00, 21);
-    playNote(0x15, 651);
-    playNote(0x12, 98);
-    playNote(0x10, 107);
-    playNote(0x12, 1738);
-    playNote(0x00, 433);
-    playNote(0x14, 216);
-    playNote(0x16, 216);
-    playNote(0x17, 433);
-    playNote(0x1B, 433);
-    playNote(0x1C, 651);
-    playNote(0x1B, 107);
-    playNote(0x19, 107);
-    playNote(0x1B, 846);
-    playNote(0x00, 21);
-    playNote(0x1C, 303);
-    playNote(0x00, 21);
-    playNote(0x1B, 303);
-    playNote(0x00, 21);
-    playNote(0x1C, 194);
-    playNote(0x00, 21);
-    playNote(0x1E, 629);
-    playNote(0x00, 21);
-    playNote(0x20, 107);
-    playNote(0x22, 107);
-    playNote(0x23, 1738);
-}
-
-
-
-void gargoyles(void) {
-    playNote(0x12, 1598);
-    playNote(0x10, 358);
-    playNote(0x00, 40);
-    playNote(0x0E, 358);
-    playNote(0x00, 40);
-    playNote(0x0D, 358);
-    playNote(0x00, 40);
-    playNote(0x0B, 358);
-    playNote(0x00, 40);
-    playNote(0x13, 1198);
-    playNote(0x12, 198);
-    playNote(0x10, 198);
-    playNote(0x0D, 1385);
-    playNote(0x00, 80);
-    playNote(0x12, 1598);
-    playNote(0x0E, 378);
-    playNote(0x00, 20);
-    playNote(0x10, 378);
-    playNote(0x00, 20);
-    playNote(0x12, 378);
-    playNote(0x00, 20);
-    playNote(0x10, 378);
-    playNote(0x00, 20);
-    playNote(0x10, 758);
-    playNote(0x00, 40);
-    playNote(0x13, 758);
-    playNote(0x00, 40);
-    playNote(0x16, 1385);
-    playNote(0x00, 80);
-    playNote(0x0E, 778);
-    playNote(0x00, 20);
-    playNote(0x0D, 378);
-    playNote(0x00, 20);
-    playNote(0x0B, 358);
-    playNote(0x00, 40);
-    playNote(0x0D, 798);
-    playNote(0x10, 758);
-    playNote(0x00, 40);
-    playNote(0x10, 758);
-    playNote(0x00, 40);
-    playNote(0x0E, 358);
-    playNote(0x00, 40);
-    playNote(0x0D, 358);
-    playNote(0x00, 40);
-    playNote(0x0E, 798);
-    playNote(0x12, 758);
-    playNote(0x00, 40);
-    playNote(0x12, 758);
-    playNote(0x00, 40);
-    playNote(0x11, 358);
-    playNote(0x00, 40);
-    playNote(0x0F, 358);
-    playNote(0x00, 40);
-    playNote(0x11, 798);
-    playNote(0x14, 758);
-    playNote(0x00, 40);
-    playNote(0x14, 758);
-    playNote(0x00, 40);
-    playNote(0x12, 358);
-    playNote(0x00, 40);
-    playNote(0x11, 358);
-    playNote(0x00, 40);
-    playNote(0x16, 1518);
-    playNote(0x00, 80);
-    playNote(0x12, 1598);
-    playNote(0x10, 358);
-    playNote(0x00, 40);
-    playNote(0x0E, 358);
-    playNote(0x00, 40);
-    playNote(0x0D, 358);
-    playNote(0x00, 40);
-    playNote(0x0B, 358);
-    playNote(0x00, 40);
-    playNote(0x13, 1198);
-    playNote(0x12, 198);
-    playNote(0x10, 198);
-    playNote(0x0D, 1385);
-    playNote(0x00, 80);
-    playNote(0x12, 1598);
-    playNote(0x0E, 378);
-    playNote(0x00, 20);
-    playNote(0x10, 378);
-    playNote(0x00, 20);
-    playNote(0x12, 378);
-    playNote(0x00, 20);
-    playNote(0x10, 378);
-    playNote(0x00, 20);
-    playNote(0x10, 758);
-    playNote(0x00, 40);
-    playNote(0x13, 758);
-    playNote(0x00, 40);
-    playNote(0x16, 1465);
-    playNote(0x00, 40);
-    playNote(0x17, 778);
-    playNote(0x00, 20);
-    playNote(0x17, 111);
-    playNote(0x00, 20);
-    playNote(0x17, 111);
-    playNote(0x00, 20);
-    playNote(0x17, 111);
-    playNote(0x00, 20);
-    playNote(0x17, 778);
-    playNote(0x00, 20);
-    playNote(0x17, 111);
-    playNote(0x00, 20);
-    playNote(0x17, 111);
-    playNote(0x00, 20);
-    playNote(0x17, 111);
-    playNote(0x00, 20);
-    playNote(0x17, 111);
-    playNote(0x00, 20);
-    playNote(0x17, 798);
 }

@@ -72,47 +72,47 @@
 
 // __EEPROM_DATA(0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00);
 
-// Define notes in MIDI Note values
+// Define notes in MIDI Note values, where C3 = 60
 
 #define     SILENCE         0x00
-#define     M48             0x01 // C1 (actually think this is a C3)
-#define     M49             0x02
-#define     M50             0x03
-#define     M51             0x04
-#define     M52             0x05
-#define     M53             0x06
-#define     M54             0x07
-#define     M55             0x08
-#define     M56             0x09
-#define     M57             0x0A
-#define     M58             0x0B
-#define     M59             0x0C
+#define     M36             0x01 // C1
+#define     M37             0x02
+#define     M38             0x03
+#define     M39             0x04
+#define     M40             0x05
+#define     M41             0x06
+#define     M42             0x07
+#define     M43             0x08
+#define     M44             0x09
+#define     M45             0x0A
+#define     M46             0x0B
+#define     M47             0x0C
 
-#define     M60             0x0D //C2
-#define     M61             0x0E
-#define     M62             0x0F
-#define     M63             0x10
-#define     M64             0x11
-#define     M65             0x12
-#define     M66             0x13
-#define     M67             0x14
-#define     M68             0x15
-#define     M69             0x16
-#define     M70             0x17
-#define     M71             0x18
+#define     M48             0x0D //C2
+#define     M49             0x0E
+#define     M50             0x0F
+#define     M51             0x10
+#define     M52             0x11
+#define     M53             0x12
+#define     M54             0x13
+#define     M55             0x14
+#define     M56             0x15
+#define     M57             0x16
+#define     M58             0x17
+#define     M59             0x18
 
-#define     M72             0x19 //C3
-#define     M73             0x1A
-#define     M74             0x1B
-#define     M75             0x1C
-#define     M76             0x1D
-#define     M77             0x1E
-#define     M78             0x1F
-#define     M79             0x20
-#define     M80             0x21
-#define     M81             0x22
-#define     M82             0x23
-#define     M83             0x24
+#define     M60             0x19 //C3
+#define     M61             0x1A
+#define     M62             0x1B
+#define     M63             0x1C
+#define     M64             0x1D
+#define     M65             0x1E
+#define     M66             0x1F
+#define     M67             0x20
+#define     M68             0x21
+#define     M69             0x22
+#define     M70             0x23
+#define     M71             0x24
 
 #define     NOTE_FULL       0xC0
 #define     NOTE_HALF       0x80
@@ -121,7 +121,7 @@
 
 // Other definitions
 #define     CLOCK_DIVIDER   15  // How much to divide the clock by to get 1ms
-#define     BUTTON_DEBOUNCE 5   // How many ms to wait between button readings to eliminate bounce
+#define     BUTTON_DEBOUNCE 1   // How many ms to wait between button readings to eliminate bounce
 
 #define     EE_INDEX        0
 #define     EE_MAGICBYTE    1
@@ -134,6 +134,186 @@ const unsigned char notes[36] = {
     0x3B, 0x38, 0x34, 0x32, 0x2F, 0x2C, 0x2A, 0x27, 0x25, 0x23, 0x21, 0x1F
 };
 
+// She-Ra: Princess of Power transformation theme
+const unsigned int sheRa[60][2] = {
+    { M46, 216},
+    { M48, 216},
+    { M49, 412},
+    { SILENCE, 21},
+    { M53, 423},
+    { SILENCE, 21},
+    { M54, 651},
+    { M53, 107},
+    { M51, 107},
+    { M53, 868},
+    { SILENCE, 433},
+    { M46, 216},
+    { M48, 216},
+    { M49, 433},
+    { M53, 433},
+    { M58, 412},
+    { SILENCE, 21},
+    { M56, 412},
+    { SILENCE, 21},
+    { M53, 868},
+    { SILENCE, 433},
+    { M46, 216},
+    { M48, 216},
+    { M49, 433},
+    { M53, 433},
+    { M54, 651},
+    { M53, 107},
+    { M51, 107},
+    { M53, 868},
+    { M54, 303},
+    { SILENCE, 21},
+    { M53, 303},
+    { SILENCE, 21},
+    { M54, 194},
+    { SILENCE, 21},
+    { M56, 651},
+    { M53, 98},
+    { M51, 107},
+    { M53, 1738},
+    { SILENCE, 433},
+    { M55, 216},
+    { M57, 216},
+    { M58, 433},
+    { M62, 433},
+    { M63, 651},
+    { M62, 107},
+    { M60, 107},
+    { M62, 846},
+    { SILENCE, 21},
+    { M63, 303},
+    { SILENCE, 21},
+    { M62, 303},
+    { SILENCE, 21},
+    { M63, 194},
+    { SILENCE, 21},
+    { M65, 629},
+    { SILENCE, 21},
+    { M67, 107},
+    { M69, 107},
+    { M70, 1738}
+};
+
+// Gargoyles theme
+const unsigned int gargoyles[112][2] = {
+    { M65, 1598},
+    { M63, 358},
+    { SILENCE, 40},
+    { M61, 358},
+    { SILENCE, 40},
+    { M60, 358},
+    { SILENCE, 40},
+    { M58, 358},
+    { SILENCE, 40},
+    { M66, 1198},
+    { M65, 198},
+    { M63, 198},
+    { M60, 1385},
+    { SILENCE, 80},
+    { M65, 1598},
+    { M61, 378},
+    { SILENCE, 20},
+    { M63, 378},
+    { SILENCE, 20},
+    { M65, 378},
+    { SILENCE, 20},
+    { M63, 378},
+    { SILENCE, 20},
+    { M63, 758},
+    { SILENCE, 40},
+    { M66, 758},
+    { SILENCE, 40},
+    { M69, 1385},
+    { SILENCE, 80},
+    { M61, 778},
+    { SILENCE, 20},
+    { M60, 378},
+    { SILENCE, 20},
+    { M58, 358},
+    { SILENCE, 40},
+    { M60, 798},
+    { M63, 758},
+    { SILENCE, 40},
+    { M63, 758},
+    { SILENCE, 40},
+    { M61, 358},
+    { SILENCE, 40},
+    { M60, 358},
+    { SILENCE, 40},
+    { M61, 798},
+    { M65, 758},
+    { SILENCE, 40},
+    { M65, 758},
+    { SILENCE, 40},
+    { M64, 358},
+    { SILENCE, 40},
+    { M62, 358},
+    { SILENCE, 40},
+    { M64, 798},
+    { M67, 758},
+    { SILENCE, 40},
+    { M67, 758},
+    { SILENCE, 40},
+    { M65, 358},
+    { SILENCE, 40},
+    { M64, 358},
+    { SILENCE, 40},
+    { M69, 1518},
+    { SILENCE, 80},
+    { M65, 1598},
+    { M63, 358},
+    { SILENCE, 40},
+    { M61, 358},
+    { SILENCE, 40},
+    { M60, 358},
+    { SILENCE, 40},
+    { M58, 358},
+    { SILENCE, 40},
+    { M66, 1198},
+    { M65, 198},
+    { M63, 198},
+    { M60, 1385},
+    { SILENCE, 80},
+    { M65, 1598},
+    { M61, 378},
+    { SILENCE, 20},
+    { M63, 378},
+    { SILENCE, 20},
+    { M65, 378},
+    { SILENCE, 20},
+    { M63, 378},
+    { SILENCE, 20},
+    { M63, 758},
+    { SILENCE, 40},
+    { M66, 758},
+    { SILENCE, 40},
+    { M69, 1465},
+    { SILENCE, 40},
+    { M70, 778},
+    { SILENCE, 20},
+    { M70, 111},
+    { SILENCE, 20},
+    { M70, 111},
+    { SILENCE, 20},
+    { M70, 111},
+    { SILENCE, 20},
+    { M70, 778},
+    { SILENCE, 20},
+    { M70, 111},
+    { SILENCE, 20},
+    { M70, 111},
+    { SILENCE, 20},
+    { M70, 111},
+    { SILENCE, 20},
+    { M70, 111},
+    { SILENCE, 20},
+    { M70, 798}
+};
+
 // Define our variables, again a lot of these are redundant
 // and/or unused, meh.
 /**********************************************************************************************************************************/
@@ -142,6 +322,8 @@ unsigned char debugging = 0; ///// Set to 0 for prod, 1 to disable the stuff tha
 
 unsigned char clockDivider = 0;
 unsigned char buttonDebounce = 0;
+
+unsigned int i;
 
 __bit pinState = 0;
 unsigned forceArc = 0;
@@ -173,15 +355,10 @@ unsigned long calibrationMV = 0; // Holds our chip-specific FVR calibration valu
 // Prototype our functions
 void doTheArc(void);
 void blockingDelay(unsigned int mSecs);
-void playNote(unsigned char note, unsigned int duration);
+void playNote(unsigned int note, unsigned int duration);
 void goToLPmode(void);
 void checkForCharging(void);
 void chargeIndicator(void);
-
-void imperialMarch(void);
-void cantinaBand(void);
-void gargoyles(void);
-void sheRa(void);
 
 // Main program
 
@@ -331,20 +508,20 @@ int main(int argc, char** argv) {
         }
         if (lowPowerMode) goToLPmode();
         ///// checkForCharging();
-     /*   if (ButtonPressed(&aPorts, BUTTON_PIN_5)) {
-            // Charger has been plugged in
-            poweredOn = 0;
-            showCharge = 1;
-            gotTheTouch = 0;
-            lowPowerMode = 0;
-            // WDTCONbits.SEN = 0; // Disable the Watchdog timer
-        }
-        if (ButtonReleased(&aPorts, BUTTON_PIN_5)) {
-            // Charger has been unplugged
-            poweredOn = 0;
-            lowPowerMode = 1;
-            showCharge = 0;
-        } */
+        /*   if (ButtonPressed(&aPorts, BUTTON_PIN_5)) {
+               // Charger has been plugged in
+               poweredOn = 0;
+               showCharge = 1;
+               gotTheTouch = 0;
+               lowPowerMode = 0;
+               // WDTCONbits.SEN = 0; // Disable the Watchdog timer
+           }
+           if (ButtonReleased(&aPorts, BUTTON_PIN_5)) {
+               // Charger has been unplugged
+               poweredOn = 0;
+               lowPowerMode = 1;
+               showCharge = 0;
+           } */
     } while (1); // Loop forever
     return (EXIT_SUCCESS);
 }
@@ -358,7 +535,7 @@ static void __interrupt() isr(void) {
 
         ///// Doesn't do anything for now
         // Charger pin changed (RA5)
-        if (IOCAF5) {
+        /*if (IOCAF5) {
             IOCAF5 = 0;
 
             if (PORTAbits.RA5) {
@@ -375,7 +552,7 @@ static void __interrupt() isr(void) {
                 lowPowerMode = 0;
                 WDTCONbits.SEN = 0; // Disable the Watchdog timer
             }
-        }
+        } */
 
         // Lid changed
         if (IOCAF0) {
@@ -484,8 +661,7 @@ void doTheArc() {
 
             blockingDelay(1000); // Delay for a second
             forceArc = 0; // Disable the Arc (prepare for modulation)
-            sheRa(); // Play the She Ra transform theme
-            forceArc = 0; // Disable the Arc
+            for (i = 0; i < sizeof (sheRa) && gotTheTouch; i++) playNote(sheRa[i][0], sheRa[i][1]);
             break;
 
         case 3:
@@ -497,15 +673,15 @@ void doTheArc() {
 
             blockingDelay(1000); // Delay for a second
             forceArc = 0; // Disable the Arc (prepare for modulation)
-            gargoyles(); // Play the Gargoyles theme
-            forceArc = 0; // Disable the Arc
+            for (i = 0; i < sizeof (gargoyles) && gotTheTouch; i++) playNote(gargoyles[i][0], gargoyles[i][1]);
             break;
 
         default:
             break;
     }
     // Show's over folks. Shut it down.
-    poweredOn = 0;
+    // poweredOn = 0;
+    forceArc = 0;
     // abortAbort = 0;
 }
 
@@ -518,16 +694,14 @@ void blockingDelay(unsigned int mSecs) {
 
 // Note player function
 
-void playNote(unsigned char note, unsigned int duration) {
-    if (gotTheTouch) {
-        if (note > 0) {
-            noGate = 0;
-            PR2 = notes[note];
-        } else {
-            noGate = 1;
-        }
-        blockingDelay(duration);
-    } else noGate = 1;
+void playNote(unsigned int note, unsigned int duration) {
+    if (note > 0) {
+        noGate = 0;
+        PR2 = notes[note];
+    } else {
+        noGate = 1;
+    }
+    blockingDelay(duration);
 }
 
 // Clear interrupts, turn stuff off, go sleepy times
@@ -545,10 +719,10 @@ void goToLPmode() {
     LATC2 = 1; // Turn off the power LED
 
     // Enable the watchdog timer and set it to wake us up every few ms so we can check for a charger
-    WDTCONbits.PS = 0b01101; // Set the WDT to fire every 32ms
-   // WDTCONbits.SEN = 1;
+    // WDTCONbits.PS = 0b01101; // Set the WDT to fire every 32ms
+    // WDTCONbits.SEN = 1;
     SLEEP();
-  //  WDTCONbits.SEN = 0; // Disable the Watchdog timer
+    //  WDTCONbits.SEN = 0; // Disable the Watchdog timer
 }
 
 // See if the charger is plugged in
@@ -626,186 +800,4 @@ void chargeIndicator(void) {
         blockingDelay(500);
         // See if we're still charging
     }
-}
-
-// She-Ra: Princess of Power transformation theme
-
-void sheRa(void) {
-    playNote(M58, 216);
-    playNote(M60, 216);
-    playNote(M61, 412);
-    playNote(SILENCE, 21);
-    playNote(M65, 423);
-    playNote(SILENCE, 21);
-    playNote(M66, 651);
-    playNote(M65, 107);
-    playNote(M63, 107);
-    playNote(M65, 868);
-    playNote(SILENCE, 433);
-    playNote(M58, 216);
-    playNote(M60, 216);
-    playNote(M61, 433);
-    playNote(M65, 433);
-    playNote(M70, 412);
-    playNote(SILENCE, 21);
-    playNote(M68, 412);
-    playNote(SILENCE, 21);
-    playNote(M65, 868);
-    playNote(SILENCE, 433);
-    playNote(M58, 216);
-    playNote(M60, 216);
-    playNote(M61, 433);
-    playNote(M65, 433);
-    playNote(M66, 651);
-    playNote(M65, 107);
-    playNote(M63, 107);
-    playNote(M65, 868);
-    playNote(M66, 303);
-    playNote(SILENCE, 21);
-    playNote(M65, 303);
-    playNote(SILENCE, 21);
-    playNote(M66, 194);
-    playNote(SILENCE, 21);
-    playNote(M68, 651);
-    playNote(M65, 98);
-    playNote(M63, 107);
-    playNote(M65, 1738);
-    playNote(SILENCE, 433);
-    playNote(M67, 216);
-    playNote(M69, 216);
-    playNote(M70, 433);
-    playNote(M74, 433);
-    playNote(M75, 651);
-    playNote(M74, 107);
-    playNote(M72, 107);
-    playNote(M74, 846);
-    playNote(SILENCE, 21);
-    playNote(M75, 303);
-    playNote(SILENCE, 21);
-    playNote(M74, 303);
-    playNote(SILENCE, 21);
-    playNote(M75, 194);
-    playNote(SILENCE, 21);
-    playNote(M77, 629);
-    playNote(SILENCE, 21);
-    playNote(M79, 107);
-    playNote(M81, 107);
-    playNote(M82, 1738);
-}
-
-// Gargoyles theme
-
-void gargoyles(void) {
-    playNote(M65, 1598);
-    playNote(M63, 358);
-    playNote(SILENCE, 40);
-    playNote(M61, 358);
-    playNote(SILENCE, 40);
-    playNote(M60, 358);
-    playNote(SILENCE, 40);
-    playNote(M58, 358);
-    playNote(SILENCE, 40);
-    playNote(M66, 1198);
-    playNote(M65, 198);
-    playNote(M63, 198);
-    playNote(M60, 1385);
-    playNote(SILENCE, 80);
-    playNote(M65, 1598);
-    playNote(M61, 378);
-    playNote(SILENCE, 20);
-    playNote(M63, 378);
-    playNote(SILENCE, 20);
-    playNote(M65, 378);
-    playNote(SILENCE, 20);
-    playNote(M63, 378);
-    playNote(SILENCE, 20);
-    playNote(M63, 758);
-    playNote(SILENCE, 40);
-    playNote(M66, 758);
-    playNote(SILENCE, 40);
-    playNote(M69, 1385);
-    playNote(SILENCE, 80);
-    playNote(M61, 778);
-    playNote(SILENCE, 20);
-    playNote(M60, 378);
-    playNote(SILENCE, 20);
-    playNote(M58, 358);
-    playNote(SILENCE, 40);
-    playNote(M60, 798);
-    playNote(M63, 758);
-    playNote(SILENCE, 40);
-    playNote(M63, 758);
-    playNote(SILENCE, 40);
-    playNote(M61, 358);
-    playNote(SILENCE, 40);
-    playNote(M60, 358);
-    playNote(SILENCE, 40);
-    playNote(M61, 798);
-    playNote(M65, 758);
-    playNote(SILENCE, 40);
-    playNote(M65, 758);
-    playNote(SILENCE, 40);
-    playNote(M64, 358);
-    playNote(SILENCE, 40);
-    playNote(M62, 358);
-    playNote(SILENCE, 40);
-    playNote(M64, 798);
-    playNote(M67, 758);
-    playNote(SILENCE, 40);
-    playNote(M67, 758);
-    playNote(SILENCE, 40);
-    playNote(M65, 358);
-    playNote(SILENCE, 40);
-    playNote(M64, 358);
-    playNote(SILENCE, 40);
-    playNote(M69, 1518);
-    playNote(SILENCE, 80);
-    playNote(M65, 1598);
-    playNote(M63, 358);
-    playNote(SILENCE, 40);
-    playNote(M61, 358);
-    playNote(SILENCE, 40);
-    playNote(M60, 358);
-    playNote(SILENCE, 40);
-    playNote(M58, 358);
-    playNote(SILENCE, 40);
-    playNote(M66, 1198);
-    playNote(M65, 198);
-    playNote(M63, 198);
-    playNote(M60, 1385);
-    playNote(SILENCE, 80);
-    playNote(M65, 1598);
-    playNote(M61, 378);
-    playNote(SILENCE, 20);
-    playNote(M63, 378);
-    playNote(SILENCE, 20);
-    playNote(M65, 378);
-    playNote(SILENCE, 20);
-    playNote(M63, 378);
-    playNote(SILENCE, 20);
-    playNote(M63, 758);
-    playNote(SILENCE, 40);
-    playNote(M66, 758);
-    playNote(SILENCE, 40);
-    playNote(M69, 1465);
-    playNote(SILENCE, 40);
-    playNote(M70, 778);
-    playNote(SILENCE, 20);
-    playNote(M70, 111);
-    playNote(SILENCE, 20);
-    playNote(M70, 111);
-    playNote(SILENCE, 20);
-    playNote(M70, 111);
-    playNote(SILENCE, 20);
-    playNote(M70, 778);
-    playNote(SILENCE, 20);
-    playNote(M70, 111);
-    playNote(SILENCE, 20);
-    playNote(M70, 111);
-    playNote(SILENCE, 20);
-    playNote(M70, 111);
-    playNote(SILENCE, 20);
-    playNote(M70, 111);
-    playNote(SILENCE, 20);
-    playNote(M70, 798);
 }
