@@ -1,0 +1,191 @@
+Version 4.0 HI-TECH Software Intermediate Code
+"93 source/button_debounce.h
+[; ;source/button_debounce.h: 93: {
+[s S1 `uc -> 8 `i `uc 1 `uc 1 `uc 1 `uc 1 ]
+[n S1 . state index debouncedState changed pullType ]
+"56 source/button_debounce.c
+[; ;source/button_debounce.c: 56: ButtonDebounceInit(Debouncer *port, uint8_t pulledUpButtons)
+[v _ButtonDebounceInit `(v ~T0 @X0 1 ef2`*S1`uc ]
+"57
+[; ;source/button_debounce.c: 57: {
+{
+[e :U _ButtonDebounceInit ]
+"56
+[; ;source/button_debounce.c: 56: ButtonDebounceInit(Debouncer *port, uint8_t pulledUpButtons)
+[v _port `*S1 ~T0 @X0 1 r1 ]
+[v _pulledUpButtons `uc ~T0 @X0 1 r2 ]
+"57
+[; ;source/button_debounce.c: 57: {
+[f ]
+"58
+[; ;source/button_debounce.c: 58:     uint8_t i;
+[v _i `uc ~T0 @X0 1 a ]
+"60
+[; ;source/button_debounce.c: 60:     port->index = 0;
+[e = . *U _port 1 -> -> 0 `i `uc ]
+"61
+[; ;source/button_debounce.c: 61:     port->debouncedState = 0x00;
+[e = . *U _port 2 -> -> 0 `i `uc ]
+"62
+[; ;source/button_debounce.c: 62:     port->changed = 0x00;
+[e = . *U _port 3 -> -> 0 `i `uc ]
+"63
+[; ;source/button_debounce.c: 63:     port->pullType = pulledUpButtons;
+[e = . *U _port 4 _pulledUpButtons ]
+"66
+[; ;source/button_debounce.c: 66:     for(i = 0; i < 8; i++)
+{
+[e = _i -> -> 0 `i `uc ]
+[e $ < -> _i `i -> 8 `i 3  ]
+[e $U 4  ]
+[e :U 3 ]
+"67
+[; ;source/button_debounce.c: 67:     {
+{
+"68
+[; ;source/button_debounce.c: 68:         port->state[i] = 0x00;
+[e = *U + &U . *U _port 0 * -> _i `ux -> -> # *U &U . *U _port 0 `ui `ux -> -> 0 `i `uc ]
+"69
+[; ;source/button_debounce.c: 69:     }
+}
+[e ++ _i -> -> 1 `i `uc ]
+[e $ < -> _i `i -> 8 `i 3  ]
+[e :U 4 ]
+}
+"70
+[; ;source/button_debounce.c: 70: }
+[e :UE 2 ]
+}
+"73
+[; ;source/button_debounce.c: 73: ButtonProcess(Debouncer *port, uint8_t portStatus)
+[v _ButtonProcess `(v ~T0 @X0 1 ef2`*S1`uc ]
+"74
+[; ;source/button_debounce.c: 74: {
+{
+[e :U _ButtonProcess ]
+"73
+[; ;source/button_debounce.c: 73: ButtonProcess(Debouncer *port, uint8_t portStatus)
+[v _port `*S1 ~T0 @X0 1 r1 ]
+[v _portStatus `uc ~T0 @X0 1 r2 ]
+"74
+[; ;source/button_debounce.c: 74: {
+[f ]
+"75
+[; ;source/button_debounce.c: 75:     uint8_t i;
+[v _i `uc ~T0 @X0 1 a ]
+"76
+[; ;source/button_debounce.c: 76:     uint8_t lastDebouncedState = port->debouncedState;
+[v _lastDebouncedState `uc ~T0 @X0 1 a ]
+[e = _lastDebouncedState . *U _port 2 ]
+"83
+[; ;source/button_debounce.c: 83:     port->state[port->index] = portStatus ^ port->pullType;
+[e = *U + &U . *U _port 0 * -> . *U _port 1 `ux -> -> # *U &U . *U _port 0 `ui `ux -> ^ -> _portStatus `i -> . *U _port 4 `i `uc ]
+"86
+[; ;source/button_debounce.c: 86:     for(i = 0, port->debouncedState = 0xFF; i < 8; i++)
+{
+[e ; = _i -> -> 0 `i `uc = . *U _port 2 -> -> 255 `i `uc ]
+[e $ < -> _i `i -> 8 `i 7  ]
+[e $U 8  ]
+[e :U 7 ]
+"87
+[; ;source/button_debounce.c: 87:     {
+{
+"88
+[; ;source/button_debounce.c: 88:         port->debouncedState &= port->state[i];
+[e =& . *U _port 2 -> *U + &U . *U _port 0 * -> _i `ux -> -> # *U &U . *U _port 0 `ui `ux `uc ]
+"89
+[; ;source/button_debounce.c: 89:     }
+}
+[e ++ _i -> -> 1 `i `uc ]
+[e $ < -> _i `i -> 8 `i 7  ]
+[e :U 8 ]
+}
+"92
+[; ;source/button_debounce.c: 92:     port->index++;
+[e ++ . *U _port 1 -> -> 1 `i `uc ]
+"93
+[; ;source/button_debounce.c: 93:     if(port->index >= 8)
+[e $ ! >= -> . *U _port 1 `i -> 8 `i 10  ]
+"94
+[; ;source/button_debounce.c: 94:     {
+{
+"95
+[; ;source/button_debounce.c: 95:         port->index = 0;
+[e = . *U _port 1 -> -> 0 `i `uc ]
+"96
+[; ;source/button_debounce.c: 96:     }
+}
+[e :U 10 ]
+"103
+[; ;source/button_debounce.c: 103:     port->changed = port->debouncedState ^ lastDebouncedState;
+[e = . *U _port 3 -> ^ -> . *U _port 2 `i -> _lastDebouncedState `i `uc ]
+"104
+[; ;source/button_debounce.c: 104: }
+[e :UE 6 ]
+}
+"107
+[; ;source/button_debounce.c: 107: ButtonPressed(Debouncer *port, uint8_t GPIOButtonPins)
+[v _ButtonPressed `(uc ~T0 @X0 1 ef2`*S1`uc ]
+"108
+[; ;source/button_debounce.c: 108: {
+{
+[e :U _ButtonPressed ]
+"107
+[; ;source/button_debounce.c: 107: ButtonPressed(Debouncer *port, uint8_t GPIOButtonPins)
+[v _port `*S1 ~T0 @X0 1 r1 ]
+[v _GPIOButtonPins `uc ~T0 @X0 1 r2 ]
+"108
+[; ;source/button_debounce.c: 108: {
+[f ]
+"111
+[; ;source/button_debounce.c: 111:     return (port->changed & port->debouncedState) & GPIOButtonPins;
+[e ) -> & & -> . *U _port 3 `i -> . *U _port 2 `i -> _GPIOButtonPins `i `uc ]
+[e $UE 11  ]
+"112
+[; ;source/button_debounce.c: 112: }
+[e :UE 11 ]
+}
+"115
+[; ;source/button_debounce.c: 115: ButtonReleased(Debouncer *port, uint8_t GPIOButtonPins)
+[v _ButtonReleased `(uc ~T0 @X0 1 ef2`*S1`uc ]
+"116
+[; ;source/button_debounce.c: 116: {
+{
+[e :U _ButtonReleased ]
+"115
+[; ;source/button_debounce.c: 115: ButtonReleased(Debouncer *port, uint8_t GPIOButtonPins)
+[v _port `*S1 ~T0 @X0 1 r1 ]
+[v _GPIOButtonPins `uc ~T0 @X0 1 r2 ]
+"116
+[; ;source/button_debounce.c: 116: {
+[f ]
+"119
+[; ;source/button_debounce.c: 119:     return (port->changed & (~port->debouncedState)) & GPIOButtonPins;
+[e ) -> & & -> . *U _port 3 `i ~ -> . *U _port 2 `i -> _GPIOButtonPins `i `uc ]
+[e $UE 12  ]
+"120
+[; ;source/button_debounce.c: 120: }
+[e :UE 12 ]
+}
+"123
+[; ;source/button_debounce.c: 123: ButtonCurrent(Debouncer *port, uint8_t GPIOButtonPins)
+[v _ButtonCurrent `(uc ~T0 @X0 1 ef2`*S1`uc ]
+"124
+[; ;source/button_debounce.c: 124: {
+{
+[e :U _ButtonCurrent ]
+"123
+[; ;source/button_debounce.c: 123: ButtonCurrent(Debouncer *port, uint8_t GPIOButtonPins)
+[v _port `*S1 ~T0 @X0 1 r1 ]
+[v _GPIOButtonPins `uc ~T0 @X0 1 r2 ]
+"124
+[; ;source/button_debounce.c: 124: {
+[f ]
+"128
+[; ;source/button_debounce.c: 128:     return port->debouncedState & GPIOButtonPins;
+[e ) -> & -> . *U _port 2 `i -> _GPIOButtonPins `i `uc ]
+[e $UE 13  ]
+"129
+[; ;source/button_debounce.c: 129: }
+[e :UE 13 ]
+}

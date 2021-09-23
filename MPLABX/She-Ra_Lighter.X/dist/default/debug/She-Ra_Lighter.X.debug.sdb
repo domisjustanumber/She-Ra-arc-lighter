@@ -31,7 +31,7 @@
 [v _gargoyles gargoyles `(v  1 e 1 0 ]
 "1040
 [v _sheRa sheRa `(v  1 e 1 0 ]
-[s S415 . 1 `uc 1 RA0 1 0 :1:0 
+[s S439 . 1 `uc 1 RA0 1 0 :1:0 
 `uc 1 RA1 1 0 :1:1 
 `uc 1 RA2 1 0 :1:2 
 `uc 1 RA3 1 0 :1:3 
@@ -39,8 +39,8 @@
 `uc 1 RA5 1 0 :1:5 
 ]
 "462 C:/Users/dinku/.mchp_packs/Microchip/PIC16F1xxxx_DFP/1.8.149/xc8\pic\include\proc\pic16f15224.h
-[u S422 . 1 `S415 1 . 1 0 ]
-[v _PORTAbits PORTAbits `VES422  1 e 1 @12 ]
+[u S446 . 1 `S439 1 . 1 0 ]
+[v _PORTAbits PORTAbits `VES446  1 e 1 @12 ]
 "780
 [v _ADRES ADRES `VEus  1 e 2 @155 ]
 [s S372 . 1 `uc 1 ON 1 0 :1:0 
@@ -179,15 +179,15 @@
 ]
 [u S162 . 1 `S136 1 . 1 0 `S140 1 . 1 0 `S149 1 . 1 0 `S153 1 . 1 0 ]
 [v _T0CON1bits T0CON1bits `VES162  1 e 1 @1439 ]
-[s S444 . 1 `uc 1 INTF 1 0 :1:0 
+[s S425 . 1 `uc 1 INTF 1 0 :1:0 
 `uc 1 . 1 0 :3:1 
 `uc 1 IOCIF 1 0 :1:4 
 `uc 1 TMR0IF 1 0 :1:5 
 ]
 "4949
-[u S449 . 1 `S444 1 . 1 0 ]
-[v _PIR0bits PIR0bits `VES449  1 e 1 @1804 ]
-[s S460 . 1 `uc 1 ADIF 1 0 :1:0 
+[u S430 . 1 `S425 1 . 1 0 ]
+[v _PIR0bits PIR0bits `VES430  1 e 1 @1804 ]
+[s S458 . 1 `uc 1 ADIF 1 0 :1:0 
 `uc 1 SSP1IF 1 0 :1:1 
 `uc 1 BCL1IF 1 0 :1:2 
 `uc 1 TX1IF 1 0 :1:3 
@@ -197,8 +197,8 @@
 `uc 1 CCP1IF 1 0 :1:7 
 ]
 "4986
-[u S469 . 1 `S460 1 . 1 0 ]
-[v _PIR1bits PIR1bits `VES469  1 e 1 @1805 ]
+[u S467 . 1 `S458 1 . 1 0 ]
+[v _PIR1bits PIR1bits `VES467  1 e 1 @1805 ]
 "5359
 [v _NVMADR NVMADR `VEus  1 e 2 @2074 ]
 [s S328 . 1 `uc 1 RD 1 0 :1:0 
@@ -270,14 +270,10 @@
 [v _IOCAN0 IOCAN0 `VEb  1 e 0 @63984 ]
 "9293
 [v _IOCAN3 IOCAN3 `VEb  1 e 0 @63987 ]
-"9299
-[v _IOCAN5 IOCAN5 `VEb  1 e 0 @63989 ]
 "9302
 [v _IOCAP0 IOCAP0 `VEb  1 e 0 @63976 ]
 "9311
 [v _IOCAP3 IOCAP3 `VEb  1 e 0 @63979 ]
-"9317
-[v _IOCAP5 IOCAP5 `VEb  1 e 0 @63981 ]
 "9374
 [v _IOCIE IOCIE `VEb  1 e 0 @14516 ]
 "9383
@@ -364,8 +360,6 @@
 [v _chargeCycle chargeCycle `uc  1 e 1 0 ]
 "201
 [v _adcVolts adcVolts `ui  1 e 2 0 ]
-"202
-[v _charging charging `uc  1 e 1 0 ]
 "203
 [v _calibrationMV calibrationMV `ul  1 e 4 0 ]
 "219

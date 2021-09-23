@@ -5703,8 +5703,8 @@ int main(int argc, char** argv) {
     IOCAP0 = 1;
     IOCAN3 = 1;
     IOCAP3 = 1;
-    IOCAN5 = 1;
-    IOCAP5 = 1;
+
+
     INTE = 0;
 
     PEIE = 1;
@@ -5724,7 +5724,7 @@ int main(int argc, char** argv) {
     blockingDelay(100);
     LATC2 = 1;
 
-    if (PORTAbits.RA5) showCharge = 1;
+
 
 
     do {
@@ -5956,7 +5956,7 @@ void goToLPmode() {
 void chargeIndicator(void) {
 
     if (!debugging) ADCON0bits.ON = 1;
-    charging = PORTAbits.RA5;
+
 
 
 
@@ -6018,7 +6018,7 @@ void chargeIndicator(void) {
 
             blockingDelay(500);
 
-            charging = PORTAbits.RA5;
+
         }
     } while (charging);
 }

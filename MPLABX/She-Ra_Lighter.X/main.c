@@ -43,11 +43,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <xc.h>
+#include "button_debounce.h"
 
 // CONFIG1
 #pragma config RSTOSC = 0b00      // Use HFINTOSC @ 32 MHz after a reset
 // #pragma config FEXTOSC = 0b01    // Disable external oscillator (not needed)
-#pragma config WDTE = 0b00       // Watchdog Timer Enable (WDT disabled)
+#pragma config WDTE = 0b01       // Watchdog Timer is controlled by our software
 // #pragma config PWRTS = PWRT_OFF      // Power-up Timer Enable (PWRT disabled)
 #pragma config MCLRE = 0        // Need this along with the LVP flag to allow us to use pin 4 as an input. Also disables hardware debugging.
 #pragma config CP = OFF         // Flash Program Memory Code Protection (Program memory code protection is disabled)
@@ -71,49 +72,9 @@
 
 // __EEPROM_DATA(0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00);
 
-// Define our note indexes, the octaves are bullshit.
+// Define notes in MIDI Note values
 
 #define     SILENCE         0x00
-#define     C1              0x01
-#define     Db1             0x02
-#define     D1              0x03
-#define     Eb1             0x04
-#define     E1              0x05
-#define     F1              0x06
-#define     Gb1             0x07
-#define     G1              0x08
-#define     Ab1             0x09
-#define     A1              0x0A
-#define     Bb1             0x0B
-#define     B1              0x0C
-
-#define     C2              0x0D
-#define     Db2             0x0E
-#define     D2              0x0F
-#define     Eb2             0x10
-#define     E2              0x11
-#define     F2              0x12
-#define     Gb2             0x13
-#define     G2              0x14
-#define     Ab2             0x15
-#define     A2              0x16
-#define     Bb2             0x17
-#define     B2              0x18
-
-#define     C3              0x19
-#define     Db3             0x1A
-#define     D3              0x1B
-#define     Eb3             0x1C
-#define     E3              0x1D
-#define     F3              0x1E
-#define     Gb3             0x1F
-#define     G3              0x20
-#define     Ab3             0x21
-#define     A3              0x22
-#define     Bb3             0x23
-#define     B3              0x24
-
-// Define notes in MIDI Note values
 #define     M48             0x01 // C1 (actually think this is a C3)
 #define     M49             0x02
 #define     M50             0x03
@@ -159,8 +120,8 @@
 #define     NOTE_EIGHTH     0x00
 
 // Other definitions
-
-#define     CLOCK_DIVIDER   15
+#define     CLOCK_DIVIDER   15  // How much to divide the clock by to get 1ms
+#define     BUTTON_DEBOUNCE 5   // How many ms to wait between button readings to eliminate bounce
 
 #define     EE_INDEX        0
 #define     EE_MAGICBYTE    1
@@ -176,30 +137,37 @@ const unsigned char notes[36] = {
 // Define our variables, again a lot of these are redundant
 // and/or unused, meh.
 /**********************************************************************************************************************************/
-unsigned char clockDivider = 15; ///// Set to 0 for prod, 15 for testing
-unsigned char debugging = 1; ///// Set this to disable the stuff that breaks the simulator
+unsigned char debugging = 0; ///// Set to 0 for prod, 1 to disable the stuff that breaks the simulator
 /**********************************************************************************************************************************/
+
+unsigned char clockDivider = 0;
+unsigned char buttonDebounce = 0;
 
 __bit pinState = 0;
 unsigned forceArc = 0;
 unsigned gate = 0;
 unsigned noGate = 1;
+unsigned abortAbort = 0;
 
 unsigned postscaler = 0;
 unsigned int playIndex = 0;
 unsigned int genericDelay = 0;
 
-unsigned char poweredOn = 0; // Flag to say if we're currently powered up or not
-unsigned char showCharge = 0; // Flag to say if we're currently showing the charge indicator or not
-unsigned char doingTheArc = 0; // Flag to say if we're currently doing the arc or not
-unsigned char lowPowerMode = 0; // Flag to say if we're currently in low power mode or not
+unsigned int poweredOn = 0; // Flag to say if we're currently powered up or not
+unsigned int showCharge = 0; // Flag to say if we're currently showing the charge indicator or not
+unsigned int lowPowerMode = 0; // Flag to say if we're currently in low power mode or not
+
+unsigned int lidOpen = 0; // Flag to say if the lid is open or not
+unsigned int gotTheTouch = 0; // Flag to say if touch sensor is touched or not
+unsigned int charging = 0; // Flag to say if we're currently charging or not
+
+Debouncer aPorts;
 
 unsigned char runIndex = 0;
 
 unsigned int battVolts = 0; // We'll use this to hold the current voltage measurement
 unsigned char chargeCycle = 0; // We'll use this to toggle the charge LEDs on and off
 unsigned int adcVolts = 0; // Reads the temporary value read from the ADC
-unsigned char charging = 0; // Flag to say if we're currently charging or not
 unsigned long calibrationMV = 0; // Holds our chip-specific FVR calibration value in mV
 
 // Prototype our functions
@@ -207,6 +175,7 @@ void doTheArc(void);
 void blockingDelay(unsigned int mSecs);
 void playNote(unsigned char note, unsigned int duration);
 void goToLPmode(void);
+void checkForCharging(void);
 void chargeIndicator(void);
 
 void imperialMarch(void);
@@ -224,7 +193,7 @@ int main(int argc, char** argv) {
     ANSELAbits.ANSA1 = 0;
     ANSELAbits.ANSA2 = 0;
     // There is no ANSA3
-    ANSELAbits.ANSA4 = 1; // Analog 4 (RA4, pin 2) stays analog for battery voltage reading
+    ANSELAbits.ANSA4 = 1; // Analog 4 (RA4, pin 3) stays analog for battery voltage reading
     ANSELAbits.ANSA5 = 0;
     // No 6 or 7 either
 
@@ -234,13 +203,14 @@ int main(int argc, char** argv) {
     ANSELC = 0x0;
 
     // Set up our tristate registers (define pins as inputs or outputs)
+    // 1 is input, 0 is output
     TRISA0 = 1; // Set RA0 (pin 13) as an input for the lid switch
     WPUA0 = 1; // Enable weak pull up resistor
     TRISA1 = 0;
     TRISA2 = 0;
     TRISA3 = 1; // Set RA3 (pin 4) as an input for our button switch
     WPUA3 = 1; // Enable weak pull up resistor
-    TRISA4 = 1; // Set RA4 (pin3) as an input for our battery voltage
+    TRISA4 = 1; // Set RA4 (pin 3) as an input for our battery voltage
     TRISA5 = 1; // Set RA5 (pin 2) as an input for our charging flag
     TRISC0 = 0;
     TRISC1 = 0;
@@ -255,17 +225,20 @@ int main(int argc, char** argv) {
     LATC0 = 1;
     LATC1 = 1;
     LATC2 = 1;
-    LATC3 = 0; ////// Power the touch sensor at least for now.
+    LATC3 = 0;
     LATC4 = 0;
     LATC5 = 0;
+
+    // Initialise our button debouncer and tell it pins 0 and 3 are normally high
+    ButtonDebounceInit(&aPorts, BUTTON_PIN_0 | BUTTON_PIN_3);
 
     // Set up our oscillator (12F version)
     // OSCCONbits.IRCF=14;     // Set internal oscillator to 8 MHz (or 32MHz if PLL gets set below)
     // OSCCONbits.SPLLEN=0x01; // Disable software Phase Locked Loop (PLL) bit. This is ignored as we set PLL in the config bits. Ergo we're at 32 MHz
 
     // Set up our oscillator (16F version)
-    OSCENbits.HFOEN = 1; // Enable HF oscillator
     OSCFRQbits.FRQ = 0b101; // Set the HF Internal Oscillator to 32 MHz
+    OSCENbits.HFOEN = 1; // Enable HF oscillator
 
     // Set up our timers
     // Timer0
@@ -273,12 +246,13 @@ int main(int argc, char** argv) {
     T0CON0bits.OUTPS = 0b0000; // 1:1 output (post) scaler
     T0CON1bits.CS = 0b010; // FOSC/4 as our input (match the PIC12F)
     T0CON1bits.ASYNC = 0; // Not running in ASYNC mode, so Timer 0 stops in Sleep mode.
+    T0CON1bits.CKPS = 0b0001; // Set prescaler to 1:2 /////
     T0CON0bits.EN = 1; // Enable Timer0
 
     // Timer2
-    PR2 = 0x1E; // Set our initial note for regular arcs
+    PR2 = 0xFF; // Set our initial note for regular arcs
     T2CLKCON = 0b001; // Set the input to FOSC/4
-    T2CONbits.T2CKPS = 0b111; // Sets the prescaler to 64
+    T2CONbits.T2CKPS = 0b110; // Sets the prescaler to 64
     T2HLTbits.PSYNC = 1; // Prescaler is synced to FOSC/4 so it doesn't run during sleep
     T2CONbits.TMR2ON = 1; // Turn Timer 2 on
 
@@ -321,11 +295,7 @@ int main(int argc, char** argv) {
     // Set up interrupts
     IOCAN0 = 1; // Look for falling edge on RA0 (pin 13) lid is opened
     IOCAP0 = 1; // Look for rising edge on RA0 (pin 13) lid is closed
-    IOCAN3 = 1; // Look for falling edge on RA3 (pin 4) button is pressed
-    IOCAP3 = 1; // Look for rising edge on RA3 (pin 4) button is released
-    IOCAN5 = 1; // Look for falling edge on RA5 (pin 2) USB has been unplugged
-    IOCAP5 = 1; // Look for rising edge on RA5 (pin 2) USB has been plugged in
-    INTE = 0; // Disable interrupts on the dedicated INT pin (we're not using it)
+    INTE = 0; // Disable interrupts on the dedicated INT pin (we're using the pin for other things)
 
     PEIE = 1; // Peripheral Interrupt Enable (enables all interrupt pins)
     IOCIE = 1; // Interrupt-on-change enable flag (for detecting change on button, pin 7)
@@ -344,11 +314,9 @@ int main(int argc, char** argv) {
     blockingDelay(100);
     LATC2 = 1;
 
-    if (PORTAbits.RA5) showCharge = 1; // if we're plugged in, do the charging routine
-
-    // if we get woken up, run through these things
+    // Main loop
     do {
-        if (doingTheArc) doTheArc();
+        if (gotTheTouch) doTheArc();
         if (showCharge) chargeIndicator();
         if (poweredOn) {
             // Turn the power light on
@@ -362,8 +330,22 @@ int main(int argc, char** argv) {
             LATC3 = 0;
         }
         if (lowPowerMode) goToLPmode();
-        SLEEP();
-    } while (1); // let's hang out forever.
+        ///// checkForCharging();
+     /*   if (ButtonPressed(&aPorts, BUTTON_PIN_5)) {
+            // Charger has been plugged in
+            poweredOn = 0;
+            showCharge = 1;
+            gotTheTouch = 0;
+            lowPowerMode = 0;
+            // WDTCONbits.SEN = 0; // Disable the Watchdog timer
+        }
+        if (ButtonReleased(&aPorts, BUTTON_PIN_5)) {
+            // Charger has been unplugged
+            poweredOn = 0;
+            lowPowerMode = 1;
+            showCharge = 0;
+        } */
+    } while (1); // Loop forever
     return (EXIT_SUCCESS);
 }
 
@@ -374,20 +356,24 @@ static void __interrupt() isr(void) {
     // Pin change triggered something - let's find out what
     if (PIR0bits.IOCIF) {
 
+        ///// Doesn't do anything for now
         // Charger pin changed (RA5)
         if (IOCAF5) {
             IOCAF5 = 0;
+
             if (PORTAbits.RA5) {
                 // Charger was plugged in
                 poweredOn = 0;
                 showCharge = 1;
-                doingTheArc = 0;
+                gotTheTouch = 0;
                 lowPowerMode = 0;
             } else {
                 // Charger was unplugged, so go to sleep
                 poweredOn = 0;
-                lowPowerMode = 1;
-                showCharge = 0;
+                showCharge = 1;
+                gotTheTouch = 0;
+                lowPowerMode = 0;
+                WDTCONbits.SEN = 0; // Disable the Watchdog timer
             }
         }
 
@@ -406,25 +392,6 @@ static void __interrupt() isr(void) {
                 showCharge = 0;
                 poweredOn = 0;
                 lowPowerMode = 1;
-            }
-        }
-
-        // Power button (touch sensor) change
-        if (IOCAF3) {
-            IOCAF3 = 0;
-            // button was pressed, lid is open, and we're not also charging...let's go!
-            if (!PORTAbits.RA3 && !PORTAbits.RA0 && !PORTAbits.RA5) {
-                lowPowerMode = 0;
-                showCharge = 0;
-                doingTheArc = 1;
-            }
-
-            // Power button was released and we're not charging, turn off the arc and 1-4 LEDs.
-            if (PORTAbits.RA3 && !PORTAbits.RA5) {
-                lowPowerMode = 0;
-                doingTheArc = 0;
-                poweredOn = 1;
-                showCharge = 1;
             }
         }
     }
@@ -452,9 +419,28 @@ static void __interrupt() isr(void) {
         if (clockDivider < CLOCK_DIVIDER) {
             clockDivider++;
         } else {
-            if (genericDelay > 0) genericDelay--;
-            if (debugging) clockDivider = CLOCK_DIVIDER;
-            else clockDivider = 0;
+            // 1 ms has passed, so decrement our genericDelay counter and reset the clockDivider
+            if (debugging) genericDelay = 0;
+            else if (genericDelay > 0) genericDelay--;
+            clockDivider = 0;
+
+            // If we're powered up, read the super noisy touch sensor
+            if (poweredOn) {
+                if (buttonDebounce < BUTTON_DEBOUNCE) buttonDebounce++;
+                else {
+                    // 5 ms has passed
+
+                    // Read the Touch sensor value into the debouncer
+                    ButtonProcess(&aPorts, PORTA);
+
+                    // Throw it into the touch sensor value
+                    gotTheTouch = ButtonCurrent(&aPorts, BUTTON_PIN_3);
+                    if (!gotTheTouch) {
+                        // Button was released, so kill stuff ASAP.
+                        //abortAbort = 1;
+                    } //else abortAbort = 0;
+                }
+            }
         }
 
         // Here's our exceptionally shitty complementary PWM generator
@@ -486,19 +472,19 @@ void doTheArc() {
             LATA2 = 1;
             LATC0 = 1;
             LATC1 = 1;
-            while(doingTheArc);
+            while (gotTheTouch);
             break;
 
         case 2:
             // Show only LED 2
-            LATA1 = 1;
-            LATA2 = 0;
-            LATC0 = 1;
-            LATC1 = 1;
+            LATA1 = 0;
+            LATA2 = 1;
+            LATC0 = 0;
+            LATC1 = 0;
 
             blockingDelay(1000); // Delay for a second
             forceArc = 0; // Disable the Arc (prepare for modulation)
-            imperialMarch(); // Play the Imperial March
+            sheRa(); // Play the She Ra transform theme
             forceArc = 0; // Disable the Arc
             break;
 
@@ -515,37 +501,25 @@ void doTheArc() {
             forceArc = 0; // Disable the Arc
             break;
 
-        case 4:
-            // Show only LED 4
-            LATA1 = 1;
-            LATA2 = 1;
-            LATC0 = 1;
-            LATC1 = 0;
-
-            blockingDelay(1000); // Delay for a second
-            forceArc = 0; // Disable the Arc (prepare for modulation)
-            sheRa(); // Play the She Ra transform theme
-            forceArc = 0; // Disable the Arc
-            break;
-
         default:
             break;
     }
+    // Show's over folks. Shut it down.
+    poweredOn = 0;
+    // abortAbort = 0;
 }
 
 // Generic delay function
 
 void blockingDelay(unsigned int mSecs) {
-    // Comment these lines out to do nothing for simulator testing
-    if (debugging) genericDelay = 1;
-    else genericDelay = mSecs;
+    genericDelay = mSecs;
     while (genericDelay > 0);
 }
 
 // Note player function
 
 void playNote(unsigned char note, unsigned int duration) {
-    if (doingTheArc) {
+    if (gotTheTouch) {
         if (note > 0) {
             noGate = 0;
             PR2 = notes[note];
@@ -553,486 +527,105 @@ void playNote(unsigned char note, unsigned int duration) {
             noGate = 1;
         }
         blockingDelay(duration);
-    } else {
-        forceArc = 0;
-    }
+    } else noGate = 1;
 }
 
 // Clear interrupts, turn stuff off, go sleepy times
 
 void goToLPmode() {
     forceArc = 0; // Turn off the arc
-    // XORWF IOCAF,w;
-    // ANDWF IOCAF,f;
-    //   IOCAF = 0x0; // Clear all pin change interrupt flags
-    //   IOCCF = 0x0; // Clear all pin change interrupt flags
-
-    /////    ADCON0bits.ON = 0; // Disable the ADC to save power
-
-    // Remove timer interrupts
-    ///// TMR0IE = 0;
-    ///// TMR2IE = 0;
 
     LATC3 = 0; // Turn off the touch sensor
 
-    // Turn off the LEDs if we're not in charge mode
+    // Turn off the LEDs
     LATA1 = 1; // Turn off LED 1
     LATA2 = 1; // Turn off LED 2
     LATC0 = 1; // Turn off LED 3
     LATC1 = 1; // Turn off LED 4
     LATC2 = 1; // Turn off the power LED
+
+    // Enable the watchdog timer and set it to wake us up every few ms so we can check for a charger
+    WDTCONbits.PS = 0b01101; // Set the WDT to fire every 32ms
+   // WDTCONbits.SEN = 1;
+    SLEEP();
+  //  WDTCONbits.SEN = 0; // Disable the Watchdog timer
+}
+
+// See if the charger is plugged in
+
+void checkForCharging() {
+    // Read the USB voltage into the debouncer
+    ButtonProcess(&aPorts, PORTA);
+
+    // Throw it into the touch sensor value
+    charging = ButtonCurrent(&aPorts, BUTTON_PIN_5);
 }
 
 void chargeIndicator(void) {
 
     if (!debugging) ADCON0bits.ON = 1; // Turn the ADC on
-    charging = PORTAbits.RA5;
+    ///// charging = PORTAbits.RA5;
 
     // We're going to measure the fixed 1.024v internal reference against VDD (the battery voltage)
     // As we know the range is 0-1023 and we know what the fixed value is, we can calculate VDD
 
-    do {
-        ADCON0bits.GO = 1; // Start an ADC measurement
-        if (!debugging) while (ADCON0bits.GO == 1); // wait for the conversion to end (GO bit gets reset when read is complete)
-        adcVolts = ADRES;
-        if (!debugging) battVolts = ((calibrationMV * 1204) / adcVolts) / 10; // Should give us battery voltage x100 (e.g. 3.7v is 370)
+    ADCON0bits.GO = 1; // Start an ADC measurement
+    if (!debugging) while (ADCON0bits.GO == 1); // wait for the conversion to end (GO bit gets reset when read is complete)
+    adcVolts = ADRES;
+    if (!debugging) battVolts = ((calibrationMV * 1204) / adcVolts) / 10; // Should give us battery voltage x100 (e.g. 3.7v is 370)
 
-        if (battVolts > 415) {
-            // Battery is over 4.15v (95%)
-            // Fully charged, so show all the LEDs
-            LATA1 = 0;
-            LATA2 = 0;
-            LATC0 = 0;
-            LATC1 = 0;
-            if (charging) lowPowerMode = 1; // Our work here is done, go to sleep and leave the lights on
-        } else if (battVolts > 398) {
-            // Battery is over 3.98v (75%)
-            // 3 LEDs on, #4 blinky
-            LATA1 = 0;
-            LATA2 = 0;
-            LATC0 = 0;
-            if (charging) {
-                if (chargeCycle) LATC1 = 0;
-                else LATC1 = 1;
-            }
-        } else if (battVolts > 384) {
-            // Battery is over 3.84v (50%)
-            // 2 LEDs on, #3 blinky
-            LATA1 = 0;
-            LATA2 = 0;
-            if (charging) {
-                if (chargeCycle) LATC0 = 0;
-                else LATC0 = 1;
-            }
-            LATC1 = 1;
-        } else if (battVolts > 375) {
-            // Battery is over 3.75v (25%)
-            // 1 LED on, #2 blinky
-            LATA1 = 0;
-            if (charging) {
-                if (chargeCycle) LATA2 = 0;
-                else LATA2 = 1;
-            }
-            LATC0 = 1;
-            LATC1 = 1;
-        } else {
-            // Battery is below 25% so just blink LED 1
-            if (chargeCycle) LATA1 = 0;
-            else LATA1 = 1;
-            LATA2 = 1;
-            LATC0 = 1;
-            LATC1 = 1;
-        }
+    if (battVolts > 415) {
+        // Battery is over 4.15v (95%)
+        // Fully charged, so show all the LEDs
+        LATA1 = 0;
+        LATA2 = 0;
+        LATC0 = 0;
+        LATC1 = 0;
+        if (charging) lowPowerMode = 1; // Our work here is done, go to sleep and leave the lights on
+    } else if (battVolts > 398) {
+        // Battery is over 3.98v (75%)
+        // 3 LEDs on, #4 blinky
+        LATA1 = 0;
+        LATA2 = 0;
+        LATC0 = 0;
         if (charging) {
-            chargeCycle ^= 1; // Invert the value
-            // wait before updating the LEDs
-            blockingDelay(500);
-            // See if we're still charging
-            charging = PORTAbits.RA5;
+            if (chargeCycle) LATC1 = 0;
+            else LATC1 = 1;
         }
-    } while (charging); // While charger is connected
-}
-
-// The "Imperial March" tune
-// As requested by Aceflamez00 on reddit
-
-void imperialMarch(void) {
-
-    playNote(A1, 250);
-
-    playNote(SILENCE, 750);
-
-    playNote(A1, 250);
-
-    playNote(SILENCE, 750);
-
-    playNote(A1, 250);
-
-    playNote(SILENCE, 750);
-
-    playNote(A1, 250);
-    playNote(SILENCE, 75);
-
-    playNote(C2, 125);
-    playNote(SILENCE, 100);
-    playNote(C2, 125);
-    playNote(SILENCE, 100);
-    playNote(C2, 125);
-    playNote(SILENCE, 100);
-
-    playNote(A1, 250);
-
-    playNote(SILENCE, 750);
-
-    playNote(A1, 250);
-
-    playNote(SILENCE, 750);
-
-    playNote(A1, 250);
-
-    playNote(SILENCE, 750);
-
-    playNote(A1, 250);
-    playNote(SILENCE, 75);
-
-    playNote(C2, 125);
-    playNote(SILENCE, 100);
-    playNote(C2, 125);
-    playNote(SILENCE, 100);
-    playNote(C2, 125);
-    playNote(SILENCE, 100);
-
-
-    playNote(A1, 250);
-
-    playNote(SILENCE, 750);
-
-    playNote(A1, 250);
-
-    playNote(SILENCE, 750);
-
-    playNote(A1, 250);
-
-    playNote(SILENCE, 750);
-
-    playNote(A1, 250);
-    playNote(SILENCE, 75);
-
-    playNote(C2, 125);
-    playNote(SILENCE, 100);
-    playNote(C2, 125);
-    playNote(SILENCE, 100);
-    playNote(C2, 125);
-    playNote(SILENCE, 100);
-
-    playNote(A1, 250);
-
-    playNote(SILENCE, 750);
-
-    playNote(A1, 250);
-
-    playNote(SILENCE, 750);
-
-    playNote(A1, 250);
-
-    playNote(SILENCE, 750);
-
-    playNote(A1, 250);
-    playNote(SILENCE, 75);
-
-    playNote(Ab1, 125);
-    playNote(SILENCE, 100);
-    playNote(Ab1, 125);
-    playNote(SILENCE, 100);
-    playNote(Ab1, 125);
-    playNote(SILENCE, 100);
-
-    playNote(A2, 500);
-    playNote(SILENCE, 500);
-
-    playNote(A2, 500);
-    playNote(SILENCE, 500);
-
-    playNote(A2, 500);
-    playNote(SILENCE, 500);
-
-    playNote(F2, 500);
-    playNote(SILENCE, 250);
-
-    playNote(C3, 250);
-    playNote(A2, 500);
-    playNote(SILENCE, 500);
-
-    playNote(F2, 500);
-    playNote(SILENCE, 250);
-
-    playNote(C3, 250);
-    playNote(A2, 750);
-    playNote(SILENCE, 1250);
-
-    playNote(E3, 500);
-    playNote(SILENCE, 500);
-
-    playNote(E3, 500);
-    playNote(SILENCE, 500);
-
-    playNote(E3, 500);
-    playNote(SILENCE, 500);
-
-    playNote(F3, 500);
-    playNote(SILENCE, 250);
-
-    playNote(C3, 250);
-    playNote(Ab2, 500);
-    playNote(SILENCE, 500);
-
-    playNote(F2, 500);
-    playNote(SILENCE, 250);
-
-    playNote(C3, 250);
-    playNote(A2, 750);
-    playNote(SILENCE, 1000);
-
-    playNote(A3, 500);
-    playNote(SILENCE, 500);
-
-    playNote(A2, 500);
-    playNote(SILENCE, 250);
-
-    playNote(A2, 250);
-    playNote(A3, 500);
-    playNote(SILENCE, 500);
-
-    playNote(Ab3, 500);
-    playNote(SILENCE, 250);
-
-    playNote(G3, 250);
-    playNote(Gb3, 250);
-    playNote(F3, 250);
-    playNote(Gb3, 500);
-    playNote(SILENCE, 500);
-
-    playNote(Db3, 500);
-    playNote(F3, 750);
-    playNote(SILENCE, 250);
-
-    playNote(E3, 500);
-    playNote(SILENCE, 250);
-
-    playNote(Eb3, 250);
-    playNote(D3, 250);
-    playNote(Db3, 250);
-    playNote(D3, 500);
-    playNote(SILENCE, 500);
-
-    playNote(A2, 500);
-    playNote(C3, 500);
-    playNote(SILENCE, 500);
-
-    playNote(F2, 500);
-    playNote(SILENCE, 250);
-
-    playNote(C3, 250);
-    playNote(A2, 500);
-    playNote(SILENCE, 500);
-
-    playNote(F2, 500);
-    playNote(SILENCE, 250);
-
-    playNote(C3, 250);
-    playNote(A2, 750);
-    playNote(SILENCE, 1250);
-
-}
-
-void cantinaBand(void) {
-    playNote(B1, 250);
-    playNote(SILENCE, 250);
-
-    playNote(E2, 250);
-    playNote(SILENCE, 250);
-
-    playNote(B1, 250);
-    playNote(SILENCE, 250);
-
-    playNote(E2, 250);
-    playNote(SILENCE, 250);
-
-    playNote(B1, 250);
-    playNote(E2, 250);
-    playNote(SILENCE, 250);
-
-    playNote(B1, 400);
-    playNote(SILENCE, 100);
-
-    playNote(Bb1, 250);
-    playNote(B1, 250);
-    playNote(SILENCE, 250);
-
-    playNote(B1, 250);
-    playNote(Bb1, 250);
-    playNote(B1, 250);
-    playNote(A1, 350);
-    playNote(SILENCE, 150);
-
-    playNote(Ab1, 250);
-    playNote(A1, 250);
-    playNote(SILENCE, 250);
-
-    playNote(G1, 450);
-    playNote(SILENCE, 550);
-
-    playNote(E1, 350);
-    playNote(SILENCE, 650);
-
-    //
-
-    playNote(B1, 250);
-    playNote(SILENCE, 250);
-
-    playNote(E2, 250);
-    playNote(SILENCE, 250);
-
-    playNote(B1, 250);
-    playNote(SILENCE, 250);
-
-    playNote(E2, 250);
-    playNote(SILENCE, 250);
-
-    playNote(B1, 250);
-    playNote(E2, 250);
-    playNote(SILENCE, 250);
-
-    playNote(B1, 400);
-    playNote(SILENCE, 100);
-
-    playNote(Bb1, 250);
-    playNote(B1, 250);
-    playNote(SILENCE, 250);
-
-    playNote(A1, 250);
-    playNote(SILENCE, 250);
-
-    playNote(A1, 250);
-    playNote(SILENCE, 500);
-
-    playNote(A1, 250);
-    playNote(A1, 250);
-
-    playNote(SILENCE, 250);
-
-    playNote(D2, 250);
-    playNote(SILENCE, 250);
-
-    playNote(C2, 250);
-    playNote(SILENCE, 250);
-
-    playNote(B1, 250);
-    playNote(SILENCE, 250);
-
-    playNote(A1, 250);
-    playNote(SILENCE, 250);
-
-
-    playNote(B1, 250);
-    playNote(SILENCE, 250);
-
-    playNote(E2, 250);
-    playNote(SILENCE, 250);
-
-
-    playNote(B1, 250);
-    playNote(SILENCE, 250);
-
-    playNote(E2, 250);
-    playNote(SILENCE, 250);
-
-    playNote(B1, 250);
-    playNote(E2, 250);
-    playNote(SILENCE, 250);
-
-    playNote(B1, 500);
-
-
-    playNote(Bb1, 250);
-    playNote(B1, 250);
-    playNote(SILENCE, 250);
-
-    playNote(B1, 250);
-    playNote(Bb1, 250);
-    playNote(B1, 250);
-    playNote(A1, 250);
-    playNote(SILENCE, 250);
-
-    playNote(Ab1, 250);
-    playNote(A1, 250);
-    playNote(SILENCE, 250);
-
-    playNote(G1, 250);
-    playNote(SILENCE, 750);
-
-    playNote(E1, 250);
-    playNote(SILENCE, 750);
-
-    playNote(E1, 250);
-    playNote(SILENCE, 750);
-
-    playNote(G1, 250);
-    playNote(SILENCE, 750);
-
-    playNote(B1, 250);
-    playNote(SILENCE, 750);
-
-    playNote(D2, 250);
-    playNote(SILENCE, 750);
-
-    playNote(F2, 250);
-    playNote(SILENCE, 250);
-
-    playNote(E2, 250);
-    playNote(SILENCE, 250);
-
-    playNote(Bb1, 250);
-    playNote(B1, 250);
-    playNote(SILENCE, 250);
-
-    playNote(G1, 500);
-    playNote(SILENCE, 250);
-
-}
-
-// Gargoyles theme
-
-void gargoyles(void) {
-    playNote(M65, 1598);
-    playNote(M63, 398);
-    playNote(M61, 398);
-    playNote(M60, 398);
-    playNote(M58, 398);
-    playNote(M66, 1988);
-    playNote(M65, 198);
-    playNote(M63, 198);
-    playNote(M60, 1465);
-    playNote(SILENCE, 133);
-    playNote(M65, 1598);
-    playNote(M61, 398);
-    playNote(M63, 398);
-    playNote(M65, 398);
-    playNote(M63, 398);
-    playNote(M63, 798);
-    playNote(M66, 798);
-    playNote(M69, 1465);
-    playNote(SILENCE, 133);
-    playNote(M58, 1598);
-    playNote(M58, 398);
-    playNote(M60, 398);
-    playNote(M61, 398);
-    playNote(M58, 398);
-    playNote(M63, 798);
-    playNote(M66, 798);
-    playNote(M65, 798);
-    playNote(M69, 798);
-    playNote(M70, 1598);
+    } else if (battVolts > 384) {
+        // Battery is over 3.84v (50%)
+        // 2 LEDs on, #3 blinky
+        LATA1 = 0;
+        LATA2 = 0;
+        if (charging) {
+            if (chargeCycle) LATC0 = 0;
+            else LATC0 = 1;
+        }
+        LATC1 = 1;
+    } else if (battVolts > 375) {
+        // Battery is over 3.75v (25%)
+        // 1 LED on, #2 blinky
+        LATA1 = 0;
+        if (charging) {
+            if (chargeCycle) LATA2 = 0;
+            else LATA2 = 1;
+        }
+        LATC0 = 1;
+        LATC1 = 1;
+    } else {
+        // Battery is below 25% so just blink LED 1
+        if (chargeCycle) LATA1 = 0;
+        else LATA1 = 1;
+        LATA2 = 1;
+        LATC0 = 1;
+        LATC1 = 1;
+    }
+    if (charging) {
+        chargeCycle ^= 1; // Invert the value
+        // wait before updating the LEDs
+        blockingDelay(500);
+        // See if we're still charging
+    }
 }
 
 // She-Ra: Princess of Power transformation theme
@@ -1040,8 +633,10 @@ void gargoyles(void) {
 void sheRa(void) {
     playNote(M58, 216);
     playNote(M60, 216);
-    playNote(M61, 433);
-    playNote(M65, 444);
+    playNote(M61, 412);
+    playNote(SILENCE, 21);
+    playNote(M65, 423);
+    playNote(SILENCE, 21);
     playNote(M66, 651);
     playNote(M65, 107);
     playNote(M63, 107);
@@ -1051,8 +646,10 @@ void sheRa(void) {
     playNote(M60, 216);
     playNote(M61, 433);
     playNote(M65, 433);
-    playNote(M70, 433);
-    playNote(M68, 433);
+    playNote(M70, 412);
+    playNote(SILENCE, 21);
+    playNote(M68, 412);
+    playNote(SILENCE, 21);
     playNote(M65, 868);
     playNote(SILENCE, 433);
     playNote(M58, 216);
@@ -1063,13 +660,16 @@ void sheRa(void) {
     playNote(M65, 107);
     playNote(M63, 107);
     playNote(M65, 868);
-    playNote(M66, 325);
-    playNote(M65, 325);
-    playNote(M66, 216);
+    playNote(M66, 303);
+    playNote(SILENCE, 21);
+    playNote(M65, 303);
+    playNote(SILENCE, 21);
+    playNote(M66, 194);
+    playNote(SILENCE, 21);
     playNote(M68, 651);
     playNote(M65, 98);
     playNote(M63, 107);
-    playNote(M63, 1738);
+    playNote(M65, 1738);
     playNote(SILENCE, 433);
     playNote(M67, 216);
     playNote(M69, 216);
@@ -1078,12 +678,134 @@ void sheRa(void) {
     playNote(M75, 651);
     playNote(M74, 107);
     playNote(M72, 107);
-    playNote(M74, 868);
-    playNote(M75, 325);
-    playNote(M74, 325);
-    playNote(M75, 216);
-    playNote(M77, 651);
+    playNote(M74, 846);
+    playNote(SILENCE, 21);
+    playNote(M75, 303);
+    playNote(SILENCE, 21);
+    playNote(M74, 303);
+    playNote(SILENCE, 21);
+    playNote(M75, 194);
+    playNote(SILENCE, 21);
+    playNote(M77, 629);
+    playNote(SILENCE, 21);
     playNote(M79, 107);
     playNote(M81, 107);
     playNote(M82, 1738);
+}
+
+// Gargoyles theme
+
+void gargoyles(void) {
+    playNote(M65, 1598);
+    playNote(M63, 358);
+    playNote(SILENCE, 40);
+    playNote(M61, 358);
+    playNote(SILENCE, 40);
+    playNote(M60, 358);
+    playNote(SILENCE, 40);
+    playNote(M58, 358);
+    playNote(SILENCE, 40);
+    playNote(M66, 1198);
+    playNote(M65, 198);
+    playNote(M63, 198);
+    playNote(M60, 1385);
+    playNote(SILENCE, 80);
+    playNote(M65, 1598);
+    playNote(M61, 378);
+    playNote(SILENCE, 20);
+    playNote(M63, 378);
+    playNote(SILENCE, 20);
+    playNote(M65, 378);
+    playNote(SILENCE, 20);
+    playNote(M63, 378);
+    playNote(SILENCE, 20);
+    playNote(M63, 758);
+    playNote(SILENCE, 40);
+    playNote(M66, 758);
+    playNote(SILENCE, 40);
+    playNote(M69, 1385);
+    playNote(SILENCE, 80);
+    playNote(M61, 778);
+    playNote(SILENCE, 20);
+    playNote(M60, 378);
+    playNote(SILENCE, 20);
+    playNote(M58, 358);
+    playNote(SILENCE, 40);
+    playNote(M60, 798);
+    playNote(M63, 758);
+    playNote(SILENCE, 40);
+    playNote(M63, 758);
+    playNote(SILENCE, 40);
+    playNote(M61, 358);
+    playNote(SILENCE, 40);
+    playNote(M60, 358);
+    playNote(SILENCE, 40);
+    playNote(M61, 798);
+    playNote(M65, 758);
+    playNote(SILENCE, 40);
+    playNote(M65, 758);
+    playNote(SILENCE, 40);
+    playNote(M64, 358);
+    playNote(SILENCE, 40);
+    playNote(M62, 358);
+    playNote(SILENCE, 40);
+    playNote(M64, 798);
+    playNote(M67, 758);
+    playNote(SILENCE, 40);
+    playNote(M67, 758);
+    playNote(SILENCE, 40);
+    playNote(M65, 358);
+    playNote(SILENCE, 40);
+    playNote(M64, 358);
+    playNote(SILENCE, 40);
+    playNote(M69, 1518);
+    playNote(SILENCE, 80);
+    playNote(M65, 1598);
+    playNote(M63, 358);
+    playNote(SILENCE, 40);
+    playNote(M61, 358);
+    playNote(SILENCE, 40);
+    playNote(M60, 358);
+    playNote(SILENCE, 40);
+    playNote(M58, 358);
+    playNote(SILENCE, 40);
+    playNote(M66, 1198);
+    playNote(M65, 198);
+    playNote(M63, 198);
+    playNote(M60, 1385);
+    playNote(SILENCE, 80);
+    playNote(M65, 1598);
+    playNote(M61, 378);
+    playNote(SILENCE, 20);
+    playNote(M63, 378);
+    playNote(SILENCE, 20);
+    playNote(M65, 378);
+    playNote(SILENCE, 20);
+    playNote(M63, 378);
+    playNote(SILENCE, 20);
+    playNote(M63, 758);
+    playNote(SILENCE, 40);
+    playNote(M66, 758);
+    playNote(SILENCE, 40);
+    playNote(M69, 1465);
+    playNote(SILENCE, 40);
+    playNote(M70, 778);
+    playNote(SILENCE, 20);
+    playNote(M70, 111);
+    playNote(SILENCE, 20);
+    playNote(M70, 111);
+    playNote(SILENCE, 20);
+    playNote(M70, 111);
+    playNote(SILENCE, 20);
+    playNote(M70, 778);
+    playNote(SILENCE, 20);
+    playNote(M70, 111);
+    playNote(SILENCE, 20);
+    playNote(M70, 111);
+    playNote(SILENCE, 20);
+    playNote(M70, 111);
+    playNote(SILENCE, 20);
+    playNote(M70, 111);
+    playNote(SILENCE, 20);
+    playNote(M70, 798);
 }

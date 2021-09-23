@@ -5535,11 +5535,53 @@ extern __bank0 __bit __timeout;
 # 29 "C:/Users/dinku/.mchp_packs/Microchip/PIC16F1xxxx_DFP/1.8.149/xc8\\pic\\include\\xc.h" 2 3
 # 45 "main.c" 2
 
+# 1 "./button_debounce.h" 1
+# 92 "./button_debounce.h"
+typedef struct
+{
+
+
+
+    uint8_t state[8];
+
+
+
+
+    uint8_t index;
+
+
+
+
+    uint8_t debouncedState;
+
+
+
+
+    uint8_t changed;
+
+
+
+
+    uint8_t pullType;
+}
+Debouncer;
+# 143 "./button_debounce.h"
+extern void ButtonDebounceInit(Debouncer *port, uint8_t pulledUpButtons);
+# 157 "./button_debounce.h"
+extern void ButtonProcess(Debouncer *port, uint8_t portStatus);
+# 175 "./button_debounce.h"
+extern uint8_t ButtonPressed(Debouncer *port, uint8_t GPIOButtonPins);
+# 193 "./button_debounce.h"
+extern uint8_t ButtonReleased(Debouncer *port, uint8_t GPIOButtonPins);
+# 211 "./button_debounce.h"
+extern uint8_t ButtonCurrent(Debouncer *port, uint8_t GPIOButtonPins);
+# 46 "main.c" 2
+
 
 
 #pragma config RSTOSC = 0b00
 
-#pragma config WDTE = 0b00
+#pragma config WDTE = 0b01
 
 #pragma config MCLRE = 0
 #pragma config CP = OFF
@@ -5557,7 +5599,7 @@ extern __bank0 __bit __timeout;
 
 
 #pragma config LVP = OFF
-# 170 "main.c"
+# 131 "main.c"
 const unsigned char notes[36] = {
     0xED, 0xE0, 0xD3, 0xC7, 0xBD, 0xB2, 0xA8, 0x9E, 0x96, 0x8D, 0x85, 0x7D,
     0x76, 0x70, 0x6A, 0x63, 0x5E, 0x59, 0x54, 0x4F, 0x4B, 0x46, 0x42, 0x3F,
@@ -5567,30 +5609,37 @@ const unsigned char notes[36] = {
 
 
 
-unsigned char clockDivider = 0;
 unsigned char debugging = 0;
 
+
+unsigned char clockDivider = 0;
+unsigned char buttonDebounce = 0;
 
 __bit pinState = 0;
 unsigned forceArc = 0;
 unsigned gate = 0;
 unsigned noGate = 1;
+unsigned abortAbort = 0;
 
 unsigned postscaler = 0;
 unsigned int playIndex = 0;
 unsigned int genericDelay = 0;
 
-unsigned char poweredOn = 0;
-unsigned char showCharge = 0;
-unsigned char doingTheArc = 0;
-unsigned char lowPowerMode = 0;
+unsigned int poweredOn = 0;
+unsigned int showCharge = 0;
+unsigned int lowPowerMode = 0;
+
+unsigned int lidOpen = 0;
+unsigned int gotTheTouch = 0;
+unsigned int charging = 0;
+
+Debouncer aPorts;
 
 unsigned char runIndex = 0;
 
 unsigned int battVolts = 0;
 unsigned char chargeCycle = 0;
 unsigned int adcVolts = 0;
-unsigned char charging = 0;
 unsigned long calibrationMV = 0;
 
 
@@ -5598,6 +5647,7 @@ void doTheArc(void);
 void blockingDelay(unsigned int mSecs);
 void playNote(unsigned char note, unsigned int duration);
 void goToLPmode(void);
+void checkForCharging(void);
 void chargeIndicator(void);
 
 void imperialMarch(void);
@@ -5623,6 +5673,7 @@ int main(int argc, char** argv) {
 
 
     ANSELC = 0x0;
+
 
 
     TRISA0 = 1;
@@ -5651,12 +5702,15 @@ int main(int argc, char** argv) {
     LATC5 = 0;
 
 
+    ButtonDebounceInit(&aPorts, (0x0001) | (0x0008));
 
 
 
 
-    OSCENbits.HFOEN = 1;
+
+
     OSCFRQbits.FRQ = 0b101;
+    OSCENbits.HFOEN = 1;
 
 
 
@@ -5664,12 +5718,13 @@ int main(int argc, char** argv) {
     T0CON0bits.OUTPS = 0b0000;
     T0CON1bits.CS = 0b010;
     T0CON1bits.ASYNC = 0;
+    T0CON1bits.CKPS = 0b0001;
     T0CON0bits.EN = 1;
 
 
-    PR2 = 0x1E;
+    PR2 = 0xFF;
     T2CLKCON = 0b001;
-    T2CONbits.T2CKPS = 0b111;
+    T2CONbits.T2CKPS = 0b110;
     T2HLTbits.PSYNC = 1;
     T2CONbits.TMR2ON = 1;
 
@@ -5698,13 +5753,9 @@ int main(int argc, char** argv) {
 
 
     if (!debugging) ADCON0bits.ON = 1;
-# 322 "main.c"
+# 296 "main.c"
     IOCAN0 = 1;
     IOCAP0 = 1;
-    IOCAN3 = 1;
-    IOCAP3 = 1;
-    IOCAN5 = 1;
-    IOCAP5 = 1;
     INTE = 0;
 
     PEIE = 1;
@@ -5724,11 +5775,9 @@ int main(int argc, char** argv) {
     blockingDelay(100);
     LATC2 = 1;
 
-    if (PORTAbits.RA5) showCharge = 1;
-
 
     do {
-        if (doingTheArc) doTheArc();
+        if (gotTheTouch) doTheArc();
         if (showCharge) chargeIndicator();
         if (poweredOn) {
 
@@ -5742,7 +5791,7 @@ int main(int argc, char** argv) {
             LATC3 = 0;
         }
         if (lowPowerMode) goToLPmode();
-        __asm("sleep");
+# 348 "main.c"
     } while (1);
     return (0);
 }
@@ -5755,19 +5804,23 @@ static void __attribute__((picinterrupt(("")))) isr(void) {
     if (PIR0bits.IOCIF) {
 
 
+
         if (IOCAF5) {
             IOCAF5 = 0;
+
             if (PORTAbits.RA5) {
 
                 poweredOn = 0;
                 showCharge = 1;
-                doingTheArc = 0;
+                gotTheTouch = 0;
                 lowPowerMode = 0;
             } else {
 
                 poweredOn = 0;
-                lowPowerMode = 1;
-                showCharge = 0;
+                showCharge = 1;
+                gotTheTouch = 0;
+                lowPowerMode = 0;
+                WDTCONbits.SEN = 0;
             }
         }
 
@@ -5786,25 +5839,6 @@ static void __attribute__((picinterrupt(("")))) isr(void) {
                 showCharge = 0;
                 poweredOn = 0;
                 lowPowerMode = 1;
-            }
-        }
-
-
-        if (IOCAF3) {
-            IOCAF3 = 0;
-
-            if (!PORTAbits.RA3 && !PORTAbits.RA0 && !PORTAbits.RA5) {
-                lowPowerMode = 0;
-                showCharge = 0;
-                doingTheArc = 1;
-            }
-
-
-            if (PORTAbits.RA3 && !PORTAbits.RA5) {
-                lowPowerMode = 0;
-                doingTheArc = 0;
-                poweredOn = 1;
-                showCharge = 1;
             }
         }
     }
@@ -5832,9 +5866,28 @@ static void __attribute__((picinterrupt(("")))) isr(void) {
         if (clockDivider < 15) {
             clockDivider++;
         } else {
-            if (genericDelay > 0) genericDelay--;
-            if (debugging) clockDivider = 15;
-            else clockDivider = 0;
+
+            if (debugging) genericDelay = 0;
+            else if (genericDelay > 0) genericDelay--;
+            clockDivider = 0;
+
+
+            if (poweredOn) {
+                if (buttonDebounce < 5) buttonDebounce++;
+                else {
+
+
+
+                    ButtonProcess(&aPorts, PORTA);
+
+
+                    gotTheTouch = ButtonCurrent(&aPorts, (0x0008));
+                    if (!gotTheTouch) {
+
+
+                    }
+                }
+            }
         }
 
 
@@ -5866,20 +5919,19 @@ void doTheArc() {
             LATA2 = 1;
             LATC0 = 1;
             LATC1 = 1;
-            while(doingTheArc);
-
+            while (gotTheTouch);
             break;
 
         case 2:
 
-            LATA1 = 1;
-            LATA2 = 0;
-            LATC0 = 1;
-            LATC1 = 1;
+            LATA1 = 0;
+            LATA2 = 1;
+            LATC0 = 0;
+            LATC1 = 0;
 
             blockingDelay(1000);
             forceArc = 0;
-            imperialMarch();
+            sheRa();
             forceArc = 0;
             break;
 
@@ -5896,37 +5948,25 @@ void doTheArc() {
             forceArc = 0;
             break;
 
-        case 4:
-
-            LATA1 = 1;
-            LATA2 = 1;
-            LATC0 = 1;
-            LATC1 = 0;
-
-            blockingDelay(1000);
-            forceArc = 0;
-            sheRa();
-            forceArc = 0;
-            break;
-
         default:
             break;
     }
+
+    poweredOn = 0;
+
 }
 
 
 
 void blockingDelay(unsigned int mSecs) {
-
-    if (debugging) genericDelay = 1;
-    else genericDelay = mSecs;
+    genericDelay = mSecs;
     while (genericDelay > 0);
 }
 
 
 
 void playNote(unsigned char note, unsigned int duration) {
-    if (doingTheArc) {
+    if (gotTheTouch) {
         if (note > 0) {
             noGate = 0;
             PR2 = notes[note];
@@ -5934,16 +5974,14 @@ void playNote(unsigned char note, unsigned int duration) {
             noGate = 1;
         }
         blockingDelay(duration);
-    } else {
-        forceArc = 0;
-    }
+    } else noGate = 1;
 }
 
 
 
 void goToLPmode() {
     forceArc = 0;
-# 577 "main.c"
+
     LATC3 = 0;
 
 
@@ -5952,458 +5990,89 @@ void goToLPmode() {
     LATC0 = 1;
     LATC1 = 1;
     LATC2 = 1;
+
+
+    WDTCONbits.PS = 0b01101;
+
+    __asm("sleep");
+
+}
+
+
+
+void checkForCharging() {
+
+    ButtonProcess(&aPorts, PORTA);
+
+
+    charging = ButtonCurrent(&aPorts, (0x0020));
 }
 
 void chargeIndicator(void) {
 
     if (!debugging) ADCON0bits.ON = 1;
-    charging = PORTAbits.RA5;
 
 
 
 
-    do {
-        ADCON0bits.GO = 1;
-        if (!debugging) while (ADCON0bits.GO == 1);
-        adcVolts = ADRES;
-        if (!debugging) battVolts = ((calibrationMV * 1204) / adcVolts) / 10;
 
-        if (battVolts > 415) {
+    ADCON0bits.GO = 1;
+    if (!debugging) while (ADCON0bits.GO == 1);
+    adcVolts = ADRES;
+    if (!debugging) battVolts = ((calibrationMV * 1204) / adcVolts) / 10;
 
-
-            LATA1 = 0;
-            LATA2 = 0;
-            LATC0 = 0;
-            LATC1 = 0;
-            if (charging) lowPowerMode = 1;
-        } else if (battVolts > 398) {
+    if (battVolts > 415) {
 
 
-            LATA1 = 0;
-            LATA2 = 0;
-            LATC0 = 0;
-            if (charging) {
-                if (chargeCycle) LATC1 = 0;
-                else LATC1 = 1;
-            }
-        } else if (battVolts > 384) {
+        LATA1 = 0;
+        LATA2 = 0;
+        LATC0 = 0;
+        LATC1 = 0;
+        if (charging) lowPowerMode = 1;
+    } else if (battVolts > 398) {
 
 
-            LATA1 = 0;
-            LATA2 = 0;
-            if (charging) {
-                if (chargeCycle) LATC0 = 0;
-                else LATC0 = 1;
-            }
-            LATC1 = 1;
-        } else if (battVolts > 375) {
-
-
-            LATA1 = 0;
-            if (charging) {
-                if (chargeCycle) LATA2 = 0;
-                else LATA2 = 1;
-            }
-            LATC0 = 1;
-            LATC1 = 1;
-        } else {
-
-            if (chargeCycle) LATA1 = 0;
-            else LATA1 = 1;
-            LATA2 = 1;
-            LATC0 = 1;
-            LATC1 = 1;
-        }
+        LATA1 = 0;
+        LATA2 = 0;
+        LATC0 = 0;
         if (charging) {
-            chargeCycle ^= 1;
-
-            blockingDelay(500);
-
-            charging = PORTAbits.RA5;
+            if (chargeCycle) LATC1 = 0;
+            else LATC1 = 1;
         }
-    } while (charging);
-}
-
-
-
-
-void imperialMarch(void) {
-
-    playNote(0x0A, 250);
-
-    playNote(0x00, 750);
-
-    playNote(0x0A, 250);
-
-    playNote(0x00, 750);
-
-    playNote(0x0A, 250);
-
-    playNote(0x00, 750);
-
-    playNote(0x0A, 250);
-    playNote(0x00, 75);
-
-    playNote(0x0D, 125);
-    playNote(0x00, 100);
-    playNote(0x0D, 125);
-    playNote(0x00, 100);
-    playNote(0x0D, 125);
-    playNote(0x00, 100);
-
-    playNote(0x0A, 250);
-
-    playNote(0x00, 750);
-
-    playNote(0x0A, 250);
-
-    playNote(0x00, 750);
-
-    playNote(0x0A, 250);
-
-    playNote(0x00, 750);
-
-    playNote(0x0A, 250);
-    playNote(0x00, 75);
-
-    playNote(0x0D, 125);
-    playNote(0x00, 100);
-    playNote(0x0D, 125);
-    playNote(0x00, 100);
-    playNote(0x0D, 125);
-    playNote(0x00, 100);
-
-
-    playNote(0x0A, 250);
-
-    playNote(0x00, 750);
-
-    playNote(0x0A, 250);
-
-    playNote(0x00, 750);
-
-    playNote(0x0A, 250);
-
-    playNote(0x00, 750);
-
-    playNote(0x0A, 250);
-    playNote(0x00, 75);
-
-    playNote(0x0D, 125);
-    playNote(0x00, 100);
-    playNote(0x0D, 125);
-    playNote(0x00, 100);
-    playNote(0x0D, 125);
-    playNote(0x00, 100);
-
-    playNote(0x0A, 250);
-
-    playNote(0x00, 750);
-
-    playNote(0x0A, 250);
-
-    playNote(0x00, 750);
-
-    playNote(0x0A, 250);
-
-    playNote(0x00, 750);
-
-    playNote(0x0A, 250);
-    playNote(0x00, 75);
-
-    playNote(0x09, 125);
-    playNote(0x00, 100);
-    playNote(0x09, 125);
-    playNote(0x00, 100);
-    playNote(0x09, 125);
-    playNote(0x00, 100);
-
-    playNote(0x16, 500);
-    playNote(0x00, 500);
-
-    playNote(0x16, 500);
-    playNote(0x00, 500);
-
-    playNote(0x16, 500);
-    playNote(0x00, 500);
-
-    playNote(0x12, 500);
-    playNote(0x00, 250);
-
-    playNote(0x19, 250);
-    playNote(0x16, 500);
-    playNote(0x00, 500);
-
-    playNote(0x12, 500);
-    playNote(0x00, 250);
-
-    playNote(0x19, 250);
-    playNote(0x16, 750);
-    playNote(0x00, 1250);
-
-    playNote(0x1D, 500);
-    playNote(0x00, 500);
-
-    playNote(0x1D, 500);
-    playNote(0x00, 500);
-
-    playNote(0x1D, 500);
-    playNote(0x00, 500);
-
-    playNote(0x1E, 500);
-    playNote(0x00, 250);
-
-    playNote(0x19, 250);
-    playNote(0x15, 500);
-    playNote(0x00, 500);
-
-    playNote(0x12, 500);
-    playNote(0x00, 250);
-
-    playNote(0x19, 250);
-    playNote(0x16, 750);
-    playNote(0x00, 1000);
-
-    playNote(0x22, 500);
-    playNote(0x00, 500);
-
-    playNote(0x16, 500);
-    playNote(0x00, 250);
-
-    playNote(0x16, 250);
-    playNote(0x22, 500);
-    playNote(0x00, 500);
-
-    playNote(0x21, 500);
-    playNote(0x00, 250);
-
-    playNote(0x20, 250);
-    playNote(0x1F, 250);
-    playNote(0x1E, 250);
-    playNote(0x1F, 500);
-    playNote(0x00, 500);
-
-    playNote(0x1A, 500);
-    playNote(0x1E, 750);
-    playNote(0x00, 250);
-
-    playNote(0x1D, 500);
-    playNote(0x00, 250);
-
-    playNote(0x1C, 250);
-    playNote(0x1B, 250);
-    playNote(0x1A, 250);
-    playNote(0x1B, 500);
-    playNote(0x00, 500);
-
-    playNote(0x16, 500);
-    playNote(0x19, 500);
-    playNote(0x00, 500);
-
-    playNote(0x12, 500);
-    playNote(0x00, 250);
-
-    playNote(0x19, 250);
-    playNote(0x16, 500);
-    playNote(0x00, 500);
-
-    playNote(0x12, 500);
-    playNote(0x00, 250);
-
-    playNote(0x19, 250);
-    playNote(0x16, 750);
-    playNote(0x00, 1250);
-
-}
-
-void cantinaBand(void) {
-    playNote(0x0C, 250);
-    playNote(0x00, 250);
-
-    playNote(0x11, 250);
-    playNote(0x00, 250);
-
-    playNote(0x0C, 250);
-    playNote(0x00, 250);
-
-    playNote(0x11, 250);
-    playNote(0x00, 250);
-
-    playNote(0x0C, 250);
-    playNote(0x11, 250);
-    playNote(0x00, 250);
-
-    playNote(0x0C, 400);
-    playNote(0x00, 100);
-
-    playNote(0x0B, 250);
-    playNote(0x0C, 250);
-    playNote(0x00, 250);
-
-    playNote(0x0C, 250);
-    playNote(0x0B, 250);
-    playNote(0x0C, 250);
-    playNote(0x0A, 350);
-    playNote(0x00, 150);
-
-    playNote(0x09, 250);
-    playNote(0x0A, 250);
-    playNote(0x00, 250);
-
-    playNote(0x08, 450);
-    playNote(0x00, 550);
-
-    playNote(0x05, 350);
-    playNote(0x00, 650);
-
-
-
-    playNote(0x0C, 250);
-    playNote(0x00, 250);
-
-    playNote(0x11, 250);
-    playNote(0x00, 250);
-
-    playNote(0x0C, 250);
-    playNote(0x00, 250);
-
-    playNote(0x11, 250);
-    playNote(0x00, 250);
-
-    playNote(0x0C, 250);
-    playNote(0x11, 250);
-    playNote(0x00, 250);
-
-    playNote(0x0C, 400);
-    playNote(0x00, 100);
-
-    playNote(0x0B, 250);
-    playNote(0x0C, 250);
-    playNote(0x00, 250);
-
-    playNote(0x0A, 250);
-    playNote(0x00, 250);
-
-    playNote(0x0A, 250);
-    playNote(0x00, 500);
-
-    playNote(0x0A, 250);
-    playNote(0x0A, 250);
-
-    playNote(0x00, 250);
-
-    playNote(0x0F, 250);
-    playNote(0x00, 250);
-
-    playNote(0x0D, 250);
-    playNote(0x00, 250);
-
-    playNote(0x0C, 250);
-    playNote(0x00, 250);
-
-    playNote(0x0A, 250);
-    playNote(0x00, 250);
-
-
-    playNote(0x0C, 250);
-    playNote(0x00, 250);
-
-    playNote(0x11, 250);
-    playNote(0x00, 250);
-
-
-    playNote(0x0C, 250);
-    playNote(0x00, 250);
-
-    playNote(0x11, 250);
-    playNote(0x00, 250);
-
-    playNote(0x0C, 250);
-    playNote(0x11, 250);
-    playNote(0x00, 250);
-
-    playNote(0x0C, 500);
-
-
-    playNote(0x0B, 250);
-    playNote(0x0C, 250);
-    playNote(0x00, 250);
-
-    playNote(0x0C, 250);
-    playNote(0x0B, 250);
-    playNote(0x0C, 250);
-    playNote(0x0A, 250);
-    playNote(0x00, 250);
-
-    playNote(0x09, 250);
-    playNote(0x0A, 250);
-    playNote(0x00, 250);
-
-    playNote(0x08, 250);
-    playNote(0x00, 750);
-
-    playNote(0x05, 250);
-    playNote(0x00, 750);
-
-    playNote(0x05, 250);
-    playNote(0x00, 750);
-
-    playNote(0x08, 250);
-    playNote(0x00, 750);
-
-    playNote(0x0C, 250);
-    playNote(0x00, 750);
-
-    playNote(0x0F, 250);
-    playNote(0x00, 750);
-
-    playNote(0x12, 250);
-    playNote(0x00, 250);
-
-    playNote(0x11, 250);
-    playNote(0x00, 250);
-
-    playNote(0x0B, 250);
-    playNote(0x0C, 250);
-    playNote(0x00, 250);
-
-    playNote(0x08, 500);
-    playNote(0x00, 250);
-
-}
-
-
-
-void gargoyles(void) {
-    playNote(0x12, 1598);
-    playNote(0x10, 398);
-    playNote(0x0E, 398);
-    playNote(0x0D, 398);
-    playNote(0x0B, 398);
-    playNote(0x13, 1988);
-    playNote(0x12, 198);
-    playNote(0x10, 198);
-    playNote(0x0D, 1465);
-    playNote(0x00, 133);
-    playNote(0x12, 1598);
-    playNote(0x0E, 398);
-    playNote(0x10, 398);
-    playNote(0x12, 398);
-    playNote(0x10, 398);
-    playNote(0x10, 798);
-    playNote(0x13, 798);
-    playNote(0x16, 1465);
-    playNote(0x00, 133);
-    playNote(0x0B, 1598);
-    playNote(0x0B, 398);
-    playNote(0x0D, 398);
-    playNote(0x0E, 398);
-    playNote(0x0B, 398);
-    playNote(0x10, 798);
-    playNote(0x13, 798);
-    playNote(0x12, 798);
-    playNote(0x16, 798);
-    playNote(0x17, 1598);
+    } else if (battVolts > 384) {
+
+
+        LATA1 = 0;
+        LATA2 = 0;
+        if (charging) {
+            if (chargeCycle) LATC0 = 0;
+            else LATC0 = 1;
+        }
+        LATC1 = 1;
+    } else if (battVolts > 375) {
+
+
+        LATA1 = 0;
+        if (charging) {
+            if (chargeCycle) LATA2 = 0;
+            else LATA2 = 1;
+        }
+        LATC0 = 1;
+        LATC1 = 1;
+    } else {
+
+        if (chargeCycle) LATA1 = 0;
+        else LATA1 = 1;
+        LATA2 = 1;
+        LATC0 = 1;
+        LATC1 = 1;
+    }
+    if (charging) {
+        chargeCycle ^= 1;
+
+        blockingDelay(500);
+
+    }
 }
 
 
@@ -6411,8 +6080,10 @@ void gargoyles(void) {
 void sheRa(void) {
     playNote(0x0B, 216);
     playNote(0x0D, 216);
-    playNote(0x0E, 433);
-    playNote(0x12, 444);
+    playNote(0x0E, 412);
+    playNote(0x00, 21);
+    playNote(0x12, 423);
+    playNote(0x00, 21);
     playNote(0x13, 651);
     playNote(0x12, 107);
     playNote(0x10, 107);
@@ -6422,8 +6093,10 @@ void sheRa(void) {
     playNote(0x0D, 216);
     playNote(0x0E, 433);
     playNote(0x12, 433);
-    playNote(0x17, 433);
-    playNote(0x15, 433);
+    playNote(0x17, 412);
+    playNote(0x00, 21);
+    playNote(0x15, 412);
+    playNote(0x00, 21);
     playNote(0x12, 868);
     playNote(0x00, 433);
     playNote(0x0B, 216);
@@ -6434,13 +6107,16 @@ void sheRa(void) {
     playNote(0x12, 107);
     playNote(0x10, 107);
     playNote(0x12, 868);
-    playNote(0x13, 325);
-    playNote(0x12, 325);
-    playNote(0x13, 216);
+    playNote(0x13, 303);
+    playNote(0x00, 21);
+    playNote(0x12, 303);
+    playNote(0x00, 21);
+    playNote(0x13, 194);
+    playNote(0x00, 21);
     playNote(0x15, 651);
     playNote(0x12, 98);
     playNote(0x10, 107);
-    playNote(0x10, 1738);
+    playNote(0x12, 1738);
     playNote(0x00, 433);
     playNote(0x14, 216);
     playNote(0x16, 216);
@@ -6449,12 +6125,134 @@ void sheRa(void) {
     playNote(0x1C, 651);
     playNote(0x1B, 107);
     playNote(0x19, 107);
-    playNote(0x1B, 868);
-    playNote(0x1C, 325);
-    playNote(0x1B, 325);
-    playNote(0x1C, 216);
-    playNote(0x1E, 651);
+    playNote(0x1B, 846);
+    playNote(0x00, 21);
+    playNote(0x1C, 303);
+    playNote(0x00, 21);
+    playNote(0x1B, 303);
+    playNote(0x00, 21);
+    playNote(0x1C, 194);
+    playNote(0x00, 21);
+    playNote(0x1E, 629);
+    playNote(0x00, 21);
     playNote(0x20, 107);
     playNote(0x22, 107);
     playNote(0x23, 1738);
+}
+
+
+
+void gargoyles(void) {
+    playNote(0x12, 1598);
+    playNote(0x10, 358);
+    playNote(0x00, 40);
+    playNote(0x0E, 358);
+    playNote(0x00, 40);
+    playNote(0x0D, 358);
+    playNote(0x00, 40);
+    playNote(0x0B, 358);
+    playNote(0x00, 40);
+    playNote(0x13, 1198);
+    playNote(0x12, 198);
+    playNote(0x10, 198);
+    playNote(0x0D, 1385);
+    playNote(0x00, 80);
+    playNote(0x12, 1598);
+    playNote(0x0E, 378);
+    playNote(0x00, 20);
+    playNote(0x10, 378);
+    playNote(0x00, 20);
+    playNote(0x12, 378);
+    playNote(0x00, 20);
+    playNote(0x10, 378);
+    playNote(0x00, 20);
+    playNote(0x10, 758);
+    playNote(0x00, 40);
+    playNote(0x13, 758);
+    playNote(0x00, 40);
+    playNote(0x16, 1385);
+    playNote(0x00, 80);
+    playNote(0x0E, 778);
+    playNote(0x00, 20);
+    playNote(0x0D, 378);
+    playNote(0x00, 20);
+    playNote(0x0B, 358);
+    playNote(0x00, 40);
+    playNote(0x0D, 798);
+    playNote(0x10, 758);
+    playNote(0x00, 40);
+    playNote(0x10, 758);
+    playNote(0x00, 40);
+    playNote(0x0E, 358);
+    playNote(0x00, 40);
+    playNote(0x0D, 358);
+    playNote(0x00, 40);
+    playNote(0x0E, 798);
+    playNote(0x12, 758);
+    playNote(0x00, 40);
+    playNote(0x12, 758);
+    playNote(0x00, 40);
+    playNote(0x11, 358);
+    playNote(0x00, 40);
+    playNote(0x0F, 358);
+    playNote(0x00, 40);
+    playNote(0x11, 798);
+    playNote(0x14, 758);
+    playNote(0x00, 40);
+    playNote(0x14, 758);
+    playNote(0x00, 40);
+    playNote(0x12, 358);
+    playNote(0x00, 40);
+    playNote(0x11, 358);
+    playNote(0x00, 40);
+    playNote(0x16, 1518);
+    playNote(0x00, 80);
+    playNote(0x12, 1598);
+    playNote(0x10, 358);
+    playNote(0x00, 40);
+    playNote(0x0E, 358);
+    playNote(0x00, 40);
+    playNote(0x0D, 358);
+    playNote(0x00, 40);
+    playNote(0x0B, 358);
+    playNote(0x00, 40);
+    playNote(0x13, 1198);
+    playNote(0x12, 198);
+    playNote(0x10, 198);
+    playNote(0x0D, 1385);
+    playNote(0x00, 80);
+    playNote(0x12, 1598);
+    playNote(0x0E, 378);
+    playNote(0x00, 20);
+    playNote(0x10, 378);
+    playNote(0x00, 20);
+    playNote(0x12, 378);
+    playNote(0x00, 20);
+    playNote(0x10, 378);
+    playNote(0x00, 20);
+    playNote(0x10, 758);
+    playNote(0x00, 40);
+    playNote(0x13, 758);
+    playNote(0x00, 40);
+    playNote(0x16, 1465);
+    playNote(0x00, 40);
+    playNote(0x17, 778);
+    playNote(0x00, 20);
+    playNote(0x17, 111);
+    playNote(0x00, 20);
+    playNote(0x17, 111);
+    playNote(0x00, 20);
+    playNote(0x17, 111);
+    playNote(0x00, 20);
+    playNote(0x17, 778);
+    playNote(0x00, 20);
+    playNote(0x17, 111);
+    playNote(0x00, 20);
+    playNote(0x17, 111);
+    playNote(0x00, 20);
+    playNote(0x17, 111);
+    playNote(0x00, 20);
+    playNote(0x17, 111);
+    playNote(0x00, 20);
+    playNote(0x17, 798);
 }

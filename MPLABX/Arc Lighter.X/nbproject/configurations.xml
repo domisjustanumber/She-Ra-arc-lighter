@@ -18,6 +18,7 @@
                    displayName="Important Files"
                    projectFiles="false">
       <itemPath>Makefile</itemPath>
+      <itemPath>Arc_Lighter.mc3</itemPath>
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
