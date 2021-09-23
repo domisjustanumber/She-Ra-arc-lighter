@@ -5899,7 +5899,7 @@ int main(int argc, char** argv) {
     T0CON0bits.EN = 1;
 
 
-    PR2 = 0xFF;
+    PR2 = 0x24;
     T2CLKCON = 0b001;
     T2CONbits.T2CKPS = 0b110;
     T2HLTbits.PSYNC = 1;
@@ -5907,7 +5907,7 @@ int main(int argc, char** argv) {
 
 
     TMR0IE = 1;
-    TMR2IE = 1;
+
 
 
     FVRCONbits.ADFVR = 0b01;
@@ -5933,6 +5933,8 @@ int main(int argc, char** argv) {
 # 473 "main.c"
     IOCAN0 = 1;
     IOCAP0 = 1;
+    IOCAN3 = 1;
+    IOCAP3 = 1;
     INTE = 0;
 
     PEIE = 1;
@@ -5954,13 +5956,17 @@ int main(int argc, char** argv) {
 
 
     do {
-        if (gotTheTouch) doTheArc();
+
+
+
+        forceArc = 0;
         if (showCharge) chargeIndicator();
         if (poweredOn) {
 
             LATC2 = 0;
 
             LATC3 = 1;
+            if (gotTheTouch) doTheArc();
         } else {
 
             LATC2 = 1;
@@ -5968,7 +5974,7 @@ int main(int argc, char** argv) {
             LATC3 = 0;
         }
         if (lowPowerMode) goToLPmode();
-# 525 "main.c"
+# 531 "main.c"
     } while (1);
     return (0);
 }
@@ -5979,7 +5985,7 @@ static void __attribute__((picinterrupt(("")))) isr(void) {
 
 
     if (PIR0bits.IOCIF) {
-# 558 "main.c"
+# 564 "main.c"
         if (IOCAF0) {
             IOCAF0 = 0;
 
@@ -5994,6 +6000,27 @@ static void __attribute__((picinterrupt(("")))) isr(void) {
                 showCharge = 0;
                 poweredOn = 0;
                 lowPowerMode = 1;
+
+            }
+        }
+
+
+        if (IOCAF3) {
+            IOCAF3 = 0;
+
+            if (!PORTAbits.RA3 && !PORTAbits.RA0 && !PORTAbits.RA5) {
+                lowPowerMode = 0;
+                poweredOn = 1;
+                showCharge = 0;
+                gotTheTouch = 1;
+            }
+
+            if (PORTAbits.RA3 && !PORTAbits.RA0 && !PORTAbits.RA5) {
+
+
+
+
+                gotTheTouch = 0;
             }
         }
     }
@@ -6004,7 +6031,7 @@ static void __attribute__((picinterrupt(("")))) isr(void) {
 
 
     if (PIR1bits.TMR2IF) {
-        if (!noGate) {
+        if (!noGate && poweredOn && gotTheTouch) {
             postscaler ^= 1;
             if (postscaler) {
                 gate ^= 1;
@@ -6019,7 +6046,8 @@ static void __attribute__((picinterrupt(("")))) isr(void) {
 
     if (PIR0bits.TMR0IF) {
         if (clockDivider < 15) {
-            clockDivider++;
+            if(debugging) clockDivider = 15;
+            else clockDivider++;
         } else {
 
             if (debugging) genericDelay = 0;
@@ -6027,21 +6055,9 @@ static void __attribute__((picinterrupt(("")))) isr(void) {
             clockDivider = 0;
 
 
-            if (poweredOn) {
-                if (buttonDebounce < 1) buttonDebounce++;
-                else {
-
-
-
-                    ButtonProcess(&aPorts, PORTA);
-
-
-                    gotTheTouch = ButtonCurrent(&aPorts, (0x0008));
-                    if (!gotTheTouch) {
-
-
-                    }
-                }
+            if (buttonDebounce < 2000) buttonDebounce++;
+            else {
+# 644 "main.c"
             }
         }
 
@@ -6074,19 +6090,19 @@ void doTheArc() {
             LATA2 = 1;
             LATC0 = 1;
             LATC1 = 1;
-            while (gotTheTouch);
+            while (gotTheTouch && poweredOn);
             break;
 
         case 2:
 
-            LATA1 = 0;
-            LATA2 = 1;
-            LATC0 = 0;
-            LATC1 = 0;
+            LATA1 = 1;
+            LATA2 = 0;
+            LATC0 = 1;
+            LATC1 = 1;
 
             blockingDelay(1000);
             forceArc = 0;
-            for (i = 0; i < sizeof (sheRa) && gotTheTouch; i++) playNote(sheRa[i][0], sheRa[i][1]);
+            for (i = 0; i < sizeof (sheRa) && gotTheTouch && poweredOn; i++) playNote(sheRa[i][0], sheRa[i][1]);
             break;
 
         case 3:
@@ -6098,15 +6114,19 @@ void doTheArc() {
 
             blockingDelay(1000);
             forceArc = 0;
-            for (i = 0; i < sizeof (gargoyles) && gotTheTouch; i++) playNote(gargoyles[i][0], gargoyles[i][1]);
+            for (i = 0; i < sizeof (gargoyles) && gotTheTouch && poweredOn; i++) playNote(gargoyles[i][0], gargoyles[i][1]);
             break;
 
         default:
             break;
     }
 
-
     forceArc = 0;
+
+    LATA1 = 1;
+    LATA2 = 1;
+    LATC0 = 1;
+    LATC1 = 1;
 
 }
 
@@ -6133,6 +6153,7 @@ void playNote(unsigned int note, unsigned int duration) {
 
 void goToLPmode() {
     forceArc = 0;
+    playNote(0, 100);
 
     LATC3 = 0;
 

@@ -121,7 +121,7 @@
 
 // Other definitions
 #define     CLOCK_DIVIDER   15  // How much to divide the clock by to get 1ms
-#define     BUTTON_DEBOUNCE 1   // How many ms to wait between button readings to eliminate bounce
+#define     BUTTON_DEBOUNCE 2000   // How many ms to wait between button readings to eliminate bounce
 
 #define     EE_INDEX        0
 #define     EE_MAGICBYTE    1
@@ -423,11 +423,11 @@ int main(int argc, char** argv) {
     T0CON0bits.OUTPS = 0b0000; // 1:1 output (post) scaler
     T0CON1bits.CS = 0b010; // FOSC/4 as our input (match the PIC12F)
     T0CON1bits.ASYNC = 0; // Not running in ASYNC mode, so Timer 0 stops in Sleep mode.
-    T0CON1bits.CKPS = 0b0001; // Set prescaler to 1:2 /////
+    T0CON1bits.CKPS = 0b0001; // Set prescaler to 1:2
     T0CON0bits.EN = 1; // Enable Timer0
 
     // Timer2
-    PR2 = 0xFF; // Set our initial note for regular arcs
+    PR2 = 0x24; // Set our initial note for regular arcs
     T2CLKCON = 0b001; // Set the input to FOSC/4
     T2CONbits.T2CKPS = 0b110; // Sets the prescaler to 64
     T2HLTbits.PSYNC = 1; // Prescaler is synced to FOSC/4 so it doesn't run during sleep
@@ -435,7 +435,7 @@ int main(int argc, char** argv) {
 
     // Enable timer interrupts so the blockingDelay function works    
     TMR0IE = 1;
-    TMR2IE = 1;
+    // TMR2IE = 1;
 
     // Set up the internal Fixed Voltage Reference
     FVRCONbits.ADFVR = 0b01; // Set FVR to 1x (1.024V)
@@ -472,6 +472,8 @@ int main(int argc, char** argv) {
     // Set up interrupts
     IOCAN0 = 1; // Look for falling edge on RA0 (pin 13) lid is opened
     IOCAP0 = 1; // Look for rising edge on RA0 (pin 13) lid is closed
+    IOCAN3 = 1; // Look for falling edge on RA3 (pin 4) touch sensor is touched
+    IOCAP3 = 1; // Look for rising edge on RA3 (pin 4) touch sensor is released
     INTE = 0; // Disable interrupts on the dedicated INT pin (we're using the pin for other things)
 
     PEIE = 1; // Peripheral Interrupt Enable (enables all interrupt pins)
@@ -490,16 +492,19 @@ int main(int argc, char** argv) {
     LATC2 = 0;
     blockingDelay(100);
     LATC2 = 1;
-
+    
     // Main loop
     do {
-        if (gotTheTouch) doTheArc();
+        // PR2 = 0x24;
+        // gate = 0;
+        forceArc = 0;
         if (showCharge) chargeIndicator();
         if (poweredOn) {
             // Turn the power light on
             LATC2 = 0;
             // Fire up the touch sensor
             LATC3 = 1;
+            if (gotTheTouch) doTheArc();
         } else {
             // Turn the power light off
             LATC2 = 1;
@@ -569,6 +574,27 @@ static void __interrupt() isr(void) {
                 showCharge = 0;
                 poweredOn = 0;
                 lowPowerMode = 1;
+                // forceArc = 0;
+            }
+        }
+        
+        // Touch sensor changed
+        if (IOCAF3) {
+            IOCAF3 = 0;
+            // Touch sensor pressed, lid is open, and we're not charging... let's go!
+            if (!PORTAbits.RA3 && !PORTAbits.RA0 && !PORTAbits.RA5) {
+                lowPowerMode = 0;
+                poweredOn = 1;
+                showCharge = 0;
+                gotTheTouch = 1;
+            }
+            // Touch sensor released, go back to lid open state
+            if (PORTAbits.RA3 && !PORTAbits.RA0 && !PORTAbits.RA5) {
+                // We're done, let's sleep
+                // lowPowerMode = 0;
+               //  poweredOn = 1;
+              //  showCharge = 1;
+                gotTheTouch = 0;
             }
         }
     }
@@ -579,7 +605,7 @@ static void __interrupt() isr(void) {
     // We're basically using Timer 2 to gate Timer 0 in software.
     // postscaler is used to divide the Timer2 frequency by 2
     if (PIR1bits.TMR2IF) {
-        if (!noGate) {
+        if (!noGate && poweredOn && gotTheTouch) {
             postscaler ^= 1;
             if (postscaler) {
                 gate ^= 1;
@@ -594,7 +620,8 @@ static void __interrupt() isr(void) {
     // Controls the main PWM frequency, and also times our delays
     if (PIR0bits.TMR0IF) {
         if (clockDivider < CLOCK_DIVIDER) {
-            clockDivider++;
+            if(debugging) clockDivider = CLOCK_DIVIDER;
+            else clockDivider++;
         } else {
             // 1 ms has passed, so decrement our genericDelay counter and reset the clockDivider
             if (debugging) genericDelay = 0;
@@ -602,21 +629,17 @@ static void __interrupt() isr(void) {
             clockDivider = 0;
 
             // If we're powered up, read the super noisy touch sensor
-            if (poweredOn) {
-                if (buttonDebounce < BUTTON_DEBOUNCE) buttonDebounce++;
-                else {
-                    // 5 ms has passed
+            if (buttonDebounce < BUTTON_DEBOUNCE) buttonDebounce++;
+            else {
+                // 5 ms has passed
 
-                    // Read the Touch sensor value into the debouncer
-                    ButtonProcess(&aPorts, PORTA);
+                // Read the Touch sensor value into the debouncer
+            /////    ButtonProcess(&aPorts, PORTA);
 
-                    // Throw it into the touch sensor value
-                    gotTheTouch = ButtonCurrent(&aPorts, BUTTON_PIN_3);
-                    if (!gotTheTouch) {
-                        // Button was released, so kill stuff ASAP.
-                        //abortAbort = 1;
-                    } //else abortAbort = 0;
-                }
+                ///// Throw it into the touch sensor value
+             /////   if(ButtonCurrent(&aPorts, BUTTON_PIN_3)) gotTheTouch = 1;
+             /////   else gotTheTouch = 0;
+           //     gotTheTouch = 0;
             }
         }
 
@@ -649,19 +672,19 @@ void doTheArc() {
             LATA2 = 1;
             LATC0 = 1;
             LATC1 = 1;
-            while (gotTheTouch);
+            while (gotTheTouch && poweredOn);
             break;
 
         case 2:
             // Show only LED 2
-            LATA1 = 0;
-            LATA2 = 1;
-            LATC0 = 0;
-            LATC1 = 0;
+            LATA1 = 1;
+            LATA2 = 0;
+            LATC0 = 1;
+            LATC1 = 1;
 
             blockingDelay(1000); // Delay for a second
             forceArc = 0; // Disable the Arc (prepare for modulation)
-            for (i = 0; i < sizeof (sheRa) && gotTheTouch; i++) playNote(sheRa[i][0], sheRa[i][1]);
+            for (i = 0; i < sizeof (sheRa) && gotTheTouch && poweredOn; i++) playNote(sheRa[i][0], sheRa[i][1]);
             break;
 
         case 3:
@@ -673,16 +696,20 @@ void doTheArc() {
 
             blockingDelay(1000); // Delay for a second
             forceArc = 0; // Disable the Arc (prepare for modulation)
-            for (i = 0; i < sizeof (gargoyles) && gotTheTouch; i++) playNote(gargoyles[i][0], gargoyles[i][1]);
+            for (i = 0; i < sizeof (gargoyles) && gotTheTouch && poweredOn; i++) playNote(gargoyles[i][0], gargoyles[i][1]);
             break;
 
         default:
             break;
     }
     // Show's over folks. Shut it down.
-    // poweredOn = 0;
     forceArc = 0;
-    // abortAbort = 0;
+    // playNote(0, 100);
+    LATA1 = 1;
+    LATA2 = 1;
+    LATC0 = 1;
+    LATC1 = 1;
+
 }
 
 // Generic delay function
@@ -708,6 +735,7 @@ void playNote(unsigned int note, unsigned int duration) {
 
 void goToLPmode() {
     forceArc = 0; // Turn off the arc
+    playNote(0, 100);
 
     LATC3 = 0; // Turn off the touch sensor
 

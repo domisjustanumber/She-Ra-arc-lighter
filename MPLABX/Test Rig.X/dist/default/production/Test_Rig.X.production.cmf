@@ -11,7 +11,7 @@
 # All addresses and the length are given in unqualified hexadecimal
 # in delta units.  Any other numeric values are decimal.
 %PSECTS
-$C:\Users\dinku\AppData\Local\Temp\xcAs9vg.o
+$C:\Users\dinku\AppData\Local\Temp\xcAsu60.o
 reset_vec CODE 0 0 0 2 2
 end_init CODE 0 62 62 2 2
 config CONFIG 4 8007 8007 2 2
@@ -109,25 +109,25 @@ STRING 80B-D07 2
 # All other numeric values are in decimal.
 %LINETAB
 $dist/default/production\Test_Rig.X.production.o
-64 cinit CODE >1204:C:\Users\dinku\AppData\Local\Temp\xcAs9vg.s
-64 cinit CODE >1207:C:\Users\dinku\AppData\Local\Temp\xcAs9vg.s
-64 cinit CODE >1243:C:\Users\dinku\AppData\Local\Temp\xcAs9vg.s
-65 cinit CODE >1247:C:\Users\dinku\AppData\Local\Temp\xcAs9vg.s
-66 cinit CODE >1251:C:\Users\dinku\AppData\Local\Temp\xcAs9vg.s
-67 cinit CODE >1252:C:\Users\dinku\AppData\Local\Temp\xcAs9vg.s
-68 cinit CODE >1253:C:\Users\dinku\AppData\Local\Temp\xcAs9vg.s
-69 cinit CODE >1254:C:\Users\dinku\AppData\Local\Temp\xcAs9vg.s
-6A cinit CODE >1255:C:\Users\dinku\AppData\Local\Temp\xcAs9vg.s
-6B cinit CODE >1256:C:\Users\dinku\AppData\Local\Temp\xcAs9vg.s
-6C cinit CODE >1257:C:\Users\dinku\AppData\Local\Temp\xcAs9vg.s
-6D cinit CODE >1258:C:\Users\dinku\AppData\Local\Temp\xcAs9vg.s
-6E cinit CODE >1259:C:\Users\dinku\AppData\Local\Temp\xcAs9vg.s
-6F cinit CODE >1260:C:\Users\dinku\AppData\Local\Temp\xcAs9vg.s
-70 cinit CODE >1261:C:\Users\dinku\AppData\Local\Temp\xcAs9vg.s
-71 cinit CODE >1267:C:\Users\dinku\AppData\Local\Temp\xcAs9vg.s
-71 cinit CODE >1269:C:\Users\dinku\AppData\Local\Temp\xcAs9vg.s
-72 cinit CODE >1270:C:\Users\dinku\AppData\Local\Temp\xcAs9vg.s
-73 cinit CODE >1271:C:\Users\dinku\AppData\Local\Temp\xcAs9vg.s
+64 cinit CODE >1204:C:\Users\dinku\AppData\Local\Temp\xcAsu60.s
+64 cinit CODE >1207:C:\Users\dinku\AppData\Local\Temp\xcAsu60.s
+64 cinit CODE >1243:C:\Users\dinku\AppData\Local\Temp\xcAsu60.s
+65 cinit CODE >1247:C:\Users\dinku\AppData\Local\Temp\xcAsu60.s
+66 cinit CODE >1251:C:\Users\dinku\AppData\Local\Temp\xcAsu60.s
+67 cinit CODE >1252:C:\Users\dinku\AppData\Local\Temp\xcAsu60.s
+68 cinit CODE >1253:C:\Users\dinku\AppData\Local\Temp\xcAsu60.s
+69 cinit CODE >1254:C:\Users\dinku\AppData\Local\Temp\xcAsu60.s
+6A cinit CODE >1255:C:\Users\dinku\AppData\Local\Temp\xcAsu60.s
+6B cinit CODE >1256:C:\Users\dinku\AppData\Local\Temp\xcAsu60.s
+6C cinit CODE >1257:C:\Users\dinku\AppData\Local\Temp\xcAsu60.s
+6D cinit CODE >1258:C:\Users\dinku\AppData\Local\Temp\xcAsu60.s
+6E cinit CODE >1259:C:\Users\dinku\AppData\Local\Temp\xcAsu60.s
+6F cinit CODE >1260:C:\Users\dinku\AppData\Local\Temp\xcAsu60.s
+70 cinit CODE >1261:C:\Users\dinku\AppData\Local\Temp\xcAsu60.s
+71 cinit CODE >1267:C:\Users\dinku\AppData\Local\Temp\xcAsu60.s
+71 cinit CODE >1269:C:\Users\dinku\AppData\Local\Temp\xcAsu60.s
+72 cinit CODE >1270:C:\Users\dinku\AppData\Local\Temp\xcAsu60.s
+73 cinit CODE >1271:C:\Users\dinku\AppData\Local\Temp\xcAsu60.s
 4 intentry CODE >286:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
 6 intentry CODE >290:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
 B intentry CODE >291:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
@@ -486,7 +486,7 @@ D77 maintext CODE >205:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.
 D7A maintext CODE >206:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
 D7E maintext CODE >207:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
 D7F maintext CODE >210:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
-D80 maintext CODE >212:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
+D80 maintext CODE >211:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
 D83 maintext CODE >213:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
 D85 maintext CODE >214:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
 D86 maintext CODE >217:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\Test Rig.X\main.c
@@ -556,23 +556,23 @@ _clockDivider 7C 0 COMMON 1 bssCOMMON dist/default/production\Test_Rig.X.product
 _INTE 5C 0 ABS 0 - dist/default/production\Test_Rig.X.production.o
 _PEIE 5E 0 ABS 0 - dist/default/production\Test_Rig.X.production.o
 _RCIE 48D 0 ABS 0 - dist/default/production\Test_Rig.X.production.o
-___sp 0 0 STACK 2 stack C:\Users\dinku\AppData\Local\Temp\xcAs9vg.o
+___sp 0 0 STACK 2 stack C:\Users\dinku\AppData\Local\Temp\xcAsu60.o
 _gate 28 0 BANK0 1 bssBANK0 dist/default/production\Test_Rig.X.production.o
 _main 1AEA 0 CODE 0 maintext dist/default/production\Test_Rig.X.production.o
 btemp 7E 0 ABS 0 - dist/default/production\Test_Rig.X.production.o
-start C4 0 CODE 0 init C:\Users\dinku\AppData\Local\Temp\xcAs9vg.o
+start C4 0 CODE 0 init C:\Users\dinku\AppData\Local\Temp\xcAsu60.o
 __size_of_main 0 0 ABS 0 - dist/default/production\Test_Rig.X.production.o
 __HbssCOMMON 0 0 ABS 0 bssCOMMON -
 _blockingDelay 1A10 0 CODE 0 text5 dist/default/production\Test_Rig.X.production.o
 __Hpowerup 0 0 CODE 0 powerup -
 __pbitbssCOMMON 3D8 -35D COMMON 1 bitbssCOMMON dist/default/production\Test_Rig.X.production.o
 __LnvCOMMON 0 0 ABS 0 nvCOMMON -
-intlevel0 0 0 ENTRY 0 functab C:\Users\dinku\AppData\Local\Temp\xcAs9vg.o
-intlevel1 0 0 ENTRY 0 functab C:\Users\dinku\AppData\Local\Temp\xcAs9vg.o
-intlevel2 0 0 ENTRY 0 functab C:\Users\dinku\AppData\Local\Temp\xcAs9vg.o
-intlevel3 0 0 ENTRY 0 functab C:\Users\dinku\AppData\Local\Temp\xcAs9vg.o
-intlevel4 0 0 ENTRY 0 functab C:\Users\dinku\AppData\Local\Temp\xcAs9vg.o
-intlevel5 0 0 ENTRY 0 functab C:\Users\dinku\AppData\Local\Temp\xcAs9vg.o
+intlevel0 0 0 ENTRY 0 functab C:\Users\dinku\AppData\Local\Temp\xcAsu60.o
+intlevel1 0 0 ENTRY 0 functab C:\Users\dinku\AppData\Local\Temp\xcAsu60.o
+intlevel2 0 0 ENTRY 0 functab C:\Users\dinku\AppData\Local\Temp\xcAsu60.o
+intlevel3 0 0 ENTRY 0 functab C:\Users\dinku\AppData\Local\Temp\xcAsu60.o
+intlevel4 0 0 ENTRY 0 functab C:\Users\dinku\AppData\Local\Temp\xcAsu60.o
+intlevel5 0 0 ENTRY 0 functab C:\Users\dinku\AppData\Local\Temp\xcAsu60.o
 _pinState 3D8 -35D COMMON 1 bitbssCOMMON dist/default/production\Test_Rig.X.production.o
 __LbssCOMMON 0 0 ABS 0 bssCOMMON -
 _OSCCONbits 99 0 ABS 0 - dist/default/production\Test_Rig.X.production.o
@@ -589,8 +589,8 @@ __Lmaintext 0 0 ABS 0 maintext -
 __LnvBANK0 0 0 ABS 0 nvBANK0 -
 eeprom_write@addr 74 0 COMMON 1 cstackCOMMON dist/default/production\Test_Rig.X.production.o
 _OPTION_REG 95 0 ABS 0 - dist/default/production\Test_Rig.X.production.o
-___stackhi 20EF 0 ABS 0 - C:\Users\dinku\AppData\Local\Temp\xcAs9vg.o
-___stacklo 200E 0 ABS 0 - C:\Users\dinku\AppData\Local\Temp\xcAs9vg.o
+___stackhi 20EF 0 ABS 0 - C:\Users\dinku\AppData\Local\Temp\xcAsu60.o
+___stacklo 200E 0 ABS 0 - C:\Users\dinku\AppData\Local\Temp\xcAsu60.o
 __size_of_blockingDelay 0 0 ABS 0 - dist/default/production\Test_Rig.X.production.o
 __end_of_gargoyles FCE 0 CODE 0 text3 dist/default/production\Test_Rig.X.production.o
 _eeprom_read 1A28 0 CODE 0 text7 dist/default/production\Test_Rig.X.production.o
@@ -610,7 +610,7 @@ _TRISA1 461 0 ABS 0 - dist/default/production\Test_Rig.X.production.o
 _TRISA2 462 0 ABS 0 - dist/default/production\Test_Rig.X.production.o
 _TRISA3 463 0 ABS 0 - dist/default/production\Test_Rig.X.production.o
 _TRISA4 464 0 ABS 0 - dist/default/production\Test_Rig.X.production.o
-___int_sp 0 0 STACK 2 stack C:\Users\dinku\AppData\Local\Temp\xcAs9vg.o
+___int_sp 0 0 STACK 2 stack C:\Users\dinku\AppData\Local\Temp\xcAsu60.o
 __Hbank0 0 0 ABS 0 bank0 -
 __Hbank1 0 0 ABS 0 bank1 -
 __Hbank2 0 0 ABS 0 bank2 -
@@ -753,7 +753,7 @@ __end_of_isr C4 0 CODE 0 intentry dist/default/production\Test_Rig.X.production.
 eeprom_write@value 71 0 COMMON 1 cstackCOMMON dist/default/production\Test_Rig.X.production.o
 __HnvBANK0 0 0 ABS 0 nvBANK0 -
 __Lintentry 8 0 CODE 0 intentry -
-reset_vec 0 0 CODE 0 reset_vec C:\Users\dinku\AppData\Local\Temp\xcAs9vg.o
+reset_vec 0 0 CODE 0 reset_vec C:\Users\dinku\AppData\Local\Temp\xcAsu60.o
 _eeprom_write 1A96 0 CODE 0 text6 dist/default/production\Test_Rig.X.production.o
 __LbssBANK0 0 0 ABS 0 bssBANK0 -
 __Lstringtext1 0 0 ABS 0 stringtext1 -

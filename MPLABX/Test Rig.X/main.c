@@ -208,8 +208,8 @@ int main(int argc, char** argv) {
             
     // Set up our timer
     TMR2IE = 1;
-    // PR2 = 0xED;
-    PR2 = 0xFF;
+    PR2 = 0xED;
+   // PR2 = 0xFF;
     T2CONbits.T2CKPS = 0x03;
     T2CONbits.TMR2ON = 1;
 

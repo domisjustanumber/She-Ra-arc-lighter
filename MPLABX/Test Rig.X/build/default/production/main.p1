@@ -659,9 +659,9 @@ Version 4.0 HI-TECH Software Intermediate Code
 "210
 [; ;main.c: 210:     TMR2IE = 1;
 [e = _TMR2IE -> -> 1 `i `b ]
-"212
-[; ;main.c: 212:     PR2 = 0xFF;
-[e = _PR2 -> -> 255 `i `uc ]
+"211
+[; ;main.c: 211:     PR2 = 0xED;
+[e = _PR2 -> -> 237 `i `uc ]
 "213
 [; ;main.c: 213:     T2CONbits.T2CKPS = 0x03;
 [e = . . _T2CONbits 1 0 -> -> 3 `i `uc ]
