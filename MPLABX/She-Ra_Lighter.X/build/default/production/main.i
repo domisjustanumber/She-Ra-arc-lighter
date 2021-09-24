@@ -5842,8 +5842,8 @@ int main(int argc, char** argv) {
     ANSELAbits.ANSA1 = 0;
     ANSELAbits.ANSA2 = 0;
 
-    ANSELAbits.ANSA4 = 1;
-    ANSELAbits.ANSA5 = 0;
+    ANSELAbits.ANSA4 = 0;
+
 
 
 
@@ -5860,6 +5860,7 @@ int main(int argc, char** argv) {
     TRISA3 = 1;
     WPUA3 = 1;
     TRISA4 = 1;
+    WPUA4 = 1;
     TRISA5 = 1;
     TRISC0 = 0;
     TRISC1 = 0;
@@ -5930,13 +5931,15 @@ int main(int argc, char** argv) {
 
 
     if (!debugging) ADCON0bits.ON = 1;
-# 473 "main.c"
+# 474 "main.c"
     IOCAN0 = 1;
     IOCAP0 = 1;
     IOCAN3 = 1;
     IOCAP3 = 1;
-    IOCAN5 = 1;
-    IOCAP5 = 1;
+    IOCAN4 = 1;
+    IOCAP4 = 1;
+
+
     INTE = 0;
 
     PEIE = 1;
@@ -5975,7 +5978,7 @@ int main(int argc, char** argv) {
             LATC3 = 0;
         }
         if (lowPowerMode) goToLPmode();
-# 532 "main.c"
+# 535 "main.c"
     } while (1);
     return (0);
 }
@@ -5989,21 +5992,23 @@ static void __attribute__((picinterrupt(("")))) isr(void) {
 
 
 
-        if (IOCAF5) {
-            IOCAF5 = 0;
+        if (IOCAF4) {
+            IOCAF4 = 0;
 
-            if (PORTAbits.RA5) {
+            if (!PORTAbits.RA4) {
 
                 poweredOn = 0;
+                charging = 1;
                 showCharge = 1;
                 gotTheTouch = 0;
                 lowPowerMode = 0;
             } else {
 
+                charging = 0;
                 poweredOn = 0;
                 showCharge = 0;
                 gotTheTouch = 0;
-                lowPowerMode = 1;
+
 
             }
         }
@@ -6080,7 +6085,7 @@ static void __attribute__((picinterrupt(("")))) isr(void) {
 
             if (buttonDebounce < 5) buttonDebounce++;
             else {
-# 645 "main.c"
+# 650 "main.c"
             }
         }
 
@@ -6227,7 +6232,7 @@ void chargeIndicator(void) {
         LATA2 = 0;
         LATC0 = 0;
         LATC1 = 0;
-        if (charging) lowPowerMode = 1;
+        if (charging) __asm("sleep");
     } else if (battVolts > 398) {
 
 

@@ -370,8 +370,8 @@ int main(int argc, char** argv) {
     ANSELAbits.ANSA1 = 0;
     ANSELAbits.ANSA2 = 0;
     // There is no ANSA3
-    ANSELAbits.ANSA4 = 1; // Analog 4 (RA4, pin 3) stays analog for battery voltage reading
-    ANSELAbits.ANSA5 = 0;
+    ANSELAbits.ANSA4 = 0;
+    //// ANSELAbits.ANSA5 = 1;// Analog 5 (RA5, pin 2) stays analog for USB voltage reading
     // No 6 or 7 either
 
     // This chip doesn't have an Analog B
@@ -387,7 +387,8 @@ int main(int argc, char** argv) {
     TRISA2 = 0;
     TRISA3 = 1; // Set RA3 (pin 4) as an input for our button switch
     WPUA3 = 1; // Enable weak pull up resistor
-    TRISA4 = 1; // Set RA4 (pin 3) as an input for our battery voltage
+    TRISA4 = 1; // Set RA4 (pin 3) as an input for our battery charge status
+    WPUA4 = 1; // Enable weak pull up resistor
     TRISA5 = 1; // Set RA5 (pin 2) as an input for our charging flag
     TRISC0 = 0;
     TRISC1 = 0;
@@ -474,8 +475,10 @@ int main(int argc, char** argv) {
     IOCAP0 = 1; // Look for rising edge on RA0 (pin 13) lid is closed
     IOCAN3 = 1; // Look for falling edge on RA3 (pin 4) touch sensor is touched
     IOCAP3 = 1; // Look for rising edge on RA3 (pin 4) touch sensor is released
-    IOCAN5 = 1; // Look for falling edge on RA5 (pin 2) USB is unplugged
-    IOCAP5 = 1; // Look for rising edge on RA5 (pin 2) USB is plugged in
+    IOCAN4 = 1; // Look for falling edge on RA4 (pin 3) battery started charging
+    IOCAP4 = 1; // Look for rising edge on RA4 (pin 3) battery finished charging
+    // IOCAN5 = 1; // Look for falling edge on RA5 (pin 2) USB is unplugged
+    // IOCAP5 = 1; // Look for rising edge on RA5 (pin 2) USB is plugged in
     INTE = 0; // Disable interrupts on the dedicated INT pin (we're using the pin for other things)
 
     PEIE = 1; // Peripheral Interrupt Enable (enables all interrupt pins)
@@ -541,22 +544,24 @@ static void __interrupt() isr(void) {
     if (PIR0bits.IOCIF) {
 
         ///// Doesn't do anything for now
-        // Charger pin changed (RA5)
-        if (IOCAF5) {
-            IOCAF5 = 0;
+        // Charger pin changed (RA4)
+        if (IOCAF4) {
+            IOCAF4 = 0;
 
-            if (PORTAbits.RA5) {
-                // Charger was plugged in
+            if (!PORTAbits.RA4) {
+                // Charging started
                 poweredOn = 0;
+                charging = 1;
                 showCharge = 1;
                 gotTheTouch = 0;
                 lowPowerMode = 0;
             } else {
                 // Charger was unplugged, so go to sleep
+                charging = 0;
                 poweredOn = 0;
                 showCharge = 0;
                 gotTheTouch = 0;
-                lowPowerMode = 1;
+                // lowPowerMode = 1;
                 //  WDTCONbits.SEN = 0; // Disable the Watchdog timer
             }
         }
@@ -788,7 +793,7 @@ void chargeIndicator(void) {
         LATA2 = 0;
         LATC0 = 0;
         LATC1 = 0;
-        if (charging) lowPowerMode = 1; // Our work here is done, go to sleep and leave the lights on
+        if (charging) SLEEP(); // Our work here is done, go to sleep and leave the lights on
     } else if (battVolts > 398) {
         // Battery is over 3.98v (75%)
         // 3 LEDs on, #4 blinky
