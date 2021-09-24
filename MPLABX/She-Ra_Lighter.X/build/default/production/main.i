@@ -6017,13 +6017,13 @@ static void __attribute__((picinterrupt(("")))) isr(void) {
         if (IOCAF0) {
             IOCAF0 = 0;
 
-            if (!PORTAbits.RA0 && !PORTAbits.RA5) {
+            if (!PORTAbits.RA0 && PORTAbits.RA4) {
                 lowPowerMode = 0;
                 poweredOn = 1;
                 showCharge = 1;
             }
 
-            if (PORTAbits.RA0 && !PORTAbits.RA5) {
+            if (PORTAbits.RA0 && PORTAbits.RA4) {
 
                 showCharge = 0;
                 poweredOn = 0;
@@ -6036,14 +6036,14 @@ static void __attribute__((picinterrupt(("")))) isr(void) {
         if (IOCAF3) {
             IOCAF3 = 0;
 
-            if (!PORTAbits.RA3 && !PORTAbits.RA0 && !PORTAbits.RA5) {
+            if (!PORTAbits.RA3 && !PORTAbits.RA0 && PORTAbits.RA4) {
                 lowPowerMode = 0;
                 poweredOn = 1;
                 showCharge = 0;
                 gotTheTouch = 1;
             }
 
-            if (PORTAbits.RA3 && !PORTAbits.RA0 && !PORTAbits.RA5) {
+            if (PORTAbits.RA3 && !PORTAbits.RA0 && PORTAbits.RA4) {
 
 
 
@@ -6232,7 +6232,6 @@ void chargeIndicator(void) {
         LATA2 = 0;
         LATC0 = 0;
         LATC1 = 0;
-        if (charging) __asm("sleep");
     } else if (battVolts > 398) {
 
 
@@ -6276,5 +6275,12 @@ void chargeIndicator(void) {
 
         blockingDelay(500);
 
+    }
+    else {
+
+        LATA1 = 1;
+        LATA2 = 1;
+        LATC0 = 1;
+        LATC1 = 1;
     }
 }

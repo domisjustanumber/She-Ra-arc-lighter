@@ -570,13 +570,13 @@ static void __interrupt() isr(void) {
         if (IOCAF0) {
             IOCAF0 = 0;
             // Lid opened, and we're not charging
-            if (!PORTAbits.RA0 && !PORTAbits.RA5) {
+            if (!PORTAbits.RA0 && PORTAbits.RA4) {
                 lowPowerMode = 0;
                 poweredOn = 1;
                 showCharge = 1;
             }
             // Lid has been closed, and we're not charging
-            if (PORTAbits.RA0 && !PORTAbits.RA5) {
+            if (PORTAbits.RA0 && PORTAbits.RA4) {
                 // We're done, let's sleep
                 showCharge = 0;
                 poweredOn = 0;
@@ -589,14 +589,14 @@ static void __interrupt() isr(void) {
         if (IOCAF3) {
             IOCAF3 = 0;
             // Touch sensor pressed, lid is open, and we're not charging... let's go!
-            if (!PORTAbits.RA3 && !PORTAbits.RA0 && !PORTAbits.RA5) {
+            if (!PORTAbits.RA3 && !PORTAbits.RA0 && PORTAbits.RA4) {
                 lowPowerMode = 0;
                 poweredOn = 1;
                 showCharge = 0;
                 gotTheTouch = 1;
             }
             // Touch sensor released, go back to lid open state
-            if (PORTAbits.RA3 && !PORTAbits.RA0 && !PORTAbits.RA5) {
+            if (PORTAbits.RA3 && !PORTAbits.RA0 && PORTAbits.RA4) {
                 // We're done, let's sleep
                 // lowPowerMode = 0;
                 //  poweredOn = 1;
@@ -793,7 +793,6 @@ void chargeIndicator(void) {
         LATA2 = 0;
         LATC0 = 0;
         LATC1 = 0;
-        if (charging) SLEEP(); // Our work here is done, go to sleep and leave the lights on
     } else if (battVolts > 398) {
         // Battery is over 3.98v (75%)
         // 3 LEDs on, #4 blinky
@@ -837,5 +836,12 @@ void chargeIndicator(void) {
         // wait before updating the LEDs
         blockingDelay(500);
         // See if we're still charging
+    }
+    else {
+        // We're done here, turn the lights back off
+        LATA1 = 1;
+        LATA2 = 1;
+        LATC0 = 1;
+        LATC1 = 1;
     }
 }

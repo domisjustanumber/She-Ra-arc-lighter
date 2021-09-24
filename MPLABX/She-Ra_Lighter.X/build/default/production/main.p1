@@ -2167,8 +2167,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 571:             IOCAF0 = 0;
 [e = _IOCAF0 -> -> 0 `i `b ]
 "573
-[; ;main.c: 573:             if (!PORTAbits.RA0 && !PORTAbits.RA5) {
-[e $ ! && ! != -> . . _PORTAbits 0 0 `i -> 0 `i ! != -> . . _PORTAbits 0 5 `i -> 0 `i 491  ]
+[; ;main.c: 573:             if (!PORTAbits.RA0 && PORTAbits.RA4) {
+[e $ ! && ! != -> . . _PORTAbits 0 0 `i -> 0 `i != -> . . _PORTAbits 0 4 `i -> 0 `i 491  ]
 {
 "574
 [; ;main.c: 574:                 lowPowerMode = 0;
@@ -2184,8 +2184,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 }
 [e :U 491 ]
 "579
-[; ;main.c: 579:             if (PORTAbits.RA0 && !PORTAbits.RA5) {
-[e $ ! && != -> . . _PORTAbits 0 0 `i -> 0 `i ! != -> . . _PORTAbits 0 5 `i -> 0 `i 492  ]
+[; ;main.c: 579:             if (PORTAbits.RA0 && PORTAbits.RA4) {
+[e $ ! && != -> . . _PORTAbits 0 0 `i -> 0 `i != -> . . _PORTAbits 0 4 `i -> 0 `i 492  ]
 {
 "581
 [; ;main.c: 581:                 showCharge = 0;
@@ -2215,8 +2215,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 590:             IOCAF3 = 0;
 [e = _IOCAF3 -> -> 0 `i `b ]
 "592
-[; ;main.c: 592:             if (!PORTAbits.RA3 && !PORTAbits.RA0 && !PORTAbits.RA5) {
-[e $ ! && && ! != -> . . _PORTAbits 0 3 `i -> 0 `i ! != -> . . _PORTAbits 0 0 `i -> 0 `i ! != -> . . _PORTAbits 0 5 `i -> 0 `i 494  ]
+[; ;main.c: 592:             if (!PORTAbits.RA3 && !PORTAbits.RA0 && PORTAbits.RA4) {
+[e $ ! && && ! != -> . . _PORTAbits 0 3 `i -> 0 `i ! != -> . . _PORTAbits 0 0 `i -> 0 `i != -> . . _PORTAbits 0 4 `i -> 0 `i 494  ]
 {
 "593
 [; ;main.c: 593:                 lowPowerMode = 0;
@@ -2235,8 +2235,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 }
 [e :U 494 ]
 "599
-[; ;main.c: 599:             if (PORTAbits.RA3 && !PORTAbits.RA0 && !PORTAbits.RA5) {
-[e $ ! && && != -> . . _PORTAbits 0 3 `i -> 0 `i ! != -> . . _PORTAbits 0 0 `i -> 0 `i ! != -> . . _PORTAbits 0 5 `i -> 0 `i 495  ]
+[; ;main.c: 599:             if (PORTAbits.RA3 && !PORTAbits.RA0 && PORTAbits.RA4) {
+[e $ ! && && != -> . . _PORTAbits 0 3 `i -> 0 `i ! != -> . . _PORTAbits 0 0 `i -> 0 `i != -> . . _PORTAbits 0 4 `i -> 0 `i 495  ]
 {
 "603
 [; ;main.c: 603:                 showCharge = 1;
@@ -2731,159 +2731,174 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 795:         LATC1 = 0;
 [e = _LATC1 -> -> 0 `i `b ]
 "796
-[; ;main.c: 796:         if (charging) __asm("sleep");
-[e $ ! != _charging -> -> 0 `i `ui 557  ]
-[; <" sleep ;# ">
-[e :U 557 ]
-"797
-[; ;main.c: 797:     } else if (battVolts > 398) {
+[; ;main.c: 796:     } else if (battVolts > 398) {
 }
-[e $U 558  ]
+[e $U 557  ]
 [e :U 556 ]
-[e $ ! > _battVolts -> -> 398 `i `ui 559  ]
+[e $ ! > _battVolts -> -> 398 `i `ui 558  ]
 {
+"799
+[; ;main.c: 799:         LATA1 = 0;
+[e = _LATA1 -> -> 0 `i `b ]
 "800
-[; ;main.c: 800:         LATA1 = 0;
-[e = _LATA1 -> -> 0 `i `b ]
+[; ;main.c: 800:         LATA2 = 0;
+[e = _LATA2 -> -> 0 `i `b ]
 "801
-[; ;main.c: 801:         LATA2 = 0;
-[e = _LATA2 -> -> 0 `i `b ]
+[; ;main.c: 801:         LATC0 = 0;
+[e = _LATC0 -> -> 0 `i `b ]
 "802
-[; ;main.c: 802:         LATC0 = 0;
-[e = _LATC0 -> -> 0 `i `b ]
+[; ;main.c: 802:         if (charging) {
+[e $ ! != _charging -> -> 0 `i `ui 559  ]
+{
 "803
-[; ;main.c: 803:         if (charging) {
-[e $ ! != _charging -> -> 0 `i `ui 560  ]
-{
-"804
-[; ;main.c: 804:             if (chargeCycle) LATC1 = 0;
-[e $ ! != -> _chargeCycle `i -> 0 `i 561  ]
+[; ;main.c: 803:             if (chargeCycle) LATC1 = 0;
+[e $ ! != -> _chargeCycle `i -> 0 `i 560  ]
 [e = _LATC1 -> -> 0 `i `b ]
-[e $U 562  ]
-"805
-[; ;main.c: 805:             else LATC1 = 1;
-[e :U 561 ]
-[e = _LATC1 -> -> 1 `i `b ]
-[e :U 562 ]
-"806
-[; ;main.c: 806:         }
-}
+[e $U 561  ]
+"804
+[; ;main.c: 804:             else LATC1 = 1;
 [e :U 560 ]
-"807
-[; ;main.c: 807:     } else if (battVolts > 384) {
+[e = _LATC1 -> -> 1 `i `b ]
+[e :U 561 ]
+"805
+[; ;main.c: 805:         }
 }
-[e $U 563  ]
 [e :U 559 ]
-[e $ ! > _battVolts -> -> 384 `i `ui 564  ]
-{
-"810
-[; ;main.c: 810:         LATA1 = 0;
-[e = _LATA1 -> -> 0 `i `b ]
-"811
-[; ;main.c: 811:         LATA2 = 0;
-[e = _LATA2 -> -> 0 `i `b ]
-"812
-[; ;main.c: 812:         if (charging) {
-[e $ ! != _charging -> -> 0 `i `ui 565  ]
-{
-"813
-[; ;main.c: 813:             if (chargeCycle) LATC0 = 0;
-[e $ ! != -> _chargeCycle `i -> 0 `i 566  ]
-[e = _LATC0 -> -> 0 `i `b ]
-[e $U 567  ]
-"814
-[; ;main.c: 814:             else LATC0 = 1;
-[e :U 566 ]
-[e = _LATC0 -> -> 1 `i `b ]
-[e :U 567 ]
-"815
-[; ;main.c: 815:         }
+"806
+[; ;main.c: 806:     } else if (battVolts > 384) {
 }
-[e :U 565 ]
-"816
-[; ;main.c: 816:         LATC1 = 1;
-[e = _LATC1 -> -> 1 `i `b ]
-"817
-[; ;main.c: 817:     } else if (battVolts > 375) {
-}
-[e $U 568  ]
-[e :U 564 ]
-[e $ ! > _battVolts -> -> 375 `i `ui 569  ]
-{
-"820
-[; ;main.c: 820:         LATA1 = 0;
-[e = _LATA1 -> -> 0 `i `b ]
-"821
-[; ;main.c: 821:         if (charging) {
-[e $ ! != _charging -> -> 0 `i `ui 570  ]
-{
-"822
-[; ;main.c: 822:             if (chargeCycle) LATA2 = 0;
-[e $ ! != -> _chargeCycle `i -> 0 `i 571  ]
-[e = _LATA2 -> -> 0 `i `b ]
-[e $U 572  ]
-"823
-[; ;main.c: 823:             else LATA2 = 1;
-[e :U 571 ]
-[e = _LATA2 -> -> 1 `i `b ]
-[e :U 572 ]
-"824
-[; ;main.c: 824:         }
-}
-[e :U 570 ]
-"825
-[; ;main.c: 825:         LATC0 = 1;
-[e = _LATC0 -> -> 1 `i `b ]
-"826
-[; ;main.c: 826:         LATC1 = 1;
-[e = _LATC1 -> -> 1 `i `b ]
-"827
-[; ;main.c: 827:     } else {
-}
-[e $U 573  ]
-[e :U 569 ]
-{
-"829
-[; ;main.c: 829:         if (chargeCycle) LATA1 = 0;
-[e $ ! != -> _chargeCycle `i -> 0 `i 574  ]
-[e = _LATA1 -> -> 0 `i `b ]
-[e $U 575  ]
-"830
-[; ;main.c: 830:         else LATA1 = 1;
-[e :U 574 ]
-[e = _LATA1 -> -> 1 `i `b ]
-[e :U 575 ]
-"831
-[; ;main.c: 831:         LATA2 = 1;
-[e = _LATA2 -> -> 1 `i `b ]
-"832
-[; ;main.c: 832:         LATC0 = 1;
-[e = _LATC0 -> -> 1 `i `b ]
-"833
-[; ;main.c: 833:         LATC1 = 1;
-[e = _LATC1 -> -> 1 `i `b ]
-"834
-[; ;main.c: 834:     }
-}
-[e :U 573 ]
-[e :U 568 ]
-[e :U 563 ]
+[e $U 562  ]
 [e :U 558 ]
-"835
-[; ;main.c: 835:     if (charging) {
-[e $ ! != _charging -> -> 0 `i `ui 576  ]
+[e $ ! > _battVolts -> -> 384 `i `ui 563  ]
 {
-"836
-[; ;main.c: 836:         chargeCycle ^= 1;
+"809
+[; ;main.c: 809:         LATA1 = 0;
+[e = _LATA1 -> -> 0 `i `b ]
+"810
+[; ;main.c: 810:         LATA2 = 0;
+[e = _LATA2 -> -> 0 `i `b ]
+"811
+[; ;main.c: 811:         if (charging) {
+[e $ ! != _charging -> -> 0 `i `ui 564  ]
+{
+"812
+[; ;main.c: 812:             if (chargeCycle) LATC0 = 0;
+[e $ ! != -> _chargeCycle `i -> 0 `i 565  ]
+[e = _LATC0 -> -> 0 `i `b ]
+[e $U 566  ]
+"813
+[; ;main.c: 813:             else LATC0 = 1;
+[e :U 565 ]
+[e = _LATC0 -> -> 1 `i `b ]
+[e :U 566 ]
+"814
+[; ;main.c: 814:         }
+}
+[e :U 564 ]
+"815
+[; ;main.c: 815:         LATC1 = 1;
+[e = _LATC1 -> -> 1 `i `b ]
+"816
+[; ;main.c: 816:     } else if (battVolts > 375) {
+}
+[e $U 567  ]
+[e :U 563 ]
+[e $ ! > _battVolts -> -> 375 `i `ui 568  ]
+{
+"819
+[; ;main.c: 819:         LATA1 = 0;
+[e = _LATA1 -> -> 0 `i `b ]
+"820
+[; ;main.c: 820:         if (charging) {
+[e $ ! != _charging -> -> 0 `i `ui 569  ]
+{
+"821
+[; ;main.c: 821:             if (chargeCycle) LATA2 = 0;
+[e $ ! != -> _chargeCycle `i -> 0 `i 570  ]
+[e = _LATA2 -> -> 0 `i `b ]
+[e $U 571  ]
+"822
+[; ;main.c: 822:             else LATA2 = 1;
+[e :U 570 ]
+[e = _LATA2 -> -> 1 `i `b ]
+[e :U 571 ]
+"823
+[; ;main.c: 823:         }
+}
+[e :U 569 ]
+"824
+[; ;main.c: 824:         LATC0 = 1;
+[e = _LATC0 -> -> 1 `i `b ]
+"825
+[; ;main.c: 825:         LATC1 = 1;
+[e = _LATC1 -> -> 1 `i `b ]
+"826
+[; ;main.c: 826:     } else {
+}
+[e $U 572  ]
+[e :U 568 ]
+{
+"828
+[; ;main.c: 828:         if (chargeCycle) LATA1 = 0;
+[e $ ! != -> _chargeCycle `i -> 0 `i 573  ]
+[e = _LATA1 -> -> 0 `i `b ]
+[e $U 574  ]
+"829
+[; ;main.c: 829:         else LATA1 = 1;
+[e :U 573 ]
+[e = _LATA1 -> -> 1 `i `b ]
+[e :U 574 ]
+"830
+[; ;main.c: 830:         LATA2 = 1;
+[e = _LATA2 -> -> 1 `i `b ]
+"831
+[; ;main.c: 831:         LATC0 = 1;
+[e = _LATC0 -> -> 1 `i `b ]
+"832
+[; ;main.c: 832:         LATC1 = 1;
+[e = _LATC1 -> -> 1 `i `b ]
+"833
+[; ;main.c: 833:     }
+}
+[e :U 572 ]
+[e :U 567 ]
+[e :U 562 ]
+[e :U 557 ]
+"834
+[; ;main.c: 834:     if (charging) {
+[e $ ! != _charging -> -> 0 `i `ui 575  ]
+{
+"835
+[; ;main.c: 835:         chargeCycle ^= 1;
 [e =^ _chargeCycle -> -> 1 `i `uc ]
-"838
-[; ;main.c: 838:         blockingDelay(500);
+"837
+[; ;main.c: 837:         blockingDelay(500);
 [e ( _blockingDelay (1 -> -> 500 `i `ui ]
+"839
+[; ;main.c: 839:     }
+}
+[e $U 576  ]
 "840
-[; ;main.c: 840:     }
+[; ;main.c: 840:     else {
+[e :U 575 ]
+{
+"842
+[; ;main.c: 842:         LATA1 = 1;
+[e = _LATA1 -> -> 1 `i `b ]
+"843
+[; ;main.c: 843:         LATA2 = 1;
+[e = _LATA2 -> -> 1 `i `b ]
+"844
+[; ;main.c: 844:         LATC0 = 1;
+[e = _LATC0 -> -> 1 `i `b ]
+"845
+[; ;main.c: 845:         LATC1 = 1;
+[e = _LATC1 -> -> 1 `i `b ]
+"846
+[; ;main.c: 846:     }
 }
 [e :U 576 ]
-"841
-[; ;main.c: 841: }
+"847
+[; ;main.c: 847: }
 [e :UE 549 ]
 }
