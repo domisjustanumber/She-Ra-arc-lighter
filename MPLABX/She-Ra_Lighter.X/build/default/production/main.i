@@ -5822,7 +5822,8 @@ unsigned char runIndex = 0;
 unsigned int battVolts = 0;
 unsigned char chargeCycle = 0;
 unsigned int adcVolts = 0;
-unsigned long calibrationMV = 0;
+unsigned int calibrationMV = 0;
+unsigned long voltConvert = 0;
 
 
 void doTheArc(void);
@@ -5899,7 +5900,7 @@ int main(int argc, char** argv) {
     T0CON0bits.EN = 1;
 
 
-    PR2 = 0x24;
+    PR2 = 0xFF;
     T2CLKCON = 0b001;
     T2CONbits.T2CKPS = 0b110;
     T2HLTbits.PSYNC = 1;
@@ -5907,7 +5908,7 @@ int main(int argc, char** argv) {
 
 
     TMR0IE = 1;
-
+    TMR2IE = 1;
 
 
     FVRCONbits.ADFVR = 0b01;
@@ -5918,7 +5919,8 @@ int main(int argc, char** argv) {
     if (!debugging) NVMCON1bits.NVMREGS = 1;
     NVMADR = 0x8118;
     NVMCON1bits.RD = 1;
-    calibrationMV = NVMADR;
+    while (NVMCON1bits.RD == 1);
+    calibrationMV = NVMDAT;
     if (!debugging) NVMCON1bits.NVMREGS = 0;
 
 
@@ -5926,11 +5928,10 @@ int main(int argc, char** argv) {
     ADCON1bits.PREF = 0b00;
     ADCON0bits.CHS = 0b011110;
     ADCON1bits.FM = 1;
-    ADACT = 0x0;
 
 
     if (!debugging) ADCON0bits.ON = 1;
-# 473 "main.c"
+# 474 "main.c"
     IOCAN0 = 1;
     IOCAP0 = 1;
     IOCAN3 = 1;
@@ -5956,7 +5957,6 @@ int main(int argc, char** argv) {
 
 
     do {
-
 
 
         forceArc = 0;
@@ -6000,7 +6000,7 @@ static void __attribute__((picinterrupt(("")))) isr(void) {
                 showCharge = 0;
                 poweredOn = 0;
                 lowPowerMode = 1;
-
+                forceArc = 0;
             }
         }
 
@@ -6019,7 +6019,7 @@ static void __attribute__((picinterrupt(("")))) isr(void) {
 
 
 
-
+                showCharge = 1;
                 gotTheTouch = 0;
             }
         }
@@ -6055,7 +6055,7 @@ static void __attribute__((picinterrupt(("")))) isr(void) {
             clockDivider = 0;
 
 
-            if (buttonDebounce < 2000) buttonDebounce++;
+            if (buttonDebounce < 5) buttonDebounce++;
             else {
 # 644 "main.c"
             }
@@ -6064,7 +6064,7 @@ static void __attribute__((picinterrupt(("")))) isr(void) {
 
 
 
-        if (gate || forceArc) {
+        if ((gate || forceArc) && poweredOn && gotTheTouch) {
             pinState ^= 1;
             LATC4 = pinState;
             LATC5 = (pinState^1);
@@ -6082,7 +6082,7 @@ void doTheArc() {
 
     forceArc = 1;
     runIndex++;
-    if (runIndex > 4) runIndex = 1;
+    if (runIndex > 3) runIndex = 1;
     switch (runIndex) {
         case 1:
 
@@ -6122,12 +6122,12 @@ void doTheArc() {
     }
 
     forceArc = 0;
+    gotTheTouch = 0;
 
     LATA1 = 1;
     LATA2 = 1;
     LATC0 = 1;
     LATC1 = 1;
-
 }
 
 
@@ -6192,7 +6192,11 @@ void chargeIndicator(void) {
     ADCON0bits.GO = 1;
     if (!debugging) while (ADCON0bits.GO == 1);
     adcVolts = ADRES;
-    if (!debugging) battVolts = ((calibrationMV * 1204) / adcVolts) / 10;
+
+
+
+
+    if (!debugging) battVolts = ((calibrationMV * 1024L) / adcVolts) / 10L;
 
     if (battVolts > 415) {
 

@@ -121,7 +121,7 @@
 
 // Other definitions
 #define     CLOCK_DIVIDER   15  // How much to divide the clock by to get 1ms
-#define     BUTTON_DEBOUNCE 2000   // How many ms to wait between button readings to eliminate bounce
+#define     BUTTON_DEBOUNCE 5   // How many ms to wait between button readings to eliminate bounce
 
 #define     EE_INDEX        0
 #define     EE_MAGICBYTE    1
@@ -350,7 +350,8 @@ unsigned char runIndex = 0;
 unsigned int battVolts = 0; // We'll use this to hold the current voltage measurement
 unsigned char chargeCycle = 0; // We'll use this to toggle the charge LEDs on and off
 unsigned int adcVolts = 0; // Reads the temporary value read from the ADC
-unsigned long calibrationMV = 0; // Holds our chip-specific FVR calibration value in mV
+unsigned int calibrationMV = 0; // Holds our chip-specific FVR calibration value in mV
+unsigned long voltConvert = 0; // Temporary store for voltage conversion
 
 // Prototype our functions
 void doTheArc(void);
@@ -427,7 +428,7 @@ int main(int argc, char** argv) {
     T0CON0bits.EN = 1; // Enable Timer0
 
     // Timer2
-    PR2 = 0x24; // Set our initial note for regular arcs
+    PR2 = 0xFF; // Set our initial note for regular arcs
     T2CLKCON = 0b001; // Set the input to FOSC/4
     T2CONbits.T2CKPS = 0b110; // Sets the prescaler to 64
     T2HLTbits.PSYNC = 1; // Prescaler is synced to FOSC/4 so it doesn't run during sleep
@@ -435,7 +436,7 @@ int main(int argc, char** argv) {
 
     // Enable timer interrupts so the blockingDelay function works    
     TMR0IE = 1;
-    // TMR2IE = 1;
+    TMR2IE = 1;
 
     // Set up the internal Fixed Voltage Reference
     FVRCONbits.ADFVR = 0b01; // Set FVR to 1x (1.024V)
@@ -444,9 +445,10 @@ int main(int argc, char** argv) {
     // Each chip has it's own calibration value for the internal fixed reference voltage
     // Read this calibration value in mV so we can accurately measure battery voltage against it
     if (!debugging) NVMCON1bits.NVMREGS = 1; // We want to read the DIA calibration bits from NVM
-    NVMADR = 0x8118; // The address of the FVR 1x calibration value in the NVM DIA
+    NVMADR = DIA_FVRA1X; // The address of the FVR 1x calibration value in the NVM DIA
     NVMCON1bits.RD = 1; // Start the read
-    calibrationMV = NVMADR; // This should now contain the calibrated FVR 1x value
+    while (NVMCON1bits.RD == 1);
+    calibrationMV = NVMDAT; // This should now contain the calibrated FVR 1x value
     if (!debugging) NVMCON1bits.NVMREGS = 0; // Go back to reading usual registers
 
     // Set up the ADC
@@ -454,7 +456,6 @@ int main(int argc, char** argv) {
     ADCON1bits.PREF = 0b00; // Use VDD as the voltage reference
     ADCON0bits.CHS = 0b011110; // Connect the FVR to the ADC
     ADCON1bits.FM = 1; // Right-align the 10 reading bits in the 16 bit register
-    ADACT = 0x0; // Disable the auto-conversion trigger (interrupt generator?)
 
     ///// Comment this below line out for simulator testing (otherwise it borks)
     if (!debugging) ADCON0bits.ON = 1; // Enable the ADC
@@ -574,7 +575,7 @@ static void __interrupt() isr(void) {
                 showCharge = 0;
                 poweredOn = 0;
                 lowPowerMode = 1;
-                // forceArc = 0;
+                forceArc = 0;
             }
         }
         
@@ -593,7 +594,7 @@ static void __interrupt() isr(void) {
                 // We're done, let's sleep
                 // lowPowerMode = 0;
                //  poweredOn = 1;
-              //  showCharge = 1;
+                showCharge = 1;
                 gotTheTouch = 0;
             }
         }
@@ -646,7 +647,7 @@ static void __interrupt() isr(void) {
         // Here's our exceptionally shitty complementary PWM generator
         // You can't simply set LATC4 to the inverse of LATC5 without
         // using an intermediate variable, trust me, it shits itself. 
-        if (gate || forceArc) {
+        if ((gate || forceArc) && poweredOn && gotTheTouch) {
             pinState ^= 1;
             LATC4 = pinState;
             LATC5 = (pinState^1);
@@ -664,7 +665,7 @@ void doTheArc() {
 
     forceArc = 1; // Start the arc (no modulation)
     runIndex++;
-    if (runIndex > 4) runIndex = 1;
+    if (runIndex > 3) runIndex = 1;
     switch (runIndex) {
         case 1:
             // Show only LED 1
@@ -704,12 +705,12 @@ void doTheArc() {
     }
     // Show's over folks. Shut it down.
     forceArc = 0;
+    gotTheTouch = 0;
     // playNote(0, 100);
     LATA1 = 1;
     LATA2 = 1;
     LATC0 = 1;
     LATC1 = 1;
-
 }
 
 // Generic delay function
@@ -774,7 +775,11 @@ void chargeIndicator(void) {
     ADCON0bits.GO = 1; // Start an ADC measurement
     if (!debugging) while (ADCON0bits.GO == 1); // wait for the conversion to end (GO bit gets reset when read is complete)
     adcVolts = ADRES;
-    if (!debugging) battVolts = ((calibrationMV * 1204) / adcVolts) / 10; // Should give us battery voltage x100 (e.g. 3.7v is 370)
+    //adcVolts = 267;
+    //calibrationMV = 1023;
+    //battVolts = adcVolts
+   // voltConvert = 
+    if (!debugging) battVolts = ((calibrationMV * 1024L) / adcVolts) / 10L; // Should give us battery voltage x100 (e.g. 3.7v is 370)
 
     if (battVolts > 415) {
         // Battery is over 4.15v (95%)
