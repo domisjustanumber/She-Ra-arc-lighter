@@ -5823,7 +5823,6 @@ unsigned int battVolts = 0;
 unsigned char chargeCycle = 0;
 unsigned int adcVolts = 0;
 unsigned int calibrationMV = 0;
-unsigned long voltConvert = 0;
 
 
 void doTheArc(void);
@@ -5931,11 +5930,13 @@ int main(int argc, char** argv) {
 
 
     if (!debugging) ADCON0bits.ON = 1;
-# 474 "main.c"
+# 473 "main.c"
     IOCAN0 = 1;
     IOCAP0 = 1;
     IOCAN3 = 1;
     IOCAP3 = 1;
+    IOCAN5 = 1;
+    IOCAP5 = 1;
     INTE = 0;
 
     PEIE = 1;
@@ -5974,7 +5975,7 @@ int main(int argc, char** argv) {
             LATC3 = 0;
         }
         if (lowPowerMode) goToLPmode();
-# 531 "main.c"
+# 532 "main.c"
     } while (1);
     return (0);
 }
@@ -5985,7 +5986,29 @@ static void __attribute__((picinterrupt(("")))) isr(void) {
 
 
     if (PIR0bits.IOCIF) {
-# 564 "main.c"
+
+
+
+        if (IOCAF5) {
+            IOCAF5 = 0;
+
+            if (PORTAbits.RA5) {
+
+                poweredOn = 0;
+                showCharge = 1;
+                gotTheTouch = 0;
+                lowPowerMode = 0;
+            } else {
+
+                poweredOn = 0;
+                showCharge = 0;
+                gotTheTouch = 0;
+                lowPowerMode = 1;
+
+            }
+        }
+
+
         if (IOCAF0) {
             IOCAF0 = 0;
 
@@ -6046,7 +6069,7 @@ static void __attribute__((picinterrupt(("")))) isr(void) {
 
     if (PIR0bits.TMR0IF) {
         if (clockDivider < 15) {
-            if(debugging) clockDivider = 15;
+            if (debugging) clockDivider = 15;
             else clockDivider++;
         } else {
 
@@ -6057,7 +6080,7 @@ static void __attribute__((picinterrupt(("")))) isr(void) {
 
             if (buttonDebounce < 5) buttonDebounce++;
             else {
-# 644 "main.c"
+# 645 "main.c"
             }
         }
 
@@ -6100,7 +6123,8 @@ void doTheArc() {
             LATC0 = 1;
             LATC1 = 1;
 
-            blockingDelay(1000);
+            genericDelay = 1000;
+            while (genericDelay && poweredOn && gotTheTouch);
             forceArc = 0;
             for (i = 0; i < sizeof (sheRa) && gotTheTouch && poweredOn; i++) playNote(sheRa[i][0], sheRa[i][1]);
             break;
@@ -6112,7 +6136,8 @@ void doTheArc() {
             LATC0 = 0;
             LATC1 = 1;
 
-            blockingDelay(1000);
+            genericDelay = 1000;
+            while (genericDelay && poweredOn && gotTheTouch);
             forceArc = 0;
             for (i = 0; i < sizeof (gargoyles) && gotTheTouch && poweredOn; i++) playNote(gargoyles[i][0], gargoyles[i][1]);
             break;
@@ -6146,7 +6171,8 @@ void playNote(unsigned int note, unsigned int duration) {
     } else {
         noGate = 1;
     }
-    blockingDelay(duration);
+    genericDelay = duration;
+    while (genericDelay && poweredOn && gotTheTouch);
 }
 
 
@@ -6192,10 +6218,6 @@ void chargeIndicator(void) {
     ADCON0bits.GO = 1;
     if (!debugging) while (ADCON0bits.GO == 1);
     adcVolts = ADRES;
-
-
-
-
     if (!debugging) battVolts = ((calibrationMV * 1024L) / adcVolts) / 10L;
 
     if (battVolts > 415) {

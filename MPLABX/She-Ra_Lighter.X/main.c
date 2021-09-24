@@ -351,7 +351,6 @@ unsigned int battVolts = 0; // We'll use this to hold the current voltage measur
 unsigned char chargeCycle = 0; // We'll use this to toggle the charge LEDs on and off
 unsigned int adcVolts = 0; // Reads the temporary value read from the ADC
 unsigned int calibrationMV = 0; // Holds our chip-specific FVR calibration value in mV
-unsigned long voltConvert = 0; // Temporary store for voltage conversion
 
 // Prototype our functions
 void doTheArc(void);
@@ -475,6 +474,8 @@ int main(int argc, char** argv) {
     IOCAP0 = 1; // Look for rising edge on RA0 (pin 13) lid is closed
     IOCAN3 = 1; // Look for falling edge on RA3 (pin 4) touch sensor is touched
     IOCAP3 = 1; // Look for rising edge on RA3 (pin 4) touch sensor is released
+    IOCAN5 = 1; // Look for falling edge on RA5 (pin 2) USB is unplugged
+    IOCAP5 = 1; // Look for rising edge on RA5 (pin 2) USB is plugged in
     INTE = 0; // Disable interrupts on the dedicated INT pin (we're using the pin for other things)
 
     PEIE = 1; // Peripheral Interrupt Enable (enables all interrupt pins)
@@ -493,7 +494,7 @@ int main(int argc, char** argv) {
     LATC2 = 0;
     blockingDelay(100);
     LATC2 = 1;
-    
+
     // Main loop
     do {
         // PR2 = 0x24;
@@ -541,7 +542,7 @@ static void __interrupt() isr(void) {
 
         ///// Doesn't do anything for now
         // Charger pin changed (RA5)
-        /*if (IOCAF5) {
+        if (IOCAF5) {
             IOCAF5 = 0;
 
             if (PORTAbits.RA5) {
@@ -553,12 +554,12 @@ static void __interrupt() isr(void) {
             } else {
                 // Charger was unplugged, so go to sleep
                 poweredOn = 0;
-                showCharge = 1;
+                showCharge = 0;
                 gotTheTouch = 0;
-                lowPowerMode = 0;
-                WDTCONbits.SEN = 0; // Disable the Watchdog timer
+                lowPowerMode = 1;
+                //  WDTCONbits.SEN = 0; // Disable the Watchdog timer
             }
-        } */
+        }
 
         // Lid changed
         if (IOCAF0) {
@@ -578,7 +579,7 @@ static void __interrupt() isr(void) {
                 forceArc = 0;
             }
         }
-        
+
         // Touch sensor changed
         if (IOCAF3) {
             IOCAF3 = 0;
@@ -593,7 +594,7 @@ static void __interrupt() isr(void) {
             if (PORTAbits.RA3 && !PORTAbits.RA0 && !PORTAbits.RA5) {
                 // We're done, let's sleep
                 // lowPowerMode = 0;
-               //  poweredOn = 1;
+                //  poweredOn = 1;
                 showCharge = 1;
                 gotTheTouch = 0;
             }
@@ -621,7 +622,7 @@ static void __interrupt() isr(void) {
     // Controls the main PWM frequency, and also times our delays
     if (PIR0bits.TMR0IF) {
         if (clockDivider < CLOCK_DIVIDER) {
-            if(debugging) clockDivider = CLOCK_DIVIDER;
+            if (debugging) clockDivider = CLOCK_DIVIDER;
             else clockDivider++;
         } else {
             // 1 ms has passed, so decrement our genericDelay counter and reset the clockDivider
@@ -635,12 +636,12 @@ static void __interrupt() isr(void) {
                 // 5 ms has passed
 
                 // Read the Touch sensor value into the debouncer
-            /////    ButtonProcess(&aPorts, PORTA);
+                /////    ButtonProcess(&aPorts, PORTA);
 
                 ///// Throw it into the touch sensor value
-             /////   if(ButtonCurrent(&aPorts, BUTTON_PIN_3)) gotTheTouch = 1;
-             /////   else gotTheTouch = 0;
-           //     gotTheTouch = 0;
+                /////   if(ButtonCurrent(&aPorts, BUTTON_PIN_3)) gotTheTouch = 1;
+                /////   else gotTheTouch = 0;
+                //     gotTheTouch = 0;
             }
         }
 
@@ -683,7 +684,8 @@ void doTheArc() {
             LATC0 = 1;
             LATC1 = 1;
 
-            blockingDelay(1000); // Delay for a second
+            genericDelay = 1000; // Delay for a second
+            while (genericDelay && poweredOn && gotTheTouch);
             forceArc = 0; // Disable the Arc (prepare for modulation)
             for (i = 0; i < sizeof (sheRa) && gotTheTouch && poweredOn; i++) playNote(sheRa[i][0], sheRa[i][1]);
             break;
@@ -695,7 +697,8 @@ void doTheArc() {
             LATC0 = 0;
             LATC1 = 1;
 
-            blockingDelay(1000); // Delay for a second
+            genericDelay = 1000; // Delay for a second
+            while (genericDelay && poweredOn && gotTheTouch);
             forceArc = 0; // Disable the Arc (prepare for modulation)
             for (i = 0; i < sizeof (gargoyles) && gotTheTouch && poweredOn; i++) playNote(gargoyles[i][0], gargoyles[i][1]);
             break;
@@ -729,7 +732,8 @@ void playNote(unsigned int note, unsigned int duration) {
     } else {
         noGate = 1;
     }
-    blockingDelay(duration);
+    genericDelay = duration;
+    while (genericDelay && poweredOn && gotTheTouch);
 }
 
 // Clear interrupts, turn stuff off, go sleepy times
@@ -775,10 +779,6 @@ void chargeIndicator(void) {
     ADCON0bits.GO = 1; // Start an ADC measurement
     if (!debugging) while (ADCON0bits.GO == 1); // wait for the conversion to end (GO bit gets reset when read is complete)
     adcVolts = ADRES;
-    //adcVolts = 267;
-    //calibrationMV = 1023;
-    //battVolts = adcVolts
-   // voltConvert = 
     if (!debugging) battVolts = ((calibrationMV * 1024L) / adcVolts) / 10L; // Should give us battery voltage x100 (e.g. 3.7v is 370)
 
     if (battVolts > 415) {
