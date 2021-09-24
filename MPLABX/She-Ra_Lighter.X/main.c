@@ -120,6 +120,8 @@
 #define     NOTE_EIGHTH     0x00
 
 // Other definitions
+#define     PRELOAD_H       0xFE // Values to preload into Timer1 to get 15.625kHz interrupts
+#define     PRELOAD_L       0x55  // Values to preload into Timer1 to get 15.625kHz interrupts
 #define     CLOCK_DIVIDER   15  // How much to divide the clock by to get 1ms
 #define     BUTTON_DEBOUNCE 5   // How many ms to wait between button readings to eliminate bounce
 
@@ -323,7 +325,8 @@ unsigned char debugging = 0; ///// Set to 0 for prod, 1 to disable the stuff tha
 unsigned char clockDivider = 0;
 unsigned char buttonDebounce = 0;
 
-unsigned int i;
+unsigned int i = 0;
+unsigned char fadeUp = 0;
 
 __bit pinState = 0;
 unsigned forceArc = 0;
@@ -359,6 +362,8 @@ void playNote(unsigned int note, unsigned int duration);
 void goToLPmode(void);
 void checkForCharging(void);
 void chargeIndicator(void);
+
+void fade(void);
 
 // Main program
 
@@ -420,23 +425,37 @@ int main(int argc, char** argv) {
 
     // Set up our timers
     // Timer0
+    // This timer will run our notes
+    // Base frequency is 125kHz
     T0CON0bits.MD16 = 0; // Not using 16 bit timers (8 bit timer)
     T0CON0bits.OUTPS = 0b0000; // 1:1 output (post) scaler
     T0CON1bits.CS = 0b010; // FOSC/4 as our input (match the PIC12F)
     T0CON1bits.ASYNC = 0; // Not running in ASYNC mode, so Timer 0 stops in Sleep mode.
-    T0CON1bits.CKPS = 0b0001; // Set prescaler to 1:2
+    T0CON1bits.CKPS = 0b0110; // Set prescaler to 1:64
     T0CON0bits.EN = 1; // Enable Timer0
 
+    // Timer1
+    // This timer will run our ~15.625kHz arc PWM frequency
+    T1CONbits.CKPS = 0b00; // 1:1 Prescaler
+    T1CONbits.RD16 = 0; // We can read and write all 16 bits of the timer at the same time
+    T1CLKbits.CS = 0b00001; // FOSC/4 as clock source
+    TMR1H = PRELOAD_H; // Values to preload into Timer to get our 15.625kHz interrupt frequency
+    TMR1L = PRELOAD_L; // Values to preload into Timer to get our 15.625kHz interrupt frequency
+    T1CONbits.ON = 1; // Run baby run
+
     // Timer2
-    PR2 = 0xFF; // Set our initial note for regular arcs
+    // This timer will run our ~1kHz LED PWM frequency
     T2CLKCON = 0b001; // Set the input to FOSC/4
-    T2CONbits.T2CKPS = 0b110; // Sets the prescaler to 64
+    T2CONbits.T2CKPS = 0b110; // Sets the prescaler to 1:32
     T2HLTbits.PSYNC = 1; // Prescaler is synced to FOSC/4 so it doesn't run during sleep
+    // T2RST = 0b0011; // PWM3 can reset the timer
+    // T2RST = 0b0100 // PWM4 can reset the timer
     T2CONbits.TMR2ON = 1; // Turn Timer 2 on
 
     // Enable timer interrupts so the blockingDelay function works    
     TMR0IE = 1;
-    TMR2IE = 1;
+    TMR1IE = 1;
+    //  TMR2IE = 1;
 
     // Set up the internal Fixed Voltage Reference
     FVRCONbits.ADFVR = 0b01; // Set FVR to 1x (1.024V)
@@ -447,7 +466,7 @@ int main(int argc, char** argv) {
     if (!debugging) NVMCON1bits.NVMREGS = 1; // We want to read the DIA calibration bits from NVM
     NVMADR = DIA_FVRA1X; // The address of the FVR 1x calibration value in the NVM DIA
     NVMCON1bits.RD = 1; // Start the read
-    while (NVMCON1bits.RD == 1);
+    if (!debugging) while (NVMCON1bits.RD == 1);
     calibrationMV = NVMDAT; // This should now contain the calibrated FVR 1x value
     if (!debugging) NVMCON1bits.NVMREGS = 0; // Go back to reading usual registers
 
@@ -500,38 +519,40 @@ int main(int argc, char** argv) {
 
     // Main loop
     do {
-        // PR2 = 0x24;
-        // gate = 0;
         forceArc = 0;
-        if (showCharge) chargeIndicator();
-        if (poweredOn) {
-            // Turn the power light on
-            LATC2 = 0;
-            // Fire up the touch sensor
-            LATC3 = 1;
-            if (gotTheTouch) doTheArc();
+        if (fadeUp > 0) {
+            fade();
         } else {
-            // Turn the power light off
-            LATC2 = 1;
-            // Turn the touch sensor off
-            LATC3 = 0;
+            if (showCharge) chargeIndicator();
+            if (poweredOn) {
+                // Turn the power light on
+                LATC2 = 0;
+                // Fire up the touch sensor
+                LATC3 = 1;
+                if (gotTheTouch) doTheArc();
+            } else {
+                // Turn the power light off
+                LATC2 = 1;
+                // Turn the touch sensor off
+                LATC3 = 0;
+            }
+            if (lowPowerMode) goToLPmode();
+            ///// checkForCharging();
+            /*   if (ButtonPressed(&aPorts, BUTTON_PIN_5)) {
+                   // Charger has been plugged in
+                   poweredOn = 0;
+                   showCharge = 1;
+                   gotTheTouch = 0;
+                   lowPowerMode = 0;
+                   // WDTCONbits.SEN = 0; // Disable the Watchdog timer
+               }
+               if (ButtonReleased(&aPorts, BUTTON_PIN_5)) {
+                   // Charger has been unplugged
+                   poweredOn = 0;
+                   lowPowerMode = 1;
+                   showCharge = 0;
+               } */
         }
-        if (lowPowerMode) goToLPmode();
-        ///// checkForCharging();
-        /*   if (ButtonPressed(&aPorts, BUTTON_PIN_5)) {
-               // Charger has been plugged in
-               poweredOn = 0;
-               showCharge = 1;
-               gotTheTouch = 0;
-               lowPowerMode = 0;
-               // WDTCONbits.SEN = 0; // Disable the Watchdog timer
-           }
-           if (ButtonReleased(&aPorts, BUTTON_PIN_5)) {
-               // Charger has been unplugged
-               poweredOn = 0;
-               lowPowerMode = 1;
-               showCharge = 0;
-           } */
     } while (1); // Loop forever
     return (EXIT_SUCCESS);
 }
@@ -540,95 +561,16 @@ int main(int argc, char** argv) {
 
 static void __interrupt() isr(void) {
 
-    // Pin change triggered something - let's find out what
-    if (PIR0bits.IOCIF) {
-
-        ///// Doesn't do anything for now
-        // Charger pin changed (RA4)
-        if (IOCAF4) {
-            IOCAF4 = 0;
-
-            if (!PORTAbits.RA4) {
-                // Charging started
-                poweredOn = 0;
-                charging = 1;
-                showCharge = 1;
-                gotTheTouch = 0;
-                lowPowerMode = 0;
-            } else {
-                // Charger was unplugged, so go to sleep
-                charging = 0;
-                poweredOn = 0;
-                showCharge = 0;
-                gotTheTouch = 0;
-                // lowPowerMode = 1;
-                //  WDTCONbits.SEN = 0; // Disable the Watchdog timer
-            }
-        }
-
-        // Lid changed
-        if (IOCAF0) {
-            IOCAF0 = 0;
-            // Lid opened, and we're not charging
-            if (!PORTAbits.RA0 && PORTAbits.RA4) {
-                lowPowerMode = 0;
-                poweredOn = 1;
-                showCharge = 1;
-            }
-            // Lid has been closed, and we're not charging
-            if (PORTAbits.RA0 && PORTAbits.RA4) {
-                // We're done, let's sleep
-                showCharge = 0;
-                poweredOn = 0;
-                lowPowerMode = 1;
-                forceArc = 0;
-            }
-        }
-
-        // Touch sensor changed
-        if (IOCAF3) {
-            IOCAF3 = 0;
-            // Touch sensor pressed, lid is open, and we're not charging... let's go!
-            if (!PORTAbits.RA3 && !PORTAbits.RA0 && PORTAbits.RA4) {
-                lowPowerMode = 0;
-                poweredOn = 1;
-                showCharge = 0;
-                gotTheTouch = 1;
-            }
-            // Touch sensor released, go back to lid open state
-            if (PORTAbits.RA3 && !PORTAbits.RA0 && PORTAbits.RA4) {
-                // We're done, let's sleep
-                // lowPowerMode = 0;
-                //  poweredOn = 1;
-                showCharge = 1;
-                gotTheTouch = 0;
-            }
-        }
-    }
-
     // Timer interrupts below are used to manage the PWM pulses when playing tunes
+    // Keep this and the preloads here, else you'll mess up the timing!
+    // Timer1 interrupt
+    if (PIR1bits.TMR1IF) {
+        TMR1H = PRELOAD_H; // Values to preload into Timer to get our 15.625kHz interrupt frequency
+        TMR1L = PRELOAD_L; // Values to preload into Timer to get our 15.625kHz interrupt frequency
 
-    // Timer2 interrupt
-    // We're basically using Timer 2 to gate Timer 0 in software.
-    // postscaler is used to divide the Timer2 frequency by 2
-    if (PIR1bits.TMR2IF) {
-        if (!noGate && poweredOn && gotTheTouch) {
-            postscaler ^= 1;
-            if (postscaler) {
-                gate ^= 1;
-            }
-        } else {
-            gate = 0;
-        }
-        PIR1bits.TMR2IF = 0;
-    }
-
-    // Timer0 interrupt
-    // Controls the main PWM frequency, and also times our delays
-    if (PIR0bits.TMR0IF) {
+        if (debugging) clockDivider = CLOCK_DIVIDER;
         if (clockDivider < CLOCK_DIVIDER) {
-            if (debugging) clockDivider = CLOCK_DIVIDER;
-            else clockDivider++;
+            clockDivider++;
         } else {
             // 1 ms has passed, so decrement our genericDelay counter and reset the clockDivider
             if (debugging) genericDelay = 0;
@@ -661,8 +603,93 @@ static void __interrupt() isr(void) {
             LATC4 = 0;
             LATC5 = 0;
         }
+
+        PIR1bits.TMR1IF = 0;
+    }
+
+    // Timer0 interrupt
+    // Not used.
+    // We're basically using Timer 0 to gate Timer 1 in software.
+    if (PIR0bits.TMR0IF) {
+        if (!noGate) {
+            postscaler ^= 1;
+            if (postscaler) {
+                gate ^= 1;
+            }
+        } else {
+            gate = 0;
+        }
         PIR0bits.TMR0IF = 0;
     }
+
+    // Pin change triggered something - let's find out what
+    if (PIR0bits.IOCIF) {
+
+        ///// Doesn't do anything for now
+        // Charger pin changed (RA4)
+        if (IOCAF4) {
+            IOCAF4 = 0;
+
+            if (!PORTAbits.RA4) {
+                // Charging started
+                // poweredOn = 0;
+                charging = 1;
+                showCharge = 1;
+                //  gotTheTouch = 0;
+                //   lowPowerMode = 0;
+            } else {
+                // Charger was unplugged, so go to sleep
+                charging = 0;
+                // poweredOn = 0;
+                showCharge = 0;
+                // gotTheTouch = 0;
+                // lowPowerMode = 1;
+                //  WDTCONbits.SEN = 0; // Disable the Watchdog timer
+            }
+        }
+
+        // Lid changed
+        if (IOCAF0) {
+            IOCAF0 = 0;
+            // Lid opened, and we're not charging
+            if (!PORTAbits.RA0 && PORTAbits.RA4) {
+                lowPowerMode = 0;
+                poweredOn = 1;
+                showCharge = 1;
+                fadeUp = 1;
+            }
+            // Lid has been closed, and we're not charging
+            if (PORTAbits.RA0 && PORTAbits.RA4) {
+                // We're done, let's sleep
+                showCharge = 0;
+                poweredOn = 0;
+                lowPowerMode = 1;
+                forceArc = 0;
+            }
+        }
+
+        // Touch sensor changed
+        if (IOCAF3) {
+            IOCAF3 = 0;
+            // Touch sensor pressed, lid is open, and we're not charging... let's go!
+            if (!PORTAbits.RA3 && !PORTAbits.RA0 && PORTAbits.RA4) {
+                lowPowerMode = 0;
+                poweredOn = 1;
+                showCharge = 0;
+                gotTheTouch = 1;
+            }
+            // Touch sensor released, go back to lid open state
+            if (PORTAbits.RA3 && !PORTAbits.RA0 && PORTAbits.RA4) {
+                // We're done, let's sleep
+                // lowPowerMode = 0;
+                //  poweredOn = 1;
+                showCharge = 1;
+                gotTheTouch = 0;
+            }
+        }
+    }
+
+
 }
 
 // Do the fun stuff
@@ -725,7 +752,7 @@ void doTheArc() {
 
 void blockingDelay(unsigned int mSecs) {
     genericDelay = mSecs;
-    while (genericDelay > 0);
+    if(!debugging) while (genericDelay > 0);
 }
 
 // Note player function
@@ -733,7 +760,8 @@ void blockingDelay(unsigned int mSecs) {
 void playNote(unsigned int note, unsigned int duration) {
     if (note > 0) {
         noGate = 0;
-        PR2 = notes[note];
+        ///// PR2 = notes[note];  // Use this if Timer2 is controlling the note frequencies
+        TMR0H = notes[note]; // Use this if Timer0 is controlling the note frequencies
     } else {
         noGate = 1;
     }
@@ -771,6 +799,101 @@ void checkForCharging() {
 
     // Throw it into the touch sensor value
     charging = ButtonCurrent(&aPorts, BUTTON_PIN_5);
+}
+
+void fade(void) {
+    // We got 4x PWM generators, all tied to Timer2 as the base PWM rate (in this case ~1kHz)
+    // CCP1
+    // CCP2
+    // PWM3
+    // PWM4
+    // PWM3 and 4 take their duty cycle value as a left-algined set of 10 bits, in a 16 bit register.
+    // TL;DR - a 1 step increment is 64, not 1.
+    // To keep these all the same, we'll also configure the CCP modules to work left-aligned too.
+    // As our pins are 1=off, 0=on, we need to invert the duty cycle values. i.e. 0 = on, 1023 = off.
+
+    if (fadeUp > 0) {
+
+        // Fade up the power LED
+        if (fadeUp == 1) {
+            PWM3CONbits.EN = 1; // Enable PWM3
+
+            // Route our PWMs to the pins
+            RC2PPS = 0x03; // Send PWM3 to RC2 (Power LED)
+            RA1PPS = 0x03; // Send PWM3 to RA1 (Charge LED 1)
+            RA2PPS = 0x03; // Send PWM3 to RA2 (Charge LED 2)
+            RC0PPS = 0x03; // Send PWM3 to RC0 (Charge LED 3)
+            RC1PPS = 0x03; // Send PWM3 to RC1 (Charge LED 4)
+
+            i = 0xFFC0;
+            do {
+                genericDelay = 1;
+                while (genericDelay > 0);
+                PWM3DC = i; // Ramp up the brightness
+                i = i - 64;
+            } while (i > 0x0040);
+
+            // We're now at full brightness, so switch back over to LAT control of the pin
+            RC2PPS = 0x00; // Send PWM3 to RC2 (Power LED)
+            RA1PPS = 0x00; // Send PWM3 to RA1 (Charge LED 1)
+            RA2PPS = 0x00; // Send PWM3 to RA2 (Charge LED 2)
+            RC0PPS = 0x00; // Send PWM3 to RC0 (Charge LED 3)
+            RC1PPS = 0x00; // Send PWM3 to RC1 (Charge LED 4)
+        }
+        // Fade up the charge lights
+        else if (fadeUp == 2) {
+            
+        }
+        // Fade up the charge lights AND the power LED
+        else if (fadeUp == 3) {
+            CCP1CONbits.EN = 1; // Enable CCP1
+            CCP1CONbits.FMT = 1; // Left-justify our duty cycle register to match the PWM ones
+            CCP1CONbits.MODE = 0b1100; // Set to PWM mode
+            
+            CCP2CONbits.EN = 1; // Enable CCP1
+            CCP2CONbits.FMT = 1; // Left-justify our duty cycle register to match the PWM ones
+            CCP2CONbits.MODE = 0b1100; // Set to PWM mode
+            
+            PWM3CONbits.EN = 1; // Enable PWM3
+            
+            PWM4CONbits.EN = 1; // Enable PWM4
+            
+            // Route our PWMs to the pins
+            RC2PPS = 0x01; // Send CCP1 to RC2 (Power LED)
+            RA1PPS = 0x01; // Send CCP1 to RA1 (Charge LED 1)
+            RA2PPS = 0x02; // Send CCP2 to RA2 (Charge LED 2)
+            RC0PPS = 0x03; // Send PWM3 to RC0 (Charge LED 3)
+            RC1PPS = 0x04; // Send PWM4 to RC1 (Charge LED 4)
+        
+        }
+    }
+    fadeUp = 0;
+
+    // Disable the output pins for a moment
+    //TRISC2 = 1; // Power LED
+    //TRISA1 = 1; // Charge LED1
+    //TRISA2 = 1; // Charge LED2
+    //TRISC0 = 1; // Charge LED3
+    //TRISC1 = 1; // Charge LED4
+    
+    
+    //
+
+    //  PWM3CON = 0x0; // Reset the PWM3 config
+    //  PWM3DC = 512; // How bright do we want the LED from 0 - 1023
+    //  PWM3CONbits.EN = 0;  // Enable PWM3
+    //   while(!PIR1bits.TMR2IF); // Wait until TMR2IF is set
+
+
+    // Set PPS to send PWM to actual pins
+    //    RC2PPS = 0x03; // Send PWM3 to RC2
+    //   RC2PPS = 0x04; // Send PWM4 to RC2
+
+    // RE-enable our output pins.
+
+
+
+
 }
 
 void chargeIndicator(void) {
@@ -836,12 +959,5 @@ void chargeIndicator(void) {
         // wait before updating the LEDs
         blockingDelay(500);
         // See if we're still charging
-    }
-    else {
-        // We're done here, turn the lights back off
-        LATA1 = 1;
-        LATA2 = 1;
-        LATC0 = 1;
-        LATC1 = 1;
     }
 }

@@ -5599,7 +5599,7 @@ extern uint8_t ButtonCurrent(Debouncer *port, uint8_t GPIOButtonPins);
 
 
 #pragma config LVP = OFF
-# 131 "main.c"
+# 133 "main.c"
 const unsigned char notes[36] = {
     0xED, 0xE0, 0xD3, 0xC7, 0xBD, 0xB2, 0xA8, 0x9E, 0x96, 0x8D, 0x85, 0x7D,
     0x76, 0x70, 0x6A, 0x63, 0x5E, 0x59, 0x54, 0x4F, 0x4B, 0x46, 0x42, 0x3F,
@@ -5795,7 +5795,8 @@ unsigned char debugging = 0;
 unsigned char clockDivider = 0;
 unsigned char buttonDebounce = 0;
 
-unsigned int i;
+unsigned int i = 0;
+unsigned char fadeUp = 0;
 
 __bit pinState = 0;
 unsigned forceArc = 0;
@@ -5831,6 +5832,8 @@ void playNote(unsigned int note, unsigned int duration);
 void goToLPmode(void);
 void checkForCharging(void);
 void chargeIndicator(void);
+
+void fade(void);
 
 
 
@@ -5892,23 +5895,37 @@ int main(int argc, char** argv) {
 
 
 
+
+
     T0CON0bits.MD16 = 0;
     T0CON0bits.OUTPS = 0b0000;
     T0CON1bits.CS = 0b010;
     T0CON1bits.ASYNC = 0;
-    T0CON1bits.CKPS = 0b0001;
+    T0CON1bits.CKPS = 0b0110;
     T0CON0bits.EN = 1;
 
 
-    PR2 = 0xFF;
+
+    T1CONbits.CKPS = 0b00;
+    T1CONbits.RD16 = 0;
+    T1CLKbits.CS = 0b00001;
+    TMR1H = 0xFE;
+    TMR1L = 0x55;
+    T1CONbits.ON = 1;
+
+
+
     T2CLKCON = 0b001;
     T2CONbits.T2CKPS = 0b110;
     T2HLTbits.PSYNC = 1;
+
+
     T2CONbits.TMR2ON = 1;
 
 
     TMR0IE = 1;
-    TMR2IE = 1;
+    TMR1IE = 1;
+
 
 
     FVRCONbits.ADFVR = 0b01;
@@ -5919,7 +5936,7 @@ int main(int argc, char** argv) {
     if (!debugging) NVMCON1bits.NVMREGS = 1;
     NVMADR = 0x8118;
     NVMCON1bits.RD = 1;
-    while (NVMCON1bits.RD == 1);
+    if (!debugging) while (NVMCON1bits.RD == 1);
     calibrationMV = NVMDAT;
     if (!debugging) NVMCON1bits.NVMREGS = 0;
 
@@ -5931,7 +5948,7 @@ int main(int argc, char** argv) {
 
 
     if (!debugging) ADCON0bits.ON = 1;
-# 474 "main.c"
+# 493 "main.c"
     IOCAN0 = 1;
     IOCAP0 = 1;
     IOCAN3 = 1;
@@ -5961,24 +5978,26 @@ int main(int argc, char** argv) {
 
 
     do {
-
-
         forceArc = 0;
-        if (showCharge) chargeIndicator();
-        if (poweredOn) {
-
-            LATC2 = 0;
-
-            LATC3 = 1;
-            if (gotTheTouch) doTheArc();
+        if (fadeUp > 0) {
+            fade();
         } else {
+            if (showCharge) chargeIndicator();
+            if (poweredOn) {
 
-            LATC2 = 1;
+                LATC2 = 0;
 
-            LATC3 = 0;
+                LATC3 = 1;
+                if (gotTheTouch) doTheArc();
+            } else {
+
+                LATC2 = 1;
+
+                LATC3 = 0;
+            }
+            if (lowPowerMode) goToLPmode();
+# 555 "main.c"
         }
-        if (lowPowerMode) goToLPmode();
-# 535 "main.c"
     } while (1);
     return (0);
 }
@@ -5986,6 +6005,59 @@ int main(int argc, char** argv) {
 
 
 static void __attribute__((picinterrupt(("")))) isr(void) {
+
+
+
+
+    if (PIR1bits.TMR1IF) {
+        TMR1H = 0xFE;
+        TMR1L = 0x55;
+
+        if (debugging) clockDivider = 15;
+        if (clockDivider < 15) {
+            clockDivider++;
+        } else {
+
+            if (debugging) genericDelay = 0;
+            else if (genericDelay > 0) genericDelay--;
+            clockDivider = 0;
+
+
+            if (buttonDebounce < 5) buttonDebounce++;
+            else {
+# 592 "main.c"
+            }
+        }
+
+
+
+
+        if ((gate || forceArc) && poweredOn && gotTheTouch) {
+            pinState ^= 1;
+            LATC4 = pinState;
+            LATC5 = (pinState^1);
+        } else {
+            LATC4 = 0;
+            LATC5 = 0;
+        }
+
+        PIR1bits.TMR1IF = 0;
+    }
+
+
+
+
+    if (PIR0bits.TMR0IF) {
+        if (!noGate) {
+            postscaler ^= 1;
+            if (postscaler) {
+                gate ^= 1;
+            }
+        } else {
+            gate = 0;
+        }
+        PIR0bits.TMR0IF = 0;
+    }
 
 
     if (PIR0bits.IOCIF) {
@@ -5997,17 +6069,17 @@ static void __attribute__((picinterrupt(("")))) isr(void) {
 
             if (!PORTAbits.RA4) {
 
-                poweredOn = 0;
+
                 charging = 1;
                 showCharge = 1;
-                gotTheTouch = 0;
-                lowPowerMode = 0;
+
+
             } else {
 
                 charging = 0;
-                poweredOn = 0;
+
                 showCharge = 0;
-                gotTheTouch = 0;
+
 
 
             }
@@ -6021,6 +6093,7 @@ static void __attribute__((picinterrupt(("")))) isr(void) {
                 lowPowerMode = 0;
                 poweredOn = 1;
                 showCharge = 1;
+                fadeUp = 1;
             }
 
             if (PORTAbits.RA0 && PORTAbits.RA4) {
@@ -6054,54 +6127,6 @@ static void __attribute__((picinterrupt(("")))) isr(void) {
     }
 
 
-
-
-
-
-    if (PIR1bits.TMR2IF) {
-        if (!noGate && poweredOn && gotTheTouch) {
-            postscaler ^= 1;
-            if (postscaler) {
-                gate ^= 1;
-            }
-        } else {
-            gate = 0;
-        }
-        PIR1bits.TMR2IF = 0;
-    }
-
-
-
-    if (PIR0bits.TMR0IF) {
-        if (clockDivider < 15) {
-            if (debugging) clockDivider = 15;
-            else clockDivider++;
-        } else {
-
-            if (debugging) genericDelay = 0;
-            else if (genericDelay > 0) genericDelay--;
-            clockDivider = 0;
-
-
-            if (buttonDebounce < 5) buttonDebounce++;
-            else {
-# 650 "main.c"
-            }
-        }
-
-
-
-
-        if ((gate || forceArc) && poweredOn && gotTheTouch) {
-            pinState ^= 1;
-            LATC4 = pinState;
-            LATC5 = (pinState^1);
-        } else {
-            LATC4 = 0;
-            LATC5 = 0;
-        }
-        PIR0bits.TMR0IF = 0;
-    }
 }
 
 
@@ -6164,7 +6189,7 @@ void doTheArc() {
 
 void blockingDelay(unsigned int mSecs) {
     genericDelay = mSecs;
-    while (genericDelay > 0);
+    if(!debugging) while (genericDelay > 0);
 }
 
 
@@ -6172,7 +6197,8 @@ void blockingDelay(unsigned int mSecs) {
 void playNote(unsigned int note, unsigned int duration) {
     if (note > 0) {
         noGate = 0;
-        PR2 = notes[note];
+
+        TMR0H = notes[note];
     } else {
         noGate = 1;
     }
@@ -6210,6 +6236,67 @@ void checkForCharging() {
 
 
     charging = ButtonCurrent(&aPorts, (0x0020));
+}
+
+void fade(void) {
+# 815 "main.c"
+    if (fadeUp > 0) {
+
+
+        if (fadeUp == 1) {
+            PWM3CONbits.EN = 1;
+
+
+            RC2PPS = 0x03;
+            RA1PPS = 0x03;
+            RA2PPS = 0x03;
+            RC0PPS = 0x03;
+            RC1PPS = 0x03;
+
+            i = 0xFFC0;
+            do {
+                genericDelay = 1;
+                while (genericDelay > 0);
+                PWM3DC = i;
+                i = i - 64;
+            } while (i > 0x0040);
+
+
+            RC2PPS = 0x00;
+            RA1PPS = 0x00;
+            RA2PPS = 0x00;
+            RC0PPS = 0x00;
+            RC1PPS = 0x00;
+        }
+
+        else if (fadeUp == 2) {
+
+        }
+
+        else if (fadeUp == 3) {
+            CCP1CONbits.EN = 1;
+            CCP1CONbits.FMT = 1;
+            CCP1CONbits.MODE = 0b1100;
+
+            CCP2CONbits.EN = 1;
+            CCP2CONbits.FMT = 1;
+            CCP2CONbits.MODE = 0b1100;
+
+            PWM3CONbits.EN = 1;
+
+            PWM4CONbits.EN = 1;
+
+
+            RC2PPS = 0x01;
+            RA1PPS = 0x01;
+            RA2PPS = 0x02;
+            RC0PPS = 0x03;
+            RC1PPS = 0x04;
+
+        }
+    }
+    fadeUp = 0;
+# 897 "main.c"
 }
 
 void chargeIndicator(void) {
@@ -6275,12 +6362,5 @@ void chargeIndicator(void) {
 
         blockingDelay(500);
 
-    }
-    else {
-
-        LATA1 = 1;
-        LATA2 = 1;
-        LATC0 = 1;
-        LATC1 = 1;
     }
 }
