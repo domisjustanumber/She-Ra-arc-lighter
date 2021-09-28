@@ -5630,42 +5630,120 @@ const unsigned int sheRa[61][2] = {
 };
 
 
-const unsigned int gargoyles[35][2] = {
-    { 0x1E, 1598},
-    { 0x1A, 378},
-    { 0x00, 20},
-    { 0x1C, 378},
-    { 0x00, 20},
-    { 0x1E, 378},
-    { 0x00, 20},
-    { 0x1C, 378},
-    { 0x00, 20},
-    { 0x1C, 758},
-    { 0x00, 40},
-    { 0x1F, 758},
-    { 0x00, 40},
-    { 0x22, 1465},
-    { 0x00, 40},
-    { 0x23, 778},
-    { 0x00, 20},
-    { 0x23, 111},
-    { 0x00, 20},
-    { 0x23, 111},
-    { 0x00, 20},
-    { 0x23, 111},
-    { 0x00, 20},
-    { 0x23, 778},
-    { 0x00, 20},
-    { 0x23, 111},
-    { 0x00, 20},
-    { 0x23, 111},
-    { 0x00, 20},
-    { 0x23, 111},
-    { 0x00, 20},
-    { 0x23, 111},
-    { 0x00, 20},
-    { 0x23, 798},
-    { 0x00, 20}
+const unsigned int gargoyles[113][2] = {
+{ 0x1E, 1598 },
+{ 0x1C, 358 },
+{ 0x00, 40 },
+{ 0x1A, 358 },
+{ 0x00, 40 },
+{ 0x19, 358 },
+{ 0x00, 40 },
+{ 0x17, 358 },
+{ 0x00, 40 },
+{ 0x1F, 1198 },
+{ 0x1E, 198 },
+{ 0x1C, 198 },
+{ 0x19, 1385 },
+{ 0x00, 80 },
+{ 0x1E, 1598 },
+{ 0x1A, 378 },
+{ 0x00, 20 },
+{ 0x1C, 378 },
+{ 0x00, 20 },
+{ 0x1E, 378 },
+{ 0x00, 20 },
+{ 0x1C, 378 },
+{ 0x00, 20 },
+{ 0x1C, 758 },
+{ 0x00, 40 },
+{ 0x1F, 758 },
+{ 0x00, 40 },
+{ 0x22, 1385 },
+{ 0x00, 80 },
+{ 0x1A, 778 },
+{ 0x00, 20 },
+{ 0x19, 378 },
+{ 0x00, 20 },
+{ 0x17, 358 },
+{ 0x00, 40 },
+{ 0x19, 798 },
+{ 0x1C, 758 },
+{ 0x00, 40 },
+{ 0x1C, 758 },
+{ 0x00, 40 },
+{ 0x1A, 358 },
+{ 0x00, 40 },
+{ 0x19, 358 },
+{ 0x00, 40 },
+{ 0x1A, 798 },
+{ 0x1E, 758 },
+{ 0x00, 40 },
+{ 0x1E, 758 },
+{ 0x00, 40 },
+{ 0x1D, 358 },
+{ 0x00, 40 },
+{ 0x1B, 358 },
+{ 0x00, 40 },
+{ 0x1D, 798 },
+{ 0x20, 758 },
+{ 0x00, 40 },
+{ 0x20, 758 },
+{ 0x00, 40 },
+{ 0x1E, 358 },
+{ 0x00, 40 },
+{ 0x1D, 358 },
+{ 0x00, 40 },
+{ 0x22, 1518 },
+{ 0x00, 80 },
+{ 0x1E, 1598 },
+{ 0x1C, 358 },
+{ 0x00, 40 },
+{ 0x1A, 358 },
+{ 0x00, 40 },
+{ 0x19, 358 },
+{ 0x00, 40 },
+{ 0x17, 358 },
+{ 0x00, 40 },
+{ 0x1F, 1198 },
+{ 0x1E, 198 },
+{ 0x1C, 198 },
+{ 0x19, 1385 },
+{ 0x00, 80 },
+{ 0x1E, 1598 },
+{ 0x1A, 378 },
+{ 0x00, 20 },
+{ 0x1C, 378 },
+{ 0x00, 20 },
+{ 0x1E, 378 },
+{ 0x00, 20 },
+{ 0x1C, 378 },
+{ 0x00, 20 },
+{ 0x1C, 758 },
+{ 0x00, 40 },
+{ 0x1F, 758 },
+{ 0x00, 40 },
+{ 0x22, 1465 },
+{ 0x00, 40 },
+{ 0x23, 778 },
+{ 0x00, 20 },
+{ 0x23, 111 },
+{ 0x00, 20 },
+{ 0x23, 111 },
+{ 0x00, 20 },
+{ 0x23, 111 },
+{ 0x00, 20 },
+{ 0x23, 778 },
+{ 0x00, 20 },
+{ 0x23, 111 },
+{ 0x00, 20 },
+{ 0x23, 111 },
+{ 0x00, 20 },
+{ 0x23, 111 },
+{ 0x00, 20 },
+{ 0x23, 111 },
+{ 0x00, 20 },
+{ 0x23, 798 },
+{ 0x00, 20 }
 };
 
 
@@ -5683,7 +5761,7 @@ unsigned char fadeUp = 0;
 __bit pinState = 0;
 unsigned forceArc = 0;
 unsigned gate = 0;
-unsigned noGate = 1;
+unsigned noGate = 0;
 unsigned coolDownTime = 1000;
 unsigned coolDown = 1000;
 unsigned sheRaSize = 0;
@@ -5779,15 +5857,6 @@ int main(int argc, char** argv) {
 
 
 
-    T0CON0bits.MD16 = 0;
-    T0CON0bits.OUTPS = 0b0000;
-    T0CON1bits.CS = 0b010;
-    T0CON1bits.ASYNC = 0;
-    T0CON1bits.CKPS = 0b0110;
-    T0CON0bits.EN = 1;
-
-
-
     T1CONbits.CKPS = 0b00;
     T1CONbits.RD16 = 0;
     T1CLKbits.CS = 0b00001;
@@ -5802,10 +5871,8 @@ int main(int argc, char** argv) {
     T2HLTbits.PSYNC = 1;
     T2CONbits.TMR2ON = 1;
 
-
-    TMR0IE = 1;
     TMR1IE = 1;
-    TMR2IE = 1;
+
 
 
     FVRCONbits.ADFVR = 0b01;
@@ -5924,20 +5991,7 @@ static void __attribute__((picinterrupt(("")))) isr(void) {
     if (PIR1bits.TMR1IF) {
         TMR1H = 0xFE;
         TMR1L = 0x12;
-
-
-
-
-        if ((gate || forceArc) && lidOpen && gotTheTouch) {
-            pinState ^= 1;
-            LATC4 = pinState;
-            LATC5 = (pinState^1);
-        } else {
-            LATC4 = 0;
-            LATC5 = 0;
-        }
-
-
+# 586 "source/main.c"
         if (clockDivider < 15) {
             clockDivider++;
         } else {
@@ -5946,7 +6000,44 @@ static void __attribute__((picinterrupt(("")))) isr(void) {
 
             if (genericDelay > 0) genericDelay--;
             clockDivider = 0;
+            if (buttonDebounce < 3) buttonDebounce++;
+            else {
+                if (!gotTheTouch) {
+                    if (poweredOn && !fadeUp) {
 
+
+                        if (PORTAbits.RA3) {
+                            if (touch_integrator > 0)
+                                touch_integrator--;
+                        } else if (touch_integrator < 15) touch_integrator++;
+
+
+
+                        if (touch_integrator >= 15) {
+                            gotTheTouch = 1;
+                            touch_integrator = 15;
+                        }
+                        buttonDebounce = 0;
+                    }
+                }
+
+
+                if (PORTAbits.RA0) {
+                    if (lid_integrator > 0)
+                        lid_integrator--;
+                } else if (lid_integrator < 15) lid_integrator++;
+
+
+                if (lid_integrator == 0) {
+                    lidOpen = 0;
+                } else if (lid_integrator >= 15) {
+
+                    lidOpen = 1;
+
+                    if (!poweredOn) doStartUp = 1;
+                    lid_integrator = 15;
+                }
+            }
 
 
 
@@ -5960,63 +6051,30 @@ static void __attribute__((picinterrupt(("")))) isr(void) {
 
 
     if (PIR0bits.TMR0IF) {
-        if (!noGate) {
-            postscaler ^= 1;
-            if (postscaler) {
-                gate ^= 1;
+        if (forceArc) {
+            RC4PPS = 0x03;
+            RC5PPS = 0x04;
+        } else if (noGate) {
+            if (RC4PPS == 0x00) {
+                RC4PPS = 0x03;
+                RC5PPS = 0x04;
+            } else {
+                RC4PPS = 0x00;
+                RC5PPS = 0x00;
             }
+
+
+
+
+
         } else {
-            gate = 0;
+
+            RC4PPS = 0x00;
+            RC5PPS = 0x00;
         }
         PIR0bits.TMR0IF = 0;
     }
-
-
-
-
-    if (PIR1bits.TMR2IF) {
-        PIR1bits.TMR2IF = 0;
-        if (buttonDebounce < 3) buttonDebounce++;
-        else {
-            if (!gotTheTouch) {
-                if (poweredOn && !fadeUp) {
-
-
-                    if (PORTAbits.RA3) {
-                        if (touch_integrator > 0)
-                            touch_integrator--;
-                    } else if (touch_integrator < 15) touch_integrator++;
-
-
-
-                    if (touch_integrator >= 15) {
-                        gotTheTouch = 1;
-                        touch_integrator = 15;
-                    }
-                    buttonDebounce = 0;
-                }
-            }
-
-
-            if (PORTAbits.RA0) {
-                if (lid_integrator > 0)
-                    lid_integrator--;
-            } else if (lid_integrator < 15) lid_integrator++;
-
-
-            if (lid_integrator == 0) {
-                lidOpen = 0;
-            } else if (lid_integrator >= 15) {
-
-                lidOpen = 1;
-
-                if (!poweredOn) doStartUp = 1;
-                lid_integrator = 15;
-            }
-        }
-    }
-
-
+# 678 "source/main.c"
     if (PIR0bits.IOCIF) {
 
 
@@ -6050,7 +6108,44 @@ static void __attribute__((picinterrupt(("")))) isr(void) {
 
 
 void doTheArc() {
+
+
+
+
+    T0CON0bits.MD16 = 0;
+    T0CON0bits.OUTPS = 0b0000;
+    T0CON1bits.CS = 0b010;
+    T0CON1bits.ASYNC = 0;
+    T0CON1bits.CKPS = 0b0111;
+    T0CON0bits.EN = 1;
     TMR0H = 0xFF;
+
+
+    TMR0IE = 1;
+
+
+
+
+    T2CONbits.TMR2ON = 0;
+    T2CLKCON = 0b001;
+    T2CONbits.T2CKPS = 0b001;
+    T2HLTbits.PSYNC = 1;
+    T2CONbits.TMR2ON = 1;
+
+    PWM3CONbits.EN = 1;
+    PWM3CONbits.POL = 0;
+
+    PWM4CONbits.EN = 1;
+    PWM4CONbits.POL = 1;
+
+
+    PWM3DC = 0x7FE0;
+    PWM4DC = 0x7FE0;
+
+
+    LATC4 = 0;
+    LATC5 = 0;
+
     forceArc = 1;
     runIndex++;
     if (runIndex > 3) runIndex = 1;
@@ -6102,6 +6197,18 @@ void doTheArc() {
     }
 
 
+    forceArc = 0;
+    noGate = 0;
+    T0CON0bits.EN = 0;
+
+
+    LATC4 = 0;
+    LATC5 = 0;
+
+    RC4PPS = 0x00;
+    RC5PPS = 0x00;
+
+
     gotTheTouch = 0;
     doStartUp = 1;
     LATA1 = 1;
@@ -6121,11 +6228,11 @@ void blockingDelay(unsigned int mSecs) {
 
 void playNote(unsigned int note, unsigned int duration) {
     if (note > 0) {
-        noGate = 0;
+        noGate = 1;
 
         TMR0H = notes[note];
     } else {
-        noGate = 1;
+        noGate = 0;
     }
     genericDelay = duration;
 
@@ -6140,17 +6247,7 @@ void goToLPmode() {
 
 
     LATC3 = 0;
-
-
-    LATC2 = 0;
-    blockingDelay(100);
-    LATC2 = 1;
-    blockingDelay(100);
-    LATC2 = 0;
-    blockingDelay(100);
-    LATC2 = 1;
-
-
+# 861 "source/main.c"
     LATA1 = 1;
     LATA2 = 1;
     LATC0 = 1;
@@ -6167,10 +6264,17 @@ void goToLPmode() {
 }
 
 void fade(void) {
-# 755 "source/main.c"
-    if (fadeUp == 1) {
-        PWM3CONbits.EN = 1;
+# 889 "source/main.c"
+    T2CLKCON = 0b001;
+    T2CONbits.T2CKPS = 0b110;
+    T2HLTbits.PSYNC = 1;
+    T2CONbits.TMR2ON = 1;
 
+    PWM3CONbits.POL = 0;
+    PWM3CONbits.EN = 1;
+
+
+    if (fadeUp == 1) {
 
         RC2PPS = 0x03;
         RA1PPS = 0x03;
@@ -6200,8 +6304,7 @@ void fade(void) {
         CCP2CONbits.FMT = 1;
         CCP2CONbits.MODE = 0b1100;
 
-        PWM3CONbits.EN = 1;
-
+        PWM4CONbits.POL = 0;
         PWM4CONbits.EN = 1;
 
 
@@ -6228,6 +6331,13 @@ void fade(void) {
 }
 
 void showChillFade() {
+
+
+    T2CLKCON = 0b001;
+    T2CONbits.T2CKPS = 0b110;
+    T2HLTbits.PSYNC = 1;
+    T2CONbits.TMR2ON = 1;
+
     PWM3CONbits.EN = 1;
 
 

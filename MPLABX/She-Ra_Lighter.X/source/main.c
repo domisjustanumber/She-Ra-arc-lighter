@@ -204,42 +204,120 @@ const unsigned int sheRa[61][2] = {
 };
 
 // Gargoyles theme
-const unsigned int gargoyles[35][2] = {
-    { M65, 1598},
-    { M61, 378},
-    { SILENCE, 20},
-    { M63, 378},
-    { SILENCE, 20},
-    { M65, 378},
-    { SILENCE, 20},
-    { M63, 378},
-    { SILENCE, 20},
-    { M63, 758},
-    { SILENCE, 40},
-    { M66, 758},
-    { SILENCE, 40},
-    { M69, 1465},
-    { SILENCE, 40},
-    { M70, 778},
-    { SILENCE, 20},
-    { M70, 111},
-    { SILENCE, 20},
-    { M70, 111},
-    { SILENCE, 20},
-    { M70, 111},
-    { SILENCE, 20},
-    { M70, 778},
-    { SILENCE, 20},
-    { M70, 111},
-    { SILENCE, 20},
-    { M70, 111},
-    { SILENCE, 20},
-    { M70, 111},
-    { SILENCE, 20},
-    { M70, 111},
-    { SILENCE, 20},
-    { M70, 798},
-    { SILENCE, 20}
+const unsigned int gargoyles[113][2] = {
+{ M65, 1598 },
+{ M63, 358 },
+{ SILENCE, 40 },
+{ M61, 358 },
+{ SILENCE, 40 },
+{ M60, 358 },
+{ SILENCE, 40 },
+{ M58, 358 },
+{ SILENCE, 40 },
+{ M66, 1198 },
+{ M65, 198 },
+{ M63, 198 },
+{ M60, 1385 },
+{ SILENCE, 80 },
+{ M65, 1598 },
+{ M61, 378 },
+{ SILENCE, 20 },
+{ M63, 378 },
+{ SILENCE, 20 },
+{ M65, 378 },
+{ SILENCE, 20 },
+{ M63, 378 },
+{ SILENCE, 20 },
+{ M63, 758 },
+{ SILENCE, 40 },
+{ M66, 758 },
+{ SILENCE, 40 },
+{ M69, 1385 },
+{ SILENCE, 80 },
+{ M61, 778 },
+{ SILENCE, 20 },
+{ M60, 378 },
+{ SILENCE, 20 },
+{ M58, 358 },
+{ SILENCE, 40 },
+{ M60, 798 },
+{ M63, 758 },
+{ SILENCE, 40 },
+{ M63, 758 },
+{ SILENCE, 40 },
+{ M61, 358 },
+{ SILENCE, 40 },
+{ M60, 358 },
+{ SILENCE, 40 },
+{ M61, 798 },
+{ M65, 758 },
+{ SILENCE, 40 },
+{ M65, 758 },
+{ SILENCE, 40 },
+{ M64, 358 },
+{ SILENCE, 40 },
+{ M62, 358 },
+{ SILENCE, 40 },
+{ M64, 798 },
+{ M67, 758 },
+{ SILENCE, 40 },
+{ M67, 758 },
+{ SILENCE, 40 },
+{ M65, 358 },
+{ SILENCE, 40 },
+{ M64, 358 },
+{ SILENCE, 40 },
+{ M69, 1518 },
+{ SILENCE, 80 },
+{ M65, 1598 },
+{ M63, 358 },
+{ SILENCE, 40 },
+{ M61, 358 },
+{ SILENCE, 40 },
+{ M60, 358 },
+{ SILENCE, 40 },
+{ M58, 358 },
+{ SILENCE, 40 },
+{ M66, 1198 },
+{ M65, 198 },
+{ M63, 198 },
+{ M60, 1385 },
+{ SILENCE, 80 },
+{ M65, 1598 },
+{ M61, 378 },
+{ SILENCE, 20 },
+{ M63, 378 },
+{ SILENCE, 20 },
+{ M65, 378 },
+{ SILENCE, 20 },
+{ M63, 378 },
+{ SILENCE, 20 },
+{ M63, 758 },
+{ SILENCE, 40 },
+{ M66, 758 },
+{ SILENCE, 40 },
+{ M69, 1465 },
+{ SILENCE, 40 },
+{ M70, 778 },
+{ SILENCE, 20 },
+{ M70, 111 },
+{ SILENCE, 20 },
+{ M70, 111 },
+{ SILENCE, 20 },
+{ M70, 111 },
+{ SILENCE, 20 },
+{ M70, 778 },
+{ SILENCE, 20 },
+{ M70, 111 },
+{ SILENCE, 20 },
+{ M70, 111 },
+{ SILENCE, 20 },
+{ M70, 111 },
+{ SILENCE, 20 },
+{ M70, 111 },
+{ SILENCE, 20 },
+{ M70, 798 },
+{ SILENCE, 20 }
 };
 
 // Define our variables, again a lot of these are redundant
@@ -257,7 +335,7 @@ unsigned char fadeUp = 0;
 __bit pinState = 0;
 unsigned forceArc = 0;
 unsigned gate = 0;
-unsigned noGate = 1;
+unsigned noGate = 0;
 unsigned coolDownTime = 1000;
 unsigned coolDown = 1000;
 unsigned sheRaSize = 0;
@@ -350,15 +428,6 @@ int main(int argc, char** argv) {
     OSCENbits.HFOEN = 1; // Enable HF oscillator
 
     // Set up our timers
-    // Timer0
-    // This timer will run our notes
-    // Base frequency is 125kHz
-    T0CON0bits.MD16 = 0; // Not using 16 bit timers (8 bit timer)
-    T0CON0bits.OUTPS = 0b0000; // 1:1 output (post) scaler
-    T0CON1bits.CS = 0b010; // FOSC/4 as our input (match the PIC12F)
-    T0CON1bits.ASYNC = 0; // Not running in ASYNC mode, so Timer 0 stops in Sleep mode.
-    T0CON1bits.CKPS = 0b0110; // Set prescaler to 1:64
-    T0CON0bits.EN = 1; // Enable Timer0
 
     // Timer1
     // This timer will run our ~15.625kHz arc PWM frequency
@@ -376,10 +445,8 @@ int main(int argc, char** argv) {
     T2HLTbits.PSYNC = 1; // Prescaler is synced to FOSC/4 so it doesn't run during sleep
     T2CONbits.TMR2ON = 1; // Turn Timer 2 on
 
-    // Enable timer interrupts so the blockingDelay function works    
-    TMR0IE = 1;
     TMR1IE = 1;
-    TMR2IE = 1;
+    // TMR2IE = 1;
 
     // Set up the internal Fixed Voltage Reference
     FVRCONbits.ADFVR = 0b01; // Set FVR to 1x (1.024V)
@@ -502,14 +569,18 @@ static void __interrupt() isr(void) {
         // Here's our exceptionally shitty complementary PWM generator
         // You can't simply set LATC4 to the inverse of LATC5 without
         // using an intermediate variable, trust me, it shits itself. 
-        if ((gate || forceArc) && lidOpen && gotTheTouch) {
-            pinState ^= 1;
-            LATC4 = pinState;
-            LATC5 = (pinState^1);
-        } else {
-            LATC4 = 0;
-            LATC5 = 0;
-        }
+        /*    if ((gate || forceArc) && lidOpen && gotTheTouch) {
+                pinState ^= 1;
+                LATC4 = pinState;
+                LATC5 = (pinState^1);
+                RC4PPS = 0x03;
+                RC5PPS = 0x04;
+            } else {
+                LATC4 = 0;
+                LATC5 = 0;
+                RC2PPS = 0x00;
+                RC2PPS = 0x00;
+            } */
 
         ///// if (debugging) clockDivider = CLOCK_DIVIDER;
         if (clockDivider < CLOCK_DIVIDER) {
@@ -520,7 +591,44 @@ static void __interrupt() isr(void) {
             ///// else 
             if (genericDelay > 0) genericDelay--;
             clockDivider = 0;
+            if (buttonDebounce < DEBOUNCE_PERIOD) buttonDebounce++;
+            else {
+                if (!gotTheTouch) {
+                    if (poweredOn && !fadeUp) {
+                        // If we're powered on, read the Touch sensor value into the debouncer
 
+                        if (PORTAbits.RA3) {
+                            if (touch_integrator > 0)
+                                touch_integrator--;
+                        } else if (touch_integrator < MAX_TOUCH_PRESSES) touch_integrator++;
+
+                        /////    if (touch_integrator == 0) gotTheTouch = 0;
+                        /////   else 
+                        if (touch_integrator >= MAX_TOUCH_PRESSES) {
+                            gotTheTouch = 1;
+                            touch_integrator = MAX_TOUCH_PRESSES; /* defensive code if touch_integrator got corrupted */
+                        }
+                        buttonDebounce = 0;
+                    }
+                }
+
+                // Always read the lid switch to see if we should be powered on or not
+                if (PORTAbits.RA0) {
+                    if (lid_integrator > 0)
+                        lid_integrator--;
+                } else if (lid_integrator < MAX_LID_BOUNCES) lid_integrator++;
+
+                // The lid is definitely closed
+                if (lid_integrator == 0) {
+                    lidOpen = 0;
+                } else if (lid_integrator >= MAX_LID_BOUNCES) {
+                    // The lid is definitely open
+                    lidOpen = 1;
+                    // If we are currently off, set the flag for the startup sequence
+                    if (!poweredOn) doStartUp = 1;
+                    lid_integrator = MAX_LID_BOUNCES; /* defensive code if touch_integrator got corrupted */
+                }
+            }
             // If we're running, increment our cooldown timer.
             //if (debugging) coolDown = coolDownTime;
             //else
@@ -534,13 +642,26 @@ static void __interrupt() isr(void) {
     // Timer0 interrupt
     // We're basically using Timer 0 to gate Timer 1 in software.
     if (PIR0bits.TMR0IF) {
-        if (!noGate) {
-            postscaler ^= 1;
-            if (postscaler) {
-                gate ^= 1;
+        if (forceArc) {
+            RC4PPS = 0x03; // Send PWM3 to RC4
+            RC5PPS = 0x04; // Send PWM4 to RC5
+        } else if (noGate) {    
+            if (RC4PPS == 0x00) {
+                RC4PPS = 0x03; // Send PWM3 to RC4
+                RC5PPS = 0x04; // Send PWM4 to RC5
+            } else {
+                RC4PPS = 0x00; // Send LAT to RC4
+                RC5PPS = 0x00; // Send LAT to RC5
             }
+            // postscaler ^= 1;
+            //  if (postscaler) {
+            //      gate ^= 1;
+
+            //  }
         } else {
-            gate = 0;
+            // gate = 0;
+            RC4PPS = 0x00; // Send LAT to RC4
+            RC5PPS = 0x00; // Send LAT to RC5
         }
         PIR0bits.TMR0IF = 0;
     }
@@ -548,47 +669,10 @@ static void __interrupt() isr(void) {
     // Timer2 interrupt
     // If we're powered up, we could do something here.
     // Needs the T2 interrupt enabling
-    if (PIR1bits.TMR2IF) {
-        PIR1bits.TMR2IF = 0;
-        if (buttonDebounce < DEBOUNCE_PERIOD) buttonDebounce++;
-        else {
-            if (!gotTheTouch) {
-                if (poweredOn && !fadeUp) {
-                    // If we're powered on, read the Touch sensor value into the debouncer
+    /* if (PIR1bits.TMR2IF) {
+         PIR1bits.TMR2IF = 0;
 
-                    if (PORTAbits.RA3) {
-                        if (touch_integrator > 0)
-                            touch_integrator--;
-                    } else if (touch_integrator < MAX_TOUCH_PRESSES) touch_integrator++;
-
-                    /////    if (touch_integrator == 0) gotTheTouch = 0;
-                    /////   else 
-                    if (touch_integrator >= MAX_TOUCH_PRESSES) {
-                        gotTheTouch = 1;
-                        touch_integrator = MAX_TOUCH_PRESSES; /* defensive code if touch_integrator got corrupted */
-                    }
-                    buttonDebounce = 0;
-                }
-            }
-
-            // Always read the lid switch to see if we should be powered on or not
-            if (PORTAbits.RA0) {
-                if (lid_integrator > 0)
-                    lid_integrator--;
-            } else if (lid_integrator < MAX_LID_BOUNCES) lid_integrator++;
-
-            // The lid is definitely closed
-            if (lid_integrator == 0) {
-                lidOpen = 0;
-            } else if (lid_integrator >= MAX_LID_BOUNCES) {
-                // The lid is definitely open
-                lidOpen = 1;
-                // If we are currently off, set the flag for the startup sequence
-                if (!poweredOn) doStartUp = 1;
-                lid_integrator = MAX_LID_BOUNCES; /* defensive code if touch_integrator got corrupted */
-            }
-        }
-    }
+     }*/
 
     // Pin change triggered something - let's find out what
     if (PIR0bits.IOCIF) {
@@ -624,7 +708,44 @@ static void __interrupt() isr(void) {
 // Do the fun stuff
 
 void doTheArc() {
+
+    // Timer0
+    // This timer will run our notes
+    // Base frequency is 125kHz
+    T0CON0bits.MD16 = 0; // Not using 16 bit timers (8 bit timer)
+    T0CON0bits.OUTPS = 0b0000; // 1:1 output (post) scaler
+    T0CON1bits.CS = 0b010; // FOSC/4 as our input (match the PIC12F)
+    T0CON1bits.ASYNC = 0; // Not running in ASYNC mode, so Timer 0 stops in Sleep mode.
+    T0CON1bits.CKPS = 0b0111; // Set prescaler to 1:128 (think it should be 64, but meh))
+    T0CON0bits.EN = 1; // Enable Timer0
     TMR0H = 0xFF; // Reset the note
+
+    // Enable timer interrupts so the notes get changed
+    TMR0IE = 1;
+
+    // Timer2
+    // This timer will run our 31.25 kHz arc PWM frequency
+    // We'll be running the PWM at 1/2 this to get the actual 15.625 kHz we want for the arcs
+    T2CONbits.TMR2ON = 0; // Turn Timer 2 off
+    T2CLKCON = 0b001; // Set the input to FOSC/4
+    T2CONbits.T2CKPS = 0b001; // Sets the prescaler to 1:2
+    T2HLTbits.PSYNC = 1; // Prescaler is synced to FOSC/4 so it doesn't run during sleep
+    T2CONbits.TMR2ON = 1; // Turn Timer 2 on
+
+    PWM3CONbits.EN = 1; // Enable PWM3
+    PWM3CONbits.POL = 0; // Ensure PWM3 is not inverted
+
+    PWM4CONbits.EN = 1; // Enable PWM4
+    PWM4CONbits.POL = 1; // Invert PWM4
+
+    // Set the PWM generators to full duty cycle
+    PWM3DC = 0x7FE0;
+    PWM4DC = 0x7FE0;
+
+    // Ensure the latches for our arc outputs are off.
+    LATC4 = 0;
+    LATC5 = 0;
+
     forceArc = 1; // Start the arc (no modulation)
     runIndex++;
     if (runIndex > 3) runIndex = 1;
@@ -675,7 +796,19 @@ void doTheArc() {
             break;
     }
 
-    // Show's over folks. Disable the touch flag and turn off the lights.
+    // Show's over folks.
+    forceArc = 0;
+    noGate = 0;
+    T0CON0bits.EN = 0; // Disable Timer0
+
+    // We're done here, so switch back over to LAT control of the arc pins
+    LATC4 = 0;
+    LATC5 = 0;
+
+    RC4PPS = 0x00; // Send LAT to RC4
+    RC5PPS = 0x00; // Send LAT to RC5
+
+    // Disable the touch flag and turn off the lights.
     gotTheTouch = 0;
     doStartUp = 1;
     LATA1 = 1;
@@ -695,11 +828,11 @@ void blockingDelay(unsigned int mSecs) {
 
 void playNote(unsigned int note, unsigned int duration) {
     if (note > 0) {
-        noGate = 0;
+        noGate = 1;
         ///// PR2 = notes[note];  // Use this if Timer2 is controlling the note frequencies
         TMR0H = notes[note]; // Use this if Timer0 is controlling the note frequencies
     } else {
-        noGate = 1;
+        noGate = 0;
     }
     genericDelay = duration;
 
@@ -716,14 +849,14 @@ void goToLPmode() {
     LATC3 = 0; // Turn off the touch sensor
 
     // Give 2 blinks to show we got here.
-    LATC2 = 0;
+   /* LATC2 = 0;
     blockingDelay(100);
     LATC2 = 1;
     blockingDelay(100);
     LATC2 = 0;
     blockingDelay(100);
     LATC2 = 1;
-
+*/
     // Turn off the LEDs
     LATA1 = 1; // Turn off LED 1
     LATA2 = 1; // Turn off LED 2
@@ -751,10 +884,18 @@ void fade(void) {
     // To keep these all the same, we'll also configure the CCP modules to work left-aligned too.
     // As our pins are 1=off, 0=on, we need to invert the duty cycle values. i.e. 0 = on, 1023 = off.
 
+    // Timer2
+    // This timer will run our 500 Hz LED PWM frequency and basis for our note generator
+    T2CLKCON = 0b001; // Set the input to FOSC/4
+    T2CONbits.T2CKPS = 0b110; // Sets the prescaler to 1:64
+    T2HLTbits.PSYNC = 1; // Prescaler is synced to FOSC/4 so it doesn't run during sleep
+    T2CONbits.TMR2ON = 1; // Turn Timer 2 on
+
+    PWM3CONbits.POL = 0; // Ensure PWM4 is not inverted
+    PWM3CONbits.EN = 1; // Enable PWM3
+
     // Fade up the power LED
     if (fadeUp == 1) {
-        PWM3CONbits.EN = 1; // Enable PWM3
-
         // Route our PWMs to the pins
         RC2PPS = 0x03; // Send PWM3 to RC2 (Power LED)
         RA1PPS = 0x03; // Send PWM3 to RA1 (Charge LED 1)
@@ -784,8 +925,7 @@ void fade(void) {
         CCP2CONbits.FMT = 1; // Left-justify our duty cycle register to match the PWM ones
         CCP2CONbits.MODE = 0b1100; // Set to PWM mode
 
-        PWM3CONbits.EN = 1; // Enable PWM3
-
+        PWM4CONbits.POL = 0; // Ensure PWM4 is not inverted
         PWM4CONbits.EN = 1; // Enable PWM4
 
         // Route our PWMs to the pins
@@ -812,6 +952,13 @@ void fade(void) {
 }
 
 void showChillFade() {
+    // Timer2
+    // This timer will run our 500 Hz LED PWM frequency and basis for our note generator
+    T2CLKCON = 0b001; // Set the input to FOSC/4
+    T2CONbits.T2CKPS = 0b110; // Sets the prescaler to 1:64
+    T2HLTbits.PSYNC = 1; // Prescaler is synced to FOSC/4 so it doesn't run during sleep
+    T2CONbits.TMR2ON = 1; // Turn Timer 2 on
+
     PWM3CONbits.EN = 1; // Enable PWM3
 
     // Route our PWMs to the pins
