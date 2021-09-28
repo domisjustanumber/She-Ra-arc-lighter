@@ -43,7 +43,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <xc.h>
-#include "button_debounce.h"
 
 // CONFIG1
 #pragma config RSTOSC = 0b00      // Use HFINTOSC @ 32 MHz after a reset
@@ -123,8 +122,8 @@
 #define     PRELOAD_H       0xFE // Values to preload into Timer1 to get 15.625kHz interrupts
 #define     PRELOAD_L       0x12  // Values to preload into Timer1 to get 15.625kHz interrupts
 #define     CLOCK_DIVIDER   15  // How much to divide the clock by to get 1ms
-#define     DEBOUNCE_PERIOD 5   // How many ms to wait between button readings to eliminate bounce
-#define     MAX_TOUCH_PRESSES 100 // How many readings of the touch sensor before they're registered as a change
+#define     DEBOUNCE_PERIOD 3   // How many ms to wait between button readings to eliminate bounce
+#define     MAX_TOUCH_PRESSES 15 // How many readings of the touch sensor before they're registered as a change
 #define     MAX_LID_BOUNCES 15 // How many readings of the lid sensor before they're registered as a change
 #define     COOLDOWN_TIME     45 // How long is the cooldown lockout (seconds)
 
@@ -261,6 +260,8 @@ unsigned gate = 0;
 unsigned noGate = 1;
 unsigned coolDownTime = 1000;
 unsigned coolDown = 1000;
+unsigned sheRaSize = 0;
+unsigned gargoylesSize = 0;
 
 unsigned postscaler = 0;
 unsigned int playIndex = 0;
@@ -269,13 +270,13 @@ unsigned int genericDelay = 0;
 unsigned int poweredOn = 0; // Flag to say if we're currently powered up or not
 unsigned int showCharge = 0; // Flag to say if we're currently showing the charge indicator or not
 unsigned int lowPowerMode = 0; // Flag to say if we're currently in low power mode or not
-unsigned int previouslyOff = 0; // Flag to say if we were previously off.
+unsigned int doStartUp = 0; // Flag to say if we were previously off.
 
 unsigned int lidOpen = 0; // Flag to say if the lid is open or not
 unsigned int gotTheTouch = 0; // Flag to say if touch sensor is touched or not
 unsigned int charging = 0; // Flag to say if we're currently charging or not
 
-// Debouncer aPorts;
+// Debouncer;
 unsigned int touch_integrator = 0; // This will store the count of touch sensor presses for our debouncer
 unsigned int lid_integrator = 0; // This will store the count of lid switch change for our debouncer
 
@@ -344,13 +345,6 @@ int main(int argc, char** argv) {
     LATC4 = 0;
     LATC5 = 0;
 
-    // Initialise our button debouncer and tell it pins 0, 3 and 4 are normally high
-    // ButtonDebounceInit(&aPorts, BUTTON_PIN_0 | BUTTON_PIN_3 | BUTTON_PIN_4);
-
-    // Set up our oscillator (12F version)
-    // OSCCONbits.IRCF=14;     // Set internal oscillator to 8 MHz (or 32MHz if PLL gets set below)
-    // OSCCONbits.SPLLEN=0x01; // Disable software Phase Locked Loop (PLL) bit. This is ignored as we set PLL in the config bits. Ergo we're at 32 MHz
-
     // Set up our oscillator (16F version)
     OSCFRQbits.FRQ = 0b101; // Set the HF Internal Oscillator to 32 MHz
     OSCENbits.HFOEN = 1; // Enable HF oscillator
@@ -385,7 +379,7 @@ int main(int argc, char** argv) {
     // Enable timer interrupts so the blockingDelay function works    
     TMR0IE = 1;
     TMR1IE = 1;
-    // TMR2IE = 1;
+    TMR2IE = 1;
 
     // Set up the internal Fixed Voltage Reference
     FVRCONbits.ADFVR = 0b01; // Set FVR to 1x (1.024V)
@@ -409,7 +403,6 @@ int main(int argc, char** argv) {
     ///// Comment this below line out for simulator testing (otherwise it borks)
     if (!debugging) ADCON0bits.ON = 1; // Enable the ADC
 
-
     // Set up interrupts
     IOCAN0 = 1; // Look for falling edge on RA0 (pin 13) lid is opened
     // IOCAP0 = 1; // Look for rising edge on RA0 (pin 13) lid is closed
@@ -426,8 +419,12 @@ int main(int argc, char** argv) {
     GIE = 1; // Global Interrupt Enable (need this to get any interrupts)
 
     // Reset our cool down time and timers.
-    if(!debugging) coolDownTime = COOLDOWN_TIME * 1000;
+    if (!debugging) coolDownTime = COOLDOWN_TIME * 1000;
     coolDown = coolDownTime;
+
+    // Set array sizes
+    sheRaSize = sizeof (sheRa) / sizeof (sheRa[0]);
+    gargoylesSize = sizeof (gargoyles) / sizeof (gargoyles[0]);
 
     // Flash the power light a few times to show we're working
     LATC2 = 0;
@@ -453,19 +450,23 @@ int main(int argc, char** argv) {
             gotTheTouch = 0;
             LATC3 = 0; // Turn the touch sensor off
             LATC2 = 1; // Turn the power light off
+            LATA1 = 1;
+            LATA2 = 1;
+            LATC0 = 1;
+            LATC1 = 1;
         }
         // if the cool down period has been reached and we're powered off, and the lid didn't just get opened, and we're not charging, go to sleep.
-        if (!lidOpen && coolDown >= coolDownTime && !poweredOn && !previouslyOff && !charging) lowPowerMode = 1;
+        if (!lidOpen && coolDown >= coolDownTime && !poweredOn && !doStartUp && !charging) lowPowerMode = 1;
 
         // Lid is open, we were previously off, the coils are cool, and we're not charging
-        if (lidOpen && previouslyOff && coolDown >= coolDownTime && !charging) {
+        if (lidOpen && doStartUp && !charging) {
             // Fire things up!
             poweredOn = 1;
             showCharge = 1;
-            previouslyOff = 0;
+            doStartUp = 0;
             fadeUp = 1;
         }
-        if (coolDown >= coolDownTime && poweredOn && fadeUp > 0) {
+        if (poweredOn && fadeUp > 0) {
             fade();
         }
         if (showCharge || charging) chargeIndicator();
@@ -482,7 +483,7 @@ int main(int argc, char** argv) {
         if (poweredOn && coolDown < coolDownTime && !fadeUp) {
             showChillFade();
         }
-        if (lidOpen && gotTheTouch && coolDown >= coolDownTime && !charging) doTheArc();
+        if (poweredOn && gotTheTouch && coolDown >= coolDownTime && !charging) doTheArc();
         if (lowPowerMode) goToLPmode();
     } while (1); // Loop forever
     return (EXIT_SUCCESS);
@@ -491,8 +492,7 @@ int main(int argc, char** argv) {
 // Our global interrupt service routine
 
 static void __interrupt() isr(void) {
-
-    // Timer interrupts below are used to manage the PWM pulses when playing tunes
+    // Timer1 interrupts below are used to manage the PWM pulses when playing tunes
     // Keep this and the preloads here, else you'll mess up the timing!
     // Timer1 interrupt
     if (PIR1bits.TMR1IF) {
@@ -511,52 +511,15 @@ static void __interrupt() isr(void) {
             LATC5 = 0;
         }
 
-        if (debugging) clockDivider = CLOCK_DIVIDER;
+        ///// if (debugging) clockDivider = CLOCK_DIVIDER;
         if (clockDivider < CLOCK_DIVIDER) {
             clockDivider++;
         } else {
             // 1 ms has passed, so decrement our genericDelay counter and reset the clockDivider
-            if (debugging) genericDelay = 0;
-            else if (genericDelay > 0) genericDelay--;
+            ///// if (debugging) genericDelay = 0;
+            ///// else 
+            if (genericDelay > 0) genericDelay--;
             clockDivider = 0;
-
-            if (buttonDebounce < DEBOUNCE_PERIOD) buttonDebounce++;
-            else {
-                if (!gotTheTouch) {
-                    if (poweredOn && !fadeUp) {
-                        // If we're powered on, read the Touch sensor value into the debouncer
-
-                        if (PORTAbits.RA3) {
-                            if (touch_integrator > 0)
-                                touch_integrator--;
-                        } else if (touch_integrator < MAX_TOUCH_PRESSES) touch_integrator++;
-
-                        if (touch_integrator == 0) gotTheTouch = 0;
-                        else if (touch_integrator >= MAX_TOUCH_PRESSES) {
-                            gotTheTouch = 1;
-                            touch_integrator = MAX_TOUCH_PRESSES; /* defensive code if touch_integrator got corrupted */
-                        }
-                        buttonDebounce = 0;
-                    }
-                }
-
-                // Always read the lid switch to see if we should be powered on or not
-                if (PORTAbits.RA0) {
-                    if (lid_integrator > 0)
-                        lid_integrator--;
-                } else if (lid_integrator < MAX_LID_BOUNCES) lid_integrator++;
-
-                // The lid is definitely closed
-                if (lid_integrator == 0) {
-                    lidOpen = 0;
-                } else if (lid_integrator >= MAX_LID_BOUNCES) {
-                    // The lid is definitely open
-                    lidOpen = 1;
-                    // If we are currently off, set the flag for the startup sequence
-                    if (!poweredOn) previouslyOff = 1;
-                    lid_integrator = MAX_LID_BOUNCES; /* defensive code if touch_integrator got corrupted */
-                }
-            }
 
             // If we're running, increment our cooldown timer.
             //if (debugging) coolDown = coolDownTime;
@@ -569,7 +532,6 @@ static void __interrupt() isr(void) {
     }
 
     // Timer0 interrupt
-    // Not used.
     // We're basically using Timer 0 to gate Timer 1 in software.
     if (PIR0bits.TMR0IF) {
         if (!noGate) {
@@ -586,9 +548,47 @@ static void __interrupt() isr(void) {
     // Timer2 interrupt
     // If we're powered up, we could do something here.
     // Needs the T2 interrupt enabling
-   // if (PIR1bits.TMR2IF) {
-  //      PIR1bits.TMR2IF = 0;
- //   }
+    if (PIR1bits.TMR2IF) {
+        PIR1bits.TMR2IF = 0;
+        if (buttonDebounce < DEBOUNCE_PERIOD) buttonDebounce++;
+        else {
+            if (!gotTheTouch) {
+                if (poweredOn && !fadeUp) {
+                    // If we're powered on, read the Touch sensor value into the debouncer
+
+                    if (PORTAbits.RA3) {
+                        if (touch_integrator > 0)
+                            touch_integrator--;
+                    } else if (touch_integrator < MAX_TOUCH_PRESSES) touch_integrator++;
+
+                    /////    if (touch_integrator == 0) gotTheTouch = 0;
+                    /////   else 
+                    if (touch_integrator >= MAX_TOUCH_PRESSES) {
+                        gotTheTouch = 1;
+                        touch_integrator = MAX_TOUCH_PRESSES; /* defensive code if touch_integrator got corrupted */
+                    }
+                    buttonDebounce = 0;
+                }
+            }
+
+            // Always read the lid switch to see if we should be powered on or not
+            if (PORTAbits.RA0) {
+                if (lid_integrator > 0)
+                    lid_integrator--;
+            } else if (lid_integrator < MAX_LID_BOUNCES) lid_integrator++;
+
+            // The lid is definitely closed
+            if (lid_integrator == 0) {
+                lidOpen = 0;
+            } else if (lid_integrator >= MAX_LID_BOUNCES) {
+                // The lid is definitely open
+                lidOpen = 1;
+                // If we are currently off, set the flag for the startup sequence
+                if (!poweredOn) doStartUp = 1;
+                lid_integrator = MAX_LID_BOUNCES; /* defensive code if touch_integrator got corrupted */
+            }
+        }
+    }
 
     // Pin change triggered something - let's find out what
     if (PIR0bits.IOCIF) {
@@ -625,7 +625,7 @@ static void __interrupt() isr(void) {
 
 void doTheArc() {
     TMR0H = 0xFF; // Reset the note
-    if (gotTheTouch && lidOpen && coolDown >= coolDownTime) forceArc = 1; // Start the arc (no modulation)
+    forceArc = 1; // Start the arc (no modulation)
     runIndex++;
     if (runIndex > 3) runIndex = 1;
     switch (runIndex) {
@@ -635,8 +635,8 @@ void doTheArc() {
             LATA2 = 1;
             LATC0 = 1;
             LATC1 = 1;
-            genericDelay = 4000; // Set a 5 second timeout on this just in case.
-            while (genericDelay && lidOpen && gotTheTouch && coolDown >= coolDownTime);
+            genericDelay = 3000; // Set a 3 second timeout on this just in case.
+            while (genericDelay && lidOpen);
             break;
 
         case 2:
@@ -647,11 +647,11 @@ void doTheArc() {
             LATC1 = 1;
 
             genericDelay = 1000; // Delay for a second
-            while (genericDelay && lidOpen && gotTheTouch && coolDown >= coolDownTime);
+            while (genericDelay && lidOpen);
             forceArc = 0; // Disable the Arc (prepare for modulation)
-            for (i = 0; (i < sizeof (sheRa)) && gotTheTouch && lidOpen && (coolDown >= coolDownTime); i++) playNote(sheRa[i][0], sheRa[i][1]);
+            for (i = 0; (i < sheRaSize) && lidOpen; i++) playNote(sheRa[i][0], sheRa[i][1]);
             forceArc = 0;
-            coolDown = 0;
+            if (i == sheRaSize) coolDown = 0; // If we played all the notes, enable the cooldown period
             break;
 
         case 3:
@@ -662,11 +662,11 @@ void doTheArc() {
             LATC1 = 1;
 
             genericDelay = 1000; // Delay for a second
-            while (genericDelay && lidOpen && gotTheTouch);
+            while (genericDelay && lidOpen);
             forceArc = 0; // Disable the Arc (prepare for modulation)
-            for (i = 0; i < sizeof (gargoyles) && gotTheTouch && lidOpen; i++) playNote(gargoyles[i][0], gargoyles[i][1]);
+            for (i = 0; i < gargoylesSize && lidOpen; i++) playNote(gargoyles[i][0], gargoyles[i][1]);
             forceArc = 0;
-            coolDown = 0;
+            if (i == gargoylesSize) coolDown = 0; // If we played all the notes, enable the cooldown period
             break;
 
         default:
@@ -675,9 +675,9 @@ void doTheArc() {
             break;
     }
 
-    // Show's over folks. Set the cooldown flag and turn off the lights.
-    // coolDown = 0;
+    // Show's over folks. Disable the touch flag and turn off the lights.
     gotTheTouch = 0;
+    doStartUp = 1;
     LATA1 = 1;
     LATA2 = 1;
     LATC0 = 1;
@@ -688,8 +688,7 @@ void doTheArc() {
 
 void blockingDelay(unsigned int mSecs) {
     genericDelay = mSecs;
-    if (!debugging)
-        while (genericDelay > 0);
+    if (!debugging) while (genericDelay > 0);
 }
 
 // Note player function
@@ -704,9 +703,7 @@ void playNote(unsigned int note, unsigned int duration) {
     }
     genericDelay = duration;
 
-    if (!debugging) {
-        while (genericDelay && lidOpen && gotTheTouch);
-    }
+    if (!debugging) while (genericDelay && lidOpen);
 }
 
 // Clear interrupts, turn stuff off, go sleepy times
@@ -800,6 +797,11 @@ void fade(void) {
 
     }
     // We're done here, so switch back over to LAT control of the pin
+    LATA1 = 0;
+    LATA2 = 0;
+    LATC0 = 0;
+    LATC1 = 0;
+
     RC2PPS = 0x00; // Send LAT to RC2 (Power LED)
     RA1PPS = 0x00; // Send LAT to RA1 (Charge LED 1)
     RA2PPS = 0x00; // Send LAT to RA2 (Charge LED 2)
@@ -820,7 +822,14 @@ void showChillFade() {
     RC1PPS = 0x03; // Send PWM3 to RC1 (Charge LED 4)
 
     while (coolDown < coolDownTime && lidOpen) {
-        i = 0xFFC0;
+        i = 0x0040;
+        do {
+            genericDelay = 1;
+            while (genericDelay > 0 && lidOpen);
+            PWM3DC = i; // Ramp up the brightness
+            i = i + 64;
+        } while (i < 0xFFC0 && lidOpen);
+
         do {
             genericDelay = 1;
             while (genericDelay > 0 && lidOpen);
@@ -829,13 +838,6 @@ void showChillFade() {
         } while (i > 0x0040 && lidOpen);
 
         if (lidOpen) blockingDelay(500);
-
-        do {
-            genericDelay = 1;
-            while (genericDelay > 0 && lidOpen);
-            PWM3DC = i; // Ramp up the brightness
-            i = i + 64;
-        } while (i < 0xFFC0 && lidOpen);
     }
     // We're done, so switch back over to LAT control of the pins
     RC2PPS = 0x00; // Send LAT to RC2 (Power LED)
