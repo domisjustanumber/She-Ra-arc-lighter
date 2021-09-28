@@ -11,33 +11,34 @@
 # All addresses and the length are given in unqualified hexadecimal
 # in delta units.  Any other numeric values are decimal.
 %PSECTS
-$C:\Users\dinku\AppData\Local\Temp\xcAs75o.o
+$C:\Users\dinku\AppData\Local\Temp\xcAspn8.o
 reset_vec CODE 0 0 0 2 2
-end_init CODE 0 10B 10B 2 2
+end_init CODE 0 153 153 2 2
 config CONFIG 4 8007 8007 5 2
 $dist/default/debug\She-Ra_Lighter.X.debug.o
-cinit CODE 0 10D 10D 1B 2
-text1 CODE 0 FEA FEA 16 2
-text2 CODE 0 749 749 51 2
-text3 CODE 0 3F3 3F3 FA 2
-text4 CODE 0 79A 79A 32 2
-text5 CODE 0 5DD 5DD DC 2
-text6 CODE 0 FD9 FD9 11 2
-text7 CODE 0 6B9 6B9 90 2
-text8 CODE 0 7CC 7CC 2B 2
-maintext CODE 0 2E8 2E8 10B 2
-cstackCOMMON COMMON 1 70 70 A 1
-cstackBANK0 BANK0 1 4F 4F 13 1
-stringtext1 STRCODE 0 128 128 1C0 2
-stringtext2 STRCODE 0 4ED 4ED F0 2
-stringtext3 STRCODE 0 7F7 7F7 24 2
-intentry CODE 0 4 4 107 2
+cinit CODE 0 155 155 1C 2
+text1 CODE 0 5E4 5E4 8F 2
+text2 CODE 0 79D 79D 2E 2
+text3 CODE 0 6FF 6FF 67 2
+text4 CODE 0 32E 32E 142 2
+text5 CODE 0 766 766 37 2
+text6 CODE 0 470 470 E4 2
+text7 CODE 0 7EF 7EF 11 2
+text8 CODE 0 554 554 90 2
+maintext CODE 0 171 171 1BD 2
+cstackCOMMON COMMON 1 70 70 9 1
+cstackBANK0 BANK0 1 46 46 13 1
+inittext CODE 0 FF3 FF3 6 2
+stringtext1 STRCODE 0 673 673 8C 2
+stringtext2 STRCODE 0 7CB 7CB 24 2
+stringtext3 STRCODE 0 800 800 4 2
+intentry CODE 0 4 4 14F 2
 bitbssCOMMON COMMON 1 3E0 7C 1 1
-bssBANK0 BANK0 1 20 20 2F 1
-idataBANK0 CODE 0 FD0 FD0 3 2
-dataBANK0 BANK0 1 62 62 3 1
-clrtext CODE 0 FD3 FD3 6 2
-bssCOMMON COMMON 1 7A 7A 2 1
+bssBANK0 BANK0 1 20 20 26 1
+idataBANK0 CODE 0 FF9 FF9 7 2
+dataBANK0 BANK0 1 59 59 7 1
+clrtext CODE 0 FED FED 6 2
+bssCOMMON COMMON 1 79 79 3 1
 config CONFIG 4 8007 8007 5 2
 # %UNUSED Section
 # This section enumerates the unused ranges of each CLASS. Each entry
@@ -45,14 +46,14 @@ config CONFIG 4 8007 8007 5 2
 #    <class name> <range> <delta>
 # Addresses given in the range are in hexadecimal and units of delta.
 %UNUSED
-RAM 65-6F 1
+RAM 60-6F 1
 RAM A0-EF 1
 RAM 120-16F 1
 RAM 1A0-1EF 1
 RAM 220-26F 1
 RAM 2A0-2EF 1
 RAM 320-32F 1
-BANK0 65-6F 1
+BANK0 60-6F 1
 BANK1 A0-EF 1
 BANK2 120-16F 1
 BANK3 1A0-1EF 1
@@ -60,9 +61,9 @@ BANK4 220-26F 1
 BANK5 2A0-2EF 1
 BANK6 320-32F 1
 CONST 2-3 2
-CONST 81B-FCF 2
+CONST 804-FEC 2
 ENTRY 2-3 2
-ENTRY 81B-FCF 2
+ENTRY 804-FEC 2
 IDLOC 8000-8003 2
 SFR10 500-56F 1
 SFR11 580-5EF 1
@@ -118,9 +119,9 @@ SFR60 1E00-1E6F 1
 SFR61 1E80-1EEF 1
 SFR62 1F00-1F6F 1
 SFR63 1F80-1FEF 1
-STACK 2045-21EF 1
+STACK 2040-21EF 1
 CODE 2-3 2
-CODE 81B-FCF 2
+CODE 804-FEC 2
 SFR0 0-1F 1
 SFR1 80-9F 1
 SFR2 100-11F 1
@@ -134,9 +135,9 @@ SFR9 480-4EF 1
 BIGRAM 2000-21EF 1
 COMMON 7D-7D 1
 STRCODE 2-3 2
-STRCODE 81B-FCF 2
+STRCODE 804-FEC 2
 STRING 2-3 2
-STRING 81B-FCF 2
+STRING 804-FEC 2
 # %LINETAB Section
 # This section enumerates the file/line to address mappings.
 # The beginning of the section is indicated by %LINETAB.
@@ -151,392 +152,501 @@ STRING 81B-FCF 2
 # All other numeric values are in decimal.
 %LINETAB
 $dist/default/debug\She-Ra_Lighter.X.debug.o
-10D cinit CODE >1729:C:\Users\dinku\AppData\Local\Temp\xcAs75o.s
-10D cinit CODE >1732:C:\Users\dinku\AppData\Local\Temp\xcAs75o.s
-10D cinit CODE >1830:C:\Users\dinku\AppData\Local\Temp\xcAs75o.s
-110 cinit CODE >1831:C:\Users\dinku\AppData\Local\Temp\xcAs75o.s
-111 cinit CODE >1832:C:\Users\dinku\AppData\Local\Temp\xcAs75o.s
-114 cinit CODE >1833:C:\Users\dinku\AppData\Local\Temp\xcAs75o.s
-115 cinit CODE >1834:C:\Users\dinku\AppData\Local\Temp\xcAs75o.s
-118 cinit CODE >1835:C:\Users\dinku\AppData\Local\Temp\xcAs75o.s
-119 cinit CODE >1852:C:\Users\dinku\AppData\Local\Temp\xcAs75o.s
-11A cinit CODE >1856:C:\Users\dinku\AppData\Local\Temp\xcAs75o.s
-11B cinit CODE >1857:C:\Users\dinku\AppData\Local\Temp\xcAs75o.s
-11C cinit CODE >1861:C:\Users\dinku\AppData\Local\Temp\xcAs75o.s
-11D cinit CODE >1862:C:\Users\dinku\AppData\Local\Temp\xcAs75o.s
-11E cinit CODE >1863:C:\Users\dinku\AppData\Local\Temp\xcAs75o.s
-11F cinit CODE >1864:C:\Users\dinku\AppData\Local\Temp\xcAs75o.s
-120 cinit CODE >1865:C:\Users\dinku\AppData\Local\Temp\xcAs75o.s
-121 cinit CODE >1866:C:\Users\dinku\AppData\Local\Temp\xcAs75o.s
-124 cinit CODE >1872:C:\Users\dinku\AppData\Local\Temp\xcAs75o.s
-124 cinit CODE >1874:C:\Users\dinku\AppData\Local\Temp\xcAs75o.s
-125 cinit CODE >1875:C:\Users\dinku\AppData\Local\Temp\xcAs75o.s
-126 cinit CODE >1876:C:\Users\dinku\AppData\Local\Temp\xcAs75o.s
-4 intentry CODE >562:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-6 intentry CODE >567:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-B intentry CODE >568:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-E intentry CODE >569:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-10 intentry CODE >571:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-1A intentry CODE >572:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-1C intentry CODE >572:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-20 intentry CODE >573:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-24 intentry CODE >574:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-25 intentry CODE >576:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-2D intentry CODE >577:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-37 intentry CODE >578:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-38 intentry CODE >581:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-3A intentry CODE >581:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-42 intentry CODE >598:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-5A intentry CODE >599:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-5C intentry CODE >600:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-64 intentry CODE >601:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-6C intentry CODE >602:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-6D intentry CODE >603:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-6E intentry CODE >604:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-6F intentry CODE >605:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-6F intentry CODE >607:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-71 intentry CODE >608:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-71 intentry CODE >613:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-75 intentry CODE >614:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-7C intentry CODE >615:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-80 intentry CODE >616:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-86 intentry CODE >617:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-8B intentry CODE >620:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-8D intentry CODE >622:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-8F intentry CODE >626:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-93 intentry CODE >630:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-98 intentry CODE >631:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-99 intentry CODE >633:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-9E intentry CODE >636:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-A2 intentry CODE >637:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-A6 intentry CODE >640:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-A7 intentry CODE >642:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-A9 intentry CODE >644:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-AB intentry CODE >652:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-B0 intentry CODE >653:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-B1 intentry CODE >655:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-BA intentry CODE >656:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-BC intentry CODE >657:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-C0 intentry CODE >658:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-C4 intentry CODE >659:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-C6 intentry CODE >662:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-CE intentry CODE >664:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-D0 intentry CODE >665:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-D2 intentry CODE >666:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-D6 intentry CODE >667:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-D8 intentry CODE >672:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-DD intentry CODE >673:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-DE intentry CODE >675:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-EB intentry CODE >676:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-ED intentry CODE >677:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-F1 intentry CODE >678:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-F3 intentry CODE >679:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-F7 intentry CODE >682:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-103 intentry CODE >686:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-107 intentry CODE >687:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-109 intentry CODE >693:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-7CC text8 CODE >56:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/button_debounce.c
-7CD text8 CODE >60:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/button_debounce.c
-7D2 text8 CODE >61:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/button_debounce.c
-7D7 text8 CODE >62:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/button_debounce.c
-7DC text8 CODE >63:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/button_debounce.c
-7E4 text8 CODE >66:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/button_debounce.c
-7E5 text8 CODE >68:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/button_debounce.c
-7EC text8 CODE >69:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/button_debounce.c
-7F2 text8 CODE >69:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/button_debounce.c
-7F6 text8 CODE >70:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/button_debounce.c
-6B9 text7 CODE >5:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
-6B9 text7 CODE >13:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
-6BB text7 CODE >14:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
-6BF text7 CODE >15:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
-6C4 text7 CODE >15:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
-6C6 text7 CODE >15:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
-6C8 text7 CODE >15:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
-6CA text7 CODE >16:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
-6CC text7 CODE >17:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
-6CC text7 CODE >18:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
-6D0 text7 CODE >19:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
-6D5 text7 CODE >19:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
-6D7 text7 CODE >19:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
-6D9 text7 CODE >19:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
-6DB text7 CODE >20:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
-6DF text7 CODE >22:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
-6E7 text7 CODE >23:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
-6EB text7 CODE >23:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
-6EF text7 CODE >24:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
-6F1 text7 CODE >25:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
-6F2 text7 CODE >26:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
-6F9 text7 CODE >27:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
-6FD text7 CODE >25:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
-701 text7 CODE >30:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
-708 text7 CODE >31:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
-70A text7 CODE >31:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
-70E text7 CODE >31:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
-712 text7 CODE >31:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
-716 text7 CODE >31:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
-71A text7 CODE >32:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
-722 text7 CODE >33:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
-723 text7 CODE >35:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
-72A text7 CODE >36:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
-730 text7 CODE >38:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
-735 text7 CODE >39:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
-73A text7 CODE >39:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
-73C text7 CODE >39:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
-73E text7 CODE >39:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
-740 text7 CODE >40:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
-748 text7 CODE >41:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
-FD9 text6 CODE >753:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-FD9 text6 CODE >754:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-FDE text6 CODE >755:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-FE9 text6 CODE >756:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-5DD text5 CODE >879:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-5DD text5 CODE >881:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-5E5 text5 CODE >887:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-5E7 text5 CODE >888:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-5F2 text5 CODE >889:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-5FA text5 CODE >890:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-63E text5 CODE >892:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-641 text5 CODE >892:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-643 text5 CODE >892:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-647 text5 CODE >895:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-648 text5 CODE >896:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-649 text5 CODE >897:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-64A text5 CODE >898:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-64B text5 CODE >899:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-64F text5 CODE >899:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-651 text5 CODE >899:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-655 text5 CODE >902:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-656 text5 CODE >903:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-657 text5 CODE >904:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-658 text5 CODE >905:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-65E text5 CODE >906:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-665 text5 CODE >907:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-667 text5 CODE >909:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-66A text5 CODE >909:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-66C text5 CODE >909:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-670 text5 CODE >912:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-671 text5 CODE >913:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-672 text5 CODE >914:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-678 text5 CODE >915:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-67F text5 CODE >916:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-681 text5 CODE >919:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-684 text5 CODE >919:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-686 text5 CODE >919:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-68A text5 CODE >922:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-68B text5 CODE >923:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-691 text5 CODE >924:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-698 text5 CODE >925:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-699 text5 CODE >926:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-699 text5 CODE >927:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-69A text5 CODE >928:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-69B text5 CODE >929:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-69C text5 CODE >931:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-6A3 text5 CODE >932:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-6A4 text5 CODE >933:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-6A5 text5 CODE >934:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-6A6 text5 CODE >935:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-6A7 text5 CODE >937:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-6AD text5 CODE >938:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-6B1 text5 CODE >940:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-6B8 text5 CODE >943:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-79A text4 CODE >760:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-79A text4 CODE >761:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-7A0 text4 CODE >762:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-7A3 text4 CODE >764:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-7AE text4 CODE >765:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-7AF text4 CODE >766:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-7B4 text4 CODE >767:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-7B4 text4 CODE >768:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-7B9 text4 CODE >769:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-7CB text4 CODE >770:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-3F3 text3 CODE >697:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-3F3 text3 CODE >699:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-3F8 text3 CODE >700:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-3FC text3 CODE >701:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-3FE text3 CODE >701:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-405 text3 CODE >703:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-405 text3 CODE >705:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-406 text3 CODE >706:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-407 text3 CODE >707:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-408 text3 CODE >708:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-409 text3 CODE >709:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-416 text3 CODE >712:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-416 text3 CODE >714:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-417 text3 CODE >715:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-418 text3 CODE >716:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-419 text3 CODE >717:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-41A text3 CODE >719:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-41E text3 CODE >720:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-430 text3 CODE >721:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-432 text3 CODE >722:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-45F text3 CODE >722:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-461 text3 CODE >722:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-473 text3 CODE >725:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-473 text3 CODE >727:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-474 text3 CODE >728:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-475 text3 CODE >729:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-476 text3 CODE >730:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-477 text3 CODE >732:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-47B text3 CODE >733:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-48D text3 CODE >734:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-48F text3 CODE >735:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-4BC text3 CODE >735:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-4BE text3 CODE >735:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-4D0 text3 CODE >740:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-4D5 text3 CODE >740:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-4DA text3 CODE >740:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-4DD text3 CODE >740:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-4E0 text3 CODE >740:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-4E3 text3 CODE >742:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-4E6 text3 CODE >743:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-4E8 text3 CODE >745:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-4E9 text3 CODE >746:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-4EA text3 CODE >747:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-4EB text3 CODE >748:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-4EC text3 CODE >749:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-749 text2 CODE >804:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-749 text2 CODE >814:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-74F text2 CODE >817:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-754 text2 CODE >818:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-756 text2 CODE >819:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-757 text2 CODE >823:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-75A text2 CODE >826:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-75C text2 CODE >827:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-760 text2 CODE >828:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-760 text2 CODE >829:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-765 text2 CODE >830:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-76B text2 CODE >831:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-770 text2 CODE >832:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-776 text2 CODE >833:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-779 text2 CODE >833:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-77B text2 CODE >833:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-77F text2 CODE >835:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-781 text2 CODE >836:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-782 text2 CODE >838:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-789 text2 CODE >842:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-78F text2 CODE >844:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-791 text2 CODE >845:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-793 text2 CODE >846:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-794 text2 CODE >847:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-797 text2 CODE >848:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-797 text2 CODE >850:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-799 text2 CODE >877:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-FEA text1 CODE >774:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-FEA text1 CODE >775:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-FED text1 CODE >776:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-FF7 text1 CODE >778:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-FF9 text1 CODE >781:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-FFA text1 CODE >782:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-FFB text1 CODE >783:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-FFC text1 CODE >784:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-FFD text1 CODE >785:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-FFE text1 CODE >790:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-FFF text1 CODE >792:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-2E8 maintext CODE >370:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-2E8 maintext CODE >374:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-2EA maintext CODE >375:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-2EB maintext CODE >376:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-2EC maintext CODE >378:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-2ED maintext CODE >385:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-2EE maintext CODE >389:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-2F0 maintext CODE >390:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-2F2 maintext CODE >391:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-2F4 maintext CODE >392:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-2F5 maintext CODE >393:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-2F6 maintext CODE >394:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-2F8 maintext CODE >395:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-2FA maintext CODE >396:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-2FC maintext CODE >397:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-2FE maintext CODE >398:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-2FF maintext CODE >399:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-300 maintext CODE >400:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-301 maintext CODE >401:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-302 maintext CODE >402:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-303 maintext CODE >403:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-304 maintext CODE >406:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-305 maintext CODE >407:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-306 maintext CODE >408:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-307 maintext CODE >409:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-308 maintext CODE >410:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-309 maintext CODE >411:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-30A maintext CODE >412:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-30B maintext CODE >413:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-30C maintext CODE >416:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-314 maintext CODE >423:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-319 maintext CODE >424:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-31A maintext CODE >430:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-31C maintext CODE >431:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-31E maintext CODE >432:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-322 maintext CODE >433:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-323 maintext CODE >434:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-327 maintext CODE >435:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-328 maintext CODE >439:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-32B maintext CODE >440:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-32C maintext CODE >441:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-32E maintext CODE >442:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-330 maintext CODE >443:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-332 maintext CODE >444:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-333 maintext CODE >448:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-336 maintext CODE >449:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-33A maintext CODE >450:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-33B maintext CODE >453:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-33C maintext CODE >456:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-33E maintext CODE >457:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-33F maintext CODE >461:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-344 maintext CODE >462:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-345 maintext CODE >466:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-34D maintext CODE >467:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-352 maintext CODE >468:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-353 maintext CODE >469:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-35E maintext CODE >470:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-366 maintext CODE >471:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-36D maintext CODE >474:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-372 maintext CODE >475:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-374 maintext CODE >476:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-378 maintext CODE >477:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-379 maintext CODE >480:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-381 maintext CODE >493:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-383 maintext CODE >494:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-384 maintext CODE >495:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-385 maintext CODE >496:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-386 maintext CODE >497:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-387 maintext CODE >498:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-388 maintext CODE >501:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-38A maintext CODE >503:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-38B maintext CODE >504:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-38C maintext CODE >505:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-38D maintext CODE >508:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-38F maintext CODE >509:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-396 maintext CODE >510:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-398 maintext CODE >511:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-39F maintext CODE >512:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-3A1 maintext CODE >513:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-3A8 maintext CODE >514:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-3AA maintext CODE >515:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-3B1 maintext CODE >516:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-3B3 maintext CODE >517:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-3BA maintext CODE >518:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-3BC maintext CODE >522:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-3BF maintext CODE >523:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-3C4 maintext CODE >524:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-3C7 maintext CODE >525:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-3C8 maintext CODE >526:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-3D1 maintext CODE >527:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-3D8 maintext CODE >529:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-3D9 maintext CODE >531:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-3DA maintext CODE >532:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-3E4 maintext CODE >533:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-3E4 maintext CODE >535:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-3E5 maintext CODE >537:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-3E6 maintext CODE >539:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\main.c
-FD3 clrtext CODE >1841:C:\Users\dinku\AppData\Local\Temp\xcAs75o.s
-FD3 clrtext CODE >1842:C:\Users\dinku\AppData\Local\Temp\xcAs75o.s
-FD4 clrtext CODE >1843:C:\Users\dinku\AppData\Local\Temp\xcAs75o.s
-FD4 clrtext CODE >1844:C:\Users\dinku\AppData\Local\Temp\xcAs75o.s
-FD5 clrtext CODE >1845:C:\Users\dinku\AppData\Local\Temp\xcAs75o.s
-FD6 clrtext CODE >1846:C:\Users\dinku\AppData\Local\Temp\xcAs75o.s
-FD7 clrtext CODE >1847:C:\Users\dinku\AppData\Local\Temp\xcAs75o.s
-FD8 clrtext CODE >1848:C:\Users\dinku\AppData\Local\Temp\xcAs75o.s
+155 cinit CODE >931:C:\Users\dinku\AppData\Local\Temp\xcAspn8.s
+155 cinit CODE >934:C:\Users\dinku\AppData\Local\Temp\xcAspn8.s
+155 cinit CODE >1057:C:\Users\dinku\AppData\Local\Temp\xcAspn8.s
+156 cinit CODE >1058:C:\Users\dinku\AppData\Local\Temp\xcAspn8.s
+157 cinit CODE >1059:C:\Users\dinku\AppData\Local\Temp\xcAspn8.s
+158 cinit CODE >1060:C:\Users\dinku\AppData\Local\Temp\xcAspn8.s
+159 cinit CODE >1061:C:\Users\dinku\AppData\Local\Temp\xcAspn8.s
+15A cinit CODE >1062:C:\Users\dinku\AppData\Local\Temp\xcAspn8.s
+15B cinit CODE >1063:C:\Users\dinku\AppData\Local\Temp\xcAspn8.s
+15C cinit CODE >1064:C:\Users\dinku\AppData\Local\Temp\xcAspn8.s
+15D cinit CODE >1065:C:\Users\dinku\AppData\Local\Temp\xcAspn8.s
+15E cinit CODE >1066:C:\Users\dinku\AppData\Local\Temp\xcAspn8.s
+161 cinit CODE >1083:C:\Users\dinku\AppData\Local\Temp\xcAspn8.s
+162 cinit CODE >1087:C:\Users\dinku\AppData\Local\Temp\xcAspn8.s
+163 cinit CODE >1088:C:\Users\dinku\AppData\Local\Temp\xcAspn8.s
+164 cinit CODE >1089:C:\Users\dinku\AppData\Local\Temp\xcAspn8.s
+165 cinit CODE >1093:C:\Users\dinku\AppData\Local\Temp\xcAspn8.s
+166 cinit CODE >1094:C:\Users\dinku\AppData\Local\Temp\xcAspn8.s
+167 cinit CODE >1095:C:\Users\dinku\AppData\Local\Temp\xcAspn8.s
+168 cinit CODE >1096:C:\Users\dinku\AppData\Local\Temp\xcAspn8.s
+169 cinit CODE >1097:C:\Users\dinku\AppData\Local\Temp\xcAspn8.s
+16A cinit CODE >1098:C:\Users\dinku\AppData\Local\Temp\xcAspn8.s
+16D cinit CODE >1104:C:\Users\dinku\AppData\Local\Temp\xcAspn8.s
+16D cinit CODE >1106:C:\Users\dinku\AppData\Local\Temp\xcAspn8.s
+16E cinit CODE >1107:C:\Users\dinku\AppData\Local\Temp\xcAspn8.s
+16F cinit CODE >1108:C:\Users\dinku\AppData\Local\Temp\xcAspn8.s
+4 intentry CODE >494:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+6 intentry CODE >499:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+B intentry CODE >500:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+E intentry CODE >501:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+10 intentry CODE >506:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+29 intentry CODE >507:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+2B intentry CODE >508:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+33 intentry CODE >509:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+3B intentry CODE >510:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+3C intentry CODE >511:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+3D intentry CODE >512:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+3E intentry CODE >515:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+47 intentry CODE >516:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+49 intentry CODE >516:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+4D intentry CODE >517:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+51 intentry CODE >518:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+52 intentry CODE >520:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+5A intentry CODE >521:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+64 intentry CODE >522:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+65 intentry CODE >524:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+67 intentry CODE >524:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+70 intentry CODE >526:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+76 intentry CODE >527:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+81 intentry CODE >530:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+85 intentry CODE >531:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+8B intentry CODE >532:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+90 intentry CODE >533:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+93 intentry CODE >533:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+95 intentry CODE >533:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+9D intentry CODE >535:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+A6 intentry CODE >536:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+A9 intentry CODE >536:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+AB intentry CODE >536:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+AF intentry CODE >537:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+B3 intentry CODE >538:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+B7 intentry CODE >540:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+B8 intentry CODE >545:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+BC intentry CODE >546:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+C2 intentry CODE >547:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+C7 intentry CODE >548:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+CA intentry CODE >548:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+CC intentry CODE >548:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+D4 intentry CODE >551:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+DA intentry CODE >552:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+DC intentry CODE >553:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+E0 intentry CODE >553:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+E2 intentry CODE >553:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+E6 intentry CODE >555:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+EA intentry CODE >557:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+F4 intentry CODE >558:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+F8 intentry CODE >560:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+F8 intentry CODE >565:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+FA intentry CODE >565:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+FE intentry CODE >565:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+102 intentry CODE >566:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+106 intentry CODE >569:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+108 intentry CODE >575:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+10C intentry CODE >576:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+113 intentry CODE >577:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+117 intentry CODE >578:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+11D intentry CODE >579:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+122 intentry CODE >582:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+124 intentry CODE >584:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+126 intentry CODE >595:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+12A intentry CODE >599:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+12F intentry CODE >600:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+130 intentry CODE >602:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+135 intentry CODE >604:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+137 intentry CODE >605:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+139 intentry CODE >606:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+13D intentry CODE >607:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+13E intentry CODE >609:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+140 intentry CODE >614:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+145 intentry CODE >615:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+146 intentry CODE >617:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+14B intentry CODE >618:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+14F intentry CODE >619:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+151 intentry CODE >623:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+554 text8 CODE >5:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
+554 text8 CODE >13:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
+556 text8 CODE >14:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
+55A text8 CODE >15:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
+55F text8 CODE >15:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
+561 text8 CODE >15:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
+563 text8 CODE >15:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
+565 text8 CODE >16:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
+567 text8 CODE >17:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
+567 text8 CODE >18:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
+56B text8 CODE >19:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
+570 text8 CODE >19:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
+572 text8 CODE >19:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
+574 text8 CODE >19:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
+576 text8 CODE >20:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
+57A text8 CODE >22:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
+582 text8 CODE >23:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
+586 text8 CODE >23:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
+58A text8 CODE >24:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
+58C text8 CODE >25:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
+58D text8 CODE >26:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
+594 text8 CODE >27:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
+598 text8 CODE >25:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
+59C text8 CODE >30:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
+5A3 text8 CODE >31:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
+5A5 text8 CODE >31:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
+5A9 text8 CODE >31:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
+5AD text8 CODE >31:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
+5B1 text8 CODE >31:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
+5B5 text8 CODE >32:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
+5BD text8 CODE >33:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
+5BE text8 CODE >35:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
+5C5 text8 CODE >36:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
+5CB text8 CODE >38:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
+5D0 text8 CODE >39:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
+5D5 text8 CODE >39:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
+5D7 text8 CODE >39:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
+5D9 text8 CODE >39:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
+5DB text8 CODE >40:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
+5E3 text8 CODE >41:C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\aldiv.c
+7EF text7 CODE >690:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+7EF text7 CODE >691:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+7F4 text7 CODE >692:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+7F9 text7 CODE >694:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+7FF text7 CODE >695:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+470 text6 CODE >848:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+470 text6 CODE >850:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+478 text6 CODE >851:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+480 text6 CODE >857:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+482 text6 CODE >858:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+48D text6 CODE >859:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+495 text6 CODE >860:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+4D9 text6 CODE >862:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+4DC text6 CODE >862:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+4DE text6 CODE >862:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+4E2 text6 CODE >865:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+4E3 text6 CODE >866:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+4E4 text6 CODE >867:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+4E5 text6 CODE >868:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+4E6 text6 CODE >869:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+4EA text6 CODE >869:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+4EC text6 CODE >869:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+4F0 text6 CODE >872:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+4F1 text6 CODE >873:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+4F2 text6 CODE >874:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+4F3 text6 CODE >875:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+4F9 text6 CODE >876:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+500 text6 CODE >877:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+502 text6 CODE >879:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+505 text6 CODE >879:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+507 text6 CODE >879:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+50B text6 CODE >882:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+50C text6 CODE >883:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+50D text6 CODE >884:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+513 text6 CODE >885:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+51A text6 CODE >886:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+51C text6 CODE >889:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+51F text6 CODE >889:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+521 text6 CODE >889:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+525 text6 CODE >892:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+526 text6 CODE >893:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+52C text6 CODE >894:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+533 text6 CODE >895:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+534 text6 CODE >896:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+534 text6 CODE >897:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+535 text6 CODE >898:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+536 text6 CODE >899:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+537 text6 CODE >901:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+53E text6 CODE >902:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+53F text6 CODE >903:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+540 text6 CODE >904:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+541 text6 CODE >905:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+542 text6 CODE >907:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+548 text6 CODE >908:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+54C text6 CODE >910:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+553 text6 CODE >913:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+766 text5 CODE >699:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+766 text5 CODE >700:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+76C text5 CODE >701:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+76F text5 CODE >703:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+77A text5 CODE >704:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+77B text5 CODE >705:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+780 text5 CODE >706:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+780 text5 CODE >707:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+785 text5 CODE >709:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+79C text5 CODE >710:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+32E text4 CODE >627:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+32E text4 CODE >628:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+331 text4 CODE >629:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+340 text4 CODE >629:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+344 text4 CODE >629:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+34C text4 CODE >630:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+350 text4 CODE >631:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+352 text4 CODE >631:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+359 text4 CODE >633:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+359 text4 CODE >635:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+35A text4 CODE >636:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+35B text4 CODE >637:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+35C text4 CODE >638:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+35D text4 CODE >639:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+361 text4 CODE >640:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+375 text4 CODE >640:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+379 text4 CODE >640:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+37E text4 CODE >643:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+37E text4 CODE >645:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+37F text4 CODE >646:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+380 text4 CODE >647:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+381 text4 CODE >648:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+382 text4 CODE >650:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+386 text4 CODE >651:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+39A text4 CODE >651:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+39E text4 CODE >651:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+3A2 text4 CODE >652:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+3A4 text4 CODE >653:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+3D1 text4 CODE >653:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+3D3 text4 CODE >653:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+3E6 text4 CODE >653:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+3EA text4 CODE >653:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+3EE text4 CODE >654:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+3F1 text4 CODE >655:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+3F3 text4 CODE >656:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+3F4 text4 CODE >658:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+3F4 text4 CODE >660:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+3F5 text4 CODE >661:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+3F6 text4 CODE >662:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+3F7 text4 CODE >663:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+3F8 text4 CODE >665:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+3FC text4 CODE >666:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+40E text4 CODE >667:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+410 text4 CODE >668:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+43D text4 CODE >668:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+43F text4 CODE >668:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+451 text4 CODE >674:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+453 text4 CODE >675:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+455 text4 CODE >676:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+456 text4 CODE >677:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+45B text4 CODE >677:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+460 text4 CODE >677:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+463 text4 CODE >677:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+466 text4 CODE >677:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+469 text4 CODE >681:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+46B text4 CODE >682:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+46C text4 CODE >683:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+46D text4 CODE >684:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+46E text4 CODE >685:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+46F text4 CODE >686:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+6FF text3 CODE >746:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+6FF text3 CODE >758:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+705 text3 CODE >759:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+707 text3 CODE >762:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+70A text3 CODE >763:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+70C text3 CODE >764:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+70E text3 CODE >765:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+710 text3 CODE >766:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+712 text3 CODE >768:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+716 text3 CODE >769:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+716 text3 CODE >770:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+71B text3 CODE >771:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+721 text3 CODE >772:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+726 text3 CODE >773:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+72C text3 CODE >774:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+72F text3 CODE >774:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+731 text3 CODE >774:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+736 text3 CODE >777:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+73D text3 CODE >780:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+743 text3 CODE >782:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+745 text3 CODE >783:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+746 text3 CODE >784:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+74A text3 CODE >786:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+74B text3 CODE >787:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+74C text3 CODE >788:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+750 text3 CODE >790:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+751 text3 CODE >792:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+752 text3 CODE >795:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+755 text3 CODE >796:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+757 text3 CODE >797:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+759 text3 CODE >798:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+75B text3 CODE >799:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+75D text3 CODE >803:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+75F text3 CODE >804:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+760 text3 CODE >805:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+761 text3 CODE >806:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+762 text3 CODE >807:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+763 text3 CODE >809:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+765 text3 CODE >810:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+79D text2 CODE >714:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+79D text2 CODE >716:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+7A0 text2 CODE >719:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+7A1 text2 CODE >722:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+7A2 text2 CODE >723:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+7A9 text2 CODE >724:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+7AB text2 CODE >725:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+7B2 text2 CODE >726:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+7B4 text2 CODE >727:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+7BB text2 CODE >728:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+7BD text2 CODE >731:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+7BE text2 CODE >732:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+7BF text2 CODE >733:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+7C0 text2 CODE >734:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+7C1 text2 CODE >735:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+7C2 text2 CODE >737:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+7C9 text2 CODE >742:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+7CA text2 CODE >744:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+5E4 text1 CODE >812:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+5E4 text1 CODE >813:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+5E6 text1 CODE >816:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+5E9 text1 CODE >817:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+5EB text1 CODE >818:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+5ED text1 CODE >819:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+5EF text1 CODE >820:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+5F1 text1 CODE >822:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+5F2 text1 CODE >823:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+5F6 text1 CODE >824:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+5F6 text1 CODE >825:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+5FA text1 CODE >826:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+606 text1 CODE >827:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+60B text1 CODE >828:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+611 text1 CODE >829:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+614 text1 CODE >829:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+616 text1 CODE >829:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+621 text1 CODE >831:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+62F text1 CODE >834:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+634 text1 CODE >835:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+640 text1 CODE >836:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+645 text1 CODE >837:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+64B text1 CODE >838:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+64E text1 CODE >838:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+650 text1 CODE >838:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+65B text1 CODE >822:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+65E text1 CODE >822:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+662 text1 CODE >822:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+66C text1 CODE >841:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+66E text1 CODE >842:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+66F text1 CODE >843:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+670 text1 CODE >844:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+671 text1 CODE >845:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+672 text1 CODE >846:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+171 maintext CODE >303:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+171 maintext CODE >307:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+173 maintext CODE >308:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+174 maintext CODE >309:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+175 maintext CODE >311:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+176 maintext CODE >318:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+177 maintext CODE >322:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+179 maintext CODE >323:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+17B maintext CODE >324:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+17D maintext CODE >325:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+17E maintext CODE >326:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+17F maintext CODE >327:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+181 maintext CODE >328:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+183 maintext CODE >329:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+185 maintext CODE >330:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+187 maintext CODE >331:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+188 maintext CODE >332:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+189 maintext CODE >333:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+18A maintext CODE >334:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+18B maintext CODE >335:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+18C maintext CODE >336:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+18D maintext CODE >339:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+18E maintext CODE >340:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+18F maintext CODE >341:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+190 maintext CODE >342:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+191 maintext CODE >343:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+192 maintext CODE >344:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+193 maintext CODE >345:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+194 maintext CODE >346:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+195 maintext CODE >356:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+19A maintext CODE >357:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+19B maintext CODE >363:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+19D maintext CODE >364:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+19F maintext CODE >365:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+1A3 maintext CODE >366:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+1A4 maintext CODE >367:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+1A8 maintext CODE >368:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+1A9 maintext CODE >372:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+1AC maintext CODE >373:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+1AD maintext CODE >374:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+1AF maintext CODE >375:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+1B1 maintext CODE >376:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+1B3 maintext CODE >377:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+1B4 maintext CODE >381:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+1B7 maintext CODE >382:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+1BB maintext CODE >383:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+1BC maintext CODE >384:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+1BD maintext CODE >387:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+1BF maintext CODE >388:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+1C0 maintext CODE >392:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+1C5 maintext CODE >393:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+1C6 maintext CODE >397:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+1CE maintext CODE >398:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+1D3 maintext CODE >399:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+1D4 maintext CODE >400:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+1DF maintext CODE >401:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+1E7 maintext CODE >402:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+1EE maintext CODE >405:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+1F3 maintext CODE >406:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+1F5 maintext CODE >407:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+1F9 maintext CODE >408:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+1FA maintext CODE >411:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+202 maintext CODE >415:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+204 maintext CODE >419:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+205 maintext CODE >420:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+206 maintext CODE >423:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+208 maintext CODE >425:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+209 maintext CODE >426:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+20A maintext CODE >427:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+20B maintext CODE >430:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+215 maintext CODE >431:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+219 maintext CODE >434:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+21A maintext CODE >435:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+221 maintext CODE >436:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+223 maintext CODE >437:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+22A maintext CODE >438:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+22C maintext CODE >439:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+233 maintext CODE >440:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+235 maintext CODE >441:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+23C maintext CODE >442:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+23E maintext CODE >443:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+245 maintext CODE >444:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+247 maintext CODE >448:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+24A maintext CODE >449:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+250 maintext CODE >451:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+252 maintext CODE >452:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+254 maintext CODE >453:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+256 maintext CODE >454:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+258 maintext CODE >455:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+259 maintext CODE >456:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+25A maintext CODE >459:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+262 maintext CODE >459:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+266 maintext CODE >459:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+280 maintext CODE >462:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+28E maintext CODE >462:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+292 maintext CODE >462:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+29C maintext CODE >464:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+2A0 maintext CODE >465:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+2A4 maintext CODE >466:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+2A6 maintext CODE >467:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+2A8 maintext CODE >469:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+2AA maintext CODE >469:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+2AE maintext CODE >469:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+2BD maintext CODE >470:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+2C0 maintext CODE >472:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+2D0 maintext CODE >475:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+2D9 maintext CODE >475:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+2DD maintext CODE >475:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+2E7 maintext CODE >477:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+2E8 maintext CODE >479:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+2E9 maintext CODE >483:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+2F1 maintext CODE >483:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+2F5 maintext CODE >483:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+2FE maintext CODE >484:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+301 maintext CODE >486:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+310 maintext CODE >486:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+314 maintext CODE >486:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+321 maintext CODE >487:C:\Users\dinku\GitHub\She-Ra-arc-lighter\MPLABX\She-Ra_Lighter.X\source/main.c
+FED clrtext CODE >1072:C:\Users\dinku\AppData\Local\Temp\xcAspn8.s
+FED clrtext CODE >1073:C:\Users\dinku\AppData\Local\Temp\xcAspn8.s
+FEE clrtext CODE >1074:C:\Users\dinku\AppData\Local\Temp\xcAspn8.s
+FEE clrtext CODE >1075:C:\Users\dinku\AppData\Local\Temp\xcAspn8.s
+FEF clrtext CODE >1076:C:\Users\dinku\AppData\Local\Temp\xcAspn8.s
+FF0 clrtext CODE >1077:C:\Users\dinku\AppData\Local\Temp\xcAspn8.s
+FF1 clrtext CODE >1078:C:\Users\dinku\AppData\Local\Temp\xcAspn8.s
+FF2 clrtext CODE >1079:C:\Users\dinku\AppData\Local\Temp\xcAspn8.s
+FF3 inittext CODE >1046:C:\Users\dinku\AppData\Local\Temp\xcAspn8.s
+FF3 inittext CODE >1047:C:\Users\dinku\AppData\Local\Temp\xcAspn8.s
+FF4 inittext CODE >1048:C:\Users\dinku\AppData\Local\Temp\xcAspn8.s
+FF4 inittext CODE >1049:C:\Users\dinku\AppData\Local\Temp\xcAspn8.s
+FF5 inittext CODE >1050:C:\Users\dinku\AppData\Local\Temp\xcAspn8.s
+FF6 inittext CODE >1051:C:\Users\dinku\AppData\Local\Temp\xcAspn8.s
+FF7 inittext CODE >1052:C:\Users\dinku\AppData\Local\Temp\xcAspn8.s
+FF8 inittext CODE >1053:C:\Users\dinku\AppData\Local\Temp\xcAspn8.s
 # %SYMTAB Section
 # An enumeration of all symbols in the program.
 # The beginning of the section is indicated by %SYMTAB.
@@ -549,7 +659,7 @@ FD8 clrtext CODE >1848:C:\Users\dinku\AppData\Local\Temp\xcAs75o.s
 # was defined in a psect then <psect> will be "-". File-name
 # is the name of the object file in which the symbol was defined.
 %SYMTAB
-_i 7A 0 COMMON 1 bssCOMMON dist/default/debug\She-Ra_Lighter.X.debug.o
+_i 79 0 COMMON 1 bssCOMMON dist/default/debug\She-Ra_Lighter.X.debug.o
 ___latbits 1 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
 __LdataBANK0 0 0 ABS 0 dataBANK0 -
 __Hspace_0 1000 0 ABS 0 - -
@@ -559,78 +669,74 @@ __Hspace_3 0 0 ABS 0 - -
 __Hspace_4 10013 0 ABS 0 - -
 _T1CLKbits 211 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
 __HidataBANK0 0 0 ABS 0 idataBANK0 -
-_PWM3CON 316 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
-_PWM4CON 31A 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
 __Heeprom_data 0 0 EEDATA 3 eeprom_data -
 _T1CONbits 20E 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
 _OSCENbits 891 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
 __Hstrings 0 0 ABS 0 strings -
-_clockDivider 42 0 BANK0 1 bssBANK0 dist/default/debug\She-Ra_Lighter.X.debug.o
+_clockDivider 45 0 BANK0 1 bssBANK0 dist/default/debug\She-Ra_Lighter.X.debug.o
 _INTE 38B0 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
 _PEIE 5E 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
-___sp 0 0 STACK 2 stack C:\Users\dinku\AppData\Local\Temp\xcAs75o.o
-_fade E92 0 CODE 0 text2 dist/default/debug\She-Ra_Lighter.X.debug.o
-_gate 3A 0 BANK0 1 bssBANK0 dist/default/debug\She-Ra_Lighter.X.debug.o
-_main 5D0 0 CODE 0 maintext dist/default/debug\She-Ra_Lighter.X.debug.o
+___sp 0 0 STACK 2 stack C:\Users\dinku\AppData\Local\Temp\xcAspn8.o
+_fade DFE 0 CODE 0 text3 dist/default/debug\She-Ra_Lighter.X.debug.o
+_gate 3E 0 BANK0 1 bssBANK0 dist/default/debug\She-Ra_Lighter.X.debug.o
+_main 2E2 0 CODE 0 maintext dist/default/debug\She-Ra_Lighter.X.debug.o
 btemp 7E 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
-start 216 0 CODE 0 init C:\Users\dinku\AppData\Local\Temp\xcAs75o.o
+start 2A6 0 CODE 0 init C:\Users\dinku\AppData\Local\Temp\xcAspn8.o
 __size_of___aldiv 0 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
 __size_of_fade 0 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
 __size_of_main 0 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
 __HbssCOMMON 0 0 ABS 0 bssCOMMON -
 _OSCFRQbits 893 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
-_blockingDelay 1FB2 0 CODE 0 text6 dist/default/debug\She-Ra_Lighter.X.debug.o
+_blockingDelay FDE 0 CODE 0 text7 dist/default/debug\She-Ra_Lighter.X.debug.o
 __LidataBANK0 0 0 ABS 0 idataBANK0 -
 __Hpowerup 0 0 CODE 0 powerup -
 __pbitbssCOMMON 3E0 -364 COMMON 1 bitbssCOMMON dist/default/debug\She-Ra_Lighter.X.debug.o
-intlevel0 0 0 ENTRY 0 functab C:\Users\dinku\AppData\Local\Temp\xcAs75o.o
-intlevel1 0 0 ENTRY 0 functab C:\Users\dinku\AppData\Local\Temp\xcAs75o.o
-intlevel2 0 0 ENTRY 0 functab C:\Users\dinku\AppData\Local\Temp\xcAs75o.o
-intlevel3 0 0 ENTRY 0 functab C:\Users\dinku\AppData\Local\Temp\xcAs75o.o
-intlevel4 0 0 ENTRY 0 functab C:\Users\dinku\AppData\Local\Temp\xcAs75o.o
-intlevel5 0 0 ENTRY 0 functab C:\Users\dinku\AppData\Local\Temp\xcAs75o.o
+intlevel0 0 0 ENTRY 0 functab C:\Users\dinku\AppData\Local\Temp\xcAspn8.o
+intlevel1 0 0 ENTRY 0 functab C:\Users\dinku\AppData\Local\Temp\xcAspn8.o
+intlevel2 0 0 ENTRY 0 functab C:\Users\dinku\AppData\Local\Temp\xcAspn8.o
+intlevel3 0 0 ENTRY 0 functab C:\Users\dinku\AppData\Local\Temp\xcAspn8.o
+intlevel4 0 0 ENTRY 0 functab C:\Users\dinku\AppData\Local\Temp\xcAspn8.o
+intlevel5 0 0 ENTRY 0 functab C:\Users\dinku\AppData\Local\Temp\xcAspn8.o
 _pinState 3E0 -364 COMMON 1 bitbssCOMMON dist/default/debug\She-Ra_Lighter.X.debug.o
 __LbssCOMMON 0 0 ABS 0 bssCOMMON -
 ___aldiv@divisor 71 0 COMMON 1 cstackCOMMON dist/default/debug\She-Ra_Lighter.X.debug.o
 wtemp0 7E 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
 __Hfunctab 0 0 ENTRY 0 functab -
-_goToLPmode 1FD4 0 CODE 0 text1 dist/default/debug\She-Ra_Lighter.X.debug.o
-___aldiv@sign 50 0 BANK0 1 cstackBANK0 dist/default/debug\She-Ra_Lighter.X.debug.o
+_goToLPmode F3A 0 CODE 0 text2 dist/default/debug\She-Ra_Lighter.X.debug.o
+___aldiv@sign 48 0 BANK0 1 cstackBANK0 dist/default/debug\She-Ra_Lighter.X.debug.o
 __Hclrtext 0 0 ABS 0 clrtext -
-_chargeIndicator$1249 59 0 BANK0 1 cstackBANK0 dist/default/debug\She-Ra_Lighter.X.debug.o
+_chargeIndicator$1387 51 0 BANK0 1 cstackBANK0 dist/default/debug\She-Ra_Lighter.X.debug.o
 _ANSELC 1F4E 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
 _FVRCONbits 90C 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
-__end_of_ButtonDebounceInit FEE 0 CODE 0 text8 dist/default/debug\She-Ra_Lighter.X.debug.o
 __Lmaintext 0 0 ABS 0 maintext -
 _calibrationMV 20 0 BANK0 1 bssBANK0 dist/default/debug\She-Ra_Lighter.X.debug.o
-__end_of___aldiv E92 0 CODE 0 text7 dist/default/debug\She-Ra_Lighter.X.debug.o
+__end_of___aldiv BC8 0 CODE 0 text8 dist/default/debug\She-Ra_Lighter.X.debug.o
 _IOCAF0 F9F8 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
-_IOCAF3 F9FB 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
 _IOCAF4 F9FC 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
 _IOCAN0 F9F0 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
-_IOCAN3 F9F3 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
 _IOCAN4 F9F4 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
-_IOCAP0 F9E8 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
-_IOCAP3 F9EB 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
 _IOCAP4 F9EC 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
-___stackhi 21EF 0 ABS 0 - C:\Users\dinku\AppData\Local\Temp\xcAs75o.o
-___stacklo 2045 0 ABS 0 - C:\Users\dinku\AppData\Local\Temp\xcAs75o.o
-__end_of_chargeIndicator D72 0 CODE 0 text5 dist/default/debug\She-Ra_Lighter.X.debug.o
+___stackhi 21EF 0 ABS 0 - C:\Users\dinku\AppData\Local\Temp\xcAspn8.o
+___stacklo 2040 0 ABS 0 - C:\Users\dinku\AppData\Local\Temp\xcAspn8.o
+__end_of_chargeIndicator AA8 0 CODE 0 text6 dist/default/debug\She-Ra_Lighter.X.debug.o
 __size_of_blockingDelay 0 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
-__end_of_gargoyles 5D0 0 STRCODE 0 stringtext1 dist/default/debug\She-Ra_Lighter.X.debug.o
-__end_of_goToLPmode 2000 0 CODE 0 text1 dist/default/debug\She-Ra_Lighter.X.debug.o
-_ButtonDebounceInit F98 0 CODE 0 text8 dist/default/debug\She-Ra_Lighter.X.debug.o
-ButtonDebounceInit@port 74 0 COMMON 1 cstackCOMMON dist/default/debug\She-Ra_Lighter.X.debug.o
+__end_of_gargoyles DFE 0 STRCODE 0 stringtext1 dist/default/debug\She-Ra_Lighter.X.debug.o
+__end_of_goToLPmode F96 0 CODE 0 text2 dist/default/debug\She-Ra_Lighter.X.debug.o
 _NVMADR 81A 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
 _NVMDAT 81C 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
-start_initialization 21A 0 CODE 0 cinit dist/default/debug\She-Ra_Lighter.X.debug.o
+start_initialization 2AA 0 CODE 0 cinit dist/default/debug\She-Ra_Lighter.X.debug.o
 _PWM3DC 314 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
-___aldiv@quotient 51 0 BANK0 1 cstackBANK0 dist/default/debug\She-Ra_Lighter.X.debug.o
-_gargoyles 250 0 STRCODE 0 stringtext1 dist/default/debug\She-Ra_Lighter.X.debug.o
+_showChillFade BC8 0 CODE 0 text1 dist/default/debug\She-Ra_Lighter.X.debug.o
+___aldiv@quotient 49 0 BANK0 1 cstackBANK0 dist/default/debug\She-Ra_Lighter.X.debug.o
+_gargoyles CE6 0 STRCODE 0 stringtext1 dist/default/debug\She-Ra_Lighter.X.debug.o
+_RA1PPS 1F11 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
+_RA2PPS 1F12 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
+_RC0PPS 1F20 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
+_RC1PPS 1F21 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
 _RC2PPS 1F22 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
-clear_ram0 1FA6 0 CODE 0 clrtext dist/default/debug\She-Ra_Lighter.X.debug.o
-__pcstackBANK0 4F 0 BANK0 1 cstackBANK0 dist/default/debug\She-Ra_Lighter.X.debug.o
-__end_of_blockingDelay 1FD4 0 CODE 0 text6 dist/default/debug\She-Ra_Lighter.X.debug.o
+clear_ram0 1FDA 0 CODE 0 clrtext dist/default/debug\She-Ra_Lighter.X.debug.o
+__pcstackBANK0 46 0 BANK0 1 cstackBANK0 dist/default/debug\She-Ra_Lighter.X.debug.o
+__end_of_blockingDelay 1000 0 CODE 0 text7 dist/default/debug\She-Ra_Lighter.X.debug.o
 _T2CLKCON 290 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
 _TMR0IE 38B5 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
 _TMR1IE 38BD 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
@@ -646,8 +752,8 @@ _TRISC2 A2 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
 _TRISC3 A3 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
 _TRISC4 A4 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
 _TRISC5 A5 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
-_chargeIndicator BBA 0 CODE 0 text5 dist/default/debug\She-Ra_Lighter.X.debug.o
-___int_sp 0 0 STACK 2 stack C:\Users\dinku\AppData\Local\Temp\xcAs75o.o
+_chargeIndicator 8E0 0 CODE 0 text6 dist/default/debug\She-Ra_Lighter.X.debug.o
+___int_sp 0 0 STACK 2 stack C:\Users\dinku\AppData\Local\Temp\xcAspn8.o
 __Hbank0 0 0 ABS 0 bank0 -
 __Hbank1 0 0 ABS 0 bank1 -
 __Hbank2 0 0 ABS 0 bank2 -
@@ -658,8 +764,8 @@ __Hbank6 0 0 ABS 0 bank6 -
 __Hbank7 0 0 BANK7 1 bank7 -
 __Hbank8 0 0 BANK8 1 bank8 -
 __Hbank9 0 0 BANK9 1 bank9 -
-__Hcinit 250 0 CODE 0 cinit -
-_showCharge 2E 0 BANK0 1 bssBANK0 dist/default/debug\She-Ra_Lighter.X.debug.o
+__Hcinit 2E2 0 CODE 0 cinit -
+_showCharge 34 0 BANK0 1 bssBANK0 dist/default/debug\She-Ra_Lighter.X.debug.o
 __Hsfr10 0 0 ABS 0 sfr10 -
 __Hsfr11 0 0 ABS 0 sfr11 -
 __Hsfr12 0 0 ABS 0 sfr12 -
@@ -774,7 +880,7 @@ __Hmaintext 0 0 ABS 0 maintext -
 __Hcommon 0 0 ABS 0 common -
 __Hconfig 10018 0 CONFIG 4 config -
 _T2HLTbits 28F 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
-_gotTheTouch 28 0 BANK0 1 bssBANK0 dist/default/debug\She-Ra_Lighter.X.debug.o
+_gotTheTouch 2C 0 BANK0 1 bssBANK0 dist/default/debug\She-Ra_Lighter.X.debug.o
 __Lbank0 0 0 ABS 0 bank0 -
 __Lbank1 0 0 ABS 0 bank1 -
 __Lbank2 0 0 ABS 0 bank2 -
@@ -785,7 +891,7 @@ __Lbank6 0 0 ABS 0 bank6 -
 __Lbank7 0 0 BANK7 1 bank7 -
 __Lbank8 0 0 BANK8 1 bank8 -
 __Lbank9 0 0 BANK9 1 bank9 -
-__Lcinit 21A 0 CODE 0 cinit -
+__Lcinit 2AA 0 CODE 0 cinit -
 __Lsfr10 0 0 ABS 0 sfr10 -
 __Lsfr11 0 0 ABS 0 sfr11 -
 __Lsfr12 0 0 ABS 0 sfr12 -
@@ -841,10 +947,13 @@ __Lsfr61 0 0 ABS 0 sfr61 -
 __Lsfr62 0 0 ABS 0 sfr62 -
 __Lsfr63 0 0 ABS 0 sfr63 -
 __Lstack 0 0 STACK 2 stack -
+init_ram 1FE6 0 CODE 0 inittext dist/default/debug\She-Ra_Lighter.X.debug.o
+_lid_integrator 26 0 BANK0 1 bssBANK0 dist/default/debug\She-Ra_Lighter.X.debug.o
+__Linittext 0 0 ABS 0 inittext -
 _PORTAbits C 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
 __Habs1 0 0 ABS 0 abs1 -
 __Hcode 0 0 ABS 0 code -
-__Hinit 216 0 CODE 0 init -
+__Hinit 2A6 0 CODE 0 init -
 __Hsfr0 0 0 ABS 0 sfr0 -
 __Hsfr1 0 0 ABS 0 sfr1 -
 __Hsfr2 0 0 ABS 0 sfr2 -
@@ -858,7 +967,7 @@ __Hsfr9 0 0 ABS 0 sfr9 -
 __Htext 0 0 ABS 0 text -
 __Labs1 0 0 ABS 0 abs1 -
 __Lcode 0 0 ABS 0 code -
-__Linit 216 0 CODE 0 init -
+__Linit 2A6 0 CODE 0 init -
 __Lsfr0 0 0 ABS 0 sfr0 -
 __Lsfr1 0 0 ABS 0 sfr1 -
 __Lsfr2 0 0 ABS 0 sfr2 -
@@ -870,9 +979,10 @@ __Lsfr7 0 0 ABS 0 sfr7 -
 __Lsfr8 0 0 ABS 0 sfr8 -
 __Lsfr9 0 0 ABS 0 sfr9 -
 __Ltext 0 0 ABS 0 text -
-__pstringtext1 250 0 STRCODE 0 stringtext1 dist/default/debug\She-Ra_Lighter.X.debug.o
-__pstringtext2 9DA 0 STRCODE 0 stringtext2 dist/default/debug\She-Ra_Lighter.X.debug.o
-__pstringtext3 FEE 0 STRCODE 0 stringtext3 dist/default/debug\She-Ra_Lighter.X.debug.o
+__pstringtext1 CE6 0 STRCODE 0 stringtext1 dist/default/debug\She-Ra_Lighter.X.debug.o
+__pstringtext2 F96 0 STRCODE 0 stringtext2 dist/default/debug\She-Ra_Lighter.X.debug.o
+__pstringtext3 1000 0 STRCODE 0 stringtext3 dist/default/debug\She-Ra_Lighter.X.debug.o
+_PWM4CONbits 31A 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
 __LcstackBANK0 0 0 ABS 0 cstackBANK0 -
 int$flags 7E 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
 __HcstackCOMMON 0 0 ABS 0 cstackCOMMON -
@@ -881,25 +991,29 @@ __S0 1000 0 ABS 0 - -
 __S1 7D 0 ABS 0 - -
 __S2 0 0 ABS 0 - -
 _isr 8 0 CODE 0 intentry dist/default/debug\She-Ra_Lighter.X.debug.o
-_aPorts 43 0 BANK0 1 bssBANK0 dist/default/debug\She-Ra_Lighter.X.debug.o
 __size_of_doTheArc 0 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
-_fadeUp 40 0 BANK0 1 bssBANK0 dist/default/debug\She-Ra_Lighter.X.debug.o
-__end_of_isr 216 0 CODE 0 intentry dist/default/debug\She-Ra_Lighter.X.debug.o
+_previouslyOff 30 0 BANK0 1 bssBANK0 dist/default/debug\She-Ra_Lighter.X.debug.o
+__size_of_showChillFade 0 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
+_fadeUp 43 0 BANK0 1 bssBANK0 dist/default/debug\She-Ra_Lighter.X.debug.o
+__end_of_isr 2A6 0 CODE 0 intentry dist/default/debug\She-Ra_Lighter.X.debug.o
+_touch_integrator 28 0 BANK0 1 bssBANK0 dist/default/debug\She-Ra_Lighter.X.debug.o
 _PWM3CONbits 316 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
 __Lintentry 8 0 CODE 0 intentry -
-reset_vec 0 0 CODE 0 reset_vec C:\Users\dinku\AppData\Local\Temp\xcAs75o.o
-__pdataBANK0 62 0 BANK0 1 dataBANK0 dist/default/debug\She-Ra_Lighter.X.debug.o
+reset_vec 0 0 CODE 0 reset_vec C:\Users\dinku\AppData\Local\Temp\xcAspn8.o
+__pdataBANK0 59 0 BANK0 1 dataBANK0 dist/default/debug\She-Ra_Lighter.X.debug.o
 __LbssBANK0 0 0 ABS 0 bssBANK0 -
 __Lstringtext1 0 0 ABS 0 stringtext1 -
 __Lstringtext2 0 0 ABS 0 stringtext2 -
 __Lstringtext3 0 0 ABS 0 stringtext3 -
 __size_of_chargeIndicator 0 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
-_runIndex 3F 0 BANK0 1 bssBANK0 dist/default/debug\She-Ra_Lighter.X.debug.o
-_genericDelay 32 0 BANK0 1 bssBANK0 dist/default/debug\She-Ra_Lighter.X.debug.o
+_runIndex 7B 0 COMMON 1 bssCOMMON dist/default/debug\She-Ra_Lighter.X.debug.o
+_genericDelay 38 0 BANK0 1 bssBANK0 dist/default/debug\She-Ra_Lighter.X.debug.o
 __size_of_goToLPmode 0 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
-_buttonDebounce 41 0 BANK0 1 bssBANK0 dist/default/debug\She-Ra_Lighter.X.debug.o
-_noGate 62 0 BANK0 1 dataBANK0 dist/default/debug\She-Ra_Lighter.X.debug.o
-___aldiv D72 0 CODE 0 text7 dist/default/debug\She-Ra_Lighter.X.debug.o
+__end_of_showChillFade CE6 0 CODE 0 text1 dist/default/debug\She-Ra_Lighter.X.debug.o
+_buttonDebounce 44 0 BANK0 1 bssBANK0 dist/default/debug\She-Ra_Lighter.X.debug.o
+_noGate 5D 0 BANK0 1 dataBANK0 dist/default/debug\She-Ra_Lighter.X.debug.o
+___aldiv AA8 0 CODE 0 text8 dist/default/debug\She-Ra_Lighter.X.debug.o
+_lidOpen 2E 0 BANK0 1 bssBANK0 dist/default/debug\She-Ra_Lighter.X.debug.o
 __Lbank10 0 0 BANK10 1 bank10 -
 __Lbank11 0 0 BANK11 1 bank11 -
 __Lbank12 0 0 BANK12 1 bank12 -
@@ -954,13 +1068,13 @@ __Lbank60 0 0 BANK60 1 bank60 -
 __Lbank61 0 0 BANK61 1 bank61 -
 __Lbank62 0 0 BANK62 1 bank62 -
 __Lbank63 0 0 BANK63 1 bank63 -
-__pmaintext 5D0 0 CODE 0 maintext dist/default/debug\She-Ra_Lighter.X.debug.o
+__pmaintext 2E2 0 CODE 0 maintext dist/default/debug\She-Ra_Lighter.X.debug.o
 __Lbigram 0 0 ABS 0 bigram -
-_doTheArc 7E6 0 CODE 0 text3 dist/default/debug\She-Ra_Lighter.X.debug.o
+_doTheArc 65C 0 CODE 0 text4 dist/default/debug\She-Ra_Lighter.X.debug.o
 __Lcommon 0 0 ABS 0 common -
 __Lconfig 0 0 CONFIG 4 config -
-__size_of_ButtonDebounceInit 0 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
-__end_of_doTheArc 9DA 0 CODE 0 text3 dist/default/debug\She-Ra_Lighter.X.debug.o
+__Hinittext 0 0 ABS 0 inittext -
+__end_of_doTheArc 8E0 0 CODE 0 text4 dist/default/debug\She-Ra_Lighter.X.debug.o
 _adcVolts 22 0 BANK0 1 bssBANK0 dist/default/debug\She-Ra_Lighter.X.debug.o
 _ADCON0bits 9D 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
 _ADCON1bits 9E 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
@@ -969,56 +1083,57 @@ __Lspace_1 0 0 ABS 0 - -
 __Lspace_2 0 0 ABS 0 - -
 __Lspace_3 0 0 ABS 0 - -
 __Lspace_4 0 0 ABS 0 - -
-__pbssCOMMON 7A 0 COMMON 1 bssCOMMON dist/default/debug\She-Ra_Lighter.X.debug.o
+__pbssCOMMON 79 0 COMMON 1 bssCOMMON dist/default/debug\She-Ra_Lighter.X.debug.o
 __HbitbssCOMMON 0 0 ABS 0 bitbssCOMMON -
 __HcstackBANK0 0 0 ABS 0 cstackBANK0 -
 _PIR0bits 70C 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
 _PIR1bits 70D 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
-__Lend_init 216 0 CODE 0 end_init -
+__Lend_init 2A6 0 CODE 0 end_init -
 __LcstackCOMMON 0 0 ABS 0 cstackCOMMON -
-_charging 26 0 BANK0 1 bssBANK0 dist/default/debug\She-Ra_Lighter.X.debug.o
-end_of_initialization 248 0 CODE 0 cinit dist/default/debug\She-Ra_Lighter.X.debug.o
-__Hintentry 216 0 CODE 0 intentry -
+_charging 2A 0 BANK0 1 bssBANK0 dist/default/debug\She-Ra_Lighter.X.debug.o
+end_of_initialization 2DA 0 CODE 0 cinit dist/default/debug\She-Ra_Lighter.X.debug.o
+__Hintentry 2A6 0 CODE 0 intentry -
 __Lstrings 0 0 ABS 0 strings -
 ?___aldiv 71 0 COMMON 1 cstackCOMMON dist/default/debug\She-Ra_Lighter.X.debug.o
-_forceArc 3C 0 BANK0 1 bssBANK0 dist/default/debug\She-Ra_Lighter.X.debug.o
+_forceArc 40 0 BANK0 1 bssBANK0 dist/default/debug\She-Ra_Lighter.X.debug.o
 __Hreset_vec 4 0 CODE 0 reset_vec -
 __HbssBANK0 0 0 ABS 0 bssBANK0 -
 blockingDelay@mSecs 71 0 COMMON 1 cstackCOMMON dist/default/debug\She-Ra_Lighter.X.debug.o
-_postscaler 36 0 BANK0 1 bssBANK0 dist/default/debug\She-Ra_Lighter.X.debug.o
-__ptext1 1FD4 0 CODE 0 text1 dist/default/debug\She-Ra_Lighter.X.debug.o
-__ptext2 E92 0 CODE 0 text2 dist/default/debug\She-Ra_Lighter.X.debug.o
-__ptext3 7E6 0 CODE 0 text3 dist/default/debug\She-Ra_Lighter.X.debug.o
-__ptext4 F34 0 CODE 0 text4 dist/default/debug\She-Ra_Lighter.X.debug.o
-__ptext5 BBA 0 CODE 0 text5 dist/default/debug\She-Ra_Lighter.X.debug.o
-__ptext6 1FB2 0 CODE 0 text6 dist/default/debug\She-Ra_Lighter.X.debug.o
-__ptext7 D72 0 CODE 0 text7 dist/default/debug\She-Ra_Lighter.X.debug.o
-__ptext8 F98 0 CODE 0 text8 dist/default/debug\She-Ra_Lighter.X.debug.o
+_postscaler 3C 0 BANK0 1 bssBANK0 dist/default/debug\She-Ra_Lighter.X.debug.o
+__ptext1 BC8 0 CODE 0 text1 dist/default/debug\She-Ra_Lighter.X.debug.o
+__ptext2 F3A 0 CODE 0 text2 dist/default/debug\She-Ra_Lighter.X.debug.o
+__ptext3 DFE 0 CODE 0 text3 dist/default/debug\She-Ra_Lighter.X.debug.o
+__ptext4 65C 0 CODE 0 text4 dist/default/debug\She-Ra_Lighter.X.debug.o
+__ptext5 ECC 0 CODE 0 text5 dist/default/debug\She-Ra_Lighter.X.debug.o
+__ptext6 8E0 0 CODE 0 text6 dist/default/debug\She-Ra_Lighter.X.debug.o
+__ptext7 FDE 0 CODE 0 text7 dist/default/debug\She-Ra_Lighter.X.debug.o
+__ptext8 AA8 0 CODE 0 text8 dist/default/debug\She-Ra_Lighter.X.debug.o
+_coolDownTime 5B 0 BANK0 1 dataBANK0 dist/default/debug\She-Ra_Lighter.X.debug.o
 _battVolts 24 0 BANK0 1 bssBANK0 dist/default/debug\She-Ra_Lighter.X.debug.o
-ButtonDebounceInit@pulledUpButtons 71 0 COMMON 1 cstackCOMMON dist/default/debug\She-Ra_Lighter.X.debug.o
 ___aldiv@dividend 75 0 COMMON 1 cstackCOMMON dist/default/debug\She-Ra_Lighter.X.debug.o
 __Lpowerup 0 0 CODE 0 powerup -
 __Leeprom_data 0 0 EEDATA 3 eeprom_data -
 __size_of_playNote 0 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
-_lowPowerMode 2C 0 BANK0 1 bssBANK0 dist/default/debug\She-Ra_Lighter.X.debug.o
+_lowPowerMode 32 0 BANK0 1 bssBANK0 dist/default/debug\She-Ra_Lighter.X.debug.o
 __Lreset_vec 0 0 CODE 0 reset_vec -
 __Hstringtext1 0 0 ABS 0 stringtext1 -
 __Hstringtext2 0 0 ABS 0 stringtext2 -
 __Hstringtext3 0 0 ABS 0 stringtext3 -
 playNote@duration 73 0 COMMON 1 cstackCOMMON dist/default/debug\She-Ra_Lighter.X.debug.o
-__end_of__initialization 248 0 CODE 0 cinit dist/default/debug\She-Ra_Lighter.X.debug.o
+__end_of__initialization 2DA 0 CODE 0 cinit dist/default/debug\She-Ra_Lighter.X.debug.o
 __Lfunctab 0 0 ENTRY 0 functab -
-_poweredOn 30 0 BANK0 1 bssBANK0 dist/default/debug\She-Ra_Lighter.X.debug.o
+_poweredOn 36 0 BANK0 1 bssBANK0 dist/default/debug\She-Ra_Lighter.X.debug.o
 _NVMCON1bits 81E 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
-__pidataBANK0 1FA0 0 CODE 0 idataBANK0 dist/default/debug\She-Ra_Lighter.X.debug.o
+__pidataBANK0 1FF2 0 CODE 0 idataBANK0 dist/default/debug\She-Ra_Lighter.X.debug.o
 __Lclrtext 0 0 ABS 0 clrtext -
 __pcstackCOMMON 70 0 COMMON 1 cstackCOMMON dist/default/debug\She-Ra_Lighter.X.debug.o
 _T0CON0bits 59E 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
 _T0CON1bits 59F 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
-__Hend_init 21A 0 CODE 0 end_init -
-___aldiv@counter 4F 0 BANK0 1 cstackBANK0 dist/default/debug\She-Ra_Lighter.X.debug.o
-__end_of_fade F34 0 CODE 0 text2 dist/default/debug\She-Ra_Lighter.X.debug.o
-__end_of_main 7E6 0 CODE 0 maintext dist/default/debug\She-Ra_Lighter.X.debug.o
+__Hend_init 2AA 0 CODE 0 end_init -
+___aldiv@counter 47 0 BANK0 1 cstackBANK0 dist/default/debug\She-Ra_Lighter.X.debug.o
+__end_of_fade ECC 0 CODE 0 text3 dist/default/debug\She-Ra_Lighter.X.debug.o
+__end_of_main 65C 0 CODE 0 maintext dist/default/debug\She-Ra_Lighter.X.debug.o
+_CCP2CONbits 312 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
 _ADRES 9B 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
 _IOCIE 38B4 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
 _LATA1 C1 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
@@ -1029,32 +1144,32 @@ _LATC2 D2 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
 _LATC3 D3 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
 _LATC4 D4 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
 _LATC5 D5 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
-_PORTA C 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
-__end_of_notes 1036 0 STRCODE 0 stringtext3 dist/default/debug\She-Ra_Lighter.X.debug.o
+__end_of_notes FDE 0 STRCODE 0 stringtext2 dist/default/debug\She-Ra_Lighter.X.debug.o
 _TMR0H 59D 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
 _TMR1H 20D 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
 _TMR1L 20C 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
 _WPUA0 F9C8 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
 _WPUA3 F9CB 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
 _WPUA4 F9CC 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
-__end_of_sheRa BBA 0 STRCODE 0 stringtext2 dist/default/debug\She-Ra_Lighter.X.debug.o
+__end_of_sheRa 1008 0 STRCODE 0 stringtext3 dist/default/debug\She-Ra_Lighter.X.debug.o
 __Hram 0 0 ABS 0 ram -
 __Lram 0 0 ABS 0 ram -
-_notes FEE 0 STRCODE 0 stringtext3 dist/default/debug\She-Ra_Lighter.X.debug.o
-_playNote F34 0 CODE 0 text4 dist/default/debug\She-Ra_Lighter.X.debug.o
-_sheRa 9DA 0 STRCODE 0 stringtext2 dist/default/debug\She-Ra_Lighter.X.debug.o
-ButtonDebounceInit@i 73 0 COMMON 1 cstackCOMMON dist/default/debug\She-Ra_Lighter.X.debug.o
+_notes F96 0 STRCODE 0 stringtext2 dist/default/debug\She-Ra_Lighter.X.debug.o
+_playNote ECC 0 CODE 0 text5 dist/default/debug\She-Ra_Lighter.X.debug.o
+_sheRa 1000 0 STRCODE 0 stringtext3 dist/default/debug\She-Ra_Lighter.X.debug.o
 __pintentry 8 0 CODE 0 intentry dist/default/debug\She-Ra_Lighter.X.debug.o
 __size_of_isr 0 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
 __HdataBANK0 0 0 ABS 0 dataBANK0 -
 __LbitbssCOMMON 0 0 ABS 0 bitbssCOMMON -
-__initialization 21A 0 CODE 0 cinit dist/default/debug\She-Ra_Lighter.X.debug.o
-__end_of_playNote F98 0 CODE 0 text4 dist/default/debug\She-Ra_Lighter.X.debug.o
+__initialization 2AA 0 CODE 0 cinit dist/default/debug\She-Ra_Lighter.X.debug.o
+_coolDown 59 0 BANK0 1 dataBANK0 dist/default/debug\She-Ra_Lighter.X.debug.o
+__end_of_playNote F3A 0 CODE 0 text5 dist/default/debug\She-Ra_Lighter.X.debug.o
 __pbssBANK0 20 0 BANK0 1 bssBANK0 dist/default/debug\She-Ra_Lighter.X.debug.o
 _T2CONbits 28E 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
-_chargeCycle 3E 0 BANK0 1 bssBANK0 dist/default/debug\She-Ra_Lighter.X.debug.o
+_chargeCycle 42 0 BANK0 1 bssBANK0 dist/default/debug\She-Ra_Lighter.X.debug.o
+_CCP1CONbits 30E 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
 _ANSELAbits 1F38 0 ABS 0 - dist/default/debug\She-Ra_Lighter.X.debug.o
-_debugging 64 0 BANK0 1 dataBANK0 dist/default/debug\She-Ra_Lighter.X.debug.o
+_debugging 5F 0 BANK0 1 dataBANK0 dist/default/debug\She-Ra_Lighter.X.debug.o
 playNote@note 71 0 COMMON 1 cstackCOMMON dist/default/debug\She-Ra_Lighter.X.debug.o
 # %SPLITSTAB Section
 # This section enumerates all the psect splits performed by the assembler.
@@ -1081,19 +1196,18 @@ playNote@note 71 0 COMMON 1 cstackCOMMON dist/default/debug\She-Ra_Lighter.X.deb
 # and size are in units of delta. The file address is in units of bytes.
 # All other numeric quantities are in decimal.
 %SEGMENTS
-text1 0 FEA 1FD4 16 2
-text5 0 5DD BBA 21A 2
-text6 0 FD9 1FB2 11 2
-maintext 0 2E8 5D0 205 2
+text3 0 6FF DFE CC 2
+text7 0 7EF FDE 11 2
 cstackCOMMON 1 70 70 D 1
-stringtext1 0 128 250 1C0 2
-stringtext2 0 4ED 9DA F0 2
-stringtext3 0 7F7 FEE 24 2
-intentry 0 4 8 124 2
+inittext 0 FF3 1FE6 6 2
+stringtext1 0 673 CE6 8C 2
+stringtext2 0 7CB F96 24 2
+stringtext3 0 800 1000 4 2
+intentry 0 4 8 66F 2
 reset_vec 0 0 0 2 2
-bssBANK0 1 20 20 45 1
-idataBANK0 0 FD0 1FA0 3 2
-clrtext 0 FD3 1FA6 6 2
+bssBANK0 1 20 20 40 1
+idataBANK0 0 FF9 1FF2 7 2
+clrtext 0 FED 1FDA 6 2
 # %NOTES Section
 # This section contains data of all the note-psects.  The beginning of the section
 # is indicated by %NOTES. The first line indicates the name and decimal

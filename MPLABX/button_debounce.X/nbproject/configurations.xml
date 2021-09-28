@@ -4,7 +4,7 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-      <itemPath>source/button_debounce.h</itemPath>
+      <itemPath>../She-Ra_Lighter.X/button_debounce.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -24,6 +24,7 @@
   <sourceRootList>
     <Elem>../../../../Google Drive/Modulated Arc Lighter/Debouncer library</Elem>
     <Elem>source</Elem>
+    <Elem>../She-Ra_Lighter.X</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>

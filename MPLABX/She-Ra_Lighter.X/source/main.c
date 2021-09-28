@@ -121,9 +121,12 @@
 
 // Other definitions
 #define     PRELOAD_H       0xFE // Values to preload into Timer1 to get 15.625kHz interrupts
-#define     PRELOAD_L       0x55  // Values to preload into Timer1 to get 15.625kHz interrupts
+#define     PRELOAD_L       0x12  // Values to preload into Timer1 to get 15.625kHz interrupts
 #define     CLOCK_DIVIDER   15  // How much to divide the clock by to get 1ms
-#define     BUTTON_DEBOUNCE 5   // How many ms to wait between button readings to eliminate bounce
+#define     DEBOUNCE_PERIOD 5   // How many ms to wait between button readings to eliminate bounce
+#define     MAX_TOUCH_PRESSES 100 // How many readings of the touch sensor before they're registered as a change
+#define     MAX_LID_BOUNCES 15 // How many readings of the lid sensor before they're registered as a change
+#define     COOLDOWN_TIME     45 // How long is the cooldown lockout (seconds)
 
 #define     EE_INDEX        0
 #define     EE_MAGICBYTE    1
@@ -137,7 +140,7 @@ const unsigned char notes[36] = {
 };
 
 // She-Ra: Princess of Power transformation theme
-const unsigned int sheRa[60][2] = {
+const unsigned int sheRa[61][2] = {
     { M46, 216},
     { M48, 216},
     { M49, 412},
@@ -197,89 +200,12 @@ const unsigned int sheRa[60][2] = {
     { SILENCE, 21},
     { M67, 107},
     { M69, 107},
-    { M70, 1738}
+    { M70, 1738},
+    { SILENCE, 20}
 };
 
 // Gargoyles theme
-const unsigned int gargoyles[112][2] = {
-    { M65, 1598},
-    { M63, 358},
-    { SILENCE, 40},
-    { M61, 358},
-    { SILENCE, 40},
-    { M60, 358},
-    { SILENCE, 40},
-    { M58, 358},
-    { SILENCE, 40},
-    { M66, 1198},
-    { M65, 198},
-    { M63, 198},
-    { M60, 1385},
-    { SILENCE, 80},
-    { M65, 1598},
-    { M61, 378},
-    { SILENCE, 20},
-    { M63, 378},
-    { SILENCE, 20},
-    { M65, 378},
-    { SILENCE, 20},
-    { M63, 378},
-    { SILENCE, 20},
-    { M63, 758},
-    { SILENCE, 40},
-    { M66, 758},
-    { SILENCE, 40},
-    { M69, 1385},
-    { SILENCE, 80},
-    { M61, 778},
-    { SILENCE, 20},
-    { M60, 378},
-    { SILENCE, 20},
-    { M58, 358},
-    { SILENCE, 40},
-    { M60, 798},
-    { M63, 758},
-    { SILENCE, 40},
-    { M63, 758},
-    { SILENCE, 40},
-    { M61, 358},
-    { SILENCE, 40},
-    { M60, 358},
-    { SILENCE, 40},
-    { M61, 798},
-    { M65, 758},
-    { SILENCE, 40},
-    { M65, 758},
-    { SILENCE, 40},
-    { M64, 358},
-    { SILENCE, 40},
-    { M62, 358},
-    { SILENCE, 40},
-    { M64, 798},
-    { M67, 758},
-    { SILENCE, 40},
-    { M67, 758},
-    { SILENCE, 40},
-    { M65, 358},
-    { SILENCE, 40},
-    { M64, 358},
-    { SILENCE, 40},
-    { M69, 1518},
-    { SILENCE, 80},
-    { M65, 1598},
-    { M63, 358},
-    { SILENCE, 40},
-    { M61, 358},
-    { SILENCE, 40},
-    { M60, 358},
-    { SILENCE, 40},
-    { M58, 358},
-    { SILENCE, 40},
-    { M66, 1198},
-    { M65, 198},
-    { M63, 198},
-    { M60, 1385},
-    { SILENCE, 80},
+const unsigned int gargoyles[35][2] = {
     { M65, 1598},
     { M61, 378},
     { SILENCE, 20},
@@ -313,7 +239,8 @@ const unsigned int gargoyles[112][2] = {
     { SILENCE, 20},
     { M70, 111},
     { SILENCE, 20},
-    { M70, 798}
+    { M70, 798},
+    { SILENCE, 20}
 };
 
 // Define our variables, again a lot of these are redundant
@@ -332,7 +259,8 @@ __bit pinState = 0;
 unsigned forceArc = 0;
 unsigned gate = 0;
 unsigned noGate = 1;
-unsigned abortAbort = 0;
+unsigned coolDownTime = 1000;
+unsigned coolDown = 1000;
 
 unsigned postscaler = 0;
 unsigned int playIndex = 0;
@@ -341,12 +269,15 @@ unsigned int genericDelay = 0;
 unsigned int poweredOn = 0; // Flag to say if we're currently powered up or not
 unsigned int showCharge = 0; // Flag to say if we're currently showing the charge indicator or not
 unsigned int lowPowerMode = 0; // Flag to say if we're currently in low power mode or not
+unsigned int previouslyOff = 0; // Flag to say if we were previously off.
 
 unsigned int lidOpen = 0; // Flag to say if the lid is open or not
 unsigned int gotTheTouch = 0; // Flag to say if touch sensor is touched or not
 unsigned int charging = 0; // Flag to say if we're currently charging or not
 
-Debouncer aPorts;
+// Debouncer aPorts;
+unsigned int touch_integrator = 0; // This will store the count of touch sensor presses for our debouncer
+unsigned int lid_integrator = 0; // This will store the count of lid switch change for our debouncer
 
 unsigned char runIndex = 0;
 
@@ -362,6 +293,7 @@ void playNote(unsigned int note, unsigned int duration);
 void goToLPmode(void);
 void checkForCharging(void);
 void chargeIndicator(void);
+void showChillFade(void);
 
 void fade(void);
 
@@ -412,8 +344,8 @@ int main(int argc, char** argv) {
     LATC4 = 0;
     LATC5 = 0;
 
-    // Initialise our button debouncer and tell it pins 0 and 3 are normally high
-    ButtonDebounceInit(&aPorts, BUTTON_PIN_0 | BUTTON_PIN_3);
+    // Initialise our button debouncer and tell it pins 0, 3 and 4 are normally high
+    // ButtonDebounceInit(&aPorts, BUTTON_PIN_0 | BUTTON_PIN_3 | BUTTON_PIN_4);
 
     // Set up our oscillator (12F version)
     // OSCCONbits.IRCF=14;     // Set internal oscillator to 8 MHz (or 32MHz if PLL gets set below)
@@ -444,18 +376,16 @@ int main(int argc, char** argv) {
     T1CONbits.ON = 1; // Run baby run
 
     // Timer2
-    // This timer will run our ~1kHz LED PWM frequency
+    // This timer will run our 500 Hz LED PWM frequency and basis for our note generator
     T2CLKCON = 0b001; // Set the input to FOSC/4
-    T2CONbits.T2CKPS = 0b110; // Sets the prescaler to 1:32
+    T2CONbits.T2CKPS = 0b110; // Sets the prescaler to 1:64
     T2HLTbits.PSYNC = 1; // Prescaler is synced to FOSC/4 so it doesn't run during sleep
-    // T2RST = 0b0011; // PWM3 can reset the timer
-    // T2RST = 0b0100 // PWM4 can reset the timer
     T2CONbits.TMR2ON = 1; // Turn Timer 2 on
 
     // Enable timer interrupts so the blockingDelay function works    
     TMR0IE = 1;
     TMR1IE = 1;
-    //  TMR2IE = 1;
+    // TMR2IE = 1;
 
     // Set up the internal Fixed Voltage Reference
     FVRCONbits.ADFVR = 0b01; // Set FVR to 1x (1.024V)
@@ -479,21 +409,12 @@ int main(int argc, char** argv) {
     ///// Comment this below line out for simulator testing (otherwise it borks)
     if (!debugging) ADCON0bits.ON = 1; // Enable the ADC
 
-    // Set up the option register
-    // I think this just resets a bunch of settings on the 12F. See page 145 of manual
-    // OPTION_REG = 0x80 + 0x08;
-
-    // Read our index and magic bytes from EEPROM
-    // Skipping this as the 16F152xx series don't have any EEPROM and I don't think we need it either
-    // eeIndex=eeprom_read(EE_INDEX);
-    // eeMagicByte=eeprom_read(EE_MAGICBYTE);
-
 
     // Set up interrupts
     IOCAN0 = 1; // Look for falling edge on RA0 (pin 13) lid is opened
-    IOCAP0 = 1; // Look for rising edge on RA0 (pin 13) lid is closed
-    IOCAN3 = 1; // Look for falling edge on RA3 (pin 4) touch sensor is touched
-    IOCAP3 = 1; // Look for rising edge on RA3 (pin 4) touch sensor is released
+    // IOCAP0 = 1; // Look for rising edge on RA0 (pin 13) lid is closed
+    // IOCAN3 = 1; // Look for falling edge on RA3 (pin 4) touch sensor is touched
+    // IOCAP3 = 1; // Look for rising edge on RA3 (pin 4) touch sensor is released
     IOCAN4 = 1; // Look for falling edge on RA4 (pin 3) battery started charging
     IOCAP4 = 1; // Look for rising edge on RA4 (pin 3) battery finished charging
     // IOCAN5 = 1; // Look for falling edge on RA5 (pin 2) USB is unplugged
@@ -503,6 +424,10 @@ int main(int argc, char** argv) {
     PEIE = 1; // Peripheral Interrupt Enable (enables all interrupt pins)
     IOCIE = 1; // Interrupt-on-change enable flag (for detecting change on button, pin 7)
     GIE = 1; // Global Interrupt Enable (need this to get any interrupts)
+
+    // Reset our cool down time and timers.
+    if(!debugging) coolDownTime = COOLDOWN_TIME * 1000;
+    coolDown = coolDownTime;
 
     // Flash the power light a few times to show we're working
     LATC2 = 0;
@@ -520,39 +445,45 @@ int main(int argc, char** argv) {
     // Main loop
     do {
         forceArc = 0;
-        if (fadeUp > 0) {
-            fade();
-        } else {
-            if (showCharge) chargeIndicator();
-            if (poweredOn) {
-                // Turn the power light on
-                LATC2 = 0;
-                // Fire up the touch sensor
-                LATC3 = 1;
-                if (gotTheTouch) doTheArc();
-            } else {
-                // Turn the power light off
-                LATC2 = 1;
-                // Turn the touch sensor off
-                LATC3 = 0;
-            }
-            if (lowPowerMode) goToLPmode();
-            ///// checkForCharging();
-            /*   if (ButtonPressed(&aPorts, BUTTON_PIN_5)) {
-                   // Charger has been plugged in
-                   poweredOn = 0;
-                   showCharge = 1;
-                   gotTheTouch = 0;
-                   lowPowerMode = 0;
-                   // WDTCONbits.SEN = 0; // Disable the Watchdog timer
-               }
-               if (ButtonReleased(&aPorts, BUTTON_PIN_5)) {
-                   // Charger has been unplugged
-                   poweredOn = 0;
-                   lowPowerMode = 1;
-                   showCharge = 0;
-               } */
+        if (!lidOpen) {
+            // lid is closed, so turn lights off
+            showCharge = 0;
+            poweredOn = 0;
+            forceArc = 0;
+            gotTheTouch = 0;
+            LATC3 = 0; // Turn the touch sensor off
+            LATC2 = 1; // Turn the power light off
         }
+        // if the cool down period has been reached and we're powered off, and the lid didn't just get opened, and we're not charging, go to sleep.
+        if (!lidOpen && coolDown >= coolDownTime && !poweredOn && !previouslyOff && !charging) lowPowerMode = 1;
+
+        // Lid is open, we were previously off, the coils are cool, and we're not charging
+        if (lidOpen && previouslyOff && coolDown >= coolDownTime && !charging) {
+            // Fire things up!
+            poweredOn = 1;
+            showCharge = 1;
+            previouslyOff = 0;
+            fadeUp = 1;
+        }
+        if (coolDown >= coolDownTime && poweredOn && fadeUp > 0) {
+            fade();
+        }
+        if (showCharge || charging) chargeIndicator();
+
+        // We're powered on, the coils are cool, and we're not charging.
+        if (poweredOn && coolDown >= coolDownTime && !charging) {
+            // Fire up the touch sensor
+            LATC3 = 1;
+            // Turn the power light on
+            LATC2 = 0;
+        }
+
+        // We're powered on and the coils are still toasty, so let's chill for a bit
+        if (poweredOn && coolDown < coolDownTime && !fadeUp) {
+            showChillFade();
+        }
+        if (lidOpen && gotTheTouch && coolDown >= coolDownTime && !charging) doTheArc();
+        if (lowPowerMode) goToLPmode();
     } while (1); // Loop forever
     return (EXIT_SUCCESS);
 }
@@ -568,6 +499,18 @@ static void __interrupt() isr(void) {
         TMR1H = PRELOAD_H; // Values to preload into Timer to get our 15.625kHz interrupt frequency
         TMR1L = PRELOAD_L; // Values to preload into Timer to get our 15.625kHz interrupt frequency
 
+        // Here's our exceptionally shitty complementary PWM generator
+        // You can't simply set LATC4 to the inverse of LATC5 without
+        // using an intermediate variable, trust me, it shits itself. 
+        if ((gate || forceArc) && lidOpen && gotTheTouch) {
+            pinState ^= 1;
+            LATC4 = pinState;
+            LATC5 = (pinState^1);
+        } else {
+            LATC4 = 0;
+            LATC5 = 0;
+        }
+
         if (debugging) clockDivider = CLOCK_DIVIDER;
         if (clockDivider < CLOCK_DIVIDER) {
             clockDivider++;
@@ -577,33 +520,51 @@ static void __interrupt() isr(void) {
             else if (genericDelay > 0) genericDelay--;
             clockDivider = 0;
 
-            // If we're powered up, read the super noisy touch sensor
-            if (buttonDebounce < BUTTON_DEBOUNCE) buttonDebounce++;
+            if (buttonDebounce < DEBOUNCE_PERIOD) buttonDebounce++;
             else {
-                // 5 ms has passed
+                if (!gotTheTouch) {
+                    if (poweredOn && !fadeUp) {
+                        // If we're powered on, read the Touch sensor value into the debouncer
 
-                // Read the Touch sensor value into the debouncer
-                /////    ButtonProcess(&aPorts, PORTA);
+                        if (PORTAbits.RA3) {
+                            if (touch_integrator > 0)
+                                touch_integrator--;
+                        } else if (touch_integrator < MAX_TOUCH_PRESSES) touch_integrator++;
 
-                ///// Throw it into the touch sensor value
-                /////   if(ButtonCurrent(&aPorts, BUTTON_PIN_3)) gotTheTouch = 1;
-                /////   else gotTheTouch = 0;
-                //     gotTheTouch = 0;
+                        if (touch_integrator == 0) gotTheTouch = 0;
+                        else if (touch_integrator >= MAX_TOUCH_PRESSES) {
+                            gotTheTouch = 1;
+                            touch_integrator = MAX_TOUCH_PRESSES; /* defensive code if touch_integrator got corrupted */
+                        }
+                        buttonDebounce = 0;
+                    }
+                }
+
+                // Always read the lid switch to see if we should be powered on or not
+                if (PORTAbits.RA0) {
+                    if (lid_integrator > 0)
+                        lid_integrator--;
+                } else if (lid_integrator < MAX_LID_BOUNCES) lid_integrator++;
+
+                // The lid is definitely closed
+                if (lid_integrator == 0) {
+                    lidOpen = 0;
+                } else if (lid_integrator >= MAX_LID_BOUNCES) {
+                    // The lid is definitely open
+                    lidOpen = 1;
+                    // If we are currently off, set the flag for the startup sequence
+                    if (!poweredOn) previouslyOff = 1;
+                    lid_integrator = MAX_LID_BOUNCES; /* defensive code if touch_integrator got corrupted */
+                }
+            }
+
+            // If we're running, increment our cooldown timer.
+            //if (debugging) coolDown = coolDownTime;
+            //else
+            if (coolDown < coolDownTime) {
+                coolDown++;
             }
         }
-
-        // Here's our exceptionally shitty complementary PWM generator
-        // You can't simply set LATC4 to the inverse of LATC5 without
-        // using an intermediate variable, trust me, it shits itself. 
-        if ((gate || forceArc) && poweredOn && gotTheTouch) {
-            pinState ^= 1;
-            LATC4 = pinState;
-            LATC5 = (pinState^1);
-        } else {
-            LATC4 = 0;
-            LATC5 = 0;
-        }
-
         PIR1bits.TMR1IF = 0;
     }
 
@@ -622,6 +583,13 @@ static void __interrupt() isr(void) {
         PIR0bits.TMR0IF = 0;
     }
 
+    // Timer2 interrupt
+    // If we're powered up, we could do something here.
+    // Needs the T2 interrupt enabling
+   // if (PIR1bits.TMR2IF) {
+  //      PIR1bits.TMR2IF = 0;
+ //   }
+
     // Pin change triggered something - let's find out what
     if (PIR0bits.IOCIF) {
 
@@ -632,71 +600,32 @@ static void __interrupt() isr(void) {
 
             if (!PORTAbits.RA4) {
                 // Charging started
-                // poweredOn = 0;
+                poweredOn = 0;
+                lowPowerMode = 0;
                 charging = 1;
-                showCharge = 1;
-                //  gotTheTouch = 0;
-                //   lowPowerMode = 0;
             } else {
                 // Charger was unplugged, so go to sleep
                 charging = 0;
-                // poweredOn = 0;
-                showCharge = 0;
-                // gotTheTouch = 0;
-                // lowPowerMode = 1;
-                //  WDTCONbits.SEN = 0; // Disable the Watchdog timer
             }
         }
 
         // Lid changed
         if (IOCAF0) {
             IOCAF0 = 0;
-            // Lid opened, and we're not charging
-            if (!PORTAbits.RA0 && PORTAbits.RA4) {
+            // If the lid was opened fire up so the timers start running again so they can debounce the lid switch.
+            if (!PORTAbits.RA0) {
+                lidOpen = 1;
                 lowPowerMode = 0;
-                poweredOn = 1;
-                showCharge = 1;
-                fadeUp = 1;
-            }
-            // Lid has been closed, and we're not charging
-            if (PORTAbits.RA0 && PORTAbits.RA4) {
-                // We're done, let's sleep
-                showCharge = 0;
-                poweredOn = 0;
-                lowPowerMode = 1;
-                forceArc = 0;
-            }
-        }
-
-        // Touch sensor changed
-        if (IOCAF3) {
-            IOCAF3 = 0;
-            // Touch sensor pressed, lid is open, and we're not charging... let's go!
-            if (!PORTAbits.RA3 && !PORTAbits.RA0 && PORTAbits.RA4) {
-                lowPowerMode = 0;
-                poweredOn = 1;
-                showCharge = 0;
-                gotTheTouch = 1;
-            }
-            // Touch sensor released, go back to lid open state
-            if (PORTAbits.RA3 && !PORTAbits.RA0 && PORTAbits.RA4) {
-                // We're done, let's sleep
-                // lowPowerMode = 0;
-                //  poweredOn = 1;
-                showCharge = 1;
-                gotTheTouch = 0;
             }
         }
     }
-
-
 }
 
 // Do the fun stuff
 
 void doTheArc() {
-
-    forceArc = 1; // Start the arc (no modulation)
+    TMR0H = 0xFF; // Reset the note
+    if (gotTheTouch && lidOpen && coolDown >= coolDownTime) forceArc = 1; // Start the arc (no modulation)
     runIndex++;
     if (runIndex > 3) runIndex = 1;
     switch (runIndex) {
@@ -706,7 +635,8 @@ void doTheArc() {
             LATA2 = 1;
             LATC0 = 1;
             LATC1 = 1;
-            while (gotTheTouch && poweredOn);
+            genericDelay = 4000; // Set a 5 second timeout on this just in case.
+            while (genericDelay && lidOpen && gotTheTouch && coolDown >= coolDownTime);
             break;
 
         case 2:
@@ -717,9 +647,11 @@ void doTheArc() {
             LATC1 = 1;
 
             genericDelay = 1000; // Delay for a second
-            while (genericDelay && poweredOn && gotTheTouch);
+            while (genericDelay && lidOpen && gotTheTouch && coolDown >= coolDownTime);
             forceArc = 0; // Disable the Arc (prepare for modulation)
-            for (i = 0; i < sizeof (sheRa) && gotTheTouch && poweredOn; i++) playNote(sheRa[i][0], sheRa[i][1]);
+            for (i = 0; (i < sizeof (sheRa)) && gotTheTouch && lidOpen && (coolDown >= coolDownTime); i++) playNote(sheRa[i][0], sheRa[i][1]);
+            forceArc = 0;
+            coolDown = 0;
             break;
 
         case 3:
@@ -730,18 +662,22 @@ void doTheArc() {
             LATC1 = 1;
 
             genericDelay = 1000; // Delay for a second
-            while (genericDelay && poweredOn && gotTheTouch);
+            while (genericDelay && lidOpen && gotTheTouch);
             forceArc = 0; // Disable the Arc (prepare for modulation)
-            for (i = 0; i < sizeof (gargoyles) && gotTheTouch && poweredOn; i++) playNote(gargoyles[i][0], gargoyles[i][1]);
+            for (i = 0; i < sizeof (gargoyles) && gotTheTouch && lidOpen; i++) playNote(gargoyles[i][0], gargoyles[i][1]);
+            forceArc = 0;
+            coolDown = 0;
             break;
 
         default:
+            coolDown = 0;
+            forceArc = 0;
             break;
     }
-    // Show's over folks. Shut it down.
-    forceArc = 0;
+
+    // Show's over folks. Set the cooldown flag and turn off the lights.
+    // coolDown = 0;
     gotTheTouch = 0;
-    // playNote(0, 100);
     LATA1 = 1;
     LATA2 = 1;
     LATC0 = 1;
@@ -752,7 +688,8 @@ void doTheArc() {
 
 void blockingDelay(unsigned int mSecs) {
     genericDelay = mSecs;
-    if(!debugging) while (genericDelay > 0);
+    if (!debugging)
+        while (genericDelay > 0);
 }
 
 // Note player function
@@ -766,16 +703,29 @@ void playNote(unsigned int note, unsigned int duration) {
         noGate = 1;
     }
     genericDelay = duration;
-    while (genericDelay && poweredOn && gotTheTouch);
+
+    if (!debugging) {
+        while (genericDelay && lidOpen && gotTheTouch);
+    }
 }
 
 // Clear interrupts, turn stuff off, go sleepy times
 
 void goToLPmode() {
+
     forceArc = 0; // Turn off the arc
-    playNote(0, 100);
+    // playNote(0, 100);
 
     LATC3 = 0; // Turn off the touch sensor
+
+    // Give 2 blinks to show we got here.
+    LATC2 = 0;
+    blockingDelay(100);
+    LATC2 = 1;
+    blockingDelay(100);
+    LATC2 = 0;
+    blockingDelay(100);
+    LATC2 = 1;
 
     // Turn off the LEDs
     LATA1 = 1; // Turn off LED 1
@@ -784,21 +734,13 @@ void goToLPmode() {
     LATC1 = 1; // Turn off LED 4
     LATC2 = 1; // Turn off the power LED
 
+    if (!debugging) ADCON0bits.ON = 0; // Turn the ADC off
+
     // Enable the watchdog timer and set it to wake us up every few ms so we can check for a charger
     // WDTCONbits.PS = 0b01101; // Set the WDT to fire every 32ms
     // WDTCONbits.SEN = 1;
     SLEEP();
     //  WDTCONbits.SEN = 0; // Disable the Watchdog timer
-}
-
-// See if the charger is plugged in
-
-void checkForCharging() {
-    // Read the USB voltage into the debouncer
-    ButtonProcess(&aPorts, PORTA);
-
-    // Throw it into the touch sensor value
-    charging = ButtonCurrent(&aPorts, BUTTON_PIN_5);
 }
 
 void fade(void) {
@@ -812,93 +754,101 @@ void fade(void) {
     // To keep these all the same, we'll also configure the CCP modules to work left-aligned too.
     // As our pins are 1=off, 0=on, we need to invert the duty cycle values. i.e. 0 = on, 1023 = off.
 
-    if (fadeUp > 0) {
+    // Fade up the power LED
+    if (fadeUp == 1) {
+        PWM3CONbits.EN = 1; // Enable PWM3
 
-        // Fade up the power LED
-        if (fadeUp == 1) {
-            PWM3CONbits.EN = 1; // Enable PWM3
+        // Route our PWMs to the pins
+        RC2PPS = 0x03; // Send PWM3 to RC2 (Power LED)
+        RA1PPS = 0x03; // Send PWM3 to RA1 (Charge LED 1)
+        RA2PPS = 0x03; // Send PWM3 to RA2 (Charge LED 2)
+        RC0PPS = 0x03; // Send PWM3 to RC0 (Charge LED 3)
+        RC1PPS = 0x03; // Send PWM3 to RC1 (Charge LED 4)
 
-            // Route our PWMs to the pins
-            RC2PPS = 0x03; // Send PWM3 to RC2 (Power LED)
-            RA1PPS = 0x03; // Send PWM3 to RA1 (Charge LED 1)
-            RA2PPS = 0x03; // Send PWM3 to RA2 (Charge LED 2)
-            RC0PPS = 0x03; // Send PWM3 to RC0 (Charge LED 3)
-            RC1PPS = 0x03; // Send PWM3 to RC1 (Charge LED 4)
+        i = 0xFFC0;
+        do {
+            genericDelay = 1;
+            while (genericDelay > 0);
+            PWM3DC = i; // Ramp up the brightness
+            i = i - 64;
+        } while (i > 0x0040);
 
-            i = 0xFFC0;
-            do {
-                genericDelay = 1;
-                while (genericDelay > 0);
-                PWM3DC = i; // Ramp up the brightness
-                i = i - 64;
-            } while (i > 0x0040);
+    }// Fade up the charge lights
+    else if (fadeUp == 2) {
 
-            // We're now at full brightness, so switch back over to LAT control of the pin
-            RC2PPS = 0x00; // Send PWM3 to RC2 (Power LED)
-            RA1PPS = 0x00; // Send PWM3 to RA1 (Charge LED 1)
-            RA2PPS = 0x00; // Send PWM3 to RA2 (Charge LED 2)
-            RC0PPS = 0x00; // Send PWM3 to RC0 (Charge LED 3)
-            RC1PPS = 0x00; // Send PWM3 to RC1 (Charge LED 4)
-        }
-        // Fade up the charge lights
-        else if (fadeUp == 2) {
-            
-        }
-        // Fade up the charge lights AND the power LED
-        else if (fadeUp == 3) {
-            CCP1CONbits.EN = 1; // Enable CCP1
-            CCP1CONbits.FMT = 1; // Left-justify our duty cycle register to match the PWM ones
-            CCP1CONbits.MODE = 0b1100; // Set to PWM mode
-            
-            CCP2CONbits.EN = 1; // Enable CCP1
-            CCP2CONbits.FMT = 1; // Left-justify our duty cycle register to match the PWM ones
-            CCP2CONbits.MODE = 0b1100; // Set to PWM mode
-            
-            PWM3CONbits.EN = 1; // Enable PWM3
-            
-            PWM4CONbits.EN = 1; // Enable PWM4
-            
-            // Route our PWMs to the pins
-            RC2PPS = 0x01; // Send CCP1 to RC2 (Power LED)
-            RA1PPS = 0x01; // Send CCP1 to RA1 (Charge LED 1)
-            RA2PPS = 0x02; // Send CCP2 to RA2 (Charge LED 2)
-            RC0PPS = 0x03; // Send PWM3 to RC0 (Charge LED 3)
-            RC1PPS = 0x04; // Send PWM4 to RC1 (Charge LED 4)
-        
-        }
+    }// Fade up the charge lights AND the power LED
+    else if (fadeUp == 3) {
+
+        CCP1CONbits.EN = 1; // Enable CCP1
+        CCP1CONbits.FMT = 1; // Left-justify our duty cycle register to match the PWM ones
+        CCP1CONbits.MODE = 0b1100; // Set to PWM mode
+
+        CCP2CONbits.EN = 1; // Enable CCP1
+        CCP2CONbits.FMT = 1; // Left-justify our duty cycle register to match the PWM ones
+        CCP2CONbits.MODE = 0b1100; // Set to PWM mode
+
+        PWM3CONbits.EN = 1; // Enable PWM3
+
+        PWM4CONbits.EN = 1; // Enable PWM4
+
+        // Route our PWMs to the pins
+        RC2PPS = 0x01; // Send CCP1 to RC2 (Power LED)
+        RA1PPS = 0x01; // Send CCP1 to RA1 (Charge LED 1)
+        RA2PPS = 0x02; // Send CCP2 to RA2 (Charge LED 2)
+        RC0PPS = 0x03; // Send PWM3 to RC0 (Charge LED 3)
+        RC1PPS = 0x04; // Send PWM4 to RC1 (Charge LED 4)
+
     }
+    // We're done here, so switch back over to LAT control of the pin
+    RC2PPS = 0x00; // Send LAT to RC2 (Power LED)
+    RA1PPS = 0x00; // Send LAT to RA1 (Charge LED 1)
+    RA2PPS = 0x00; // Send LAT to RA2 (Charge LED 2)
+    RC0PPS = 0x00; // Send LAT to RC0 (Charge LED 3)
+    RC1PPS = 0x00; // Send LAT to RC1 (Charge LED 4)
+
     fadeUp = 0;
+}
 
-    // Disable the output pins for a moment
-    //TRISC2 = 1; // Power LED
-    //TRISA1 = 1; // Charge LED1
-    //TRISA2 = 1; // Charge LED2
-    //TRISC0 = 1; // Charge LED3
-    //TRISC1 = 1; // Charge LED4
-    
-    
-    //
+void showChillFade() {
+    PWM3CONbits.EN = 1; // Enable PWM3
 
-    //  PWM3CON = 0x0; // Reset the PWM3 config
-    //  PWM3DC = 512; // How bright do we want the LED from 0 - 1023
-    //  PWM3CONbits.EN = 0;  // Enable PWM3
-    //   while(!PIR1bits.TMR2IF); // Wait until TMR2IF is set
+    // Route our PWMs to the pins
+    RC2PPS = 0x03; // Send PWM3 to RC2 (Power LED)
+    RA1PPS = 0x03; // Send PWM3 to RA1 (Charge LED 1)
+    RA2PPS = 0x03; // Send PWM3 to RA2 (Charge LED 2)
+    RC0PPS = 0x03; // Send PWM3 to RC0 (Charge LED 3)
+    RC1PPS = 0x03; // Send PWM3 to RC1 (Charge LED 4)
 
+    while (coolDown < coolDownTime && lidOpen) {
+        i = 0xFFC0;
+        do {
+            genericDelay = 1;
+            while (genericDelay > 0 && lidOpen);
+            PWM3DC = i; // Ramp up the brightness
+            i = i - 64;
+        } while (i > 0x0040 && lidOpen);
 
-    // Set PPS to send PWM to actual pins
-    //    RC2PPS = 0x03; // Send PWM3 to RC2
-    //   RC2PPS = 0x04; // Send PWM4 to RC2
+        if (lidOpen) blockingDelay(500);
 
-    // RE-enable our output pins.
-
-
-
-
+        do {
+            genericDelay = 1;
+            while (genericDelay > 0 && lidOpen);
+            PWM3DC = i; // Ramp up the brightness
+            i = i + 64;
+        } while (i < 0xFFC0 && lidOpen);
+    }
+    // We're done, so switch back over to LAT control of the pins
+    RC2PPS = 0x00; // Send LAT to RC2 (Power LED)
+    RA1PPS = 0x00; // Send LAT to RA1 (Charge LED 1)
+    RA2PPS = 0x00; // Send LAT to RA2 (Charge LED 2)
+    RC0PPS = 0x00; // Send LAT to RC0 (Charge LED 3)
+    RC1PPS = 0x00; // Send LAT to RC1 (Charge LED 4)
 }
 
 void chargeIndicator(void) {
 
     if (!debugging) ADCON0bits.ON = 1; // Turn the ADC on
+    if (charging) LATC2 = 1; // If we're charging, turn the power LED off.
     ///// charging = PORTAbits.RA5;
 
     // We're going to measure the fixed 1.024v internal reference against VDD (the battery voltage)
