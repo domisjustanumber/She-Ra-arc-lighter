@@ -1,49 +1,36 @@
 /*
                   Modulated Arc Lighter
-      (AKA "We are Number One - But on a Lighter")
+            (AKA "Play music with lightning")
   
-  Firmware Revision A - Written by Ahmad@UltraKeet.com.au
+  Firmware Revision B - Written by Dom Scott https://art.domscott.ca/art/musical-arc-lighter
+
+  Rotates through 3 modes:
+  1. Straight arc
+  2. She-Ra transformation theme (season 1-3)
+  3. Gargoyles theme
+
+  Open the lid to power it on
+  Push the button to start the music
+  Close the lid to turn it off
+
+  When you open the lid the lights show the battery charge level
+  When you press the button, they show which tune is playing (1, 2, 3)
+  When charging, the lights indicate charge level
+  If the lights fade on and off, the coils are cooling down (just a timer) to hopefully avoid them burning out.
+  Wait a few seconds and try again.
+
+  Based on the amaing write-up by http://ultrakeet.com.au/write-ups/modulated-arc-lighter
+  with a heavy rewrite to work on the much more complex 14 pin PIC in the newer lighters, and of course
+  to add different music.
+  I used a PIC16F15224 but you could use cheaper models as long as they have at least two PWM peripherals
   
-  Initially I tried to roll my own RTTL-style player that 
-  used one byte per note (including duration) - While it
-  worked and used half the codespace, it was horrendously
-  unreadable.
-  
-  ...Or maybe I'm just shit, I don't know.
-  
-  Either way, please don't mind the pointless array indexing,
-  any unused variables, ascii depictions of penises, etc.
-  
-  Please see:
-  http://ultrakeet.com.au/write-ups/modulated-arc-lighter
-  for a full write-up and functional description.
-  
-  Compile with XC8 under MPLABX or equivalent
-  
-  EDIT: The reason for the magic byte and playing on the
-  20th power cycle:
-  
-  This lighter is a gift to a paranoid friend of mine, who
-  I really like to mess with.
-  
-  The idea is to give him the lighter, he'll use it, and on
-  the 20th cycle it'll randomly play a tune. He'll then come
-  back to me and say OMG THIS LIGHTER MAKES MUSIC, but
-  despite repeated attempts to make it play, it won't.
-	
-  ...He'll probably go into a crisis wondering if he was
-  hallucinating, i'll play on it, we'll have a laugh
-  (or awkward silence), etc, etc
-  
-  Edit: Added Imperial March by request.
-  
-  Edit: Added Cantina Band by request.
  */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <xc.h>
 
+// Set up all of our various configs (fun times in the manual to figure this out)
 // CONFIG1
 #pragma config RSTOSC = 0b00      // Use HFINTOSC @ 32 MHz after a reset
 // #pragma config FEXTOSC = 0b01    // Disable external oscillator (not needed)
@@ -66,13 +53,7 @@
 // CONFIG4
 #pragma config LVP = OFF  // Need this along with the MCLRE flag to allow us to use pin 4 as an input.
 
-
-// Wipe the first handful of bytes from EEPROM, because why not.
-
-// __EEPROM_DATA(0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00);
-
-// Define notes in MIDI Note values, where C3 = 60
-
+// Define our 3 octaves of notes in MIDI Note values, where C3 = 60
 #define     SILENCE         0x00
 #define     M36             0x01 // C1
 #define     M37             0x02
@@ -113,6 +94,7 @@
 #define     M70             0x23
 #define     M71             0x24
 
+// Set our note durations
 #define     NOTE_FULL       0xC0
 #define     NOTE_HALF       0x80
 #define     NOTE_QUARTER    0x40
@@ -131,7 +113,6 @@
 #define     EE_MAGICBYTE    1
 
 // Array storing timer periods for the defined notes above
-
 const unsigned char notes[36] = {
     0xED, 0xE0, 0xD3, 0xC7, 0xBD, 0xB2, 0xA8, 0x9E, 0x96, 0x8D, 0x85, 0x7D,
     0x76, 0x70, 0x6A, 0x63, 0x5E, 0x59, 0x54, 0x4F, 0x4B, 0x46, 0x42, 0x3F,
@@ -566,22 +547,6 @@ static void __interrupt() isr(void) {
         TMR1H = PRELOAD_H; // Values to preload into Timer to get our 15.625kHz interrupt frequency
         TMR1L = PRELOAD_L; // Values to preload into Timer to get our 15.625kHz interrupt frequency
 
-        // Here's our exceptionally shitty complementary PWM generator
-        // You can't simply set LATC4 to the inverse of LATC5 without
-        // using an intermediate variable, trust me, it shits itself. 
-        /*    if ((gate || forceArc) && lidOpen && gotTheTouch) {
-                pinState ^= 1;
-                LATC4 = pinState;
-                LATC5 = (pinState^1);
-                RC4PPS = 0x03;
-                RC5PPS = 0x04;
-            } else {
-                LATC4 = 0;
-                LATC5 = 0;
-                RC2PPS = 0x00;
-                RC2PPS = 0x00;
-            } */
-
         ///// if (debugging) clockDivider = CLOCK_DIVIDER;
         if (clockDivider < CLOCK_DIVIDER) {
             clockDivider++;
@@ -751,7 +716,8 @@ void doTheArc() {
     if (runIndex > 3) runIndex = 1;
     switch (runIndex) {
         case 1:
-            // Show only LED 1
+            // Just light the arc for 3 seconds
+	    // Show only LED 1
             LATA1 = 0;
             LATA2 = 1;
             LATC0 = 1;
@@ -761,7 +727,8 @@ void doTheArc() {
             break;
 
         case 2:
-            // Show only LED 2
+            // Play the She-Ra transformation theme
+	    // Show only LED 2
             LATA1 = 1;
             LATA2 = 0;
             LATC0 = 1;
@@ -776,7 +743,8 @@ void doTheArc() {
             break;
 
         case 3:
-            // Show only LED 3
+            // Play the Gargoyles theme
+	    // Show only LED 3
             LATA1 = 1;
             LATA2 = 1;
             LATC0 = 0;
